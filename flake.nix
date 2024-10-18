@@ -28,11 +28,6 @@
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    toilet = {
-      url = "github:pagedMov/toilet-extra-fonts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -41,7 +36,6 @@
     home-manager,
     self,
     nixvim,
-    toilet,
     stylix,
     ...
   } @ inputs: let

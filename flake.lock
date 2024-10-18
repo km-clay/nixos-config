@@ -878,8 +878,7 @@
         "nixvim": "nixvim",
         "nur": "nur",
         "spicetify-nix": "spicetify-nix",
-        "stylix": "stylix",
-        "toilet": "toilet"
+        "stylix": "stylix"
       }
     },
     "spicetify-nix": {
@@ -1039,26 +1038,6 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "tinted-tmux",
-        "type": "github"
-      }
-    },
-    "toilet": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1729154419,
-        "narHash": "sha256-h+n5Xrd8fkHCztLd+QtJwKZ3+LCNVlKPSoEKw/DrCj0=",
-        "owner": "pagedMov",
-        "repo": "toilet-extra-fonts",
-        "rev": "057dda35fc9893feeea2aba47987e4f9641e4df2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "pagedMov",
-        "repo": "toilet-extra-fonts",
         "type": "github"
       }
     },
