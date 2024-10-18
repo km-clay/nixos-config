@@ -1,9 +1,19 @@
-{username, ...}: {
+{
+  username,
+  host,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     settings = {
-      monitor = [
-        "eDP-1, 1920x1080@144, 1920x0, 1"
-      ];
+      monitor =
+        if (host == "oganesson")
+        then [
+          "DP-1, 1920x1080@144, 1920x0, 1"
+          "HDMI-A-1, 1920x1080, 0x0, 1"
+        ]
+        else [
+          "eDP-1, 1600x900, 0x0, 1"
+        ];
 
       exec-once = [
         "waybar &"
@@ -16,14 +26,22 @@
         "aplay /home/${username}/sound/sys/login.wav &"
       ];
 
-      workspace = [
-        "1,persistent=true,monitor:eDP-1"
-        "2,persistent=true,monitor:eDP-1"
-        "3,persistent=true,monitor:eDP-1"
-        "4,persistent=true,monitor:eDP-1"
-        "5,persistent=true,monitor:eDP-1"
-        "6,persistent=true,monitor:eDP-1"
-      ];
+      workspace =
+        if (host == "oganesson")
+        then [
+          "1,persistent=true,monitor:HDMI-A-1"
+          "2,persistent=true,monitor:HDMI-A-1"
+          "3,persistent=true,monitor:HDMI-A-1"
+          "4,persistent=true,monitor:DP-1"
+          "5,persistent=true,monitor:DP-1"
+          "6,persistent=true,monitor:DP-1"
+        ]
+        else [
+          "1,persistent=true,monitor:eDP-1"
+          "2,persistent=true,monitor:eDP-1"
+          "3,persistent=true,monitor:eDP-1"
+          "4,persistent=true,monitor:eDP-1"
+        ];
 
       input = {
         kb_layout = "us";
@@ -39,8 +57,6 @@
         gaps_in = 4;
         gaps_out = 8;
         border_size = 2;
-        "col.active_border" = "rgb(cba6f7) rgb(94e2d5) 45deg";
-        "col.inactive_border" = "0x00000000";
         border_part_of_window = false;
         no_border_on_floating = false;
       };
@@ -96,7 +112,6 @@
         shadow_offset = "0 2";
         shadow_range = 20;
         shadow_render_power = 3;
-        "col.shadow" = "rgba(00000055)";
       };
 
       animations = {
@@ -137,7 +152,7 @@
           "super, c, killactive,"
           "super, e, exec, [float;size 45% 70%;move 10 50] kitty btop"
           "super, n, exec, [float;size 50% 35%;move 10 50] pavucontrol"
-          "super, p, exec, [float;size 25% 30%;move onscreen cursor 0 0] [ ! -f /tmp/passhelperfile ] && kitty passhelper"
+          "super, p, exec, [float;size 25% 30%;move onscreen cursor 10 10] [ ! -f /tmp/passhelperfile ] && kitty passhelper"
           "super, 0, exec, aplay ~/media/sound/soundtest.wav"
           "super shift, q, exit,"
           "super, m, exec, fuzzel"
