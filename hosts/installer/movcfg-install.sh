@@ -119,7 +119,7 @@ step_2() {
 	mkdir -p /mnt/etc
 	cd /mnt/etc/
 	if [ ! -d ./nixos ]; then
-		git clone https://github.com/pagedMov/pagedmov-nix-cfg.git ./nixos
+		git clone https://github.com/pagedMov/nixos-config.git ./nixos
 
 		echo
 		echo "Do you want to install the light or heavy configuration?"
