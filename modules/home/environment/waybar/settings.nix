@@ -1,147 +1,301 @@
-{...}: {
+{...}: 
+{
   programs.waybar.settings.mainBar = {
-    position = "top";
     layer = "top";
-    height = 5;
-    margin-top = 0;
-    margin-bottom = 0;
-    margin-left = 0;
+    position = "left";
+    mod = "dock";
+    margin-left = 4;
     margin-right = 0;
+    margin-top = 4;
+    margin-bottom = 4;
+    exclusive = true;
+    passthrough = false;
+    "gtk-layer-shell" = true;
+    reload_style_on_change = true;
+
     modules-left = [
-      "custom/launcher"
-      "custom/separator"
+      "custom/spacer"
       "hyprland/workspaces"
+      "custom/spacer"
     ];
-    modules-center = [
-      "clock"
-    ];
+
     modules-right = [
-      "tray"
-      "custom/separator"
-      "cpu"
-      "memory"
-      "disk"
-      "custom/separator"
-      "pulseaudio"
-      "battery"
+      "group/expand"
+      "group/expand-3"
       "network"
-      "custom/separator"
+      "clock"
+      "upower"
       "custom/notification"
     ];
-    clock = {
+
+    "custom/led" = {
+      format = "<span color='#AFAFAF'>󰍿</span><span color='#AFAFAF'> </span>";
+      format-alt = "󰍿<span color='#83A1F6'> </span>";
+      on-click = "~/mouse.sh";
+      rotate = 90;
+      tooltip = false;
+    };
+
+		"group/expand-3" = {
+      orientation = "vertical";
+      drawer = {
+        "transition-duration" = 600;
+        "children-class" = "not-power";
+        "transition-to-left" = false;
+        "click-to-reveal" = false;
+      };
+      modules = [
+        "pulseaudio"
+        "pulseaudio/slider"
+      ];
+    };
+
+		clock = {
+      format = "{:%I\n%M\n%S}";
+      interval = 1;
+      rotate = 0;
+      on-click = "/usr/local/bin/ags -t ActivityCenter";
+      tooltip-format = "<tt>{calendar}</tt>";
+
       calendar = {
-        format = {today = "<span color='#b4befe'><b><u>{}</u></b></span>";};
+        mode = "month";
+        "mode-mon-col" = 3;
+        "on-scroll" = 1;
+        "on-click-right" = "mode";
+        format = {
+          months = "<span color='#ffead3'><b>{}</b></span>";
+          weekdays = "<span color='#ffcc66'><b>{}</b></span>";
+          today = "<span color='#ff6699'><b>{}</b></span>";
+        };
       };
-      format = " {:%H:%M}";
-      tooltip = "true";
-      tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-      format-alt = " {:%d/%m}";
-    };
-    "hyprland/workspaces" = {
-      active-only = false;
-      disable-scroll = true;
-      format = "{icon}";
-      on-click = "activate";
-      format-icons = {
-        "1" = "一";
-        "2" = "二";
-        "3" = "三";
-        "4" = "四";
-        "5" = "五";
-        "6" = "六";
-        urgent = "";
-        default = "";
-        sort-by-number = true;
-      };
-      persistent-workspaces = {
-        "1" = [];
-        "2" = [];
-        "3" = [];
-        "4" = [];
-        "5" = [];
-        "6" = [];
+
+      actions = {
+        "on-click-right" = "mode";
+        "on-click-forward" = "tz_up";
+        "on-click-backward" = "tz_down";
+        "on-scroll-up" = "shift_up";
+        "on-scroll-down" = "shift_down";
       };
     };
-    memory = {
-      format = "󰟜 {}%";
-      format-alt = "󰟜 {used} GiB"; # 
-      interval = 2;
-    };
-    cpu = {
-      format = "  {usage}%";
-      format-alt = "  {avg_frequency} GHz";
-      interval = 2;
-    };
-    disk = {
-      # path = "/";
-      format = "󰋊 {percentage_used}%";
-      interval = 60;
-    };
-    network = {
-      format-wifi = "  {signalStrength}%";
-      format-ethernet = "󰀂 ";
-      tooltip-format = "Connected to {essid} {ifname} via {gwaddr}";
-      format-linked = "{ifname} (No IP)";
-      format-disconnected = "󰖪 ";
-    };
-    tray = {
+
+    upower = {
       icon-size = 20;
-      spacing = 8;
-    };
-    pulseaudio = {
-      format = "{icon} {volume}%";
-      format-muted = "  {volume}%";
-      format-icons = {
-        default = [" "];
-      };
-      scroll-step = 5;
-      on-click = "pamixer -t";
-      on-click-right = "pavucontrol";
-    };
-    battery = {
-      format = "{icon} {capacity}%";
-      format-icons = [" " " " " " " " " "];
-      format-charging = " {capacity}%";
-      format-full = " {capacity}%";
-      format-warning = " {capacity}%";
-      interval = 5;
-      states = {
-        warning = 20;
-      };
-      format-time = "{H}h{M}m";
+      format = "";
+      on-click = "/home/anik/battery.sh";
       tooltip = true;
-      tooltip-format = "{time}";
+      rotate = 0;
+      tooltip-spacing = 20;
+      on-click-right = "pkill waybar & hyprctl dispatch exec waybar";
     };
-    "custom/launcher" = {
-      format = "";
-      on-click = "fuzzel";
-      on-click-right = "wallpaper-picker";
-      tooltip = "false";
+
+    "upower#headset" = {
+      format = " {percentage}";
+      "native-path" = "/org/freedesktop/UPower/devices/headset_dev_A6_98_9A_0D_D3_49";
+      "show-icon" = false;
+      tooltip = false;
     };
+
+    "group/expand-4" = {
+      orientation = "horizontal";
+      drawer = {
+        "transition-duration" = 600;
+        "children-class" = "not-power";
+        "transition-to-left" = true;
+        "click-to-reveal" = true;
+      };
+      modules = ["upower" "upower/headset"];
+    };
+
+    network = {
+      tooltip = true;
+      format-wifi = "{icon} ";
+      format-icons = ["󰤟" "󰤢" "󰤥"];
+      rotate = 0;
+      format-ethernet = "󰈀 ";
+      tooltip-format = ''
+        Network: <big><b>{essid}</b></big>\n
+        Signal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\n
+        Frequency: <b>{frequency}MHz</b>\n
+        Interface: <b>{ifname}</b>\n
+        IP: <b>{ipaddr}/{cidr}</b>\n
+        Gateway: <b>{gwaddr}</b>\n
+        Netmask: <b>{netmask}</b>
+      '';
+      format-linked = "󰈀 {ifname} (No IP)";
+      format-disconnected = "";
+      tooltip-format-disconnected = "Disconnected";
+      on-click = "/usr/local/bin/ags -t ControlPanel";
+      interval = 2;
+    };
+
+    "custom/smallspacer" = {
+      format = " ";
+      rotate = 0;
+    };
+
+    memory = {
+      interval = 1;
+      rotate = 270;
+      format = "{icon}";
+      format-icons = [
+        "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
+      ];
+      max-length = 10;
+    };
+
+    cpu = {
+      interval = 1;
+      format = "{icon}";
+      rotate = 270;
+      format-icons = [
+        "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
+      ];
+    };
+
+    "mpris" = {
+      format = "󰝚 {player_icon}";
+      rotate = 90;
+      "format-paused" = "<span color='#2d2d2e'>󰝚 {status_icon}</span>";
+      "max-length" = 6;
+      "player-icons" = {
+        default = "󰏤";
+        mpv = "󰝚";
+      };
+      "status-icons" = {
+        paused = "󰐊";
+      };
+    };
+
+    tray = {
+      "icon-size" = 16;
+      rotate = 0;
+      spacing = 3;
+    };
+
+    "group/expand" = {
+      orientation = "vertical";
+      drawer = {
+        "transition-duration" = 600;
+        "children-class" = "not-power";
+        "transition-to-left" = true;
+      };
+      modules = ["custom/menu" "custom/spacer" "tray"];
+    };
+
+    "custom/menu" = {
+      format = "󰅃";
+      rotate = 0;
+    };
+
     "custom/notification" = {
       tooltip = false;
-      format = "{icon} ";
+      rotate = 0;
+      format = "{icon}";
       format-icons = {
-        notification = "<span foreground='red'><sup></sup></span>   ";
-        none = "   ";
-        dnd-notification = "<span foreground='red'><sup></sup></span>   ";
-        dnd-none = "   ";
-        inhibited-notification = "<span foreground='red'><sup></sup></span>   ";
-        inhibited-none = "   ";
-        dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>   ";
-        dnd-inhibited-none = "   ";
+        notification = "󱅫";
+        none = "󰂚";
+        "dnd-notification" = "󱅫";
+        "dnd-none" = "󰂚";
+        "inhibited-notification" = "󱅫";
+        "inhibited-none" = "󰂚";
+        "dnd-inhibited-notification" = "󱅫";
+        "dnd-inhibited-none" = "󰂚";
       };
-      return-type = "json";
-      exec-if = "which swaync-client";
+      "return-type" = "json";
+      "exec-if" = "which swaync-client";
       exec = "swaync-client -swb";
-      on-click = "swaync-client -t -sw";
-      on-click-right = "swaync-client -d -sw";
+      "on-click-right" = "swaync-client -d -sw";
+      "on-click" = "swaync-client -t -sw";
       escape = true;
     };
-    "custom/separator" = {
-      exec = "echo ' | '";
-      interval = 600;
-      tooltip = false;
+
+    "hyprland/window" = {
+      format = "<span  weight='bold' >{class}</span>";
+      "on-click-right" = "pkill waybar & hyprctl dispatch exec waybar";
+      rotate = 90;
+      "max-length" = 120;
+      icon = false;
+      "icon-size" = 13;
+    };
+
+    "custom/power" = {
+      format = "@{}";
+      rotate = 0;
+      "on-click" = "ags -t ControlPanel";
+      "on-click-right" = "pkill ags";
+      tooltip = true;
+    };
+
+    "custom/spacer" = {
+      format = "|";
+      rotate = 90;
+    };
+
+    "hyprland/workspaces" = {
+      format = "{icon}";
+      "format-icons" = {
+        default = "";
+        active = "";
+      };
+    };
+
+    "wlr/workspaces" = {
+      "persistent-workspaces" = {
+        "1" = ["HDMI-A-1"];
+        "2" = ["HDMI-A-1"];
+        "3" = ["HDMI-A-1"];
+        "4" = ["DP-1"];
+        "5" = ["DP-1"];
+        "6" = ["DP-1"];
+      };
+    };
+		pulseaudio = {
+      format = "{icon}";
+      rotate = 0;
+      format-muted = "婢";
+      tooltip-format = "{icon} {desc} // {volume}%";
+      scroll-step = 5;
+
+      format-icons = {
+        headphone = " ";
+        "hands-free" = " ";
+        headset = " ";
+        phone = " ";
+        portable = " ";
+        car = " ";
+        default = ["" " " " "];
+      };
+    };
+		"pulseaudio/slider" = {
+      min = 5;
+      max = 100;
+      rotate = 0;
+      device = "pulseaudio";
+      scroll-step = 1;
+      orientation = "vertical";
+    };
+
+    cava = {
+      "cava_config" = "~/.config/cava/config";
+      framerate = 60;
+      autosens = 1;
+      bars = 14;
+      "lower_cutoff_freq" = 50;
+      "higher_cutoff_freq" = 10000;
+      method = "pulse";
+      source = "auto";
+      stereo = true;
+      reverse = false;
+      "bar_delimiter" = 0;
+      monstercat = false;
+      waves = false;
+      "noise_reduction" = 0.77;
+      "input_delay" = 2;
+      "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
+      actions = {
+        "on-click-right" = "mode";
+      };
     };
   };
 }
+

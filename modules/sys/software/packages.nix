@@ -22,7 +22,6 @@
     htop
     hyprland
     hyprland-workspaces
-    hyprpaper
     hyprpicker
     imagemagick
     inetutils

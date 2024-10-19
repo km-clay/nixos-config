@@ -5,7 +5,6 @@
     settings = {
       update_ms = 500;
       vim_keys = true;
-      proc_tree = true;
       temp_scale = "fahrenheit";
       disks_filter = "exclude=/boot";
       show_swap = false;

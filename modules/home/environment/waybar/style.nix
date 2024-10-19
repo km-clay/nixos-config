@@ -1,98 +1,199 @@
 {...}: let
   custom = {
-    font = "JetBrainsMono Nerd Font";
-    font_size = "22px";
-    font_weight = "bold";
-    text_color = "#cdd6f4";
-    secondary_accent = "#89b4fa";
-    tertiary_accent = "#f5f5f5";
-    background = "#11111B";
+    font_size = "15px";  # Base font size
+    font_weight = "bold"; # Base font weight
+    notification_font_size = "18px"; # Font size for notifications
+    text_color = "#cccedb";  # Default text color
+    background_color = "rgba(21, 21, 21, 0.83)";
+    border_color = "rgba(255, 255, 255, 0.3)";
+    notification_margin_left = "-2px";
+    notification_margin_top = "-4px";
+    notification_padding_bottom = "12px";
+    tooltip_bg = "#1D2021";
+    tooltip_color = "#FBF1C7";
+    tooltip_border = "#101a24";
   };
 in {
   programs.waybar.style = ''
+    * {
+      font-family: "JetBrains Mono Nerd Font";
+      font-weight: ${custom.font_weight};
+      font-size: ${custom.font_size};
+    }
 
-      * {
-          border: none;
-          border-radius: 0px;
-          padding: 0;
-          margin: 0;
-          min-height: 0px;
-          font-family: ${custom.font};
-          font-weight: ${custom.font_weight};
-      }
+    #custom-notification {
+      font-family: "JetBrains Mono Nerd Font";
+      font-size: ${custom.notification_font_size};
+      color: ${custom.text_color};
+      margin-left: ${custom.notification_margin_left};
+      margin-top: ${custom.notification_margin_top};
+      padding-bottom: ${custom.notification_padding_bottom};
+    }
 
-      window#waybar {
-    background: ${custom.background};
-      }
+    window#waybar {
+      background: ${custom.background_color};
+      border: 3px solid ${custom.border_color};
+      border-radius: 6px;
+    }
 
-      #workspaces {
-          font-size: ${custom.font_size};
+    tooltip {
+      background: ${custom.tooltip_bg};
+      color: ${custom.tooltip_color};
+      font-size: 13px;
+      border-radius: 7px;
+      border: 2px solid ${custom.tooltip_border};
+    }
 
-      }
-      #workspaces button {
-          color: ${custom.text_color};
-          padding-left:  6px;
-          padding-right: 6px;
-      }
-      #workspaces button.empty {
-          color: #6c7086;
-      }
-      #workspaces button.active {
-          color: #b4befe;
-      }
+    #workspaces {
+      font-weight: normal;
+      background: rgba(23, 23, 23, 0.0);
+      color: #2F302D;
+      border-radius: 9px;
+      padding-left: 0px;
+      padding-right: 4px;
+      padding-top: 1px;
+    }
 
-      #tray, #pulseaudio, #network, #cpu, #memory, #disk, #clock, #battery, #custom-notification {
-          font-size: ${custom.font_size};
-          color: ${custom.text_color};
-      }
+    #workspaces button {
+      font-weight: normal;
+      background: rgba(23, 23, 23, 0.0);
+      color: #B1B2BD;
+      border-radius: 9px;
+      padding-left: 0px;
+      padding-right: 4px;
+      margin-right: -4px;
+      margin-top: -10px;
+    }
 
-      #cpu {
-          padding-left: 5px;
-          padding-right: 9px;
-      }
-      #memory {
-          padding-left: 9px;
-          padding-right: 9px;
-      }
-      #disk {
-          padding-left: 9px;
-          padding-right: 5px;
-      }
+    #workspaces button.active {
+      color: ${custom.text_color};
+      font-weight: normal;
+      padding-left: 0px;
+      padding-right: 4px;
+      transition: all 0.3s ease;
+    }
 
-      #tray {
-          margin-left: 7px;
-          padding-right: 5px;
-      }
+    #taskbar button {
+      box-shadow: none;
+      font-size: 4px;
+      padding: 0px;
+      border-radius: 9px;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      margin-left: 3px;
+      margin-right: 3px;
+      color: #A1BDCE;
+    }
 
-      #pulseaudio {
-          padding-left: 5px;
-          padding-right: 9px;
-      }
-      #battery {
-          padding-left: 9px;
-          padding-right: 9px;
-      }
-      #network {
-          padding-left: 9px;
-          padding-right: 5px;
-      }
+    #taskbar button.active {
+      background: #C8C8C8;
+      color: #C8C8C8;
+      margin-left: 10px;
+      margin-right: 10px;
+      border-radius: 3px;
+    }
 
-      custom-notification {
-          padding-left: 15px;
-          padding-right: 20px;
-      }
+    #tray menu * {
+      font-weight: bold;
+      font-size: 13px;
+      color: #FBF1C7;
+    }
 
-      #clock {
-          padding-left: 9px;
-          padding-right: 15px;
-      }
+    #tray {
+      padding: 0px;
+    }
 
-      #custom-launcher {
-          font-size: ${custom.font_size};
-          color: #b4befe;
-          font-weight: ${custom.font_weight};
-          padding-left: 10px;
-          padding-right: 15px;
-      }
+    #battery {
+      font-weight: normal;
+      font-size: 22px;
+      color: #a6d189;
+    }
+
+    #clock {
+      color: ${custom.text_color};
+      font-size: 15px;
+      font-weight: 900;
+      font-family: "CaskaydiaCove Nerd Font Mono";
+      background: rgba(23, 23, 23, 0.0);
+    }
+
+		#backlight-slider slider,
+    #pulseaudio-slider slider {
+      background: #A1BDCE;
+      background-color: transparent;
+      box-shadow: none;
+    }
+
+    #backlight-slider trough,
+    #pulseaudio-slider trough {
+      min-width: 9px;
+      min-height: 90px;
+      margin-bottom: -4px;
+      border-radius: 8px;
+      background: #343434;
+      margin-left: -4px;
+      margin-right: -4px;
+    }
+
+    #backlight-slider highlight,
+    #pulseaudio-slider highlight {
+      border-radius: 8px;
+      background-color: #2096C0;
+    }
+
+    #custom-mouse {
+      font-size: 14px;
+      margin-bottom: 6px;
+      background: #161320;
+    }
+
+    #custom-power {
+      font-size: 15px;
+      color: #FFFFFF;
+      background: rgba(22, 19, 32, 0.9);
+      margin: 6px 0px;
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    #backlight {
+      color: ${custom.text_color};
+      font-weight: normal;
+      font-size: 19px;
+      margin: 0px;
+      padding-left: 0px;
+    }
+
+    #custom-spacer {
+      opacity: 0.0;
+      padding-top: 3px;
+    }
+
+    #tray menu separator {
+      min-height: 10px;
+    }
+
+    #pulseaudio {
+      font-weight: normal;
+      font-size: 18px;
+      color: ${custom.text_color};
+    }
+
+    #cpu {
+      font-weight: normal;
+      font-size: 22px;
+      color: ${custom.text_color};
+    }
+
+    #memory {
+      font-weight: normal;
+      font-size: 22px;
+      color: ${custom.text_color};
+    }
+
+    #network {
+      font-size: 19px;
+      color: ${custom.text_color};
+    }
   '';
 }

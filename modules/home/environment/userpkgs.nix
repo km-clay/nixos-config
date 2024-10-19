@@ -34,6 +34,9 @@
 in {
   home.packages = with pkgs;
     [
+			flavours
+			ags
+			sassc
       gtk3
       sqlite
       gimp

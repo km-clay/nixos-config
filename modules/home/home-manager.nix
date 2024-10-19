@@ -49,7 +49,7 @@ in {
     };
   };
   security.sudo.extraConfig = ''
-    ${username} ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild
+    ${username} ALL=(ALL) NOPASSWD: /etc/profiles/per-user/pagedmov/bin/rebuild
   '';
   nix.settings.allowed-users = ["${username}"];
 }

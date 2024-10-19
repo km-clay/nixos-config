@@ -94,10 +94,10 @@
 
         blur = {
           enabled = true;
-          size = 1;
-          passes = 1;
-          # size = 4;
-          # passes = 2;
+          # size = 1;
+          # passes = 1;
+          size = 4;
+          passes = 2;
           brightness = 1;
           contrast = 1.400;
           ignore_opacity = true;

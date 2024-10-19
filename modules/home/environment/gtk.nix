@@ -4,7 +4,12 @@
   ...
 }: {
   fonts.fontconfig.enable = true;
-  home.packages = [
+  home.packages = with pkgs; [
+		(nerdfonts.override { fonts = [
+			"JetBrainsMono"
+			"CascadiaCode"
+			"NerdFontsSymbolsOnly"
+		]; })
   ];
 
   gtk = {
