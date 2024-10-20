@@ -102,6 +102,9 @@
     self = self;
     pkgs = pkgs;
   };
+	chscheme = import ./nix/chscheme.nix {
+		pkgs = pkgs;
+	};
   nixcommit = import ./nix/nixcommit.nix {
     host = host;
     self = self;
@@ -114,6 +117,7 @@
 in {
   home.packages = [
     compress
+		chscheme
     passhelper
     crs
     extract

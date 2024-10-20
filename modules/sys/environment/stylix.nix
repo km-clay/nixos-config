@@ -19,7 +19,7 @@
       grub.enable = true;
 			gtk.enable = true;
 			nixos-icons.enable = true;
-			nixvim.enable = true;
+			nixvim.enable = false;
     };
     cursor = {
       package = pkgs.bibata-cursors;

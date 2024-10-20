@@ -42,26 +42,28 @@
     system = "x86_64-linux";
     username = "pagedmov";
 		wallpaper = "${self}/media/wallpapers/cabin-2.jpg";
+		base16scheme = "chalk"; # can be easily changed with the chscheme script
 
-		# Base 16 scheme for system colors
-		scheme = {
-			"base00" = "151515";
-			"base01" = "202020";
-			"base02" = "303030";
-			"base03" = "505050";
-			"base04" = "b0b0b0";
-			"base05" = "d0d0d0";
-			"base06" = "e0e0e0";
-			"base07" = "f5f5f5";
-			"base08" = "fb9fb1";
-			"base09" = "eda987";
-			"base0A" = "ddb26f";
-			"base0B" = "acc267";
-			"base0C" = "12cfc0";
-			"base0D" = "6fc2ef";
-			"base0E" = "e1a3ee";
-			"base0F" = "deaf8f";
-		};
+    # Map colors from yaml to attribute set
+		# Extracting colors into a set here allows them to be propagated across the entire config
+		lib = nixpkgs.lib;
+		pkgs = import nixpkgs { system = "x86_64-linux"; };
+    scheme_path = "${pkgs.base16-schemes}/share/themes/${base16scheme}.yaml";
+		scheme_string = builtins.readFile scheme_path;
+    scheme_list = lib.splitString "\n" "${scheme_string}";
+    colors = lib.filter (line: builtins.match "^ *base[0-9A-F]{2}: .*" line != null) scheme_list;
+    scheme = lib.lists.foldl' (acc: line:
+        let
+            splitLine = lib.splitString ": " line;
+            key = builtins.elemAt splitLine 0;
+            value = builtins.elemAt splitLine 1;
+            trimmedKey = lib.trim key;
+            cleanValue_step1 = lib.splitString " " value;
+            cleanValue_step2 = builtins.elemAt cleanValue_step1 0;
+            cleanValue_final = builtins.substring 1 (builtins.stringLength cleanValue_step2 - 2) cleanValue_step2;
+        in
+            acc // { "${trimmedKey}" = cleanValue_final; }
+        ) {} colors;
   in {
     nixosConfigurations = {
       oganesson = nixpkgs.lib.nixosSystem {
