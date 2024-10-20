@@ -1,6 +1,7 @@
 {
   username,
   host,
+	scheme,
   ...
 }: {
   wayland.windowManager.hyprland = {
@@ -57,6 +58,8 @@
         gaps_in = 4;
         gaps_out = 8;
         border_size = 2;
+				#"col.inactive_border" = "0xff${scheme.base01}";
+				#"col.active_border" = "0xff${scheme.base0F}";
         border_part_of_window = false;
         no_border_on_floating = false;
       };

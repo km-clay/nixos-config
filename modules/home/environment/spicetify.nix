@@ -2,6 +2,7 @@
   pkgs,
   lib,
   inputs,
+	scheme,
   ...
 }: let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
@@ -20,5 +21,23 @@ in {
       hidePodcasts
       shuffle # shuffle+ (special characters are sanitized out of extension names)
     ];
+	#colorScheme = "custom";
+
+	#customColorScheme = {
+	#	text = scheme.base06;
+	#	subtext = scheme.base04;
+	#	sidebar-text = scheme.base04;
+	#	main = scheme.base00;
+	#	sidebar = scheme.base01;
+	#	shadow = scheme.base01;
+	#	selected-row = scheme.base08;
+	#	button = scheme.base0D;
+	#	button-active = scheme.base0C;
+	#	button-disabled = scheme.base02;
+	#	tab-active = scheme.base0E;
+	#	notification = scheme.base0A;
+	#	notification-error = scheme.base09;
+	#	misc = scheme.base0F;
+	#};
   };
 }

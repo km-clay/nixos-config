@@ -51,7 +51,7 @@
     };
 
 		clock = {
-      format = "{:%I\n%M\n%S}";
+      format = "{:%I\n%M}";
       interval = 1;
       rotate = 0;
       on-click = "/usr/local/bin/ags -t ActivityCenter";
