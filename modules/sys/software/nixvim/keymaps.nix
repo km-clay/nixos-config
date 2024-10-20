@@ -26,6 +26,11 @@
         key = "<F2>";
         mode = "t";
       }
+      {
+        action = "<cmd>COQnow<CR>";
+        key = "!cq";
+        mode = "n";
+      }
     ];
   };
 }

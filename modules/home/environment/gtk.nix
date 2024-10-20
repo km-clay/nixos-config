@@ -14,11 +14,11 @@
 
   gtk = {
     enable = true;
-		cursorTheme = {
-			name = "Bibata-Modern-Ice";
-			package = pkgs.bibata-cursors;
-			size = 16;
-		};
+	#cursorTheme = {
+	#	name = "Bibata-Modern-Ice";
+	#	package = pkgs.bibata-cursors;
+	#	size = 16;
+	#};
 	#font = {
 	#	name = "Iosevka Nerd Font";
 	#	package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};

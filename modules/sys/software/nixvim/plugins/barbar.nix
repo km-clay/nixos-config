@@ -1,7 +1,7 @@
 {
   programs.nixvim = {
     plugins.barbar = {
-      enable = true;
+      enable = false;
       settings = {
         auto_hide = 1;
       };

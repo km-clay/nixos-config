@@ -1,6 +1,7 @@
 {
 	imports = [
 		./alpha.nix
+		./haskell.nix
 		./vim-matchup.nix
 		./coq.nix
 		./barbar.nix

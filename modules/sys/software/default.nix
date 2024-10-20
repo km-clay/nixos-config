@@ -10,7 +10,7 @@
 }:  
 let
 	desktop_modules = if (host == "oganesson") then
-		[(import ./virtualization.nix)]
+		[(import ./virtualization.nix)] ++ [(import ./gaming)]
 		else [];
 in
 {

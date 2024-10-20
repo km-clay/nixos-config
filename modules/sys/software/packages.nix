@@ -9,6 +9,7 @@
     alsa-utils
     bc
     cava
+		cabal-install
     clang
     clang-tools
     cmake
