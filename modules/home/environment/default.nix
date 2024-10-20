@@ -15,7 +15,7 @@
     ++ [(import ./starship.nix)]
     ++ [(import ./userpkgs.nix)]
     ++ [(import ./zshell.nix)]
+    ++ [(import ./swaync.nix)]
     ++ [(import ./waybar)]
-    ++ [(import ./hyprland)]
-    ++ [(import ./swaync)];
+    ++ [(import ./hyprland)];
 }
