@@ -146,12 +146,14 @@ in
       font-size: 18px;
     }
 
+    #backlight-slider slider,
     #pulseaudio-slider slider {
           background: #${colors.color4};
           background-color: transparent;
           box-shadow: none;
         }
 
+    #backlight-slider trough,
     #pulseaudio-slider trough {
       min-width: 9px;
       min-height: 90px;
@@ -159,6 +161,7 @@ in
       background: #343434;
     }
 
+    #backlight-slider highlight,
     #pulseaudio-slider highlight {
       border-radius: 8px;
       background-color: #2096C0;
@@ -171,6 +174,28 @@ in
       border-radius: 20px;
       margin: 3px;
       padding: 5px 0 5px 6px;
+    }
+
+    #brightness {
+      background: #${bg.dark};
+      border-radius: 20px;
+      margin: 3px;
+      padding: 10px 0px 5px 0;
+    }
+
+    #backlight {
+      color: #${colors.color2};
+      font-size: 18px;
+      padding: 0 4px 0 0;
+    }
+
+    #battery {
+      color: #${colors.color4};
+      font-size: 20px;
+      background: #${bg.dark};
+      border-radius: 20px;
+      margin: 3px;
+      padding: 5px 0 5px 0px;
     }
   '';
 }

@@ -11,6 +11,7 @@ host,
 # secondary monitor will have a vertical bar on the left side
 # Can contain more info with two bars
 let
+  desktop = (host == "oganesson");
   workspaces = {
       format = "{icon}";
       format-icons = {
@@ -21,14 +22,14 @@ let
         "5" = "五";
         "6" = "六";
       };
-      persistent-workspaces = if (host == "oganesson") then {
+      persistent-workspaces = if desktop then {
         "HDMI-A-1" = [ 1 2 3 ];
         "DP-1" = [ 4 5 6 ];
       } else {
         "eDP-1" = [ 1 2 3 4 ];
       };
   };
-  monitors = if (host == "oganesson") then [
+  monitors = if desktop then [
     "DP-1"
     "HDMI-A-1"
   ] else [
@@ -44,7 +45,7 @@ in
     name = "mainBar";
     margin-left = 8;
     margin-top = 5;
-    margin-right = 8;
+    margin-right = if desktop then 8 else 5;
     mode = "dock";
 
     modules-left = [
@@ -168,7 +169,7 @@ in
 
   programs.waybar.settings.sideBar = {
     layer = "bottom";
-    output = if (host == "oganesson") then builtins.elemAt monitors 1 else "";
+    output = if desktop then builtins.elemAt monitors 1 else builtins.elemAt monitors 0;
     position = "right";
     margin-top = 8;
     margin-right = 5;
@@ -176,8 +177,11 @@ in
     name = "sideBar";
     mode = "dock";
 
-    modules-left = [
+    modules-left = if desktop then [
       "hyprland/workspaces"
+    ] else [
+      "group/brightness"
+      "battery"
     ];
     modules-center = [
     ];
@@ -222,6 +226,36 @@ in
       format-disconnected = "󰖪 ";
       tooltip-format-disconnected = "Disconnected";
       on-click = "hyprctl dispatch exec '[float;size 40% 55%] kitty nmtui'";
+    };
+
+    battery = {
+      bat = "BAT1";
+      interval = 1;
+      tooltip-format = "{capacity}%\nTil empty: {time}";
+      tooltip-format-charging = "{capacity}%\nTil full: {time}";
+      format = "{icon}";
+      format-icons = [
+        "󰁺" "󰁻" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"
+      ];
+      format-charging = "󰂄";
+    };
+
+    "group/brightness" = {
+      orientation = "vertical";
+      modules = [
+        "backlight"
+        "backlight/slider"
+      ];
+    };
+    backlight = {
+      format = "󰃠";
+      tooltip = "{percentage}%";
+    };
+    "backlight/slider" = {
+      min = 10;
+      max = 100;
+      orientation = "vertical";
+      rotate = 180;
     };
   };
 }
