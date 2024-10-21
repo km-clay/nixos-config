@@ -1,136 +1,87 @@
-{...}: 
+{
+pkgs,
+...
+}:
+# Grocery list:
+# Clock
+# CPU/MEM meters
+# Home folder and Nix store storage tracking?
+# Workspaces (per monitor would be nice)
+# A separate bar for both monitors
+# secondary monitor will have a vertical bar on the left side
+# Can contain more info with two bars
+let
+  workspaces = {
+      format = "{icon}";
+      format-icons = {
+        "1" = "一";
+        "2" = "二";
+        "3" = "三";
+        "4" = "四";
+        "5" = "五";
+        "6" = "六";
+      };
+      persistent-workspaces = {
+        "HDMI-A-1" = [ 1 2 3 ];
+        "DP-1" = [ 4 5 6 ];
+      };
+  };
+
+in
 {
   programs.waybar.settings.mainBar = {
-    layer = "top";
-    position = "left";
-    mod = "dock";
-    margin-left = 4;
-    margin-right = 0;
-    margin-top = 4;
-    margin-bottom = 4;
-    exclusive = true;
-    passthrough = false;
-    "gtk-layer-shell" = true;
-    reload_style_on_change = true;
+    layer = "bottom";
+    output = "DP-1";
+    position = "top";
+    name = "mainBar";
+    mode = "dock";
 
     modules-left = [
-      "custom/spacer"
       "hyprland/workspaces"
-      "custom/spacer"
+      "cava"
     ];
-
-    modules-right = [
-      "group/expand"
-      "group/expand-3"
-      "network"
+    modules-center = [
       "clock"
-      "upower"
-      "custom/notification"
+    ];
+    modules-right = [
+      "custom/disk-icon"
+      "memory"
+      "cpu"
+      "group/powerbtns"
     ];
 
-    "custom/led" = {
-      format = "<span color='#AFAFAF'>󰍿</span><span color='#AFAFAF'> </span>";
-      format-alt = "󰍿<span color='#83A1F6'> </span>";
-      on-click = "~/mouse.sh";
-      rotate = 90;
-      tooltip = false;
+    "hyprland/workspaces" = workspaces;
+
+    cava = {
+      framerate = 30;
+      autosens = 1;
+      sensitivity = 1;
+      bars = 14;
+      lower_cutoff_freq = 50;
+      higher_cutoff_freq = 10000;
+      method = "pulse";
+      source = "auto";
+      stereo = true;
+      reverse = true;
+      bar_delimiter = 0;
+      monstercat = false;
+      waves = false;
+      noise_reduction = 0.77;
+      input_delay = 2;
+      format-icons  = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
     };
 
-		"group/expand-3" = {
-      orientation = "vertical";
-      drawer = {
-        "transition-duration" = 600;
-        "children-class" = "not-power";
-        "transition-to-left" = false;
-        "click-to-reveal" = false;
-      };
-      modules = [
-        "pulseaudio"
-        "pulseaudio/slider"
-      ];
-    };
-
-		clock = {
-      format = "{:%I\n%M}";
-      interval = 1;
-      rotate = 0;
-      on-click = "/usr/local/bin/ags -t ActivityCenter";
-      tooltip-format = "<tt>{calendar}</tt>";
-
-      calendar = {
-        mode = "month";
-        "mode-mon-col" = 3;
-        "on-scroll" = 1;
-        "on-click-right" = "mode";
-        format = {
-          months = "<span color='#ffead3'><b>{}</b></span>";
-          weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-          today = "<span color='#ff6699'><b>{}</b></span>";
-        };
-      };
-
-      actions = {
-        "on-click-right" = "mode";
-        "on-click-forward" = "tz_up";
-        "on-click-backward" = "tz_down";
-        "on-scroll-up" = "shift_up";
-        "on-scroll-down" = "shift_down";
-      };
-    };
-
-    upower = {
-      icon-size = 20;
-      format = "";
-      on-click = "/home/anik/battery.sh";
-      tooltip = true;
-      rotate = 0;
-      tooltip-spacing = 20;
-      on-click-right = "pkill waybar & hyprctl dispatch exec waybar";
-    };
-
-    "upower#headset" = {
-      format = " {percentage}";
-      "native-path" = "/org/freedesktop/UPower/devices/headset_dev_A6_98_9A_0D_D3_49";
-      "show-icon" = false;
-      tooltip = false;
-    };
-
-    "group/expand-4" = {
-      orientation = "horizontal";
-      drawer = {
-        "transition-duration" = 600;
-        "children-class" = "not-power";
-        "transition-to-left" = true;
-        "click-to-reveal" = true;
-      };
-      modules = ["upower" "upower/headset"];
-    };
-
-    network = {
-      tooltip = true;
-      format-wifi = "{icon} ";
-      format-icons = ["󰤟" "󰤢" "󰤥"];
-      rotate = 0;
-      format-ethernet = "󰈀 ";
-      tooltip-format = ''
-        Network: <big><b>{essid}</b></big>\n
-        Signal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\n
-        Frequency: <b>{frequency}MHz</b>\n
-        Interface: <b>{ifname}</b>\n
-        IP: <b>{ipaddr}/{cidr}</b>\n
-        Gateway: <b>{gwaddr}</b>\n
-        Netmask: <b>{netmask}</b>
+    "custom/disk-icon" = {
+      exec = ''
+      df /dev/disk/by-partlabel/disk-main-home | awk '$6 == "/home" {printf "{\"class\": \"disk-icon\", \"tooltip\": \"/home: %.1fGB / %.1fTB\", \"percentage\": \"%.0f\"}\n", $3 / 1024 / 1024, $2 / 1024 / 1024 / 1024, $5}' | jq --unbuffered --compact-output
       '';
-      format-linked = "󰈀 {ifname} (No IP)";
-      format-disconnected = "";
-      tooltip-format-disconnected = "Disconnected";
-      on-click = "/usr/local/bin/ags -t ControlPanel";
-      interval = 2;
-    };
-
-    "custom/smallspacer" = {
-      format = " ";
-      rotate = 0;
+      interval = 300;
+      return-type = "json";
+      rotate = 270;
+      format = "{icon}";
+      format-icons = [
+        "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
+      ];
     };
 
     memory = {
@@ -145,157 +96,97 @@
 
     cpu = {
       interval = 1;
-      format = "{icon}";
       rotate = 270;
+      format = "{icon}";
       format-icons = [
         "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
       ];
     };
 
-    "mpris" = {
-      format = "󰝚 {player_icon}";
-      rotate = 90;
-      "format-paused" = "<span color='#2d2d2e'>󰝚 {status_icon}</span>";
-      "max-length" = 6;
-      "player-icons" = {
-        default = "󰏤";
-        mpv = "󰝚";
-      };
-      "status-icons" = {
-        paused = "󰐊";
-      };
-    };
-
-    tray = {
-      "icon-size" = 16;
-      rotate = 0;
-      spacing = 3;
-    };
-
-    "group/expand" = {
-      orientation = "vertical";
-      drawer = {
-        "transition-duration" = 600;
-        "children-class" = "not-power";
-        "transition-to-left" = true;
-      };
-      modules = ["custom/menu" "custom/spacer" "tray"];
-    };
-
-    "custom/menu" = {
-      format = "󰅃";
-      rotate = 0;
-    };
-
-    "custom/notification" = {
-      tooltip = false;
-      rotate = 0;
-      format = "{icon}";
-      format-icons = {
-        notification = "󱅫";
-        none = "󰂚";
-        "dnd-notification" = "󱅫";
-        "dnd-none" = "󰂚";
-        "inhibited-notification" = "󱅫";
-        "inhibited-none" = "󰂚";
-        "dnd-inhibited-notification" = "󱅫";
-        "dnd-inhibited-none" = "󰂚";
-      };
-      "return-type" = "json";
-      "exec-if" = "which swaync-client";
-      exec = "swaync-client -swb";
-      "on-click-right" = "swaync-client -d -sw";
-      "on-click" = "swaync-client -t -sw";
-      escape = true;
-    };
-
-    "hyprland/window" = {
-      format = "<span  weight='bold' >{class}</span>";
-      "on-click-right" = "pkill waybar & hyprctl dispatch exec waybar";
-      rotate = 90;
-      "max-length" = 120;
-      icon = false;
-      "icon-size" = 13;
-    };
-
     "custom/power" = {
-      format = "@{}";
-      rotate = 0;
-      "on-click" = "ags -t ControlPanel";
-      "on-click-right" = "pkill ags";
-      tooltip = true;
+      on-click = "shutdown now";
+      tooltip = false;
+      format = " ";
     };
 
-    "custom/spacer" = {
-      format = "|";
-      rotate = 90;
+    "custom/logout" = {
+      on-click = "hyprctl dispatch exit";
+      tooltip = false;
+      format = "󰗽 ";
     };
 
-    "hyprland/workspaces" = {
-      format = "{icon}";
-      "format-icons" = {
-        default = "";
-        active = "";
+    "custom/reboot" = {
+      on-click = "reboot";
+      tooltip = false;
+      format = " ";
+    };
+
+    "group/powerbtns" = {
+      orientation = "horizontal";
+      drawer = {
+        transition-duration = 500;
+        children-class = "power-drawer";
+        transition-left-to-right = false;
       };
+      modules = [
+        "custom/power"
+        "custom/logout"
+        "custom/reboot"
+      ];
     };
 
-    "wlr/workspaces" = {
-      "persistent-workspaces" = {
-        "1" = ["HDMI-A-1"];
-        "2" = ["HDMI-A-1"];
-        "3" = ["HDMI-A-1"];
-        "4" = ["DP-1"];
-        "5" = ["DP-1"];
-        "6" = ["DP-1"];
-      };
-    };
-		pulseaudio = {
-      format = "{icon}";
-      rotate = 0;
-      format-muted = "婢";
-      tooltip-format = "{icon} {desc} // {volume}%";
-      scroll-step = 5;
 
-      format-icons = {
-        headphone = " ";
-        "hands-free" = " ";
-        headset = " ";
-        phone = " ";
-        portable = " ";
-        car = " ";
-        default = ["" " " " "];
-      };
-    };
-		"pulseaudio/slider" = {
-      min = 5;
-      max = 100;
-      rotate = 0;
-      device = "pulseaudio";
-      scroll-step = 1;
+};
+
+# ------------------------------------------
+
+  programs.waybar.settings.sideBar = {
+    layer = "bottom";
+    output = "HDMI-A-1";
+    position = "right";
+    name = "sideBar";
+    mode = "dock";
+
+    modules-left = [
+      "hyprland/workspaces"
+    ];
+    modules-center = [
+      "tray"
+    ];
+    modules-right = [
+      "pulseaudio/slider"
+      "pulseaudio"
+      "network"
+    ];
+
+    "hyprland/workspaces" = workspaces;
+
+    "pulseaudio/slider" = {
       orientation = "vertical";
     };
 
-    cava = {
-      "cava_config" = "~/.config/cava/config";
-      framerate = 60;
-      autosens = 1;
-      bars = 14;
-      "lower_cutoff_freq" = 50;
-      "higher_cutoff_freq" = 10000;
-      method = "pulse";
-      source = "auto";
-      stereo = true;
-      reverse = false;
-      "bar_delimiter" = 0;
-      monstercat = false;
-      waves = false;
-      "noise_reduction" = 0.77;
-      "input_delay" = 2;
-      "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
-      actions = {
-        "on-click-right" = "mode";
+    pulseaudio = {
+      format = "{icon}";
+      format-muted = " ";
+      format-icons = {
+        default = [
+          " "
+          " "
+        ];
       };
+      on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+      on-click-right = "hyprctl dispatch exec '[float;size 40% 55%] pavucontrol'";
+    };
+
+    network = {
+      interval = 30;
+      format-wifi = "󰖩 ";
+      tooltip-format-wifi = "{essid} ({signalStrength}%)";
+      format-ethernet = " ";
+      tooltip-format-ethernet = "{ifname}";
+      format-disconnected = "󰖪 ";
+      tooltip-format-disconnected = "Disconnected";
+      on-click = "hyprctl dispatch exec '[float;size 40% 55%] kitty nmtui'";
     };
   };
 }
-
