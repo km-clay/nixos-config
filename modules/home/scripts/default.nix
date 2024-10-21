@@ -44,23 +44,7 @@
     self = self;
     pkgs = pkgs;
   };
-  homep = import ./nix/homep.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  homer = import ./nix/homer.nix {
-    self = self;
-    pkgs = pkgs;
-  };
   nsp = import ./nix/nsp.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  nixr = import ./nix/nixr.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  nixp = import ./nix/nixp.nix {
     self = self;
     pkgs = pkgs;
   };
@@ -105,15 +89,6 @@
 	chscheme = import ./nix/chscheme.nix {
 		pkgs = pkgs;
 	};
-  nixcommit = import ./nix/nixcommit.nix {
-    host = host;
-    self = self;
-    pkgs = pkgs;
-  };
-  nixpush = import ./nix/nixpush.nix {
-    self = self;
-    pkgs = pkgs;
-  };
 in {
   home.packages = [
     compress
@@ -122,17 +97,11 @@ in {
     crs
     extract
     garbage-collect
-    homep
-    homer
     hyprland
     invoke
     lofi
     mcd
     music
-    nixcommit
-    nixp
-    nixpush
-    nixr
     rebuild
     nsp
     runbg

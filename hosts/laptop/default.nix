@@ -8,7 +8,7 @@
   ...
 }: {
   imports = [
-    ./../../modules/sys
+    ./../../modules/sys/configuration.nix
     ./hardware.nix
     ./boot.nix
     ./services.nix
