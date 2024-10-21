@@ -1,4 +1,5 @@
 {
+host,
 ...
 }:
 # Grocery list:
@@ -20,17 +21,25 @@ let
         "5" = "五";
         "6" = "六";
       };
-      persistent-workspaces = {
+      persistent-workspaces = if (host == "oganesson") then {
         "HDMI-A-1" = [ 1 2 3 ];
         "DP-1" = [ 4 5 6 ];
+      } else {
+        "eDP-1" = [ 1 2 3 4 ];
       };
   };
+  monitors = if (host == "oganesson") then [
+    "DP-1"
+    "HDMI-A-1"
+  ] else [
+    "eDP-1"
+  ];
 
 in
 {
   programs.waybar.settings.mainBar = {
     layer = "bottom";
-    output = "DP-1";
+    output = builtins.elemAt monitors 0;
     position = "top";
     name = "mainBar";
     margin-left = 8;
@@ -149,6 +158,7 @@ in
 
     clock = {
       format = "{:%I:%M %p}";
+      tooltip = false;
     };
 
 
@@ -158,7 +168,7 @@ in
 
   programs.waybar.settings.sideBar = {
     layer = "bottom";
-    output = "HDMI-A-1";
+    output = if (host == "oganesson") then builtins.elemAt monitors 1 else "";
     position = "right";
     margin-top = 8;
     margin-right = 5;

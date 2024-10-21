@@ -8,8 +8,8 @@
 	extraFigletFonts = pkgs.fetchFromGitHub {
       owner = "xero";
       repo = "figlet-fonts";
-      rev = "master"; 
-      sha256 = "sha256-dAs7N66D2Fpy4/UB5Za1r2qb1iSAJR6TMmau1asxgtY="; 
+      rev = "master";
+      sha256 = "sha256-dAs7N66D2Fpy4/UB5Za1r2qb1iSAJR6TMmau1asxgtY=";
 	};
 	toilet-extrafonts = pkgs.toilet.overrideAttrs (oldAttrs: {
 		buildInputs = oldAttrs.buildInputs or [] ++ [extraFigletFonts];
@@ -23,7 +23,6 @@
 in {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-		../../modules/sys/software/nixvim
   ];
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "24.05";

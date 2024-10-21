@@ -12,15 +12,6 @@
         };
       })
       (pkgs.vimUtils.buildVimPlugin {
-        name = "vim-markdown";
-        src = pkgs.fetchFromGitHub {
-          owner = "preservim";
-          repo = "vim-markdown";
-          rev = "8f6cb3a6ca4e3b6bcda0730145a0b700f3481b51";
-          hash = "sha256-ZCCSjZ5Xok4rnIwfa4VUEaz6d3oW9066l0EkoqiTppM=";
-        };
-      })
-      (pkgs.vimUtils.buildVimPlugin {
         name = "vim-sneak";
         src = pkgs.fetchFromGitHub {
           owner = "justinmk";

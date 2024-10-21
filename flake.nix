@@ -83,11 +83,12 @@
       mercury = nixpkgs.lib.nixosSystem {
         specialArgs = {
           host = "mercury";
-          inherit self inputs username;
+          inherit self inputs scheme wallpaper username;
         };
         modules = [
           ./hosts/laptop
           stylix.nixosModules.stylix
+					nixvim.nixosModules.nixvim
           nur.nixosModules.nur
         ];
       };
@@ -99,6 +100,7 @@
         };
         modules = [
           ./hosts/installer
+					nixvim.nixosModules.nixvim
         ];
       };
     };
