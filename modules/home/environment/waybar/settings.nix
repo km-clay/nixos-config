@@ -1,5 +1,4 @@
 {
-pkgs,
 ...
 }:
 # Grocery list:
@@ -34,6 +33,9 @@ in
     output = "DP-1";
     position = "top";
     name = "mainBar";
+    margin-left = 8;
+    margin-top = 5;
+    margin-right = 8;
     mode = "dock";
 
     modules-left = [
@@ -41,12 +43,11 @@ in
       "cava"
     ];
     modules-center = [
-      "clock"
+      "hyprland/window"
     ];
     modules-right = [
-      "custom/disk-icon"
-      "memory"
-      "cpu"
+      "group/hardware"
+      "clock"
       "group/powerbtns"
     ];
 
@@ -71,11 +72,20 @@ in
       format-icons  = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
     };
 
+    "group/hardware" = {
+      orientation = "inherit";
+      modules = [
+        "custom/disk-icon"
+        "memory"
+        "cpu"
+      ];
+    };
+
     "custom/disk-icon" = {
       exec = ''
       df /dev/disk/by-partlabel/disk-main-home | awk '$6 == "/home" {printf "{\"class\": \"disk-icon\", \"tooltip\": \"/home: %.1fGB / %.1fTB\", \"percentage\": \"%.0f\"}\n", $3 / 1024 / 1024, $2 / 1024 / 1024 / 1024, $5}' | jq --unbuffered --compact-output
       '';
-      interval = 300;
+      interval = 60;
       return-type = "json";
       rotate = 270;
       format = "{icon}";
@@ -92,6 +102,7 @@ in
         "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
       ];
       max-length = 10;
+      tooltip-format = "RAM: {used:0.1f} GB / {total:0.1f} GB";
     };
 
     cpu = {
@@ -101,6 +112,7 @@ in
       format-icons = [
         "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
       ];
+      tooltip-format = "CPU: {usage:0.1f}%";
     };
 
     "custom/power" = {
@@ -135,6 +147,10 @@ in
       ];
     };
 
+    clock = {
+      format = "{:%I:%M %p}";
+    };
+
 
 };
 
@@ -144,6 +160,9 @@ in
     layer = "bottom";
     output = "HDMI-A-1";
     position = "right";
+    margin-top = 8;
+    margin-right = 5;
+    margin-bottom = 8;
     name = "sideBar";
     mode = "dock";
 
@@ -151,18 +170,24 @@ in
       "hyprland/workspaces"
     ];
     modules-center = [
-      "tray"
     ];
     modules-right = [
-      "pulseaudio/slider"
-      "pulseaudio"
       "network"
+      "group/audio"
     ];
 
     "hyprland/workspaces" = workspaces;
 
     "pulseaudio/slider" = {
       orientation = "vertical";
+    };
+
+    "group/audio" = {
+      orientation = "vertical";
+      modules = [
+        "pulseaudio/slider"
+        "pulseaudio"
+      ];
     };
 
     pulseaudio = {

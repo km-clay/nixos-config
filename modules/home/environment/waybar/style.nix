@@ -29,5 +29,148 @@ let
 in
 {
   programs.waybar.style = ''
+    * {
+      border: none;
+      border-radius: 0;
+      font-size: 16px;
+      font-family: "JetBrains Mono Nerd Font";
+    }
+
+    window#waybar {
+      border-radius: 20px;
+      border: 3px solid #${colors.color7};
+      background: rgba(46,52,64,0.9);
+      margin: 20px;
+    }
+    window#waybar.empty #window {
+      background: none;
+    }
+
+    #workspaces {
+      margin: 3px;
+      background: #${bg.dark};
+      border-radius: 20px;
+    }
+
+    #workspaces button:hover {
+      border-radius: 20px;
+    }
+
+    #workspaces button.active {
+      background: #${fg.lightester};
+      border-radius: 20px;
+      color: #${bg.darkest};
+    }
+
+    #cava {
+      background: #${bg.dark};
+      border-radius: 20px;
+      margin: 3px 3px 3px 6px;
+      padding: 0px 15px 0px 15px;
+      color: #${colors.color6};
+    }
+
+    #window {
+      margin: 3px;
+      background: #${bg.dark};
+      border-radius: 20px;
+      padding: 0 15px 0 15px;
+      font-weight: bold;
+    }
+
+    #hardware {
+      margin: 3px;
+      padding: 0 10px 0 10px;
+      background: #${bg.dark};
+      border-radius: 20px;
+    }
+
+    #custom-disk-icon, #cpu, #memory {
+      margin-bottom: 4px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    #custom-disk-icon {
+      color: #${colors.color4};
+    }
+
+    #memory {
+      color: #${colors.color1};
+    }
+
+    #cpu {
+      color: #${colors.color3};
+    }
+
+    #clock {
+      font-weight: bold;
+      background: #${bg.dark};
+      border-radius: 20px;
+      margin: 3px;
+      padding: 0 10px 0 10px;
+      font-size: 18px;
+    }
+
+    #powerbtns {
+      background: #${bg.dark};
+      border-radius: 20px;
+      margin: 3px;
+      padding: 0 5px 0 10px;
+    }
+
+    #custom-power {
+      color: #${colors.color0};
+      font-size: 18px;
+    }
+
+    #custom-logout {
+      color: #${colors.color4};
+      font-size: 18px;
+    }
+
+    #custom-reboot {
+      color: #${colors.color2};
+      font-size: 18px;
+    }
+
+    #audio {
+      background: #${bg.dark};
+      border-radius: 20px;
+      margin: 3px;
+      padding: 5px 0 10px 0;
+    }
+
+    #pulseaudio {
+      color: #${colors.color4};
+      font-size: 18px;
+    }
+
+    #pulseaudio-slider slider {
+          background: #${colors.color4};
+          background-color: transparent;
+          box-shadow: none;
+        }
+
+    #pulseaudio-slider trough {
+      min-width: 9px;
+      min-height: 90px;
+      border-radius: 8px;
+      background: #343434;
+    }
+
+    #pulseaudio-slider highlight {
+      border-radius: 8px;
+      background-color: #2096C0;
+    }
+
+    #network {
+      color: #${colors.color3};
+      font-size: 20px;
+      background: #${bg.dark};
+      border-radius: 20px;
+      margin: 3px;
+      padding: 5px 0 5px 6px;
+    }
   '';
 }

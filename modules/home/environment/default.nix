@@ -12,6 +12,7 @@
   imports =
     [(import ./gtk.nix)]
     ++ [(import ./spicetify.nix)]
+    ++ [(import ./stylix.nix)]
     ++ [(import ./starship.nix)]
     ++ [(import ./userpkgs.nix)]
     ++ [(import ./zshell.nix)]
