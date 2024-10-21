@@ -26,7 +26,7 @@
         desc = "Load previous session window settings for the opened file (folds, cursor pos, etc)";
       }
       {
-        command = "setlocal textwidth = 135";
+        command = "setlocal textwidth=135";
         event = ["BufWinEnter" "BufEnter"];
         pattern = ["*.md" "*.wiki" "*.txt"];
         desc = "Set automatic linebreaks in plain text file formats";
