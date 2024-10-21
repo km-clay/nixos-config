@@ -90,6 +90,7 @@
           stylix.nixosModules.stylix
 					nixvim.nixosModules.nixvim
           nur.nixosModules.nur
+					nixvim.nixosModules.nixvim
         ];
       };
 
