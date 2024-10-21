@@ -18,23 +18,23 @@
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-partlabel/disk-main-root";
+    device = "/dev/sda4";
     fsType = "ext4";
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-partlabel/disk-main-nix";
+    device = "/dev/sda3";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-partlabel/disk-main-ESP";
+    device = "/dev/sda2";
     fsType = "vfat";
     options = ["fmask=0077" "dmask=0077"];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-partlabel/disk-main-home";
+    device = "/dev/sda5";
     fsType = "ext4";
   };
 
