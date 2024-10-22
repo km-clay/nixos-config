@@ -26,21 +26,21 @@
     };
     fonts = {
       monospace = {
-        package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
-        name = "Iosevka Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+        name = "JetBrains Mono Nerd Font";
       };
       sansSerif = {
-        package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
-        name = "Iosevka Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+        name = "JetBrains Mono Nerd Font";
       };
       serif = {
-        package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
-        name = "Iosevka Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+        name = "JetBrains Mono Nerd Font";
       };
 			sizes = {
 				desktop = 10;
 				applications = 14;
-				terminal = 16;
+				terminal = 14;
 				popups = 12;
 			};
     };
