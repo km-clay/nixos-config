@@ -3,7 +3,12 @@
   host,
 	scheme,
   ...
-}: {
+}:
+
+let
+  desktop = (host == "oganesson");
+in
+{
   wayland.windowManager.hyprland = {
     settings = {
       monitor =
@@ -28,7 +33,7 @@
       ];
 
       workspace =
-        if (host == "oganesson")
+        if desktop
         then [
           "1,persistent=true,monitor:HDMI-A-1"
           "2,persistent=true,monitor:HDMI-A-1"

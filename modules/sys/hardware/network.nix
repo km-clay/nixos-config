@@ -1,8 +1,12 @@
-{host, ...}: {
+{host, ...}:
+let
+  desktop = (host == "oganesson");
+in
+{
   networking = {
     networkmanager.enable = true;
     hostName =
-      if (host == "oganesson")
+      if desktop
       then "oganesson"
       else "mercury";
     hosts = {

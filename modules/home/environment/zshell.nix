@@ -13,6 +13,7 @@
       VISUAL = "nvim";
       LANG = "en_US.UTF-8";
       BROWSER = "firefox";
+      FLAKEPATH = "$HOME/.sysflake";
     };
 
     oh-my-zsh = {
@@ -48,15 +49,15 @@
       psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
       mkdir = "mkdir -p";
       pk = "pkill -9 -f";
-      zrc = "nvim ${self}/modules/home/environment/zshell.nix";
+      zrc = "nvim $FLAKEPATH/modules/home/environment/zshell.nix";
       svcu = "systemctl --user";
       svc = "sudo systemctl";
       viflake = "nvim flake.nix";
-      hyprconf = "yazi ${self}/modules/home/hyprland && popd &> /dev/null";
-      hmconf = "yazi ${self}/modules/home/ && popd &> /dev/null";
-      nixconf = "yazi ${self}/modules/sys/ && popd &> /dev/null";
-      hostconf = "yazi ${self}/hosts && popd &> /dev/null";
-      nvimcfg = "yazi ${self}/pkgs/nixvim/config && popd &> /dev/null";
+      hyprconf = "yazi $FLAKEPATH/modules/home/hyprland && popd &> /dev/null";
+      hmconf = "yazi $FLAKEPATH/modules/home/ && popd &> /dev/null";
+      nixconf = "yazi $FLAKEPATH/modules/sys/ && popd &> /dev/null";
+      hostconf = "yazi $FLAKEPATH/hosts && popd &> /dev/null";
+      nvimcfg = "yazi $FLAKEPATH/pkgs/nixvim/config && popd &> /dev/null";
     };
     initExtra = ''
 
@@ -127,6 +128,7 @@
       clear
       splash
       scheck && runbg aplay ${self}/assets/sound/sh-source.wav
+      [ ! -f $FLAKEPATH/flake.nix ] && echo "WARNING: flake.nix not found at \$FLAKEPATH. Shell aliases for editing config files won't work correctly!" && echo "Edit the FLAKEPATH session variable in zshell.nix to point to the path where you saved the system configuration flake."
     '';
   };
 }

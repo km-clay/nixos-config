@@ -9,8 +9,9 @@
   home-manager,
   ...
 }: let
+  desktop = (host == "onagesson");
   desktop_modules =
-    if (host == "onagesson")
+    if desktop
     then [(import ./gaming)]
     else [];
 in {
