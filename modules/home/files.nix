@@ -1,10 +1,7 @@
+{ self, ...}:
+
 {
-  self,
-  pkgs,
-  ...
-}:
-{
-  home.file.".config/neofetch/config".text = ''
+  home.file.".config/neofetch/config.conf".text = ''
 username=$(whoami)
 name_length=''${#username}
 total_width=40
@@ -110,9 +107,5 @@ yoffset=0
 xoffset=0
 
 stdout="off"
-  '';
-
-  movfetch = pkgs.writeShellScriptBin "movfetch" ''
-    neofetch --config $HOME/.config/neofetch/config
   '';
 }

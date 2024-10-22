@@ -29,6 +29,7 @@ in {
         ./programs
 				./environment
 				./scripts
+        ./files.nix
       ];
       home = {
         username = "${username}";
