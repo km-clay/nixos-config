@@ -47,6 +47,7 @@ in
     margin-top = 5;
     margin-right = if desktop then 8 else 5;
     mode = "dock";
+    "gtk-layer-shell" = true;
 
     modules-left = [
       "hyprland/workspaces"
@@ -176,6 +177,7 @@ in
     margin-bottom = 8;
     name = "sideBar";
     mode = "dock";
+    "gtk-layer-shell" = true;
 
     modules-left = if desktop then [
       "hyprland/workspaces"

@@ -44,6 +44,8 @@
           "4,persistent=true,monitor:eDP-1"
         ];
 
+      layerrule = "blur,waybar";
+
       input = {
         kb_layout = "us";
         follow_mouse = 1;
