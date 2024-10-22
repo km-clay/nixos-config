@@ -157,7 +157,7 @@
           "super, c, killactive,"
           "super, e, exec, [float;size 45% 70%;move 10 50] kitty btop"
           "super, n, exec, [float;size 50% 35%;move 10 50] pavucontrol"
-          "super, p, exec, [float;size 25% 30%;move onscreen cursor 20 20] [ ! -f /tmp/passhelperfile ] && kitty passhelper"
+          "super, p, exec, [float;size 25% 30%;move onscreen cursor 20 20] [ ! -f /tmp/keyringfile ] && kitty keyring"
           "super, 0, exec, aplay ~/assets/sound/soundtest.wav"
           "super shift, q, exit,"
           "super, m, exec, fuzzel"

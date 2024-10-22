@@ -8,7 +8,7 @@
     self = self;
     pkgs = pkgs;
   };
-  passhelper = import ./wm-controls/passhelper.nix {
+  keyring = import ./wm-controls/keyring.nix {
     self = self;
     pkgs = pkgs;
   };
@@ -93,7 +93,7 @@ in {
   home.packages = [
     compress
 		chscheme
-    passhelper
+    keyring
     crs
     extract
     garbage-collect
