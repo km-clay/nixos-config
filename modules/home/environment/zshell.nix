@@ -63,7 +63,7 @@
       unalias ls
       ls() {
       	eza -1 --group-directories-first --icons "$@"
-      	scheck && runbg aplay ${self}/media/sound/ls.wav
+      	scheck && runbg aplay ${self}/assets/sound/ls.wav
       }
 
       y() {
@@ -80,7 +80,7 @@
       	eza -1 --group-directories-first --icons "$@"
       	builtin cd "$@" || exit
       	export SOUNDS_ENABLED=1
-      	scheck && runbg aplay ${self}/media/sound/cd.wav
+      	scheck && runbg aplay ${self}/assets/sound/cd.wav
       }
       if [ ! -e $HOME/.zsh_history ]; then
       	touch $HOME/.zsh_history
@@ -126,7 +126,7 @@
       unalias ls
       clear
       splash
-      scheck && runbg aplay ${self}/media/sound/sh-source.wav
+      scheck && runbg aplay ${self}/assets/sound/sh-source.wav
     '';
   };
 }

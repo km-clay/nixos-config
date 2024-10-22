@@ -10,7 +10,7 @@ pkgs.writeShellScriptBin "garbage-collect" ''
   echo -e "\033[1;4;38;2;243;139;168mThis process is irreversible.\033[0m Are you sure?"
   select yn in "Yes" "No"; do
   	case $yn in
-  		Yes )  echo "Sweeping system...";scheck && runbg aplay "$HOME/media/sound/sys/collectgarbage.wav";break;;
+  		Yes )  echo "Sweeping system...";scheck && runbg aplay "$HOME/assets/sound/sys/collectgarbage.wav";break;;
   		No ) echo "Canceling garbage collection."; return;;
   	esac
   done
@@ -28,5 +28,5 @@ pkgs.writeShellScriptBin "garbage-collect" ''
   fi
   total_freed=$(echo "$nix_freed + $rm_freed" | bc)
   echo -e "System cleaning complete, freed \033[1;4;38;2;166;227;161m$total_freed MiB\033[0m in total"
-  scheck && runbg aplay "$HOME/media/sound/sys/rm.wav"
+  scheck && runbg aplay "$HOME/assets/sound/sys/rm.wav"
 ''

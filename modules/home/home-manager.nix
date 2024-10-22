@@ -51,7 +51,7 @@ in {
     };
   };
   security.sudo.extraConfig = ''
-    ${username} ALL=(ALL) NOPASSWD: /etc/profiles/per-user/pagedmov/bin/rebuild
+    ${username} ALL=(ALL) NOPASSWD: /etc/profiles/per-user/${username}/bin/rebuild
   '';
   nix.settings.allowed-users = ["${username}"];
 }

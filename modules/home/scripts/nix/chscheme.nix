@@ -14,6 +14,7 @@ pkgs.writeShellScriptBin "chscheme" ''
             printf "\033[48;2;%d;%d;%dm %-20s %s \033[0m\n" $r $g $b $key $clean_value; \
         fi; \
     done' | xargs -I {} sed -i '/base16scheme \=/s/\".*\"/\"{}\"/' "$HOME"/.sysflake/flake.nix && \
+    [[ $? -ne 0 ]] && echo "Aborting color scheme change." && exit 0
 		echo "Successfully changed system color scheme. Rebuild now?" && \
 		select choice in "Yes" "No"; do
 			case $choice in

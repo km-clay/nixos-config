@@ -41,7 +41,7 @@
   } @ inputs: let
     system = "x86_64-linux";
     username = "pagedmov";
-		wallpaper = "${self}/media/wallpapers/nord-balloons.png";
+		wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
 		base16scheme = "nord"; # can be easily changed with the chscheme script
 
     # Map colors from yaml to attribute set

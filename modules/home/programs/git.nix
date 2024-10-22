@@ -1,7 +1,7 @@
-{...}: {
+{username, ...}: {
   programs.git = {
     enable = true;
-    userEmail = "pagedmov@gmail.com";
-    userName = "pagedmov";
+    userEmail = "${username}@gmail.com";
+    userName = "${username}";
   };
 }
