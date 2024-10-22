@@ -5,4 +5,4 @@ My dots are written 100% in Nix so if you bring your own hardware-configuration.
 
 If you are on NixOS and have flakes enabled, you can just clone the repo and run sudo nixos-rebuild switch --flake /path/to/this-repo (again, just make sure you don't use my hardware configuration on your machine)
 
-![Screenshot](./assets/screens/desktop2.png)
+![Screenshot](./assets/screens/desktop.png)
