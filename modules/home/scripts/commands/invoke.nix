@@ -3,7 +3,7 @@
   pkgs,
 }:
 pkgs.writeShellScriptBin "invoke" ''
-  #!/run/current-system/sw/bin/bash
-
-  nix run nixpkgs#"$@"
+  cmd="$1"
+  shift
+  nix run nixpkgs#"$cmd" -- "$@"
 ''
