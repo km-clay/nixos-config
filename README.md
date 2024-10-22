@@ -10,6 +10,14 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 ## Neat Features
 * *chscheme* - This script will open a fuzzy finder window containing all of the colorschemes available in the base16-schemes package on nixpkgs. It contains a preview showing you what the colors will look like in your terminal.
 
+![chscheme](./assets/screens/chscheme.png)
+
+* *keyring* - This script leverages pass and fzf, and will open a fuzzy finder window containing all of the paths in ~/.password-store. When a path is selected, it will copy that password to your clipboard for 45 seconds. This script is bound to Super + P in the hyprland config.
+
+![keyring](./assets/screens/keyring.png)
+
+* Terminal sound effects from earthbound :D
+
 Important note: Some aspects of the configuration are hard coded. these include
 * Hyprland config: hardcoded display outputs
 * Waybar config: hardcoded display outputs
