@@ -14,7 +14,7 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 </div>
 
 ## Neat Features
-* *chscheme* - This script will open a fuzzy finder window containing all of the colorschemes available in the base16-schemes package on nixpkgs. It contains a preview showing you what the colors will look like in your terminal.
+* *chscheme* - This script will open a fuzzy finder window containing all of the colorschemes available in the base16-schemes package on nixpkgs. It contains a preview showing you what the colors will look like in your terminal. Selecting one will replace the color scheme variable declaration in flake.nix, and rebuilding will change the color scheme of the entire system.
 
 <div style="text-align: center;">
   <img src="./assets/screens/chscheme.png" alt="chscheme" />
