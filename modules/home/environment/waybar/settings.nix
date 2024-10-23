@@ -73,6 +73,7 @@ in
       higher_cutoff_freq = 10000;
       method = "pulse";
       source = "auto";
+      hide_on_silence = true;
       stereo = true;
       reverse = true;
       bar_delimiter = 0;

@@ -1,4 +1,8 @@
 # ❄️ pagedMov's NixOS dots ❄️
+
+Special thanks to Frost-Phoenix, this config started out as a fork of his dots and still uses a few of his scripts: [Check out his
+config here](https://github.com/Frost-Phoenix/nixos-config/tree/catppuccin)
+
 Take whatever you like, just know that the hardware configurations in my hosts folder won't work on your machine : )
 
 My dots are written 100% in Nix so if you bring your own hardware-configuration.nix, these should work on any machine out of the box.
