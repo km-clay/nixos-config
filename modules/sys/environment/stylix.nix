@@ -12,7 +12,7 @@
     image = wallpaper;
     polarity = "dark";
     autoEnable = true;
-		opacity.terminal = 0.5;
+		opacity.terminal = 0.1;
     targets = {
       console.enable = true;
       feh.enable = true;
@@ -41,7 +41,7 @@
 				desktop = 10;
 				applications = 14;
 				terminal = 14;
-				popups = 12;
+				popups = 16;
 			};
     };
   };

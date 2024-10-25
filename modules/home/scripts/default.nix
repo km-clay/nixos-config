@@ -86,6 +86,9 @@
     self = self;
     pkgs = pkgs;
   };
+  viconf = import ./commands/viconf.nix {
+    pkgs = pkgs;
+  };
 	chscheme = import ./nix/chscheme.nix {
 		pkgs = pkgs;
 	};
@@ -113,5 +116,6 @@ in {
     toggle_float
     toggle_oppacity
     toggle_waybar
+    viconf
   ];
 }

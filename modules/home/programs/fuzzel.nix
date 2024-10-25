@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   programs.fuzzel = {
     enable = true;
     settings = {
@@ -17,6 +17,7 @@
         radius = 15;
         width = 3;
       };
+      colors.background = lib.mkForce "2e344080";
     };
   };
 }

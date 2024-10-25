@@ -49,7 +49,7 @@ in
           "4,persistent=true,monitor:eDP-1"
         ];
 
-      layerrule = "blur,waybar";
+      layerrule = ["blur,waybar" "blur,launcher"];
 
       input = {
         kb_layout = "us";
@@ -107,7 +107,7 @@ in
           # size = 1;
           # passes = 1;
           size = 4;
-          passes = 2;
+          passes = 1;
           brightness = 1;
           contrast = 1.400;
           ignore_opacity = true;
