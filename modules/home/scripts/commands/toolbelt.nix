@@ -19,29 +19,14 @@ calc() {
 	read -n 1 -s
 }
 
-chpaper() {
-	paper="$\{self}/assets/wallpapers/$(find "$FLAKEPATH"/assets/wallpapers -exec basename {} \; | rg "\.\w+$" | fzf --preview "chafa -s 30x40 $FLAKEPATH/assets/wallpapers/{}")"
-	[ "$paper" = "$\{self}/assets/wallpapers/" ] && echo "Cancelling wallpaper change" && exit 0
-	echo "$paper" | xargs -I {} sed -i '/wallpaper =/s|"[^"]*"|"{}"|' "$FLAKEPATH"/flake.nix
-	echo "Successfully changed wallpaper. Rebuild now?" && \
-	select choice in "Yes" "No"; do
-		case $choice in
-			"Yes")
-				rebuild;pkill -9 hyprpaper;exit 0;;
-			"No")
-				echo "Exiting...";exit 0;;
-		esac
-	done
-}
-
 running=true
 
 declare -A commands=(
-    ["Change Wallpaper"]="chpaper"
+    ["Change Wallpaper"]="moveonscreen --center && if chpaper; then running=false; else moveonscreen; fi"
     ["Change System Color Scheme"]="hyprctl dispatch resizeactive 10% 80% && moveonscreen --center && if chscheme; then running=false; else hyprctl dispatch resizeactive exact 40% 25% && moveonscreen; fi"
-    ["Open System Monitor"]="hyprctl dispatch resizeactive 50% 70% moveactive onscreen cursor -50% -50%; kitty btop'"
-    ["Open Volume Controls"]="hyprctl dispatch exec '[float;size 50% 70%;move onscreen cursor -50% -50%] pavucontrol'"
-    ["Open Keyring"]="exec hyprctl dispatch exec '[float;size 25% 30%;move onscreen cursor 20 20] [ ! -f /tmp/keyringfile ] && kitty keyring'"
+    ["Open System Monitor"]="exec hyprctl dispatch exec '[float;size 50% 70%;move onscreen cursor -50% -50%] kitty btop'"
+    ["Open Volume Controls"]="exec hyprctl dispatch exec '[float;size 50% 70%;move onscreen cursor -50% -50%] pavucontrol'"
+    ["Open Keyring"]="hyprctl dispatch resizeactive -300 0 && moveonscreen && if keyring; then running=false; else hyprctl dispatch resizeactive exact 40% 25% && moveonscreen; fi"
     ["Calculator"]="calc"
 )
 

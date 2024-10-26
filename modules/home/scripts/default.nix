@@ -91,12 +91,14 @@
   viconf = import ./commands/viconf.nix {
     pkgs = pkgs;
   };
-	chscheme = import ./nix/chscheme.nix {
+	chscheme = import ./wm-controls/chscheme.nix {
 		pkgs = pkgs;
 	};
+  chpaper = import ./wm-controls/chpaper.nix { pkgs = pkgs; };
 in {
   home.packages = [
     compress
+    chpaper
 		chscheme
     keyring
     crs

@@ -12,7 +12,7 @@
     image = wallpaper;
     polarity = "dark";
     autoEnable = true;
-		opacity.terminal = 0.2;
+		opacity.terminal = 0.35;
     targets = {
       console.enable = true;
       feh.enable = true;

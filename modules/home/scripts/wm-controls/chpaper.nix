@@ -2,7 +2,7 @@
 
 pkgs.writeShellScriptBin "chpaper" ''
 	paper="$\{self}/assets/wallpapers/$(find "$FLAKEPATH"/assets/wallpapers -exec basename {} \; | rg "\.\w+$" | fzf --preview "chafa -s 30x40 $FLAKEPATH/assets/wallpapers/{}")"
-	[ "$paper" = "$\{self}/assets/wallpapers/" ] && echo "Cancelling wallpaper change" && exit 0
+	[ "$paper" = "$\{self}/assets/wallpapers/" ] && echo "Cancelling wallpaper change" && exit 1
 	echo "$paper" | xargs -I {} sed -i '/wallpaper =/s|"[^"]*"|"{}"|' "$FLAKEPATH"/flake.nix
 	echo "Successfully changed wallpaper. Rebuild now?" && \
 	select choice in "Yes" "No"; do
