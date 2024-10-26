@@ -4,10 +4,6 @@
   pkgs,
   ...
 }: let
-  compress = import ./commands/compress.nix {
-    self = self;
-    pkgs = pkgs;
-  };
   keyring = import ./wm-controls/keyring.nix {
     self = self;
     pkgs = pkgs;
@@ -61,7 +57,6 @@
   chpaper = import ./wm-controls/chpaper.nix { pkgs = pkgs; };
 in {
   home.packages = [
-    compress
     chpaper
 		chscheme
     keyring

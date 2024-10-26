@@ -61,7 +61,6 @@
       gpull = " git pull && scheck && runbg aplay ${self}/assets/sound/gitpull.wav;";
     };
     initExtra = ''
-
       gitcommit_sfx() {
         git commit -m "$1"
         scheck && runbg aplay ${self}/assets/sound/gitcommit.wav
@@ -70,6 +69,7 @@
       ls() {
       	eza -1 --group-directories-first --icons "$@"
       	scheck && runbg aplay ${self}/assets/sound/ls.wav
+        return 0
       }
 
       y() {
@@ -82,11 +82,13 @@
       }
 
       cd() {
-      	export SOUNDS_ENABLED=0
-      	eza -1 --group-directories-first --icons "$@"
-      	builtin cd "$@" || exit
-      	export SOUNDS_ENABLED=1
-      	scheck && runbg aplay ${self}/assets/sound/cd.wav
+        local prev_sounds_enabled="$SOUNDS_ENABLED"
+        SOUNDS_ENABLED=0
+        eza -1 --group-directories-first --icons "$@"
+        SOUNDS_ENABLED=$prev_sounds_enabled
+        builtin cd "$@"
+        scheck && runbg aplay /nix/store/7a9w7np3qrvmzxjbs7xj05qq2yccgfsj-source/assets/sound/cd.wav
+        return 0
       }
       if [ ! -e $HOME/.zsh_history ]; then
       	touch $HOME/.zsh_history
