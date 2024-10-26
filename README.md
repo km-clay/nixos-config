@@ -9,34 +9,59 @@ My dots are written 100% in Nix so if you bring your own hardware-configuration.
 
 If you are on NixOS and have flakes enabled, you can just clone the repo and run sudo nixos-rebuild switch --flake /path/to/this-repo (again, just make sure you don't use my hardware configuration on your machine)
 
-<div style="text-align: center;">
-  <img src="./assets/screens/desktop.png" alt="Desktop" />
-</div>
+![blank-desktop](./assets/screens/blank-desktop.png)
+![busy-desktop](./assets/screens/desktop-busy.png)
+![toolbelt](./assets/screens/toolbelt_hq.gif)
 
-## Neat Features
-* *chscheme* - This script will open a fuzzy finder window containing all of the colorschemes available in the base16-schemes package on nixpkgs. It contains a preview showing you what the colors will look like in your terminal. Selecting one will replace the color scheme variable declaration in flake.nix, and rebuilding will change the color scheme of the entire system.
+## Programs
 
-<div style="text-align: center;">
-  <img src="./assets/screens/chscheme.png" alt="chscheme" />
-</div>
+| Component      | Program                                           |
+|----------------|---------------------------------------------------|
+| Window manager | [Hyprland](https://github.com/hyprwm/Hyprland)    |
+| Status Bar     | [Waybar](https://github.com/Alexays/Waybar)       |
+| Launcher       | [Fuzzel](https://codeberg.org/dnkl/fuzzel)        |
+| Terminal       | [Kitty](https://github.com/kovidgoyal/kitty)      |
+| Shell          | [zsh](https://zsh.sourceforge.io/)                |
+| Text Editor    | [Nixvim](https://github.com/nix-community/nixvim) |
+| Image Viewer   | [feh](https://github.com/derf/feh)                |
 
----
+```chpaper``` - opens a fzf window with filenames and previews of images in $FLAKEPATH/assets/wallpapers. Picking one replaces the existing wallpaper path in $FLAKEPATH/flake.nix with the one you chose.
 
-* *keyring* - This script leverages pass and fzf, and will open a fuzzy finder window containing all of the paths in ~/.password-store. When a path is selected, it will copy that password to your clipboard for 45 seconds. This script is bound to Super + P in the hyprland config.
+```chscheme``` - opens the full list of base16 color schemes in a fzf window, with a preview to see how the colors look in your terminal. When selected, replaces the chosen colorscheme in $FLAKEPATH/flake.nix with the on you chose.
 
-<div style="text-align: center;">
-  <img src="./assets/screens/keyring.png" alt="keyring" />
-</div>
+```keyring``` - opens a fzf window containing all of the paths in ~/.password-store. Selecting one will use pass to copy the corresponding password to your clipboard for up to 45 seconds.
 
----
+```toolbelt``` - opens a fzf menu containing some utilities that are nice to have in arm's reach; btop, alsamixer, the chpaper and chscheme scripts, among others
 
-* *invoke* - Try out commands by temporarily downloading them from nixpkgs without binding them to your system configuration. Basically an alias for `nix run nixpkgs#{command} -- {args}`
+```viconf``` - takes a partial path or filename as an argument. Attempts to find a corresponding .nix file or directory in $FLAKEPATH. If multiple matches are found, then it opens a fzf instance that allows you to choose one. Opens the file in neovim.
 
-<div style="text-align: center;">
-  <img src="./assets/screens/invoke.png" alt="invoke" />
-</div>
 
-* Terminal sound effects from earthbound :D
+```rebuild``` == ```nh os switch```
+
+```ga``` == ```git add```
+
+```gcomm``` == ```git commit```
+
+```gpull``` == ```git pull```
+
+```gpush``` == ```git push```
+
+```gt``` == ```gtrash```
+
+```gtp``` == ```gtrash put```
+
+```svc``` == ```sudo systemctl```
+
+```svcu``` == ```systemctl --user```
+
+```viflake``` == ```nvim flake.nix```
+
+```pk``` == ```pkill -9 -f```
+
+```psg``` == ```ps aux | grep -v grep | grep -i -e VSZ -e```
+
+```sr``` == ```source ~/.zshrc```
+
 
 ---
 

@@ -42,14 +42,12 @@
       cp = "cp -vr";
       gt = "gtrash";
       gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
-      grub-update = "sudo grub-mkconfig -o /boot/grub/grub.cfg";
       sr = "source ~/.zshrc";
       ".." = "cd ..";
       rm = "echo 'use \"gtp\" instead'";
       psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
       mkdir = "mkdir -p";
       pk = "pkill -9 -f";
-      zrc = "nvim $FLAKEPATH/modules/home/environment/zshell.nix";
       svcu = "systemctl --user";
       svc = "sudo systemctl";
       viflake = "nvim flake.nix";
