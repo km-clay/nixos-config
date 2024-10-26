@@ -41,7 +41,7 @@
       mv = "mv -v";
       cp = "cp -vr";
       gt = "gtrash";
-      gtp = "scheck && runbg aplay ${self}/assets/sound/rm.wav; gtrash put";
+      gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
       grub-update = "sudo grub-mkconfig -o /boot/grub/grub.cfg";
       sr = "source ~/.zshrc";
       ".." = "cd ..";
@@ -55,20 +55,64 @@
       viflake = "nvim flake.nix";
 
       #git
-      "ga." = "scheck && runbg aplay ${self}/assets/sound/gitadd.wav; git add .";
-      gcm = "gitcommit_sfx";
-      gpush = " git push && scheck && runbg aplay ${self}/assets/sound/gitpush.wav;";
-      gpull = " git pull && scheck && runbg aplay ${self}/assets/sound/gitpull.wav;";
+      "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
+      gcomm = "gitcommit_sfx";
+      gpush = "gitpush_sfx";
+      gpull = "gitpull_sfx";
+      greb = "gitrebase_sfx";
     };
     initExtra = ''
+      playshellsound() {
+        if [ $# -ne 1 ]; then
+          echo "Usage: playshellsound <path/to/sound>"
+          return 1
+        fi
+        if ! scheck; then
+          return 0
+        else
+          runbg aplay "$1"
+        fi
+      }
+      gitrebase_sfx() {
+        if git rebase "$@"; then
+          playshellsound ${self}/assets/sound/gitrebase.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
+        fi
+      }
       gitcommit_sfx() {
-        git commit -m "$1"
-        scheck && runbg aplay ${self}/assets/sound/gitcommit.wav
+        if git commit "$@"; then
+          playshellsound ${self}/assets/sound/gitcommit.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
+        fi
+      }
+      gitpush_sfx() {
+        if git push "$@"; then
+          playshellsound ${self}/assets/sound/gitpush.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
+        fi
+      }
+      gitpull_sfx() {
+        if git pull "$@"; then
+          playshellsound ${self}/assets/sound/gitpull.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
+        fi
       }
       unalias ls
       ls() {
       	eza -1 --group-directories-first --icons "$@"
-      	scheck && runbg aplay ${self}/assets/sound/ls.wav
+      	playshellsound ${self}/assets/sound/ls.wav
         return 0
       }
 
@@ -87,7 +131,7 @@
         eza -1 --group-directories-first --icons "$@"
         SOUNDS_ENABLED=$prev_sounds_enabled
         builtin cd "$@"
-        scheck && runbg aplay /nix/store/7a9w7np3qrvmzxjbs7xj05qq2yccgfsj-source/assets/sound/cd.wav
+        playshellsound /nix/store/7a9w7np3qrvmzxjbs7xj05qq2yccgfsj-source/assets/sound/cd.wav
         return 0
       }
       if [ ! -e $HOME/.zsh_history ]; then
@@ -134,7 +178,7 @@
       unalias ls
       clear
       splash
-      scheck && runbg aplay ${self}/assets/sound/sh-source.wav
+      playshellsound ${self}/assets/sound/sh-source.wav
       [ ! -f $FLAKEPATH/flake.nix ] && echo "WARNING: flake.nix not found at \$FLAKEPATH. Shell aliases for editing config files won't work correctly!" && echo "Edit the FLAKEPATH session variable in zshell.nix to point to the path where you saved the system configuration flake."
     '';
   };
