@@ -34,11 +34,13 @@ chpaper() {
 	done
 }
 
+running=true
+
 declare -A commands=(
     ["Change Wallpaper"]="chpaper"
-    ["Change System Color Scheme"]="exec hyprctl dispatch exec '[float;size 50% 70%;move onscreen cursor -50% -50%] kitty chscheme'"
-    ["Open System Monitor"]="exec hyprctl dispatch exec '[float;size 50% 70%;move onscreen cursor -50% -50%] kitty btop'"
-    ["Open Volume Controls"]="exec hyprctl dispatch exec '[float;size 50% 70%;move onscreen cursor -50% -50%] pavucontrol'"
+    ["Change System Color Scheme"]="hyprctl dispatch resizeactive 10% 80% && moveonscreen --center && if chscheme; then running=false; else hyprctl dispatch resizeactive exact 40% 25% && moveonscreen; fi"
+    ["Open System Monitor"]="hyprctl dispatch resizeactive 50% 70% moveactive onscreen cursor -50% -50%; kitty btop'"
+    ["Open Volume Controls"]="hyprctl dispatch exec '[float;size 50% 70%;move onscreen cursor -50% -50%] pavucontrol'"
     ["Open Keyring"]="exec hyprctl dispatch exec '[float;size 25% 30%;move onscreen cursor 20 20] [ ! -f /tmp/keyringfile ] && kitty keyring'"
     ["Calculator"]="calc"
 )
@@ -56,6 +58,7 @@ declare -A descriptions=(
 export -A descriptions
 
 # Use fzf to select a command with preview
+while $running; do
 selected_command=$(printf "%s\n" "''${!commands[@]}" | fzf --preview="
 cleaned_key=\$(echo {} | tr -d \"'\"); \
 echo \"Cleaned key: \$cleaned_key\"; \
@@ -77,7 +80,10 @@ fi" --prompt="> ")
 
 
  #Execute the selected command if selection is not empty
-if [[ -n $selected_command ]]; then
+	if [[ -n $selected_command ]]; then
 		eval "''${commands[$selected_command]}"
-fi
+	else
+		running=false
+	fi
+done
 ''

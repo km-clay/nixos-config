@@ -86,6 +86,7 @@
     self = self;
     pkgs = pkgs;
   };
+  moveonscreen = import ./wm-controls/moveonscreen.nix { pkgs = pkgs; };
   toolbelt = import ./commands/toolbelt.nix { pkgs = pkgs; };
   viconf = import ./commands/viconf.nix {
     pkgs = pkgs;
@@ -115,6 +116,7 @@ in {
     switchmon
     toggle_blur
     toggle_float
+    moveonscreen
     toggle_oppacity
     toggle_waybar
     toolbelt

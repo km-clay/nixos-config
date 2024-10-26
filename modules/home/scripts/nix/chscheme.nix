@@ -2,7 +2,7 @@
   pkgs,
 }:
 pkgs.writeShellScriptBin "chscheme" ''
-/usr/bin/env ls "$(nix-build '<nixpkgs>' -A base16-schemes)"/share/themes | \
+selected_scheme=$(/usr/bin/env ls "$(nix-build '<nixpkgs>' -A base16-schemes)"/share/themes | \
     sed 's/\.yaml//g' | \
     fzf --preview 'cat $(nix-build "<nixpkgs>" -A base16-schemes)/share/themes/{}.yaml | \
     while IFS=": " read -r key value; do \
@@ -13,15 +13,30 @@ pkgs.writeShellScriptBin "chscheme" ''
             b=$((16#''${clean_value:4:2})); \
             printf "\033[48;2;%d;%d;%dm %-20s %s \033[0m\n" $r $g $b $key $clean_value; \
         fi; \
-    done' | xargs -I {} sed -i '/base16scheme \=/s/\".*\"/\"{}\"/' "$FLAKEPATH"/flake.nix \
-    [ $? -ne 0 ] && echo "Aborting color scheme change." && exit 0
-		echo "Successfully changed system color scheme. Rebuild now?" && \
-		select choice in "Yes" "No"; do
-			case $choice in
-				"Yes")
-					rebuild;exit 0;;
-				"No")
-					echo "Exiting...";exit 0;;
-			esac
-		done
+    done')
+
+if [[ -z "$selected_scheme" ]]; then
+    echo "Aborting color scheme change."
+    exit 1
+fi
+
+echo "$selected_scheme" | xargs -I {} sed -i '/base16scheme\s*=\s*"/s/"[^"]*"/"{}"/' "$FLAKEPATH"/flake.nix
+if [ $? -ne 0 ]; then
+    echo "Failed to change color scheme."
+    exit 1
+fi
+
+echo "Successfully changed system color scheme. Rebuild now?"
+select choice in "Yes" "No"; do
+    case $choice in
+        "Yes")
+            rebuild
+            exit 0
+            ;;
+        "No")
+            echo "Exiting..."
+            exit 0
+            ;;
+    esac
+done
 ''
