@@ -41,7 +41,7 @@
       mv = "mv -v";
       cp = "cp -vr";
       gt = "gtrash";
-      gtp = "gtrash put";
+      gtp = "scheck && runbg aplay ${self}/assets/sound/rm.wav; gtrash put";
       grub-update = "sudo grub-mkconfig -o /boot/grub/grub.cfg";
       sr = "source ~/.zshrc";
       ".." = "cd ..";
@@ -58,9 +58,18 @@
       nixconf = "yazi $FLAKEPATH/modules/sys/ && popd &> /dev/null";
       hostconf = "yazi $FLAKEPATH/hosts && popd &> /dev/null";
       nvimcfg = "yazi $FLAKEPATH/pkgs/nixvim/config && popd &> /dev/null";
+
+      #git
+      "ga." = "scheck && runbg aplay ${self}/assets/sound/gitadd.wav; git add .";
+      gcm = "gitcommit_sfx";
+      gp = " git push && scheck && runbg aplay ${self}/assets/sound/gitpush.wav;";
     };
     initExtra = ''
 
+      gitcommit_sfx() {
+        git commit -m "$1"
+        scheck && runbg aplay ${self}/assets/sound/gitcommit.wav
+      }
       unalias ls
       ls() {
       	eza -1 --group-directories-first --icons "$@"
