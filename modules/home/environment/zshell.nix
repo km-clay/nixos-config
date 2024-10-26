@@ -53,11 +53,6 @@
       svcu = "systemctl --user";
       svc = "sudo systemctl";
       viflake = "nvim flake.nix";
-      hyprconf = "yazi $FLAKEPATH/modules/home/hyprland && popd &> /dev/null";
-      hmconf = "yazi $FLAKEPATH/modules/home/ && popd &> /dev/null";
-      nixconf = "yazi $FLAKEPATH/modules/sys/ && popd &> /dev/null";
-      hostconf = "yazi $FLAKEPATH/hosts && popd &> /dev/null";
-      nvimcfg = "yazi $FLAKEPATH/pkgs/nixvim/config && popd &> /dev/null";
 
       #git
       "ga." = "scheck && runbg aplay ${self}/assets/sound/gitadd.wav; git add .";
