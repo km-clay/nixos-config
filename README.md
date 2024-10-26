@@ -25,6 +25,8 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 | Text Editor    | [Nixvim](https://github.com/nix-community/nixvim) |
 | Image Viewer   | [feh](https://github.com/derf/feh)                |
 
+## Scripts
+
 ```chpaper``` - opens a fzf window with filenames and previews of images in $FLAKEPATH/assets/wallpapers. Picking one replaces the existing wallpaper path in $FLAKEPATH/flake.nix with the one you chose.
 
 ```chscheme``` - opens the full list of base16 color schemes in a fzf window, with a preview to see how the colors look in your terminal. When selected, replaces the chosen colorscheme in $FLAKEPATH/flake.nix with the on you chose.
@@ -35,6 +37,7 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 
 ```viconf``` - takes a partial path or filename as an argument. Attempts to find a corresponding .nix file or directory in $FLAKEPATH. If multiple matches are found, then it opens a fzf instance that allows you to choose one. Opens the file in neovim.
 
+## Aliases
 
 ```rebuild``` == ```nh os switch```
 
