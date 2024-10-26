@@ -57,7 +57,8 @@
       #git
       "ga." = "scheck && runbg aplay ${self}/assets/sound/gitadd.wav; git add .";
       gcm = "gitcommit_sfx";
-      gp = " git push && scheck && runbg aplay ${self}/assets/sound/gitpush.wav;";
+      gpush = " git push && scheck && runbg aplay ${self}/assets/sound/gitpush.wav;";
+      gpull = " git pull && scheck && runbg aplay ${self}/assets/sound/gitpull.wav;";
     };
     initExtra = ''
 

@@ -12,14 +12,6 @@
     self = self;
     pkgs = pkgs;
   };
-  crs = import ./commands/crs.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  extract = import ./commands/extract.nix {
-    self = self;
-    pkgs = pkgs;
-  };
   invoke = import ./commands/invoke.nix {
     self = self;
     pkgs = pkgs;
@@ -49,35 +41,7 @@
     pkgs = pkgs;
   };
   hyprland = import ./wm-controls/hyprland.nix {pkgs = pkgs;};
-  lofi = import ./wm-controls/lofi.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  music = import ./wm-controls/music.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  shutdown-script = import ./wm-controls/shutdown-script.nix {
-    self = self;
-    pkgs = pkgs;
-  };
   switchmon = import ./wm-controls/switchmon.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  toggle_blur = import ./wm-controls/toggle_blur.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  toggle_float = import ./wm-controls/toggle_float.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  toggle_oppacity = import ./wm-controls/toggle_oppacity.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  toggle_waybar = import ./wm-controls/toggle_waybar.nix {
     self = self;
     pkgs = pkgs;
   };
@@ -101,26 +65,17 @@ in {
     chpaper
 		chscheme
     keyring
-    crs
-    extract
     garbage-collect
     hyprland
     invoke
-    lofi
     mcd
-    music
     rebuild
     nsp
     runbg
     scheck
-    shutdown-script
     splash
     switchmon
-    toggle_blur
-    toggle_float
     moveonscreen
-    toggle_oppacity
-    toggle_waybar
     toolbelt
     viconf
   ];
