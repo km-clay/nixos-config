@@ -86,6 +86,7 @@
     self = self;
     pkgs = pkgs;
   };
+  toolbelt = import ./commands/toolbelt.nix { pkgs = pkgs; };
   viconf = import ./commands/viconf.nix {
     pkgs = pkgs;
   };
@@ -116,6 +117,7 @@ in {
     toggle_float
     toggle_oppacity
     toggle_waybar
+    toolbelt
     viconf
   ];
 }

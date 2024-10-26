@@ -45,7 +45,7 @@
 		base16scheme = "nord"; # can be easily changed with the chscheme script
 
     # Map colors from yaml to attribute set
-		# Extracting colors into a set here allows them to be propagated across the entire config
+		# Extracting colors into a set here allows them to be propagated across the entire config, with or without stylix
 		lib = nixpkgs.lib;
 		pkgs = import nixpkgs { system = "x86_64-linux"; };
     scheme_path = "${pkgs.base16-schemes}/share/themes/${base16scheme}.yaml";
