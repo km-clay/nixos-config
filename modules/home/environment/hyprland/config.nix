@@ -49,7 +49,7 @@ in
           "4,persistent=true,monitor:eDP-1"
         ];
 
-      layerrule = ["blur,waybar" "blur,launcher"];
+      layerrule = ["blur,waybar" "ignorezero,waybar" "blur,launcher"];
 
       input = {
         kb_layout = "us";
@@ -58,7 +58,6 @@ in
         force_no_accel = 1;
         sensitivity = 0;
       };
-
       general = {
         "$mainMod" = "super";
         layout = "dwindle";
@@ -111,6 +110,7 @@ in
           brightness = 1;
           contrast = 1.400;
           ignore_opacity = true;
+          popups = true;
           noise = 0;
           new_optimizations = true;
           xray = true;
