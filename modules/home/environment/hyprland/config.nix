@@ -160,6 +160,7 @@ in
           "super, q, exec, kitty --title Kitty"
           "super, d, exec, switchmon"
           "super, c, killactive,"
+          "super, e, exec, nemo"
           "super, p, exec, [float;size 40% 25%;move onscreen cursor] [ ! -f /tmp/keyringfile ] && kitty toolbelt"
           "super shift, q, exit,"
           "super, m, exec, fuzzel"

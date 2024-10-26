@@ -14,6 +14,12 @@
 
   gtk = {
     enable = true;
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-nord.override {
+        accent = "frostblue4";
+      };
+    };
 	#cursorTheme = {
 	#	name = "Bibata-Modern-Ice";
 	#	package = pkgs.bibata-cursors;

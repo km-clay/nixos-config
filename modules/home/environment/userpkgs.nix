@@ -36,6 +36,7 @@ in {
   home.packages = with pkgs;
     [
       chafa
+      nemo
 			flavours
 			ags
 			sassc
