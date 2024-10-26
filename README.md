@@ -33,7 +33,7 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 
 ```keyring``` - opens a fzf window containing all of the paths in ~/.password-store. Selecting one will use pass to copy the corresponding password to your clipboard for up to 45 seconds.
 
-```toolbelt``` - opens a fzf menu containing some utilities that are nice to have in arm's reach; btop, alsamixer, the chpaper and chscheme scripts, among others
+```toolbelt``` - opens a fzf menu containing some utilities that are nice to have in arm's reach; btop, alsamixer, the chpaper and chscheme scripts, among others. Bound to Super + P in the hyprland config by default.
 
 ```viconf``` - takes a partial path or filename as an argument. Attempts to find a corresponding .nix file or directory in $FLAKEPATH. If multiple matches are found, then it opens a fzf instance that allows you to choose one. Opens the file in neovim.
 
