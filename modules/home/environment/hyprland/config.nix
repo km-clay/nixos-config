@@ -50,6 +50,7 @@ in
         ];
 
       layerrule = ["blur,waybar" "ignorezero,waybar" "blur,launcher"];
+      windowrule = ["opacity 0.8,nemo"];
 
       input = {
         kb_layout = "us";
