@@ -90,21 +90,21 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 </details>
 <details>
     <summary>Navigation</summary>
-    ```super + b``` = togglesplit, # dwindle
+    ```super + b``` = change split direction
 
-    ```super + f``` = togglefloating
+    ```super + f``` = float/unfloat window
 
     ```super + g``` = fullscreen
 
-    ```super + h``` = movefocus, l
+    ```super + h``` = move focus left
 
-    ```super + l``` = movefocus, r
+    ```super + l``` = move focus right
 
-    ```super + k``` = movefocus, u
+    ```super + k``` = move focus up
 
-    ```super + j``` = movefocus, d
+    ```super + j``` = move focus down
 
-    ```super + d``` = exec, switchmon
+    ```super + d``` = switch focus to other monitor
 
     ```super + 1``` = go to workspace 1
 
