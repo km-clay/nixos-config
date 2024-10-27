@@ -29,7 +29,7 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 
 ```chpaper``` - opens a fzf window with filenames and previews of images in $FLAKEPATH/assets/wallpapers. Picking one replaces the existing wallpaper path in $FLAKEPATH/flake.nix with the one you chose.
 
-```chscheme``` - opens the full list of base16 color schemes in a fzf window, with a preview to see how the colors look in your terminal. When selected, replaces the chosen colorscheme in $FLAKEPATH/flake.nix with the on you chose.
+```chscheme``` - opens the full list of base16 color schemes in a fzf window, with a preview to see how the colors look in your terminal. When selected, replaces the chosen colorscheme in $FLAKEPATH/flake.nix with the one you chose.
 
 ```keyring``` - opens a fzf window containing all of the paths in ~/.password-store. Selecting one will use pass to copy the corresponding password to your clipboard for up to 45 seconds.
 
