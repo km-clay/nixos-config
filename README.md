@@ -118,21 +118,21 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 
     ```super + 6``` = go to workspace 6
 
-    ```super + shift + 1``` = movetoworkspace, 1
+    ```super + shift + 1``` = move active window to workspace 1
 
-    ```super + shift + 2``` = movetoworkspace, 2
+    ```super + shift + 2``` = move active window to workspace 2
 
-    ```super + shift + 3``` = movetoworkspace, 3
+    ```super + shift + 3``` = move active window to workspace 3
 
-    ```super + shift + 4``` = movetoworkspace, 4
+    ```super + shift + 4``` = move active window to workspace 4
 
-    ```super + shift + 5``` = movetoworkspace, 5
+    ```super + shift + 5``` = move active window to workspace 5
 
-    ```super + shift + 6``` = movetoworkspace, 6
+    ```super + shift + 6``` = move active window to workspace 6
 
-    ```super + s``` = togglespecialworkspace, magic
+    ```super + s``` = toggle scrachpad
 
-    ```super + shift + s``` = movetoworkspace, special:magic
+    ```super + shift + s``` = move active window to scratchpad
 
 </details>
 
