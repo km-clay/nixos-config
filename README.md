@@ -65,6 +65,76 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 
 ```sr``` == ```source ~/.zshrc```
 
+## Bindings
+'mod' is Super by default.
+<details>
+    <summary>Utility</summary>
+    ```mod + printscreen``` = grimblast copy area
+
+    ```mod + t``` = open swaync-client
+
+    ```mod + a``` = open firefox
+
+    ```mod + q``` = open kitty
+
+    ```mod + c``` = kill active window
+
+    ```mod + e``` = open nemo (file browser)
+
+    ```mod + p``` = open toolbelt script window
+
+    ```mod + m``` = open fuzzel (application launcher)
+
+    ```mod + r``` = open neovide (neovim GUI)
+
+</details>
+<details>
+    <summary>Navigation</summary>
+    ```super + b``` = togglesplit, # dwindle
+
+    ```super + f``` = togglefloating
+
+    ```super + g``` = fullscreen
+
+    ```super + h``` = movefocus, l
+
+    ```super + l``` = movefocus, r
+
+    ```super + k``` = movefocus, u
+
+    ```super + j``` = movefocus, d
+
+    ```super + d``` = exec, switchmon
+
+    ```super + 1``` = go to workspace 1
+
+    ```super + 2``` = go to workspace 2
+
+    ```super + 3``` = go to workspace 3
+
+    ```super + 4``` = go to workspace 4
+
+    ```super + 5``` = go to workspace 5
+
+    ```super + 6``` = go to workspace 6
+
+    ```super + shift + 1``` = movetoworkspace, 1
+
+    ```super + shift + 2``` = movetoworkspace, 2
+
+    ```super + shift + 3``` = movetoworkspace, 3
+
+    ```super + shift + 4``` = movetoworkspace, 4
+
+    ```super + shift + 5``` = movetoworkspace, 5
+
+    ```super + shift + 6``` = movetoworkspace, 6
+
+    ```super + s``` = togglespecialworkspace, magic
+
+    ```super + shift + s``` = movetoworkspace, special:magic
+
+</details>
 
 ---
 
