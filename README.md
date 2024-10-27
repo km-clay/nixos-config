@@ -145,3 +145,5 @@ Important note: Some aspects of the configuration are hard coded. these include
 * Hyprland config: hardcoded display outputs
 * Waybar config: hardcoded display outputs
 * Git config: set up like userEmail = ${username}@gmail.com, userName = ${username}, so these will be substituted with whatever you put as the username in the flake.nix file.
+
+Many of the scripts use the $FLAKEPATH environment variable, which is set to $HOME/.sysflake by default. This variable should contain the path to this flake.
