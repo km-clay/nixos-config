@@ -30,18 +30,6 @@ declare -A commands=(
     ["Calculator"]="calc"
 )
 
-declare -A descriptions=(
-    ["Change Wallpaper"]="Choose a wallpaper to switch to from \$FLAKEPATH/assets/wallpapers. Requires rebuilding the system and restarting hyprpaper."
-    ["Change System Color Scheme"]="Changes the base16 color scheme used by stylix to color system applications."
-    ["Open System Monitor"]="Opens a btop window."
-    ["Open Volume Controls"]="Opens pavucontrol."
-    ["Open Keyring"]="Opens a fuzzy finder with all of the paths held in ~/.password-store. Selecting one uses pass to copy that password to the clipboard. Password is cleared from clipboard history after 45 seconds."
-    ["Calculator"]="Wrapper for bc. Output is copied to the clipboard."
-)
-
-# Export the descriptions array so it's available to the subshell
-export -A descriptions
-
 # Use fzf to select a command with preview
 while $running; do
 selected_command=$(printf "%s\n" "''${!commands[@]}" | fzf --preview="
@@ -51,7 +39,7 @@ declare -A descriptions=(
     [\"Change Wallpaper\"]=\"Choose a wallpaper to switch to from the assets/wallpapers folder in the system flake directory. Requires rebuilding the system and restarting hyprpaper.\"
     [\"Change System Color Scheme\"]=\"Changes the base16 color scheme used by stylix to color system applications.\"
     [\"Open System Monitor\"]=\"Opens a btop window.\"
-    [\"Open Volume Controls\"]=\"Opens pavucontrol.\"
+    [\"Open Volume Controls\"]=\"Opens alsamixer.\"
     [\"Open Keyring\"]=\"Opens a fuzzy finder with all of the paths held in ~/.password-store. Selecting one uses pass to copy that password to the clipboard. Password is cleared from clipboard history after 45 seconds.\"
     [\"Calculator\"]=\"Wrapper for bc. Output is copied to the clipboard.\"
 ); \

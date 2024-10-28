@@ -73,5 +73,5 @@ else
     adjusted_y=$cursor_y
 fi
 
-hyprctl dispatch moveactive exact "$adjusted_x $adjusted_y"
+hyprctl dispatch moveactive exact "$adjusted_x $adjusted_y" > /dev/null 2>&1
 ''
