@@ -9,6 +9,8 @@ My dots are written 100% in Nix so if you bring your own hardware-configuration.
 
 If you are on NixOS and have flakes enabled, you can just clone the repo and run sudo nixos-rebuild switch --flake /path/to/this-repo (again, just make sure you don't use my hardware configuration on your machine)
 
+## Gallery
+
 ![desktop-neofetch](./assets/screens/desktop-neofetch.png)
 ![busy-desktop](./assets/screens/desktop-busy.png)
 ![toolbelt](./assets/screens/toolbelt_hq.gif)
@@ -66,6 +68,7 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 ```sr``` == ```source ~/.zshrc```
 
 ## Bindings
+
 'mod' is Super by default.
 <details>
     <summary>Utility</summary>
@@ -142,3 +145,5 @@ Important note: Some aspects of the configuration are hard coded. these include
 * Hyprland config: hardcoded display outputs
 * Waybar config: hardcoded display outputs
 * Git config: set up like userEmail = ${username}@gmail.com, userName = ${username}, so these will be substituted with whatever you put as the username in the flake.nix file.
+
+Many of the scripts use the $FLAKEPATH environment variable, which is set to $HOME/.sysflake by default. This variable should contain the path to this flake.
