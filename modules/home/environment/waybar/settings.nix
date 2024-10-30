@@ -95,7 +95,26 @@ in
 
     "custom/disk-icon" = {
       exec = ''
-      df /dev/disk/by-partlabel/disk-main-home | awk '$6 == "/home" {printf "{\"class\": \"disk-icon\", \"tooltip\": \"/home: %.1fGB / %.1fTB\", \"percentage\": \"%.0f\"}\n", $3 / 1024 / 1024, $2 / 1024 / 1024 / 1024, $5}' | jq --unbuffered --compact-output
+        df /dev/disk/by-partlabel/disk-main-home /dev/disk/by-partlabel/disk-main-nix | awk '
+          function format(size) {
+            if (size >= 1024) return sprintf("%.1fTB", size / 1024)
+            else return sprintf("%.1fGB", size)
+          }
+          $6 == "/home" {
+            home_usage = $3 / 1024 / 1024
+            home_total = $2 / 1024 / 1024
+            home_percent = $5
+            sub(/%/,"",home_percent)
+          }
+          $6 == "/nix" {
+            nix_usage = $3 / 1024 / 1024
+            nix_total = $2 / 1024 / 1024
+            nix_percent = $5
+          }
+          END {
+            printf "{\"class\": \"disk-icon\", \"tooltip\": \"/home: %s / %s, /nix: %s / %s\", \"percentage\": \"%s\"}\n",
+            format(home_usage), format(home_total), format(nix_usage), format(nix_total), home_percent
+          }' | jq --unbuffered --compact-output
       '';
       interval = 60;
       return-type = "json";
