@@ -24,10 +24,6 @@
     self = self;
     pkgs = pkgs;
   };
-  mcd = import ./commands/mcd.nix {
-    self = self;
-    pkgs = pkgs;
-  };
   garbage-collect = import ./nix/garbage-collect.nix {
     self = self;
     pkgs = pkgs;
@@ -61,7 +57,6 @@ in {
     keyring
     garbage-collect
     invoke
-    mcd
     rebuild
     nsp
     runbg

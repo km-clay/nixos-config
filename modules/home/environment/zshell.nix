@@ -114,6 +114,10 @@
         return 0
       }
 
+      mkcd() {
+        mkdir -p "$1" && cd "$1"
+      }
+
       y() {
       	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
       	yazi "$@" --cwd-file="$tmp"
