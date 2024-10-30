@@ -49,8 +49,19 @@ in
           "4,persistent=true,monitor:eDP-1"
         ];
 
-      layerrule = ["blur,waybar" "ignorezero,waybar" "blur,launcher"];
-      windowrule = ["opacity 0.8,nemo"];
+      env = [
+        "XDG_CONFIG_HOME,$HOME/.config"
+        "XDG_DATA_HOME,$HOME/.local/share"
+        "XDG_CACHE_HOME,$HOME/.cache"
+      ];
+      layerrule = [
+        "blur,waybar"
+        "ignorezero,waybar"
+        "blur,launcher"
+      ];
+      windowrule = [
+        "opacity 0.8,nemo"
+      ];
 
       input = {
         kb_layout = "us";
