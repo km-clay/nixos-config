@@ -1,4 +1,3 @@
-
 {
   inputs,
   nixpkgs,
@@ -9,8 +8,8 @@
   host,
   ...
 }:  {
-  imports = 
+  imports =
 		[(import ./sddm.nix)]
+    ++ [(import ./issue.nix)]
 		++ [(import ./stylix.nix)];
 }
-

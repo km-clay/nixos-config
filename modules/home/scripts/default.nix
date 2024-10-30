@@ -36,7 +36,6 @@
     self = self;
     pkgs = pkgs;
   };
-  hyprland = import ./wm-controls/hyprland.nix {pkgs = pkgs;};
   switchmon = import ./wm-controls/switchmon.nix {
     self = self;
     pkgs = pkgs;
@@ -61,7 +60,6 @@ in {
 		chscheme
     keyring
     garbage-collect
-    hyprland
     invoke
     mcd
     rebuild
