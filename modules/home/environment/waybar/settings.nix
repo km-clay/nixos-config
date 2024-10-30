@@ -112,7 +112,7 @@ in
             nix_percent = $5
           }
           END {
-            printf "{\"class\": \"disk-icon\", \"tooltip\": \"/home: %s / %s, /nix: %s / %s\", \"percentage\": \"%s\"}\n",
+            printf "{\"class\": \"disk-icon\", \"tooltip\": \"/home: %s / %s\\n/nix: %s / %s\", \"percentage\": \"%s\"}\n",
             format(home_usage), format(home_total), format(nix_usage), format(nix_total), home_percent
           }' | jq --unbuffered --compact-output
       '';
