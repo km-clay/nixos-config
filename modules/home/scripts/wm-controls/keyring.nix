@@ -15,8 +15,20 @@ pkgs.writeShellScriptBin "keyring" ''
 
   [ $? = 0 ] || { [ -f /tmp/keyringfile ] && /run/current-system/sw/bin/rm /tmp/keyringfile; exit 1; }
 
-  	# pass it through fmt for soft word wrapping
-  pass -c "$pass_string" | fmt -w 45
+  # prevents cliphist from writing passwords to the clipboard history
+  pkill -STOP wl-paste
+
+  # copy password
+  pass -c "$pass_string" > /dev/null
+  echo "Password copied. Clearing clipboard in 10 seconds."
+
+  # start a timer for 10 seconds, clear clipboard, resume cliphist tracking
+  nohup bash <<- EOF &
+    sleep 10
+    wl-copy -c
+    pkill -CONT wl-paste
+  EOF
+
   /run/current-system/sw/bin/rm /tmp/keyringfile
   sleep 0.5
   exit 0

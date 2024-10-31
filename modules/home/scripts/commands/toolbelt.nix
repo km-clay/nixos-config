@@ -12,6 +12,7 @@ cliphistory() {
     else \
         cliphist decode \"\$index\" | fmt -w 30; \
     fi" --prompt="> " | awk '{print $1}')
+  [ -z "$selection" ] && return 1
   cliphist decode "$selection" | wl-copy
 }
 btop_cmd() {
