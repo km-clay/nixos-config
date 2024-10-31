@@ -27,6 +27,14 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 | Text Editor    | [Nixvim](https://github.com/nix-community/nixvim) |
 | Image Viewer   | [feh](https://github.com/derf/feh)                |
 
+## Configs
+
+Currently there are two complete system configurations available. These are:
+
+* **Oganesson** - My desktop configuration. Generalist workflow which includes virtualization and gaming features.
+* **Mercury** - My laptop configuration. My laptop is a pretty weak machine so this configuration is stripped down a bit.
+The 'Xenon' config is my server configuration and is highly unlikely to be of use to anyone but me, as the setup has some very specific use-cases.
+
 ## Scripts
 
 ```chpaper``` - opens a fzf window with filenames and previews of images in $FLAKEPATH/assets/wallpapers. Picking one replaces the existing wallpaper path in $FLAKEPATH/flake.nix with the one you chose.
