@@ -19,12 +19,29 @@ calc() {
 	read -n 1 -s
 }
 
+hostname=$(cat /etc/hostname)
+btop_cmd() {
+  if [ "$hostname" = 'oganesson' ]; then
+    hyprctl dispatch resizeactive 20% 140% &&
+    moveonscreen --center &&
+    btop &&
+    hyprctl dispatch resizeactive exact 40% 25% &&
+    moveonscreen
+  else
+    hyprctl dispatch resizeactive exact 60% 68% &&
+    moveonscreen --center &&
+    btop &&
+    hyprctl dispatch resizeactive exact 40% 25% &&
+    moveonscreen
+  fi
+}
+
 running=true
 
 declare -A commands=(
     ["Change Wallpaper"]="moveonscreen --center && if chpaper; then running=false; else moveonscreen; fi"
     ["Change System Color Scheme"]="hyprctl dispatch resizeactive 10% 80% && moveonscreen --center && if chscheme; then running=false; else hyprctl dispatch resizeactive exact 40% 25% && moveonscreen; fi"
-    ["Open System Monitor"]="hyprctl dispatch resizeactive 20% 140% && moveonscreen --center && btop && hyprctl dispatch resizeactive exact 40% 25% && moveonscreen"
+    ["Open System Monitor"]="hyprctl dispatch resizeactive 20% 140% && moveonscreen --center && btop_cmd && hyprctl dispatch resizeactive exact 40% 25% && moveonscreen"
     ["Open Volume Controls"]="hyprctl dispatch resizeactive 10% 80% && moveonscreen --center && alsamixer && hyprctl dispatch resizeactive exact 40% 25% && moveonscreen"
     ["Open Keyring"]="hyprctl dispatch resizeactive -300 0 && moveonscreen && if keyring; then running=false; else hyprctl dispatch resizeactive exact 40% 25% && moveonscreen; fi"
     ["Calculator"]="calc"
