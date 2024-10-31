@@ -1,12 +1,16 @@
 {
   username,
   host,
-	scheme,
   ...
 }:
 
 let
   desktop = (host == "oganesson");
+  screenshot_bind = if desktop then [ # My laptop does not have a printscreen button
+          "super, print, exec, grimblast copy area"
+        ] else [
+          "super, insert, exec, grimblast copy area"
+        ];
 in
 {
   wayland.windowManager.hyprland = {
@@ -24,7 +28,8 @@ in
       exec-once = [
         "waybar &"
         "swaync &"
-        "wl-paste --watch cliphist store &"
+        "wl-paste --type text --watch cliphist store &"
+        "wl-paste --type image --watch cliphist store &"
         "wl-clip-persist --clipboard both"
         "systemctl --user import-environment &"
         "hash dbus-update-activation-environment 2>/dev/null &"
@@ -166,7 +171,6 @@ in
         bind = [
           "super, up, exec, pactl set-sink-volume @default_sink@ +10%"
           "super, down, exec, pactl set-sink-volume @default_sink@ -10%"
-          "super, print, exec, grimblast copy area"
           "super, t, exec, swaync-client -t -sw"
           "super, a, exec, firefox"
           "super, q, exec, kitty --title Kitty"
@@ -203,7 +207,7 @@ in
           "super shift, 6, movetoworkspace, 6"
           "super, s, togglespecialworkspace, magic"
           "super shift, s, movetoworkspace, special:magic"
-        ];
+        ] ++ screenshot_bind;
         bindm = [
           "super, mouse:272, movewindow"
           "super, mouse:273, resizewindow"

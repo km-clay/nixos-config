@@ -12,6 +12,7 @@
 		cabal-install
     clang
     clang-tools
+    cliphist
     cmake
     fail2ban
     feh
