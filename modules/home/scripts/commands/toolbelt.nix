@@ -4,15 +4,15 @@ pkgs.writeShellScriptBin "toolbelt" ''
 hostname=$(cat /etc/hostname)
 
 cliphistory() {
-cliphist list | fzf --preview="
+  selection=$(cliphist list | fzf --preview="
     index=\$(echo {} | awk '{print \$1}'); \
     mime=\$(cliphist decode \$index | file -i -); \
     if echo \"\$mime\" | grep -q 'image'; then \
         echo \$(cliphist list | rg \"^\$index\" | cut -d ' ' -f 2- | fmt -w 30); \
     else \
         cliphist decode \"\$index\" | fmt -w 30; \
-    fi
-" --prompt="> " | wl-copy
+    fi" --prompt="> " | awk '{print $1}')
+  cliphist decode "$selection" | wl-copy
 }
 btop_cmd() {
   if [ "$hostname" = 'oganesson' ]; then
