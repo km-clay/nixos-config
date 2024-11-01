@@ -10,5 +10,6 @@
   imports = [
     ./../../modules/server
     ./settings.nix
+    ./hardware.nix
   ];
 }

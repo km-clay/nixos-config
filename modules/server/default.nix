@@ -4,11 +4,14 @@
   scheme,
   wallpaper,
   username,
+  host,
   ...
 }: {
   imports = [
-    ./services.nix
     ../sys/software/nixvim
-    ../home/environment/zshell.nix
+    ../sys/hardware/bootloader.nix
+    ./services.nix
+    ./home.nix
+    ./packages.nix
   ];
 }
