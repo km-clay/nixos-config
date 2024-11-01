@@ -2,9 +2,9 @@
   lib,
   pkgs,
   modulesPath,
+  inputs,
   ...
 }: let
-  install-script = pkgs.writeShellScriptBin "movcfg-install" (builtins.readFile ./movcfg-install.sh);
   extraFigletFonts = pkgs.fetchFromGitHub {
     owner = "xero";
     repo = "figlet-fonts";
@@ -23,6 +23,8 @@
 in {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+    inputs.home-manager.nixosModules.home-manager
+    ../../modules/sys/software/nixvim
   ];
   nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "24.05";
@@ -35,6 +37,7 @@ in {
   networking = {
     wireless.enable = false;
     networkmanager.enable = true;
+    hostName = "mov-nixos-installer";
   };
 
   environment.systemPackages = with pkgs; [
@@ -57,16 +60,27 @@ in {
     pciutils
     usbutils
     toilet-extrafonts
-    install-script
-    nvim
   ];
+
+  home-manager = {
+    users.root = {
+      programs.home-manager.enable = true;
+      home= {
+        stateVersion = "24.05";
+        file = {
+          "disko.nix".source = ./disko-ext4-singledisk.nix;
+        };
+      };
+    };
+  };
 
   services = {
     openssh.enable = true;
     dbus.enable = true;
   };
 
-  programs.zsh = {
+  programs = {
+    zsh = {
     enable = true;
 
     ohMyZsh = {
@@ -167,56 +181,57 @@ in {
       unalias ls
       clear
     '';
-  };
-  programs.starship = {
-    enable = true;
-    settings = {
-      add_newline = true;
-      right_format = "($custom)";
+    };
+    starship = {
+      enable = true;
+      settings = {
+        add_newline = true;
+        right_format = "($custom)";
 
-      format = lib.concatStrings [
-        "($username)(bold white)($cmd_duration)($character)"
-        "($git_branch)($git_status)($rust)($nix-shell)"
-        "($directory)"
-        "$line_break[ > ](bold #89b4fa)"
-      ];
+        format = lib.concatStrings [
+          "($username)(bold white)($cmd_duration)($character)"
+          "($git_branch)($git_status)($rust)($nix-shell)"
+          "($directory)"
+          "$line_break[ > ](bold #89b4fa)"
+        ];
 
-      username = {
-        show_always = true;
-        style_user = "bold white";
-        format = "[$user]($style)";
-      };
-      directory = {
-        format = "\n[$path](bold cyan)[/](bold green) ";
-        style = "bold #b4befe";
-      };
+        username = {
+          show_always = true;
+          style_user = "bold white";
+          format = "[$user]($style)";
+        };
+        directory = {
+          format = "\n[$path](bold cyan)[/](bold green) ";
+          style = "bold #b4befe";
+        };
 
-      character = {
-        success_symbol = "[ -> ](bold green)";
-        error_symbol = "[ -> ✗](bold red)";
-        # error_symbol = "[ ](bold #89dceb)[ ✗](bold red)";
-      };
+        character = {
+          success_symbol = "[ -> ](bold green)";
+          error_symbol = "[ -> ✗](bold red)";
+          # error_symbol = "[ ](bold #89dceb)[ ✗](bold red)";
+        };
 
-      cmd_duration = {
-        format = "[ 󰔛 $duration]($style)";
-        disabled = false;
-        style = "bg:none fg:#f9e2af";
-        show_notifications = false;
-        min_time_to_notify = 60000;
-      };
+        cmd_duration = {
+          format = "[ 󰔛 $duration]($style)";
+          disabled = false;
+          style = "bg:none fg:#f9e2af";
+          show_notifications = false;
+          min_time_to_notify = 60000;
+        };
 
-      git_branch = {
-        format = "\non [$symbol$branch](bold purple)";
-        symbol = " ";
-        truncation_length = 15;
-        style = "bold purple";
-      };
+        git_branch = {
+          format = "\non [$symbol$branch](bold purple)";
+          symbol = " ";
+          truncation_length = 15;
+          style = "bold purple";
+        };
 
-      custom.shellver = {
-        command = "zsh --version";
-        when = ''test $SHELL = "/run/current-system/sw/bin/zsh"'';
-        symbol = "";
-        style = "bold magenta";
+        custom.shellver = {
+          command = "zsh --version";
+          when = ''test $SHELL = "/run/current-system/sw/bin/zsh"'';
+          symbol = "";
+          style = "bold magenta";
+        };
       };
     };
   };

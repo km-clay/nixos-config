@@ -10,6 +10,7 @@
   ...
 }: let
   nur = config.nur;
+  desktop = (host == "oganesson");
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];
   home-manager = {
@@ -18,12 +19,12 @@ in {
     backupFileExtension = "backup";
     extraSpecialArgs = {inherit self inputs host wallpaper scheme username nur;};
     users.${username} = {
-      dconf.settings = {
+      dconf.settings = if desktop then {
         "org/virt-manager/virt-manager/connections" = {
           autoconnect = ["qemu:///system"];
           uris = ["qemu:///system"];
         };
-      };
+      } else {};
       programs.home-manager.enable = true;
       imports = [
         ./programs
