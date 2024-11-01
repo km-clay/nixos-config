@@ -13,6 +13,14 @@
     };
   };
 
+  networking = {
+    networkmanager.enable = true;
+    hostName = "xenon";
+    firewall = {
+      enable = true;
+    };
+  };
+
   environment = {
     variables = {
       PATH = "${pkgs.clang-tools}/bin:$PATH";

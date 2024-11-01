@@ -9,5 +9,6 @@
   imports = [
     ./services.nix
     ../sys/software/nixvim
+    ../home/environment/zshell.nix
   ];
 }
