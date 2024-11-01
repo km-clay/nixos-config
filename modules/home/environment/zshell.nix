@@ -54,6 +54,7 @@
 
       #git
       "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
+      gco = "gitcheckout_sfx";
       gcomm = "gitcommit_sfx";
       gpush = "gitpush_sfx";
       gpull = "gitpull_sfx";
@@ -69,6 +70,15 @@
           return 0
         else
           runbg aplay "$1"
+        fi
+      }
+      gitcheckout_sfx() {
+        if git checkout "$@"; then
+          playshellsound ${self}/assets/sound/gitcheckout.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
         fi
       }
       gitrebase_sfx() {
