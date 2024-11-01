@@ -13,4 +13,8 @@
     "d /home/${username}/inbox 0770 ${username} users -"
     "d /home/${username}/outbox 0770 ${username} users -"
   ];
+  services.openssh = {
+    enable = true;
+    allowSFTP = true;
+  };
 }
