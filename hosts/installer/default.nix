@@ -5,21 +5,21 @@
   ...
 }: let
   install-script = pkgs.writeShellScriptBin "movcfg-install" (builtins.readFile ./movcfg-install.sh);
-	extraFigletFonts = pkgs.fetchFromGitHub {
-      owner = "xero";
-      repo = "figlet-fonts";
-      rev = "master";
-      sha256 = "sha256-dAs7N66D2Fpy4/UB5Za1r2qb1iSAJR6TMmau1asxgtY=";
-	};
-	toilet-extrafonts = pkgs.toilet.overrideAttrs (oldAttrs: {
-		buildInputs = oldAttrs.buildInputs or [] ++ [extraFigletFonts];
+  extraFigletFonts = pkgs.fetchFromGitHub {
+    owner = "xero";
+    repo = "figlet-fonts";
+    rev = "master";
+    sha256 = "sha256-dAs7N66D2Fpy4/UB5Za1r2qb1iSAJR6TMmau1asxgtY=";
+  };
+  toilet-extrafonts = pkgs.toilet.overrideAttrs (oldAttrs: {
+    buildInputs = oldAttrs.buildInputs or [] ++ [extraFigletFonts];
 
-		installPhase = ''
-			make install PREFIX=$out
-			mkdir -p $out/share/figlet
-			cp -r ${extraFigletFonts}/* $out/share/figlet
-		'';
-	});
+    installPhase = ''
+      make install PREFIX=$out
+      mkdir -p $out/share/figlet
+      cp -r ${extraFigletFonts}/* $out/share/figlet
+    '';
+  });
 in {
   imports = [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"

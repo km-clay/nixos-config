@@ -5,11 +5,13 @@
 }: {
   fonts.fontconfig.enable = true;
   home.packages = with pkgs; [
-		(nerdfonts.override { fonts = [
-			"JetBrainsMono"
-			"CascadiaCode"
-			"NerdFontsSymbolsOnly"
-		]; })
+    (nerdfonts.override {
+      fonts = [
+        "JetBrainsMono"
+        "CascadiaCode"
+        "NerdFontsSymbolsOnly"
+      ];
+    })
   ];
 
   gtk = {
@@ -20,14 +22,14 @@
         accent = "frostblue4";
       };
     };
-	#cursorTheme = {
-	#	name = "Bibata-Modern-Ice";
-	#	package = pkgs.bibata-cursors;
-	#	size = 16;
-	#};
-	#font = {
-	#	name = "Iosevka Nerd Font";
-	#	package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
-	#};
+    #cursorTheme = {
+    #	name = "Bibata-Modern-Ice";
+    #	package = pkgs.bibata-cursors;
+    #	size = 16;
+    #};
+    #font = {
+    #	name = "Iosevka Nerd Font";
+    #	package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
+    #};
   };
 }

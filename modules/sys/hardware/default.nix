@@ -1,16 +1,14 @@
-
 {
   inputs,
   nixpkgs,
-	nixvim,
+  nixvim,
   config,
   self,
   username,
   host,
   ...
-}:  {
-  imports = 
-		[( import ./bootloader.nix )]
-		++ [( import ./network.nix )];
+}: {
+  imports =
+    [(import ./bootloader.nix)]
+    ++ [(import ./network.nix)];
 }
-

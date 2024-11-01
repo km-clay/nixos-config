@@ -9,7 +9,7 @@
     alsa-utils
     bc
     cava
-		cabal-install
+    cabal-install
     clang
     clang-tools
     cliphist

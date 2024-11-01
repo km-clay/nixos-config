@@ -1,3 +1,8 @@
-{config,inputs,scheme,wallpaper,username,...}:
-
-{}
+{
+  config,
+  inputs,
+  scheme,
+  wallpaper,
+  username,
+  ...
+}: {}

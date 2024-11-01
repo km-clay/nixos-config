@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
-	programs.nixvim = {
-		extraPlugins = [
-			(pkgs.vimUtils.buildVimPlugin {
+{pkgs, ...}: {
+  programs.nixvim = {
+    extraPlugins = [
+      (pkgs.vimUtils.buildVimPlugin {
         name = "haskell-tools.nvim";
         src = pkgs.fetchFromGitHub {
           owner = "mrcjkb";
@@ -10,9 +10,9 @@
           hash = "sha256-f+M35EwAlHwjJ2Xs2u9FLnyH0FJT22D0LLShDXCbEEs=";
         };
       })
-		];
-		plugins = {
-			haskell-scope-highlighting.enable = true;
-		};
-	};
+    ];
+    plugins = {
+      haskell-scope-highlighting.enable = true;
+    };
+  };
 }

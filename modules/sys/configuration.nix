@@ -6,12 +6,11 @@
   username,
   host,
   ...
-}:  {
+}: {
   imports = [
-		./hardware
-		./software
-		./environment
-		../home/home-manager.nix
-	];
+    ./hardware
+    ./software
+    ./environment
+    ../home/home-manager.nix
+  ];
 }
-

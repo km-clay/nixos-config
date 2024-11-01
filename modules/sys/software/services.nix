@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   services = {
     pipewire = {
       enable = true;
@@ -11,6 +11,9 @@
     dbus.enable = true;
     mullvad-vpn.enable = true;
     blueman.enable = true;
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      allowSFTP = true;
+    };
   };
 }

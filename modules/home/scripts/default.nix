@@ -41,19 +41,19 @@
     self = self;
     pkgs = pkgs;
   };
-  moveonscreen = import ./wm-controls/moveonscreen.nix { pkgs = pkgs; };
-  toolbelt = import ./commands/toolbelt.nix { pkgs = pkgs; };
+  moveonscreen = import ./wm-controls/moveonscreen.nix {pkgs = pkgs;};
+  toolbelt = import ./commands/toolbelt.nix {pkgs = pkgs;};
   viconf = import ./commands/viconf.nix {
     pkgs = pkgs;
   };
-	chscheme = import ./wm-controls/chscheme.nix {
-		pkgs = pkgs;
-	};
-  chpaper = import ./wm-controls/chpaper.nix { pkgs = pkgs; };
+  chscheme = import ./wm-controls/chscheme.nix {
+    pkgs = pkgs;
+  };
+  chpaper = import ./wm-controls/chpaper.nix {pkgs = pkgs;};
 in {
   home.packages = [
     chpaper
-		chscheme
+    chscheme
     keyring
     garbage-collect
     invoke

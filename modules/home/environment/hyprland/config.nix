@@ -2,17 +2,18 @@
   username,
   host,
   ...
-}:
-
-let
-  desktop = (host == "oganesson");
-  screenshot_bind = if desktop then [ # My laptop does not have a printscreen button
-          "super, print, exec, grimblast copy area"
-        ] else [
-          "super, insert, exec, grimblast copy area"
-        ];
-in
-{
+}: let
+  desktop = host == "oganesson";
+  screenshot_bind =
+    if desktop
+    then [
+      # My laptop does not have a printscreen button
+      "super, print, exec, grimblast copy area"
+    ]
+    else [
+      "super, insert, exec, grimblast copy area"
+    ];
+in {
   wayland.windowManager.hyprland = {
     settings = {
       monitor =
@@ -81,8 +82,8 @@ in
         gaps_in = 4;
         gaps_out = 8;
         border_size = 2;
-				#"col.inactive_border" = "0xff${scheme.base01}";
-				#"col.active_border" = "0xff${scheme.base0F}";
+        #"col.inactive_border" = "0xff${scheme.base01}";
+        #"col.active_border" = "0xff${scheme.base0F}";
         border_part_of_window = false;
         no_border_on_floating = false;
       };
@@ -168,46 +169,48 @@ in
           "workspaces, 1, 4, easeOutCubic, fade" # styles: slide, slidevert, fade, slidefade, slidefadevert
         ];
 
-        bind = [
-          "super, up, exec, pactl set-sink-volume @default_sink@ +10%"
-          "super, down, exec, pactl set-sink-volume @default_sink@ -10%"
-          "super, t, exec, swaync-client -t -sw"
-          "super, a, exec, firefox"
-          "super, q, exec, kitty --title Kitty"
-          "super shift, q, exec, [float;size 40% 30%;move onscreen cursor -50% -50%] kitty --title Kitty"
-          "super, c, killactive,"
-          "super, e, exec, nemo"
-          "super, p, exec, [float;size 40% 25%;move onscreen cursor] [ ! -f /tmp/keyringfile ] && kitty toolbelt"
-          "super shift, m, exit,"
-          "super, m, exec, fuzzel"
-          "super, r, exec, neovide"
-          "super, b, togglesplit, # dwindle"
-          "super, f, togglefloating"
-          "super, g, fullscreen"
-          "super, h, movefocus, l"
-          "super, l, movefocus, r"
-          "super, k, movefocus, u"
-          "super, j, movefocus, d"
-          "super shift, h, movewindow, l"
-          "super shift, l, movewindow, r"
-          "super shift, k, movewindow, u"
-          "super shift, j, movewindow, d"
-          "super, d, exec, switchmon"
-          "super, 1, exec, hyprctl 'dispatch workspace 1'"
-          "super, 2, exec, hyprctl 'dispatch workspace 2'"
-          "super, 3, exec, hyprctl 'dispatch workspace 3'"
-          "super, 4, exec, hyprctl 'dispatch workspace 4'"
-          "super, 5, exec, hyprctl 'dispatch workspace 5'"
-          "super, 6, exec, hyprctl 'dispatch workspace 6'"
-          "super shift, 1, movetoworkspace, 1"
-          "super shift, 2, movetoworkspace, 2"
-          "super shift, 3, movetoworkspace, 3"
-          "super shift, 4, movetoworkspace, 4"
-          "super shift, 5, movetoworkspace, 5"
-          "super shift, 6, movetoworkspace, 6"
-          "super, s, togglespecialworkspace, magic"
-          "super shift, s, movetoworkspace, special:magic"
-        ] ++ screenshot_bind;
+        bind =
+          [
+            "super, up, exec, pactl set-sink-volume @default_sink@ +10%"
+            "super, down, exec, pactl set-sink-volume @default_sink@ -10%"
+            "super, t, exec, swaync-client -t -sw"
+            "super, a, exec, firefox"
+            "super, q, exec, kitty --title Kitty"
+            "super shift, q, exec, [float;size 40% 30%;move onscreen cursor -50% -50%] kitty --title Kitty"
+            "super, c, killactive,"
+            "super, e, exec, nemo"
+            "super, p, exec, [float;size 40% 25%;move onscreen cursor] [ ! -f /tmp/keyringfile ] && kitty toolbelt"
+            "super shift, m, exit,"
+            "super, m, exec, fuzzel"
+            "super, r, exec, neovide"
+            "super, b, togglesplit, # dwindle"
+            "super, f, togglefloating"
+            "super, g, fullscreen"
+            "super, h, movefocus, l"
+            "super, l, movefocus, r"
+            "super, k, movefocus, u"
+            "super, j, movefocus, d"
+            "super shift, h, movewindow, l"
+            "super shift, l, movewindow, r"
+            "super shift, k, movewindow, u"
+            "super shift, j, movewindow, d"
+            "super, d, exec, switchmon"
+            "super, 1, exec, hyprctl 'dispatch workspace 1'"
+            "super, 2, exec, hyprctl 'dispatch workspace 2'"
+            "super, 3, exec, hyprctl 'dispatch workspace 3'"
+            "super, 4, exec, hyprctl 'dispatch workspace 4'"
+            "super, 5, exec, hyprctl 'dispatch workspace 5'"
+            "super, 6, exec, hyprctl 'dispatch workspace 6'"
+            "super shift, 1, movetoworkspace, 1"
+            "super shift, 2, movetoworkspace, 2"
+            "super shift, 3, movetoworkspace, 3"
+            "super shift, 4, movetoworkspace, 4"
+            "super shift, 5, movetoworkspace, 5"
+            "super shift, 6, movetoworkspace, 6"
+            "super, s, togglespecialworkspace, magic"
+            "super shift, s, movetoworkspace, special:magic"
+          ]
+          ++ screenshot_bind;
         bindm = [
           "super, mouse:272, movewindow"
           "super, mouse:273, resizewindow"

@@ -1,7 +1,7 @@
 {
   host,
   nur,
-	nixvim,
+  nixvim,
   self,
   inputs,
   username,
@@ -9,7 +9,7 @@
   home-manager,
   ...
 }: let
-  desktop = (host == "onagesson");
+  desktop = host == "onagesson";
   desktop_modules =
     if desktop
     then [(import ./gaming)]
@@ -28,5 +28,5 @@ in {
     ++ [(import ./password-store.nix)]
     ++ [(import ./autojump.nix)]
     ++ [(import ./firefox.nix)]
-		++ desktop_modules;
+    ++ desktop_modules;
 }

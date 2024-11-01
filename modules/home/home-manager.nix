@@ -1,11 +1,11 @@
 {
   host,
-	pkgs,
+  pkgs,
   self,
   inputs,
   username,
-	wallpaper,
-	scheme,
+  wallpaper,
+  scheme,
   config,
   ...
 }: let
@@ -27,8 +27,8 @@ in {
       programs.home-manager.enable = true;
       imports = [
         ./programs
-				./environment
-				./scripts
+        ./environment
+        ./scripts
         ./files.nix
       ];
       home = {

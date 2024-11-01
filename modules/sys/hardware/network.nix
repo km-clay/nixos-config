@@ -1,8 +1,6 @@
-{host, ...}:
-let
-  desktop = (host == "oganesson");
-in
-{
+{host, ...}: let
+  desktop = host == "oganesson";
+in {
   networking = {
     networkmanager.enable = true;
     hostName =

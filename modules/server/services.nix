@@ -1,6 +1,9 @@
-{ config, pkgs, username, ... }:
-
 {
+  config,
+  pkgs,
+  username,
+  ...
+}: {
   systemd.user.tmpfiles.users."${username}".rules = [
     "d /home/${username}/media 0770 ${username} users -"
     "d /home/${username}/backup 0770 ${username} users -"
@@ -10,6 +13,4 @@
     "d /home/${username}/inbox 0770 ${username} users -"
     "d /home/${username}/outbox 0770 ${username} users -"
   ];
-
-
 }

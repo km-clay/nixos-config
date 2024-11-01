@@ -1,7 +1,4 @@
-{
-host,
-...
-}:
+{host, ...}:
 # Grocery list:
 # Clock
 # CPU/MEM meters
@@ -11,33 +8,37 @@ host,
 # secondary monitor will have a vertical bar on the left side
 # Can contain more info with two bars
 let
-  desktop = (host == "oganesson");
+  desktop = host == "oganesson";
   workspaces = {
-      format = "{icon}";
-      format-icons = {
-        "1" = "一";
-        "2" = "二";
-        "3" = "三";
-        "4" = "四";
-        "5" = "五";
-        "6" = "六";
-      };
-      persistent-workspaces = if desktop then {
-        "HDMI-A-1" = [ 1 2 3 ];
-        "DP-1" = [ 4 5 6 ];
-      } else {
-        "eDP-1" = [ 1 2 3 4 ];
+    format = "{icon}";
+    format-icons = {
+      "1" = "一";
+      "2" = "二";
+      "3" = "三";
+      "4" = "四";
+      "5" = "五";
+      "6" = "六";
+    };
+    persistent-workspaces =
+      if desktop
+      then {
+        "HDMI-A-1" = [1 2 3];
+        "DP-1" = [4 5 6];
+      }
+      else {
+        "eDP-1" = [1 2 3 4];
       };
   };
-  monitors = if desktop then [
-    "DP-1"
-    "HDMI-A-1"
-  ] else [
-    "eDP-1"
-  ];
-
-in
-{
+  monitors =
+    if desktop
+    then [
+      "DP-1"
+      "HDMI-A-1"
+    ]
+    else [
+      "eDP-1"
+    ];
+in {
   programs.waybar.settings.mainBar = {
     layer = "bottom";
     output = builtins.elemAt monitors 0;
@@ -45,7 +46,10 @@ in
     name = "mainBar";
     margin-left = 8;
     margin-top = 5;
-    margin-right = if desktop then 8 else 5;
+    margin-right =
+      if desktop
+      then 8
+      else 5;
     mode = "dock";
     "gtk-layer-shell" = true;
 
@@ -81,7 +85,7 @@ in
       waves = false;
       noise_reduction = 0.77;
       input_delay = 2;
-      format-icons  = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+      format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
     };
 
     "group/hardware" = {
@@ -121,7 +125,15 @@ in
       rotate = 270;
       format = "{icon}";
       format-icons = [
-        "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
+        "󰝦"
+        "󰪞"
+        "󰪟"
+        "󰪠"
+        "󰪡"
+        "󰪢"
+        "󰪣"
+        "󰪤"
+        "󰪥"
       ];
     };
 
@@ -130,7 +142,15 @@ in
       rotate = 270;
       format = "{icon}";
       format-icons = [
-        "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
+        "󰝦"
+        "󰪞"
+        "󰪟"
+        "󰪠"
+        "󰪡"
+        "󰪢"
+        "󰪣"
+        "󰪤"
+        "󰪥"
       ];
       max-length = 10;
       tooltip-format = "RAM: {used:0.1f} GB / {total:0.1f} GB";
@@ -141,7 +161,15 @@ in
       rotate = 270;
       format = "{icon}";
       format-icons = [
-        "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥"
+        "󰝦"
+        "󰪞"
+        "󰪟"
+        "󰪠"
+        "󰪡"
+        "󰪢"
+        "󰪣"
+        "󰪤"
+        "󰪥"
       ];
       tooltip-format = "CPU: {usage:0.1f}%";
     };
@@ -182,15 +210,16 @@ in
       format = "{:%I:%M %p}";
       tooltip = false;
     };
+  };
 
-
-};
-
-# ------------------------------------------
+  # ------------------------------------------
 
   programs.waybar.settings.sideBar = {
     layer = "bottom";
-    output = if desktop then builtins.elemAt monitors 1 else builtins.elemAt monitors 0;
+    output =
+      if desktop
+      then builtins.elemAt monitors 1
+      else builtins.elemAt monitors 0;
     position = "right";
     margin-top = 8;
     margin-right = 5;
@@ -199,12 +228,15 @@ in
     mode = "dock";
     "gtk-layer-shell" = true;
 
-    modules-left = if desktop then [
-      "hyprland/workspaces"
-    ] else [
-      "group/brightness"
-      "battery"
-    ];
+    modules-left =
+      if desktop
+      then [
+        "hyprland/workspaces"
+      ]
+      else [
+        "group/brightness"
+        "battery"
+      ];
     modules-center = [
     ];
     modules-right = [
@@ -257,7 +289,15 @@ in
       tooltip-format-charging = "{capacity}%\nTil full: {time}";
       format = "{icon}";
       format-icons = [
-        "󰁺" "󰁻" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"
+        "󰁺"
+        "󰁻"
+        "󰁽"
+        "󰁾"
+        "󰁿"
+        "󰂀"
+        "󰂁"
+        "󰂂"
+        "󰁹"
       ];
       format-charging = "󰂄";
     };

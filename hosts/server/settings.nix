@@ -1,4 +1,8 @@
-{pkgs, username, ...}: {
+{
+  pkgs,
+  username,
+  ...
+}: {
   system.stateVersion = "24.05";
   nixpkgs.config.allowUnfree = true;
   nix = {
@@ -22,7 +26,7 @@
   users.users."${username}" = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroup = [ "wheel" ];
+    extraGroup = ["wheel"];
     initialPassword = "1111";
   };
 

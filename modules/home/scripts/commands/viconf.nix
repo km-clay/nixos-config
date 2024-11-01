@@ -1,7 +1,4 @@
-{
-  pkgs,
-}:
-
+{pkgs}:
 pkgs.writeShellScriptBin "viconf" ''
   #!/usr/bin/env bash
 

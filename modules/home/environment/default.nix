@@ -1,7 +1,7 @@
 {
   host,
   nur,
-	nixvim,
+  nixvim,
   self,
   inputs,
   username,
