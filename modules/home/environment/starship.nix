@@ -11,7 +11,7 @@
       right_format = "($custom)";
 
       format = lib.concatStrings [
-        "($username)(bold white)($cmd_duration)($character)"
+        "($username)($ssh_symbol)($hostname)(bold white)($cmd_duration)($character)"
         "($git_branch)($git_status)($rust)($nix-shell)"
         "($directory)"
         "$line_break[ > ](bold #89b4fa)"
