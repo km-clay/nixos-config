@@ -1,7 +1,5 @@
 {pkgs, ...}:
 pkgs.writeShellScriptBin "toolbelt" ''
-  hostname=$(cat /etc/hostname)
-
   cliphistory() {
     selection=$(cliphist list | fzf --preview="
       index=\$(echo {} | awk '{print \$1}'); \
@@ -15,8 +13,9 @@ pkgs.writeShellScriptBin "toolbelt" ''
     cliphist decode "$selection" | wl-copy
   }
   btop_cmd() {
-    if [ "$hostname" = 'oganesson' ]; then
-      hyprctl dispatch resizeactive 20% 140% &&
+    local hostname=$(cat /etc/hostname)
+    if [ "$hostname" = "oganesson" ]; then
+      hyprctl dispatch resizeactive 20% 155% &&
       moveonscreen --center &&
       btop &&
       hyprctl dispatch resizeactive exact 40% 25% &&
@@ -35,7 +34,7 @@ pkgs.writeShellScriptBin "toolbelt" ''
   declare -A commands=(
       ["Change Wallpaper"]="moveonscreen --center && if chpaper; then running=false; else moveonscreen; fi"
       ["Change System Color Scheme"]="hyprctl dispatch resizeactive 10% 80% && moveonscreen --center && if chscheme; then running=false; else hyprctl dispatch resizeactive exact 40% 25% && moveonscreen; fi"
-      ["Open System Monitor"]="hyprctl dispatch resizeactive 20% 140% && moveonscreen --center && btop_cmd && hyprctl dispatch resizeactive exact 40% 25% && moveonscreen"
+      ["Open System Monitor"]="btop_cmd"
       ["Open Volume Controls"]="hyprctl dispatch resizeactive 10% 80% && moveonscreen --center && alsamixer && hyprctl dispatch resizeactive exact 40% 25% && moveonscreen"
       ["Open Keyring"]="hyprctl dispatch resizeactive -300 0 && moveonscreen && if keyring; then running=false; else hyprctl dispatch resizeactive exact 40% 25% && moveonscreen; fi"
       ["View Clipboard History"]="hyprctl dispatch resizeactive 45% 120% && moveonscreen --center && if cliphistory;then running=false; else hyprctl dispatch resizeactive exact 40% 25% && moveonscreen; fi"

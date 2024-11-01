@@ -12,6 +12,7 @@
       #  kitty.enable = true;
       #  vesktop.enable = true;
       waybar.enable = false;
+      btop.enable = false;
     };
   };
 }

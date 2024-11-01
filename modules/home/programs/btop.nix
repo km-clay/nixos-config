@@ -5,8 +5,11 @@
     settings = {
       update_ms = 500;
       vim_keys = true;
+      color_theme = "nord";
+      theme_background = true;
       temp_scale = "fahrenheit";
-      disks_filter = "exclude=/boot";
+      graph_symbol = "block";
+      disks_filter = "exclude=/boot /";
       show_swap = false;
       swap_disk = false;
     };
