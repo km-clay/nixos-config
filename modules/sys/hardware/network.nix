@@ -1,16 +1,12 @@
-{host, lib, config, ...}: let
-  desktop = host == "oganesson";
-in {
+{host, lib, config, ...}:
+{
   options = {
     networkModule.enable = lib.mkEnableOption "enables network configuration";
   };
   config = lib.mkIf config.networkModule.enable {
     networking = {
       networkmanager.enable = true;
-      hostName =
-        if desktop
-        then "oganesson"
-        else "mercury";
+      hostName = "${host}";
       hosts = {
         "192.168.1.201" = ["xenon"];
         "192.168.1.111" = ["argon"];

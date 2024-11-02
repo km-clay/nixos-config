@@ -24,12 +24,14 @@ in {
         imports = [ movModules ];
         autojumpConfig.enable            = true;
         btopConfig.enable                = true;
+        starshipConfig.enable            = true;
         ezaConfig.enable                 = true;
         fzfConfig.enable                 = true;
         gitConfig.enable                 = true;
         yaziConfig.enable                = true;
         zshConfig.enable                 = true;
         batConfig.enable                 = true;
+        userPkgs.enable                  = true;
 
         movScripts = {
           enable = true;
@@ -37,6 +39,9 @@ in {
           commandScripts = {
             enable = true;
             toolbelt.enable = false;
+          };
+          hyprlandControls = {
+            scheck.enable = true;
           };
         };
 
