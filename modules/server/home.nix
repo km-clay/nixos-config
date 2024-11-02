@@ -10,6 +10,7 @@
       imports = [
         ../home/environment/zshell.nix
         ../home/environment/starship.nix
+        ../home/programs/eza.nix
         ../home/scripts
       ];
       home = {
