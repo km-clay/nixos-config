@@ -10,6 +10,7 @@
   invoke          = import ./commands/invoke.nix { inherit self pkgs; };
   splash          = import ./commands/splash.nix { inherit self pkgs; };
   runbg           = import ./commands/runbg.nix { inherit self pkgs; };
+  mkbackup        = import ./commands/mkbackup.nix { inherit pkgs; };
   garbage-collect = import ./nix/garbage-collect.nix { inherit self pkgs; };
   nsp             = import ./nix/nsp.nix { inherit self pkgs; };
   scheck          = import ./wm-controls/s_check.nix { inherit self pkgs; };
@@ -41,6 +42,8 @@ in {
       lib.mkEnableOption "Enables all Nix shortcut scripts";
 
     # Individual options using scriptOverride or mkEnableOption directly
+    movScripts.commandScripts.mkbackup.enable =
+      scriptOverride "Enables the mkbackup command" "commandScripts" "mkbackup";
     movScripts.commandScripts.invoke.enable =
       scriptOverride "Enables the invoke command" "commandScripts" "invoke";
     movScripts.commandScripts.runbg.enable =
@@ -76,6 +79,7 @@ in {
   config = lib.mkIf config.movScripts.enable {
     home.packages = lib.optionals config.movScripts.commandScripts.invoke.enable [ invoke ]
                     ++ lib.optionals config.movScripts.commandScripts.runbg.enable [ runbg ]
+                    ++ lib.optionals config.movScripts.commandScripts.mkbackup.enable [ mkbackup ]
                     ++ lib.optionals config.movScripts.commandScripts.splash.enable [ splash ]
                     ++ lib.optionals config.movScripts.commandScripts.toolbelt.enable [ toolbelt ]
                     ++ lib.optionals config.movScripts.commandScripts.viconf.enable [ viconf ]
