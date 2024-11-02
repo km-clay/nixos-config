@@ -67,6 +67,8 @@
       ) {}
       colors;
   in {
+    homeManagerModules.default = ./modules/home;
+
     nixosConfigurations = {
       oganesson = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -75,7 +77,8 @@
         };
         inherit system;
         modules = [
-          ./hosts/desktop
+          ./hosts/desktop/config.nix
+          ./modules/sys
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
           nur.nixosModules.nur
@@ -88,7 +91,8 @@
           inherit self inputs scheme wallpaper username;
         };
         modules = [
-          ./hosts/laptop
+          ./hosts/laptop/config.nix
+          ./modules/sys
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
           nur.nixosModules.nur
@@ -102,6 +106,7 @@
         };
         modules = [
           ./hosts/server
+          ./modules
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
           nur.nixosModules.nur

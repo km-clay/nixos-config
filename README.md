@@ -35,6 +35,11 @@ Currently there are two complete system configurations available. These are:
 * **Mercury** - My laptop configuration. My laptop is a pretty weak machine so this configuration is stripped down a bit.
 The 'Xenon' config is my server configuration and is highly unlikely to be of use to anyone but me, as the setup has some very specific use-cases.
 
+## Modules
+
+This config uses custom modules for the home-manager and system configurations. Basically every part of the configuration can be toggled using an option, and some configs have extra options as well.
+All of the options declared in these modules can be found in the documentation under docs/options
+
 ## Scripts
 
 ```chpaper``` - opens a fzf window with filenames and previews of images in $FLAKEPATH/assets/wallpapers. Picking one replaces the existing wallpaper path in $FLAKEPATH/flake.nix with the one you chose.
