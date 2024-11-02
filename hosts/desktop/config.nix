@@ -1,7 +1,10 @@
 {pkgs, ...}: {
   system.stateVersion = "24.05";
   nixpkgs.config.allowUnfree = true;
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ./home.nix
+  ];
   nix = {
     settings = {
       auto-optimise-store = true;

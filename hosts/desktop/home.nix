@@ -5,12 +5,12 @@
   inputs,
   username,
   wallpaper,
+  lib,
   scheme,
   config,
   ...
 }: let
   nur = config.nur;
-  desktop = (host == "oganesson");
 in {
   imports = [inputs.home-manager.nixosModules.home-manager];
   home-manager = {
@@ -18,22 +18,24 @@ in {
     useGlobalPkgs = true;
     backupFileExtension = "backup";
     extraSpecialArgs = {inherit self inputs host wallpaper scheme username nur;};
-    users.${username} = {
-      dconf.settings = if desktop then {
-        "org/virt-manager/virt-manager/connections" = {
-          autoconnect = ["qemu:///system"];
-          uris = ["qemu:///system"];
+    users = {
+      ${username} = {
+        imports = [
+          inputs.spicetify-nix.homeManagerModules.default
+          inputs.self.outputs.homeManagerModules.default
+        ];
+        dconf.settings = lib.mkIf config.virtOpts.enable {
+          "org/virt-manager/virt-manager/connections" = {
+            autoconnect = ["qemu:///system"];
+            uris = ["qemu:///system"];
+          };
         };
-      } else {};
-      programs.home-manager.enable = true;
-      imports = [
-        inputs.spicetify-nix.homeManagerModules.default
-        ./hm-modules.nix
-      ];
-      home = {
-        username = "${username}";
-        homeDirectory = "/home/${username}";
-        stateVersion = "24.05";
+        programs.home-manager.enable = true;
+        home = {
+          username = "${username}";
+          homeDirectory = "/home/${username}";
+          stateVersion = "24.05";
+        };
       };
     };
   };
