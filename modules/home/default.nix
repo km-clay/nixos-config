@@ -44,8 +44,8 @@
   batConfig.enable = lib.mkDefault true;
 
   # ./scripts
-  pagedmovScripts.enable = lib.mkDefault true;
-  pagedmovScripts.commandScripts.enable = lib.mkDefault true;
-  pagedmovScripts.hyprlandControls.enable = lib.mkDefault true;
-  pagedmovScripts.nixShortcuts.enable = lib.mkDefault true;
+  movScripts.enable = lib.mkDefault true;
+  movScripts.commandScripts.enable = lib.mkDefault true;
+  movScripts.hyprlandControls.enable = lib.mkDefault true;
+  movScripts.nixShortcuts.enable = lib.mkDefault true;
 }

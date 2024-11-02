@@ -20,67 +20,75 @@
   viconf          = import ./commands/viconf.nix { inherit pkgs; };
   chscheme        = import ./wm-controls/chscheme.nix { inherit pkgs; };
   chpaper         = import ./wm-controls/chpaper.nix { inherit pkgs; };
+  scriptOverride =
+    doc:
+    group:
+    name:
+    lib.mkEnableOption
+    "${doc}" // {
+      default = config.movScripts.enable && config.movScripts.${group}.enable;
+    };
 in {
   options = {
-    pagedmovScripts.enable = lib.mkEnableOption "Enables all pagedmov's scripts";
+    movScripts.enable = lib.mkEnableOption "Enables all pagedmov's scripts";
 
     # Enable or disable by group
-    pagedmovScripts.commandScripts.enable =
+    movScripts.commandScripts.enable =
       lib.mkEnableOption "Enables all command scripts";
-    pagedmovScripts.hyprlandControls.enable =
+    movScripts.hyprlandControls.enable =
       lib.mkEnableOption "Enables all Hyprland control scripts";
-    pagedmovScripts.nixShortcuts.enable =
+    movScripts.nixShortcuts.enable =
       lib.mkEnableOption "Enables all Nix shortcut scripts";
 
-    # These options override individual scripts
-    pagedmovScripts.commandScripts.invoke.enable =
-      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the invoke command";
-    pagedmovScripts.commandScripts.runbg.enable =
-      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the runbg command - written by FrostPhoenix";
-    pagedmovScripts.commandScripts.splash.enable =
-      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the splash screen when opening a terminal";
-    pagedmovScripts.commandScripts.toolbelt.enable =
-      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the toolbelt command";
-    pagedmovScripts.commandScripts.viconf.enable =
-      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the viconf command";
+    # Individual options using scriptOverride or mkEnableOption directly
+    movScripts.commandScripts.invoke.enable =
+      scriptOverride "Enables the invoke command" "commandScripts" "invoke";
+    movScripts.commandScripts.runbg.enable =
+      scriptOverride "Enables the runbg command - written by FrostPhoenix" "commandScripts" "runbg";
+    movScripts.commandScripts.splash.enable =
+      scriptOverride "Enables the splash screen when opening a terminal" "commandScripts" "splash";
+    movScripts.commandScripts.toolbelt.enable =
+      scriptOverride "Enables the toolbelt command" "commandScripts" "toolbelt";
+    movScripts.commandScripts.viconf.enable =
+      scriptOverride "Enables the viconf command" "commandScripts" "viconf";
 
-    pagedmovScripts.hyprlandControls.chpaper.enable =
-      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Enables the chpaper command";
-    pagedmovScripts.hyprlandControls.scheck.enable =
-      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Enables the scheck command";
-    pagedmovScripts.hyprlandControls.chscheme.enable =
-      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Enables the chscheme command";
-    pagedmovScripts.hyprlandControls.keyring.enable =
-      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Enables the keyring command";
-    pagedmovScripts.hyprlandControls.moveonscreen.enable =
-      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Ensures floating windows remain on screen";
-    pagedmovScripts.hyprlandControls.switchmon.enable =
-      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Moves cursor to the center of the second monitor";
+    movScripts.hyprlandControls.chpaper.enable =
+      scriptOverride "Enables the chpaper command" "hyprlandControls" "chpaper";
+    movScripts.hyprlandControls.scheck.enable =
+      scriptOverride "Enables the scheck command" "hyprlandControls" "scheck";
+    movScripts.hyprlandControls.chscheme.enable =
+      scriptOverride "Enables the chscheme command" "hyprlandControls" "chscheme";
+    movScripts.hyprlandControls.keyring.enable =
+      scriptOverride "Enables the keyring command" "hyprlandControls" "keyring";
+    movScripts.hyprlandControls.moveonscreen.enable =
+      scriptOverride "Ensures floating windows remain on screen" "hyprlandControls" "moveonscreen";
+    movScripts.hyprlandControls.switchmon.enable =
+      scriptOverride "Moves cursor to the center of the second monitor" "hyprlandControls" "switchmon";
 
-    pagedmovScripts.nixShortcuts.garbage-collect.enable =
-      lib.mkDefault (config.pagedmovScripts.nixShortcuts.enable) // lib.mkEnableOption "Enables the garbage-collect script";
-    pagedmovScripts.nixShortcuts.nsp.enable =
-      lib.mkDefault (config.pagedmovScripts.nixShortcuts.enable) // lib.mkEnableOption "Enables nsp as an alias for 'nix-shell -p'";
-    pagedmovScripts.nixShortcuts.rebuild.enable =
-      lib.mkDefault (config.pagedmovScripts.nixShortcuts.enable) // lib.mkEnableOption "Enables rebuild as an alias for 'sudo nixos-rebuild switch'";
+    movScripts.nixShortcuts.garbage-collect.enable =
+      scriptOverride "Enables the garbage-collect script" "nixShortcuts" "garbage-collect";
+    movScripts.nixShortcuts.nsp.enable =
+      scriptOverride "Enables nsp as an alias for 'nix-shell -p'" "nixShortcuts" "nsp";
+    movScripts.nixShortcuts.rebuild.enable =
+      scriptOverride "Enables rebuild as an alias for 'sudo nixos-rebuild switch'" "nixShortcuts" "rebuild";
   };
 
-  config = lib.mkIf config.pagedmovScripts.enable {
-    home.packages = lib.optionals config.pagedmovScripts.commandScripts.invoke.enable [ invoke ]
-                    ++ lib.optionals config.pagedmovScripts.commandScripts.runbg.enable [ runbg ]
-                    ++ lib.optionals config.pagedmovScripts.commandScripts.splash.enable [ splash ]
-                    ++ lib.optionals config.pagedmovScripts.commandScripts.toolbelt.enable [ toolbelt ]
-                    ++ lib.optionals config.pagedmovScripts.commandScripts.viconf.enable [ viconf ]
+  config = lib.mkIf config.movScripts.enable {
+    home.packages = lib.optionals config.movScripts.commandScripts.invoke.enable [ invoke ]
+                    ++ lib.optionals config.movScripts.commandScripts.runbg.enable [ runbg ]
+                    ++ lib.optionals config.movScripts.commandScripts.splash.enable [ splash ]
+                    ++ lib.optionals config.movScripts.commandScripts.toolbelt.enable [ toolbelt ]
+                    ++ lib.optionals config.movScripts.commandScripts.viconf.enable [ viconf ]
 
-                    ++ lib.optionals config.pagedmovScripts.hyprlandControls.chpaper.enable [ chpaper ]
-                    ++ lib.optionals config.pagedmovScripts.hyprlandControls.scheck.enable [ scheck ]
-                    ++ lib.optionals config.pagedmovScripts.hyprlandControls.chscheme.enable [ chscheme ]
-                    ++ lib.optionals config.pagedmovScripts.hyprlandControls.keyring.enable [ keyring ]
-                    ++ lib.optionals config.pagedmovScripts.hyprlandControls.moveonscreen.enable [ moveonscreen ]
-                    ++ lib.optionals config.pagedmovScripts.hyprlandControls.switchmon.enable [ switchmon ]
+                    ++ lib.optionals config.movScripts.hyprlandControls.chpaper.enable [ chpaper ]
+                    ++ lib.optionals config.movScripts.hyprlandControls.scheck.enable [ scheck ]
+                    ++ lib.optionals config.movScripts.hyprlandControls.chscheme.enable [ chscheme ]
+                    ++ lib.optionals config.movScripts.hyprlandControls.keyring.enable [ keyring ]
+                    ++ lib.optionals config.movScripts.hyprlandControls.moveonscreen.enable [ moveonscreen ]
+                    ++ lib.optionals config.movScripts.hyprlandControls.switchmon.enable [ switchmon ]
 
-                    ++ lib.optionals config.pagedmovScripts.nixShortcuts.garbage-collect.enable [ garbage-collect ]
-                    ++ lib.optionals config.pagedmovScripts.nixShortcuts.nsp.enable [ nsp ]
-                    ++ lib.optionals config.pagedmovScripts.nixShortcuts.rebuild.enable [ rebuild ];
+                    ++ lib.optionals config.movScripts.nixShortcuts.garbage-collect.enable [ garbage-collect ]
+                    ++ lib.optionals config.movScripts.nixShortcuts.nsp.enable [ nsp ]
+                    ++ lib.optionals config.movScripts.nixShortcuts.rebuild.enable [ rebuild ];
   };
 }
