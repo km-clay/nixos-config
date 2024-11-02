@@ -59,7 +59,7 @@ pkgs.writeShellScriptBin "toolbelt" ''
       [\"Change System Color Scheme\"]=\"Changes the base16 color scheme used by stylix to color system applications.\"
       [\"Open System Monitor\"]=\"Opens a btop window.\"
       [\"Open Volume Controls\"]=\"Opens alsamixer.\"
-      [\"Open Keyring\"]=\"Opens a fuzzy finder with all of the paths held in ~/.password-store. Selecting one uses pass to copy that password to the clipboard. Password is cleared from clipboard history after 45 seconds.\"
+      [\"Open Keyring\"]=\"Opens a fuzzy finder with all of the paths held in ~/.password-store. Selecting one uses pass to copy that password to the clipboard. Password is cleared from clipboard after 45 seconds, and isn't saved to clipboard history.\"
       [\"View Clipboard History\"]=\"Opens clipboard history. Selecting an item copies it to the clipboard.\"
   ); \
   if [[ -v descriptions[\$cleaned_key] ]]; then \

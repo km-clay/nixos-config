@@ -59,10 +59,14 @@ in {
       root.initialPassword = "1234";
       ${username} = {
         isNormalUser = true;
+        createHome = true;
+        home = "/home/pagedmov";
+        homeMode = "755";
         initialPassword = "1234";
         shell = pkgs.zsh;
         extraGroups = [ "wheel" ];
       };
+      jellyfin.extraGroups = [ "users" ];
     };
   };
   security.sudo.extraConfig = ''

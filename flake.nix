@@ -107,6 +107,7 @@
         modules = [
           ./hosts/server/config.nix
           ./modules/sys
+          ./modules/server
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
           nur.nixosModules.nur
