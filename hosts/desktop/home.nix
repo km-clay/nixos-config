@@ -20,17 +20,52 @@ in {
     extraSpecialArgs = {inherit self inputs host wallpaper scheme username nur;};
     users = {
       ${username} = {
+        programs.home-manager.enable = true;
         imports = [
           inputs.spicetify-nix.homeManagerModules.default
           inputs.self.outputs.homeManagerModules.default
         ];
+
+        # My custom home-manager modules
+        homeFiles.enable = true;
+
+        # modules/home/environment
+        hyprlandConfig.enable = true;
+        autojumpConfig.enable = true;
+        stylixHomeConfig.enable = true;
+        waybarConfig.enable = true;
+        gtkConfig.enable = true;
+        spicetifyConfig.enable = true;
+        starshipConfig.enable = true;
+
+        # modules/home/programs
+        btopConfig.enable = true;
+        swayncConfig.enable = true;
+        userPkgs.enable = true;
+        cavaConfig.enable = true;
+        ezaConfig.enable = true;
+        firefoxConfig.enable = true;
+        fuzzelConfig.enable = true;
+        fzfConfig.enable = true;
+        gitConfig.enable = true;
+        kittyConfig.enable = true;
+        yaziConfig.enable = true;
+        zshConfig.enable = true;
+        passConfig.enable = true;
+        batConfig.enable = true;
+
+        # modules/home/scripts
+        movScripts.enable = true;
+        movScripts.commandScripts.enable = true;
+        movScripts.hyprlandControls.enable = true;
+        movScripts.nixShortcuts.enable = true;
+
         dconf.settings = lib.mkIf config.virtConfig.enable {
           "org/virt-manager/virt-manager/connections" = {
             autoconnect = ["qemu:///system"];
             uris = ["qemu:///system"];
           };
         };
-        programs.home-manager.enable = true;
         home = {
           username = "${username}";
           homeDirectory = "/home/${username}";

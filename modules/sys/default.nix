@@ -14,17 +14,17 @@
     ./environment
   ];
 
-  networkModule.enable = lib.mkDefault true;
-  nixSettings.enable = lib.mkDefault true;
-  bootLoader.enable = lib.mkDefault true;
-  issue.enable = lib.mkDefault true;
-  sddmConfig.enable = lib.mkDefault true;
-  stylixConfig.enable = lib.mkDefault true;
-  gamingPkgs.enable = lib.mkDefault true;
-  steamConfig.enable = lib.mkDefault true;
-  sysPkgs.enable = lib.mkDefault true;
-  sysProgs.enable = lib.mkDefault true;
-  sysServices.enable = lib.mkDefault true;
-  virtConfig.enable = lib.mkDefault true;
+  networkModule.enable = lib.mkDefault false;
+  nixSettings.enable = lib.mkDefault false;
+  bootLoader.enable = lib.mkDefault false;
+  issue.enable = lib.mkDefault false;
+  sddmConfig.enable = lib.mkDefault false;
+  stylixConfig.enable = lib.mkDefault false;
+  gamingPkgs.enable = lib.mkDefault false;
+  steamConfig.enable = lib.mkDefault false;
+  sysPkgs.enable = lib.mkDefault false;
+  sysProgs.enable = lib.mkDefault false;
+  sysServices.enable = lib.mkDefault false;
+  virtConfig.enable = lib.mkDefault false;
   powerProfiles.enable = lib.mkDefault false;
 }
