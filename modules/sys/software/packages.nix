@@ -44,6 +44,9 @@
       nix-prefetch-scripts
       nixos-option
       nix-search-cli
+      nix-template
+      mkdocs
+      python3Packages.mkdocs-material
       nvd
       openssl
       p7zip

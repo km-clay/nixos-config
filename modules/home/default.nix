@@ -16,36 +16,36 @@
   ];
 
   # ./files
-  homeFiles.enable = lib.mkDefault true;
+  homeFiles.enable = lib.mkDefault false;
 
   # ./environment
-  hyprlandConfig.enable = lib.mkDefault true;
-  autojumpConfig.enable = lib.mkDefault true;
-  stylixHomeConfig.enable = lib.mkDefault true;
-  waybarConfig.enable = lib.mkDefault true;
-  gtkConfig.enable = lib.mkDefault true;
-  spicetifyConfig.enable = lib.mkDefault true;
-  starshipConfig.enable = lib.mkDefault true;
+  hyprlandConfig.enable = lib.mkDefault false;
+  autojumpConfig.enable = lib.mkDefault false;
+  stylixHomeConfig.enable = lib.mkDefault false;
+  waybarConfig.enable = lib.mkDefault false;
+  gtkConfig.enable = lib.mkDefault false;
+  spicetifyConfig.enable = lib.mkDefault false;
+  starshipConfig.enable = lib.mkDefault false;
 
   # ./programs
-  btopConfig.enable = lib.mkDefault true;
-  swayncConfig.enable = lib.mkDefault true;
-  userPkgs.enable = lib.mkDefault true;
-  cavaConfig.enable = lib.mkDefault true;
-  ezaConfig.enable = lib.mkDefault true;
-  firefoxConfig.enable = lib.mkDefault true;
-  fuzzelConfig.enable = lib.mkDefault true;
-  fzfConfig.enable = lib.mkDefault true;
-  gitConfig.enable = lib.mkDefault true;
-  kittyConfig.enable = lib.mkDefault true;
-  yaziConfig.enable = lib.mkDefault true;
-  zshConfig.enable = lib.mkDefault true;
-  passConfig.enable = lib.mkDefault true;
-  batConfig.enable = lib.mkDefault true;
+  btopConfig.enable = lib.mkDefault false;
+  swayncConfig.enable = lib.mkDefault false;
+  userPkgs.enable = lib.mkDefault false;
+  cavaConfig.enable = lib.mkDefault false;
+  ezaConfig.enable = lib.mkDefault false;
+  firefoxConfig.enable = lib.mkDefault false;
+  fuzzelConfig.enable = lib.mkDefault false;
+  fzfConfig.enable = lib.mkDefault false;
+  gitConfig.enable = lib.mkDefault false;
+  kittyConfig.enable = lib.mkDefault false;
+  yaziConfig.enable = lib.mkDefault false;
+  zshConfig.enable = lib.mkDefault false;
+  passConfig.enable = lib.mkDefault false;
+  batConfig.enable = lib.mkDefault false;
 
   # ./scripts
-  movScripts.enable = lib.mkDefault true;
-  movScripts.commandScripts.enable = lib.mkDefault true;
-  movScripts.hyprlandControls.enable = lib.mkDefault true;
-  movScripts.nixShortcuts.enable = lib.mkDefault true;
+  movScripts.enable = lib.mkDefault false;
+  movScripts.commandScripts.enable = lib.mkDefault false;
+  movScripts.hyprlandControls.enable = lib.mkDefault false;
+  movScripts.nixShortcuts.enable = lib.mkDefault false;
 }
