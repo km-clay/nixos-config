@@ -14,6 +14,7 @@
       };
       firewall = {
         enable = true;
+        allowedTCPPorts = [ 443 ];
       };
     };
   };
