@@ -27,6 +27,13 @@
         svcu = "systemctl --user";
         svc = "sudo systemctl";
         viflake = "nvim flake.nix";
+
+        #git
+        "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
+        gcomm = "gitcommit_sfx";
+        gpush = "gitpush_sfx";
+        gpull = "gitpull_sfx";
+        greb = "gitrebase_sfx";
       };
 
       sessionVariables = {

@@ -67,7 +67,7 @@
       ) {}
       colors;
   in {
-    homeManagerModules.default = ./modules/home/default.nix;
+    homeManagerModules.default = ./modules/home;
 
     nixosConfigurations = {
       oganesson = nixpkgs.lib.nixosSystem {

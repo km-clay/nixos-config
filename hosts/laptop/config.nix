@@ -1,7 +1,10 @@
 {pkgs, config, ...}: {
   system.stateVersion = "24.05";
   nixpkgs.config.allowUnfree = true;
-  imports = [ ./hardware.nix ];
+  imports = [
+    ./hardware.nix
+    ./home.nix
+  ];
 
   powerProfiles.enable = true;
   boot = {
@@ -14,21 +17,31 @@
       ++ [pkgs.cpupower-gui];
   };
 
-    environment = {
-      variables = {
-        PATH = "${pkgs.clang-tools}/bin:$PATH";
-      };
-      shells = with pkgs; [
-        zsh
-        bash
-      ];
-      systemPackages = with pkgs; [
-        acpi
-        brightnessctl
-        cpupower-gui
-        powertop
-      ];
+  networkModule.enable = true;
+  nixSettings.enable = true;
+  bootLoader.enable = true;
+  issue.enable = true;
+  sddmConfig.enable = true;
+  stylixConfig.enable = true;
+  sysPkgs.enable = true;
+  sysProgs.enable = true;
+  sysServices.enable = true;
+
+  environment = {
+    variables = {
+      PATH = "${pkgs.clang-tools}/bin:$PATH";
     };
+    shells = with pkgs; [
+      zsh
+      bash
+    ];
+    systemPackages = with pkgs; [
+      acpi
+      brightnessctl
+      cpupower-gui
+      powertop
+    ];
+  };
 
 
 }
