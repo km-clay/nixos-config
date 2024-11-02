@@ -6,49 +6,20 @@
   pkgs,
   ...
 }: let
-  keyring = import ./wm-controls/keyring.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  invoke = import ./commands/invoke.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  splash = import ./commands/splash.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  runbg = import ./commands/runbg.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  garbage-collect = import ./nix/garbage-collect.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  nsp = import ./nix/nsp.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  scheck = import ./wm-controls/s_check.nix { self = self; pkgs = pkgs;};
-  switchmon = import ./wm-controls/switchmon.nix {
-    self = self;
-    pkgs = pkgs;
-  };
-  rebuild = import ./nix/rebuild.nix {
-    host = host;
-    self = self;
-    pkgs = pkgs;
-  };
-  moveonscreen = import ./wm-controls/moveonscreen.nix {pkgs = pkgs;};
-  toolbelt = import ./commands/toolbelt.nix {pkgs = pkgs;};
-  viconf = import ./commands/viconf.nix {
-    pkgs = pkgs;
-  };
-  chscheme = import ./wm-controls/chscheme.nix {
-    pkgs = pkgs;
-  };
-  chpaper = import ./wm-controls/chpaper.nix {pkgs = pkgs;};
+  keyring         = import ./wm-controls/keyring.nix { inherit self pkgs; };
+  invoke          = import ./commands/invoke.nix { inherit self pkgs; };
+  splash          = import ./commands/splash.nix { inherit self pkgs; };
+  runbg           = import ./commands/runbg.nix { inherit self pkgs; };
+  garbage-collect = import ./nix/garbage-collect.nix { inherit self pkgs; };
+  nsp             = import ./nix/nsp.nix { inherit self pkgs; };
+  scheck          = import ./wm-controls/s_check.nix { inherit self pkgs; };
+  switchmon       = import ./wm-controls/switchmon.nix { inherit self pkgs; };
+  rebuild         = import ./nix/rebuild.nix { inherit host self pkgs; };
+  moveonscreen    = import ./wm-controls/moveonscreen.nix { inherit pkgs; };
+  toolbelt        = import ./commands/toolbelt.nix { inherit pkgs; };
+  viconf          = import ./commands/viconf.nix { inherit pkgs; };
+  chscheme        = import ./wm-controls/chscheme.nix { inherit pkgs; };
+  chpaper         = import ./wm-controls/chpaper.nix { inherit pkgs; };
 in {
   options = {
     pagedmovScripts.enable = lib.mkEnableOption "enables pagedmov's scripts";
