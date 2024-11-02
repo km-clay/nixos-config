@@ -1,6 +1,6 @@
 {
   pkgs,
-  scheme,
+  scheme ? {},
   wallpaper,
   lib,
   config,

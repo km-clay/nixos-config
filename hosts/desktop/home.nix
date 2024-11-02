@@ -6,7 +6,7 @@
   username,
   wallpaper,
   lib,
-  scheme,
+  scheme ? {},
   config,
   ...
 }: let
@@ -22,7 +22,6 @@ in {
       ${username} = {
         programs.home-manager.enable = true;
         imports = [
-          inputs.spicetify-nix.homeManagerModules.default
           inputs.self.outputs.homeManagerModules.default
         ];
 

@@ -1,7 +1,7 @@
 {
   config,
   inputs,
-  scheme,
+  scheme ? {},
   wallpaper,
   username,
   host,

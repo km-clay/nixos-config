@@ -4,6 +4,7 @@
   self,
   inputs,
   lib,
+  scheme,
   username,
   config,
   ...
@@ -16,7 +17,7 @@ in {
     useUserPackages = true;
     useGlobalPkgs = true;
     backupFileExtension = "backup";
-    extraSpecialArgs = { inherit self inputs host username nur; };
+    extraSpecialArgs = { inherit self inputs scheme host username nur; };
     users = {
       ${username} = {
         programs.home-manager.enable = true;

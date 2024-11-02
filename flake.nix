@@ -102,7 +102,7 @@
       xenon = nixpkgs.lib.nixosSystem {
         specialArgs = {
           host = "xenon";
-          inherit self inputs username;
+          inherit self inputs scheme username;
         };
         modules = [
           ./hosts/server/config.nix

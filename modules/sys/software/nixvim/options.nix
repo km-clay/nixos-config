@@ -1,5 +1,5 @@
 {
-  scheme,
+  scheme ? {},
   config,
   ...
 }: {

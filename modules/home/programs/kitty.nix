@@ -1,4 +1,4 @@
-{lib, config, pkgs, scheme, ... }: {
+{lib, config, pkgs, scheme ? {}, ... }: {
   options = {
     kittyConfig.enable = lib.mkEnableOption "enables my kitty configuration";
   };

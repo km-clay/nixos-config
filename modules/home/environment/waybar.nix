@@ -1,4 +1,4 @@
-{pkgs, scheme, host, lib, config, ...}:
+{pkgs, scheme ? {}, host, lib, config, ...}:
 
 let
   desktop = host == "oganesson";

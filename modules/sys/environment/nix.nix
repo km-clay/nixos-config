@@ -3,6 +3,8 @@
     nixSettings.enable = lib.mkEnableOption "enables my nixos settings";
   };
   config = lib.mkIf config.nixSettings.enable {
+    system.stateVersion = "24.05";
+    nixpkgs.config.allowUnfree = true;
     nix = {
       settings = {
         auto-optimise-store = true;
