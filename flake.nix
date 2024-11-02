@@ -102,11 +102,11 @@
       xenon = nixpkgs.lib.nixosSystem {
         specialArgs = {
           host = "xenon";
-          inherit self inputs scheme wallpaper username;
+          inherit self inputs username;
         };
         modules = [
-          ./hosts/server
-          ./modules
+          ./hosts/server/config.nix
+          ./modules/sys
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
           nur.nixosModules.nur
