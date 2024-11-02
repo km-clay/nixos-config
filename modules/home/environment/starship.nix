@@ -11,7 +11,7 @@
         right_format = "($custom)";
 
         format = lib.concatStrings [
-          "($username)($ssh_symbol)($hostname)(bold white)($cmd_duration)($character)"
+          "($ssh_symbol)($username)($hostname)(bold white)($cmd_duration)($character)"
           "($git_branch)($git_status)($rust)($nix-shell)"
           "($directory)"
           "$line_break[ > ](bold #89b4fa)"
@@ -48,17 +48,18 @@
           style = "bold purple";
         };
 
-      hostname = {
-        ssh_symbol = "🌐";
-        ssh_only = false;
-        format = "[$ssh_symbol](bold blue)[$hostname](bold red)";
-      };
+        hostname = {
+          ssh_symbol = "🌐";
+          ssh_only = false;
+          format = "[@](bold blue)[$hostname](bold red)";
+        };
 
-      custom.shellver = {
-        command = "zsh --version";
-        when = ''test $SHELL = "/run/current-system/sw/bin/zsh"'';
-        symbol = "";
-        style = "bold magenta";
+        custom.shellver = {
+          command = "zsh --version";
+          when = ''test $SHELL = "/run/current-system/sw/bin/zsh"'';
+          symbol = "";
+          style = "bold magenta";
+        };
       };
     };
   };

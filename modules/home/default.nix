@@ -12,7 +12,7 @@
     ./programs
     ./environment
     ./scripts
-    ./files
+    ./files.nix
   ];
 
   # ./files

@@ -27,32 +27,34 @@ in {
         ];
 
         # My custom home-manager modules
+
+        # modules/home/files
         homeFiles.enable = true;
 
         # modules/home/environment
-        hyprlandConfig.enable = true;
-        autojumpConfig.enable = true;
+        hyprlandConfig.enable   = true;
+        autojumpConfig.enable   = true;
         stylixHomeConfig.enable = true;
-        waybarConfig.enable = true;
-        gtkConfig.enable = true;
-        spicetifyConfig.enable = true;
-        starshipConfig.enable = true;
+        waybarConfig.enable     = true;
+        gtkConfig.enable        = true;
+        spicetifyConfig.enable  = true;
+        starshipConfig.enable   = true;
 
         # modules/home/programs
-        btopConfig.enable = true;
-        swayncConfig.enable = true;
-        userPkgs.enable = true;
-        cavaConfig.enable = true;
-        ezaConfig.enable = true;
-        firefoxConfig.enable = true;
-        fuzzelConfig.enable = true;
-        fzfConfig.enable = true;
-        gitConfig.enable = true;
-        kittyConfig.enable = true;
-        yaziConfig.enable = true;
-        zshConfig.enable = true;
-        passConfig.enable = true;
-        batConfig.enable = true;
+        btopConfig.enable       = true;
+        swayncConfig.enable     = true;
+        userPkgs.enable         = true;
+        cavaConfig.enable       = true;
+        ezaConfig.enable        = true;
+        firefoxConfig.enable    = true;
+        fuzzelConfig.enable     = true;
+        fzfConfig.enable        = true;
+        gitConfig.enable        = true;
+        kittyConfig.enable      = true;
+        yaziConfig.enable       = true;
+        zshConfig.enable        = true;
+        passConfig.enable       = true;
+        batConfig.enable        = true;
 
         # modules/home/scripts
         movScripts.enable = true;

@@ -9,128 +9,25 @@
     };
     programs.zsh = {
       enable = true;
-      highlight = "fg=#4C566A,underline";
-    };
 
-    shellAliases = {
-      grep = "grep --color=auto";
-      yazi = "y";
-      vi = "nvim";
-      mv = "mv -v";
-      cp = "cp -vr";
-      gt = "gtrash";
-      gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
-      sr = "source ~/.zshrc";
-      ".." = "cd ..";
-      rm = "echo 'use \"gtp\" instead'";
-      psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
-      mkdir = "mkdir -p";
-      pk = "pkill -9 -f";
-      svcu = "systemctl --user";
-      svc = "sudo systemctl";
-      viflake = "nvim flake.nix";
-
-      #git
-      "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
-      gco = "gitcheckout_sfx";
-      gcomm = "gitcommit_sfx";
-      gpush = "gitpush_sfx";
-      gpull = "gitpull_sfx";
-      greb = "gitrebase_sfx";
-    };
-    initExtra = ''
-      playshellsound() {
-        if [ $# -ne 1 ]; then
-          echo "Usage: playshellsound <path/to/sound>"
-          return 1
-        fi
-        if ! scheck; then
-          return 0
-        else
-          runbg aplay "$1"
-        fi
-      }
-      gitcheckout_sfx() {
-        if git checkout "$@"; then
-          playshellsound ${self}/assets/sound/gitcheckout.wav
-          return 0
-        else
-          playshellsound ${self}/assets/sound/error.wav
-          return 1
-        fi
-      }
-      gitrebase_sfx() {
-        if git rebase "$@"; then
-          playshellsound ${self}/assets/sound/gitrebase.wav
-          return 0
-        else
-          playshellsound ${self}/assets/sound/error.wav
-          return 1
-        fi
-      }
-      gitcommit_sfx() {
-        if git commit "$@"; then
-          playshellsound ${self}/assets/sound/gitcommit.wav
-          return 0
-        else
-          playshellsound ${self}/assets/sound/error.wav
-          return 1
-        fi
-      }
-      gitpush_sfx() {
-        if git push "$@"; then
-          playshellsound ${self}/assets/sound/gitpush.wav
-          return 0
-        else
-          playshellsound ${self}/assets/sound/error.wav
-          return 1
-        fi
-      }
-      gitpull_sfx() {
-        if git pull "$@"; then
-          playshellsound ${self}/assets/sound/gitpull.wav
-          return 0
-        else
-          playshellsound ${self}/assets/sound/error.wav
-          return 1
-        fi
-      }
-      unalias ls
-      ls() {
-      	eza -1 --group-directories-first --icons "$@"
-      	playshellsound ${self}/assets/sound/ls.wav
-        return 0
-      }
-
-      mkcd() {
-        mkdir -p "$1" && cd "$1"
-      }
-
-      y() {
-      	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-      	yazi "$@" --cwd-file="$tmp"
-      	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-      		builtin cd -- "$cwd"
-      	fi
-      	rm -f -- "$tmp"
-      }
-
-      cd() {
-        local prev_sounds_enabled="$SOUNDS_ENABLED"
-        SOUNDS_ENABLED=0
-        eza -1 --group-directories-first --icons "$@"
-        SOUNDS_ENABLED=$prev_sounds_enabled
-        builtin cd "$@"
-        playshellsound /nix/store/7a9w7np3qrvmzxjbs7xj05qq2yccgfsj-source/assets/sound/cd.wav
-        return 0
-      }
-      if [ ! -e $HOME/.zsh_history ]; then
-      	touch $HOME/.zsh_history
-      	chmod 600 $HOME/.zsh_history
-      fi
-      setopt APPEND_HISTORY     # Append history to the history file (don't overwrite)
-      setopt INC_APPEND_HISTORY # Append to the history file incrementally
-      setopt SHARE_HISTORY      # Share history between all zsh sessions
+      shellAliases = {
+        grep = "grep --color=auto";
+        yazi = "y";
+        vi = "nvim";
+        mv = "mv -v";
+        cp = "cp -vr";
+        gt = "gtrash";
+        gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
+        sr = "source ~/.zshrc";
+        ".." = "cd ..";
+        rm = "echo 'use \"gtp\" instead'";
+        psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
+        mkdir = "mkdir -p";
+        pk = "pkill -9 -f";
+        svcu = "systemctl --user";
+        svc = "sudo systemctl";
+        viflake = "nvim flake.nix";
+      };
 
       sessionVariables = {
         SOUNDS_ENABLED = "1";
@@ -160,31 +57,6 @@
         highlight = "fg=#4C566A,underline";
       };
 
-      shellAliases = {
-        grep = "grep --color=auto";
-        yazi = "y";
-        vi = "nvim";
-        mv = "mv -v";
-        cp = "cp -vr";
-        gt = "gtrash";
-        gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
-        sr = "source ~/.zshrc";
-        ".." = "cd ..";
-        rm = "echo 'use \"gtp\" instead'";
-        psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
-        mkdir = "mkdir -p";
-        pk = "pkill -9 -f";
-        svcu = "systemctl --user";
-        svc = "sudo systemctl";
-        viflake = "nvim flake.nix";
-
-        #git
-        "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
-        gcomm = "gitcommit_sfx";
-        gpush = "gitpush_sfx";
-        gpull = "gitpull_sfx";
-        greb = "gitrebase_sfx";
-      };
       initExtra = ''
         playshellsound() {
           if [ $# -ne 1 ]; then
@@ -195,6 +67,15 @@
             return 0
           else
             runbg aplay "$1"
+          fi
+        }
+        gitcheckout_sfx() {
+          if git checkout "$@"; then
+            playshellsound ${self}/assets/sound/gitcheckout.wav
+            return 0
+          else
+            playshellsound ${self}/assets/sound/error.wav
+            return 1
           fi
         }
         gitrebase_sfx() {
@@ -270,7 +151,6 @@
         setopt INC_APPEND_HISTORY # Append to the history file incrementally
         setopt SHARE_HISTORY      # Share history between all zsh sessions
 
-        sessionVariables = {
         setopt CORRECT
         setopt NO_NOMATCH
         setopt LIST_PACKED
