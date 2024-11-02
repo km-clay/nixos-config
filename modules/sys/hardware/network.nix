@@ -8,8 +8,8 @@
       networkmanager.enable = true;
       hostName = "${host}";
       hosts = {
-        "192.168.1.201" = ["xenon"];
-        "192.168.1.111" = ["argon"];
+        "192.168.1.200" = ["xenon"];
+        "192.168.1.201" = ["oganesson"];
         "192.168.1.223" = ["mercury"];
       };
       firewall = {
