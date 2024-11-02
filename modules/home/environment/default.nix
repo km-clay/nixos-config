@@ -9,14 +9,15 @@
   home-manager,
   ...
 }: {
-  imports =
-    [(import ./gtk.nix)]
-    ++ [(import ./spicetify.nix)]
-    ++ [(import ./stylix.nix)]
-    ++ [(import ./starship.nix)]
-    ++ [(import ./userpkgs.nix)]
-    ++ [(import ./zshell.nix)]
-    ++ [(import ./swaync.nix)]
-    ++ [(import ./waybar)]
-    ++ [(import ./hyprland)];
+  imports = [
+    ./gtk.nix
+    ./spicetify.nix
+    ./stylix.nix
+    ./starship.nix
+    ./userpkgs.nix
+    ./zshell.nix
+    ./swaync.nix
+    ./hyprland.nix
+    ./waybar.nix
+  ];
 }

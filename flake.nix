@@ -76,6 +76,7 @@
         inherit system;
         modules = [
           ./hosts/desktop
+          ./modules
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
           nur.nixosModules.nur
@@ -89,6 +90,7 @@
         };
         modules = [
           ./hosts/laptop
+          ./modules
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
           nur.nixosModules.nur
@@ -102,6 +104,7 @@
         };
         modules = [
           ./hosts/server
+          ./modules
           stylix.nixosModules.stylix
           nixvim.nixosModules.nixvim
           nur.nixosModules.nur

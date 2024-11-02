@@ -1,8 +1,4 @@
-{
-  pkgs,
-  host,
-  ...
-}: let
+{lib, config, pkgs, host, ... }: let
   desktop = host == "oganesson";
   extraFigletFonts = pkgs.fetchFromGitHub {
     owner = "xero";
@@ -32,35 +28,40 @@
       ]
     else [];
 in {
-  home.packages = with pkgs;
-    [
-      chafa
-      nemo
-      flavours
-      ags
-      sassc
-      gtk3
-      sqlite
-      gimp
-      imagemagick
-      yt-dlp
-      vlc
-      lolcat
-      speedtest-cli
-      vesktop
-      qbittorrent
-      neovide
-      zsh
-      zsh-syntax-highlighting
-      zsh-history-substring-search
-      zsh-autosuggestions
-      audacity
-      rustup
-      libreoffice
-      gtrash
-      ripgrep
-      toilet-extrafonts
-      python3
-    ]
-    ++ desktop_pkgs;
+  options = {
+    userPkgs.enable = lib.mkEnableOption "enables my default user packages";
+  };
+  config = lib.mkIf config.userPkgs.enable {
+    home.packages = with pkgs;
+      [
+        chafa
+        nemo
+        flavours
+        ags
+        sassc
+        gtk3
+        sqlite
+        gimp
+        imagemagick
+        yt-dlp
+        vlc
+        lolcat
+        speedtest-cli
+        vesktop
+        qbittorrent
+        neovide
+        zsh
+        zsh-syntax-highlighting
+        zsh-history-substring-search
+        zsh-autosuggestions
+        audacity
+        rustup
+        libreoffice
+        gtrash
+        ripgrep
+        toilet-extrafonts
+        python3
+      ]
+      ++ desktop_pkgs;
+    };
 }

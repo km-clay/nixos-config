@@ -18,5 +18,6 @@ in {
     ++ [(import ./programs.nix)]
     ++ [(import ./services.nix)]
     ++ [(import ./nixvim)]
+    ++ [(import ./module-test.nix)]
     ++ desktop_modules;
 }

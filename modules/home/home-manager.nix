@@ -27,10 +27,8 @@ in {
       } else {};
       programs.home-manager.enable = true;
       imports = [
-        ./programs
-        ./environment
-        ./scripts
-        ./files.nix
+        inputs.spicetify-nix.homeManagerModules.default
+        ./hm-modules.nix
       ];
       home = {
         username = "${username}";

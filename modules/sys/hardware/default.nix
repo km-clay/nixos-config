@@ -10,5 +10,6 @@
 }: {
   imports =
     [(import ./bootloader.nix)]
-    ++ [(import ./network.nix)];
+    ++ [(import ./network.nix)]
+    ++ [(import ./powerprofiles.nix)];
 }
