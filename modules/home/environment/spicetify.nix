@@ -2,9 +2,9 @@
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
 in {
   options = {
-    spicetifyOpts.enable = lib.mkEnableOption "enable my spicetify options";
+    spicetifyConfig.enable = lib.mkEnableOption "enable my spicetify options";
   };
-  config = lib.mkIf config.spicetifyOpts.enable {
+  config = lib.mkIf config.spicetifyConfig.enable {
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
         "spotify"

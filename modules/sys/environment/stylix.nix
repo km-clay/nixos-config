@@ -7,9 +7,9 @@
   ...
 }: {
   options = {
-    stylixOpts.enable = lib.mkEnableOption "enables custom stylix options";
+    stylixConfig.enable = lib.mkEnableOption "enables custom stylix options";
   };
-  config = lib.mkIf config.stylixOpts.enable {
+  config = lib.mkIf config.stylixConfig.enable {
     stylix = {
       enable = true;
       base16Scheme = scheme;

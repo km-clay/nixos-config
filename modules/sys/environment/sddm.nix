@@ -6,9 +6,9 @@
   ...
 }: {
   options = {
-    sddmOpts.enable = lib.mkEnableOption "enables custom sddm configuration";
+    sddmConfig.enable = lib.mkEnableOption "enables custom sddm configuration";
   };
-  config = lib.mkIf config.sddmOpts.enable {
+  config = lib.mkIf config.sddmConfig.enable {
     environment.systemPackages = [
       (
         pkgs.catppuccin-sddm.override {

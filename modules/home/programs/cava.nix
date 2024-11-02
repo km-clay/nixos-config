@@ -1,8 +1,8 @@
 {lib, config, inputs, pkgs, ... }: {
   options = {
-    cavaOpts.enable = lib.mkEnableOption "enables my cava settings";
+    cavaConfig.enable = lib.mkEnableOption "enables my cava settings";
   };
-  config = lib.mkIf config.cavaOpts.enable {
+  config = lib.mkIf config.cavaConfig.enable {
     programs.cava = {
       enable = true;
     };

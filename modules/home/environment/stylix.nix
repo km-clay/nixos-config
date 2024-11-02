@@ -1,8 +1,8 @@
 {lib, config, pkgs, scheme, wallpaper, ... }: {
   options = {
-    stylixHomeOpts.enable = lib.mkEnableOption "enables my stylix Home-Manager options";
+    stylixHomeConfig.enable = lib.mkEnableOption "enables my stylix Home-Manager options";
   };
-  config = lib.mkIf config.stylixHomeOpts.enable {
+  config = lib.mkIf config.stylixHomeConfig.enable {
     stylix = {
       enable = true;
       autoEnable = true;

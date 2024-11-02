@@ -1,8 +1,8 @@
 {lib, config, ...}: {
   options = {
-    autojumpOpts.enable = lib.mkEnableOption "enables my autojump options";
+    autojumpConfig.enable = lib.mkEnableOption "enables my autojump options";
   };
-  config = lib.mkIf config.autojumpOpts.enable {
+  config = lib.mkIf config.autojumpConfig.enable {
     programs.autojump = {
       enable = true;
       enableZshIntegration = true;

@@ -12,47 +12,40 @@
     ./programs
     ./environment
     ./scripts
-    ./files.nix
+    ./files
   ];
 
+  # ./files
+  homeFiles.enable = lib.mkDefault true;
+
+  # ./environment
   hyprlandConfig.enable = lib.mkDefault true;
-  autojumpOpts.enable = lib.mkDefault true;
-  stylixHomeOpts.enable = lib.mkDefault true;
+  autojumpConfig.enable = lib.mkDefault true;
+  stylixHomeConfig.enable = lib.mkDefault true;
   waybarConfig.enable = lib.mkDefault true;
-  gtkOpts.enable = lib.mkDefault true;
-  spicetifyOpts.enable = lib.mkDefault true;
+  gtkConfig.enable = lib.mkDefault true;
+  spicetifyConfig.enable = lib.mkDefault true;
   starshipConfig.enable = lib.mkDefault true;
+
+  # ./programs
   btopConfig.enable = lib.mkDefault true;
   swayncConfig.enable = lib.mkDefault true;
   userPkgs.enable = lib.mkDefault true;
-  cavaOpts.enable = lib.mkDefault true;
-  ezaOpts.enable = lib.mkDefault true;
+  cavaConfig.enable = lib.mkDefault true;
+  ezaConfig.enable = lib.mkDefault true;
   firefoxConfig.enable = lib.mkDefault true;
   fuzzelConfig.enable = lib.mkDefault true;
-  fzfOpts.enable = lib.mkDefault true;
+  fzfConfig.enable = lib.mkDefault true;
   gitConfig.enable = lib.mkDefault true;
   kittyConfig.enable = lib.mkDefault true;
   yaziConfig.enable = lib.mkDefault true;
   zshConfig.enable = lib.mkDefault true;
-  homeFiles.enable = lib.mkDefault true;
   passConfig.enable = lib.mkDefault true;
-  batOpts.enable = lib.mkDefault true;
+  batConfig.enable = lib.mkDefault true;
 
+  # ./scripts
   pagedmovScripts.enable = lib.mkDefault true;
-  pagedmovScripts.commandScripts.invoke.enable = lib.mkDefault true;
-  pagedmovScripts.commandScripts.runbg.enable = lib.mkDefault true;
-  pagedmovScripts.commandScripts.splash.enable = lib.mkDefault true;
-  pagedmovScripts.commandScripts.toolbelt.enable = lib.mkDefault true;
-  pagedmovScripts.commandScripts.viconf.enable = lib.mkDefault true;
-
-  pagedmovScripts.hyprlandControls.chpaper.enable = lib.mkDefault true;
-  pagedmovScripts.hyprlandControls.scheck.enable = lib.mkDefault true;
-  pagedmovScripts.hyprlandControls.chscheme.enable = lib.mkDefault true;
-  pagedmovScripts.hyprlandControls.keyring.enable = lib.mkDefault true;
-  pagedmovScripts.hyprlandControls.moveonscreen.enable = lib.mkDefault true;
-  pagedmovScripts.hyprlandControls.switchmon.enable = lib.mkDefault true;
-
-  pagedmovScripts.nixShortcuts.garbage-collect.enable = lib.mkDefault true;
-  pagedmovScripts.nixShortcuts.nsp.enable = lib.mkDefault true;
-  pagedmovScripts.nixShortcuts.rebuild.enable = lib.mkDefault true;
+  pagedmovScripts.commandScripts.enable = lib.mkDefault true;
+  pagedmovScripts.hyprlandControls.enable = lib.mkDefault true;
+  pagedmovScripts.nixShortcuts.enable = lib.mkDefault true;
 }

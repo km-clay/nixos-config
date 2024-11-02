@@ -22,39 +22,49 @@
   chpaper         = import ./wm-controls/chpaper.nix { inherit pkgs; };
 in {
   options = {
-    pagedmovScripts.enable = lib.mkEnableOption "enables pagedmov's scripts";
+    pagedmovScripts.enable = lib.mkEnableOption "Enables all pagedmov's scripts";
 
+    # Enable or disable by group
+    pagedmovScripts.commandScripts.enable =
+      lib.mkEnableOption "Enables all command scripts";
+    pagedmovScripts.hyprlandControls.enable =
+      lib.mkEnableOption "Enables all Hyprland control scripts";
+    pagedmovScripts.nixShortcuts.enable =
+      lib.mkEnableOption "Enables all Nix shortcut scripts";
+
+    # These options override individual scripts
     pagedmovScripts.commandScripts.invoke.enable =
-      lib.mkEnableOption "enables the invoke command";
+      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the invoke command";
     pagedmovScripts.commandScripts.runbg.enable =
-      lib.mkEnableOption "enables the runbg command - written by FrostPhoenix";
+      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the runbg command - written by FrostPhoenix";
     pagedmovScripts.commandScripts.splash.enable =
-      lib.mkEnableOption "enables the splash screen when opening a terminal";
+      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the splash screen when opening a terminal";
     pagedmovScripts.commandScripts.toolbelt.enable =
-      lib.mkEnableOption "enables the toolbelt command";
+      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the toolbelt command";
     pagedmovScripts.commandScripts.viconf.enable =
-      lib.mkEnableOption "enables the viconf command";
+      lib.mkDefault (config.pagedmovScripts.commandScripts.enable) // lib.mkEnableOption "Enables the viconf command";
 
     pagedmovScripts.hyprlandControls.chpaper.enable =
-      lib.mkEnableOption "enables the chpaper command";
+      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Enables the chpaper command";
     pagedmovScripts.hyprlandControls.scheck.enable =
-      lib.mkEnableOption "enables the chpaper command";
+      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Enables the scheck command";
     pagedmovScripts.hyprlandControls.chscheme.enable =
-      lib.mkEnableOption "enables the chscheme command";
+      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Enables the chscheme command";
     pagedmovScripts.hyprlandControls.keyring.enable =
-      lib.mkEnableOption "enables the keyring command";
+      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Enables the keyring command";
     pagedmovScripts.hyprlandControls.moveonscreen.enable =
-      lib.mkEnableOption "enables the moveonscreen command, makes sure that the edges of floating windows are always on screen";
+      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Ensures floating windows remain on screen";
     pagedmovScripts.hyprlandControls.switchmon.enable =
-      lib.mkEnableOption "moves your cursor to the center of your second monitor; currently only supports two monitors";
+      lib.mkDefault (config.pagedmovScripts.hyprlandControls.enable) // lib.mkEnableOption "Moves cursor to the center of the second monitor";
 
     pagedmovScripts.nixShortcuts.garbage-collect.enable =
-      lib.mkEnableOption "enables the garbage-collect script, runs nixos garbage collection and empties the gtrash bin";
+      lib.mkDefault (config.pagedmovScripts.nixShortcuts.enable) // lib.mkEnableOption "Enables the garbage-collect script";
     pagedmovScripts.nixShortcuts.nsp.enable =
-      lib.mkEnableOption "enables nsp, essentially an alias for 'nix-shell -p'";
+      lib.mkDefault (config.pagedmovScripts.nixShortcuts.enable) // lib.mkEnableOption "Enables nsp as an alias for 'nix-shell -p'";
     pagedmovScripts.nixShortcuts.rebuild.enable =
-      lib.mkEnableOption "enables rebuild, an alias for 'sudo nixos-rebuild switch --flake $FLAKEPATH#$(hostname)'";
+      lib.mkDefault (config.pagedmovScripts.nixShortcuts.enable) // lib.mkEnableOption "Enables rebuild as an alias for 'sudo nixos-rebuild switch'";
   };
+
   config = lib.mkIf config.pagedmovScripts.enable {
     home.packages = lib.optionals config.pagedmovScripts.commandScripts.invoke.enable [ invoke ]
                     ++ lib.optionals config.pagedmovScripts.commandScripts.runbg.enable [ runbg ]
@@ -63,7 +73,7 @@ in {
                     ++ lib.optionals config.pagedmovScripts.commandScripts.viconf.enable [ viconf ]
 
                     ++ lib.optionals config.pagedmovScripts.hyprlandControls.chpaper.enable [ chpaper ]
-                    ++ lib.optionals config.pagedmovScripts.hyprlandControls.chpaper.enable [ scheck ]
+                    ++ lib.optionals config.pagedmovScripts.hyprlandControls.scheck.enable [ scheck ]
                     ++ lib.optionals config.pagedmovScripts.hyprlandControls.chscheme.enable [ chscheme ]
                     ++ lib.optionals config.pagedmovScripts.hyprlandControls.keyring.enable [ keyring ]
                     ++ lib.optionals config.pagedmovScripts.hyprlandControls.moveonscreen.enable [ moveonscreen ]

@@ -24,7 +24,7 @@ in {
           inputs.spicetify-nix.homeManagerModules.default
           inputs.self.outputs.homeManagerModules.default
         ];
-        dconf.settings = lib.mkIf config.virtOpts.enable {
+        dconf.settings = lib.mkIf config.virtConfig.enable {
           "org/virt-manager/virt-manager/connections" = {
             autoconnect = ["qemu:///system"];
             uris = ["qemu:///system"];

@@ -1,8 +1,8 @@
 {lib, config, pkgs, ... }: {
   options = {
-    gtkOpts.enable = lib.mkEnableOption "enable my gtk options";
+    gtkConfig.enable = lib.mkEnableOption "enable my gtk options";
   };
-  config = lib.mkIf config.gtkOpts.enable {
+  config = lib.mkIf config.gtkConfig.enable {
     fonts.fontconfig.enable = true;
     home.packages = with pkgs; [
       (nerdfonts.override {
