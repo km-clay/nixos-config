@@ -48,6 +48,12 @@
           style = "bold purple";
         };
 
+        hostname = {
+          ssh_symbol = "🌐";
+          ssh_only = false;
+          format = "[$ssh_symbol](bold blue)[$hostname](bold red)";
+        };
+
         custom.shellver = {
           command = "zsh --version";
           when = ''test $SHELL = "/run/current-system/sw/bin/zsh"'';

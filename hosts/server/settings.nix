@@ -31,12 +31,6 @@
     ];
   };
 
-  users.users."${username}" = {
-    shell = pkgs.zsh;
-    isNormalUser = true;
-    extraGroup = ["wheel"];
-    initialPassword = "1111";
-  };
 
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";

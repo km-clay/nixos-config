@@ -33,88 +33,65 @@
         share = true;
       };
 
-      autosuggestion = {
-        enable = true;
-        highlight = "fg=#4C566A,underline";
-      };
-
-      shellAliases = {
-        grep = "grep --color=auto";
-        yazi = "y";
-        vi = "nvim";
-        mv = "mv -v";
-        cp = "cp -vr";
-        gt = "gtrash";
-        gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
-        sr = "source ~/.zshrc";
-        ".." = "cd ..";
-        rm = "echo 'use \"gtp\" instead'";
-        psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
-        mkdir = "mkdir -p";
-        pk = "pkill -9 -f";
-        svcu = "systemctl --user";
-        svc = "sudo systemctl";
-        viflake = "nvim flake.nix";
-
-        #git
-        "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
-        gcomm = "gitcommit_sfx";
-        gpush = "gitpush_sfx";
-        gpull = "gitpull_sfx";
-        greb = "gitrebase_sfx";
-      };
-      initExtra = ''
-        playshellsound() {
-          if [ $# -ne 1 ]; then
-            echo "Usage: playshellsound <path/to/sound>"
-            return 1
-          fi
-          if ! scheck; then
-            return 0
-          else
-            runbg aplay "$1"
-          fi
-        }
-        gitrebase_sfx() {
-          if git rebase "$@"; then
-            playshellsound ${self}/assets/sound/gitrebase.wav
-            return 0
-          else
-            playshellsound ${self}/assets/sound/error.wav
-            return 1
-          fi
-        }
-        gitcommit_sfx() {
-          if git commit "$@"; then
-            playshellsound ${self}/assets/sound/gitcommit.wav
-            return 0
-          else
-            playshellsound ${self}/assets/sound/error.wav
-            return 1
-          fi
-        }
-        gitpush_sfx() {
-          if git push "$@"; then
-            playshellsound ${self}/assets/sound/gitpush.wav
-            return 0
-          else
-            playshellsound ${self}/assets/sound/error.wav
-            return 1
-          fi
-        }
-        gitpull_sfx() {
-          if git pull "$@"; then
-            playshellsound ${self}/assets/sound/gitpull.wav
-            return 0
-          else
-            playshellsound ${self}/assets/sound/error.wav
-            return 1
-          fi
-        }
-        unalias ls
-        ls() {
-          eza -1 --group-directories-first --icons "$@"
-          playshellsound ${self}/assets/sound/ls.wav
+      #git
+      "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
+      gco = "gitcheckout_sfx";
+      gcomm = "gitcommit_sfx";
+      gpush = "gitpush_sfx";
+      gpull = "gitpull_sfx";
+      greb = "gitrebase_sfx";
+    };
+    initExtra = ''
+      playshellsound() {
+        if [ $# -ne 1 ]; then
+          echo "Usage: playshellsound <path/to/sound>"
+          return 1
+        fi
+        if ! scheck; then
+          return 0
+        else
+          runbg aplay "$1"
+        fi
+      }
+      gitcheckout_sfx() {
+        if git checkout "$@"; then
+          playshellsound ${self}/assets/sound/gitcheckout.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
+        fi
+      }
+      gitrebase_sfx() {
+        if git rebase "$@"; then
+          playshellsound ${self}/assets/sound/gitrebase.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
+        fi
+      }
+      gitcommit_sfx() {
+        if git commit "$@"; then
+          playshellsound ${self}/assets/sound/gitcommit.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
+        fi
+      }
+      gitpush_sfx() {
+        if git push "$@"; then
+          playshellsound ${self}/assets/sound/gitpush.wav
+          return 0
+        else
+          playshellsound ${self}/assets/sound/error.wav
+          return 1
+        fi
+      }
+      gitpull_sfx() {
+        if git pull "$@"; then
+          playshellsound ${self}/assets/sound/gitpull.wav
           return 0
         }
 
