@@ -47,6 +47,7 @@
       nix-template
       mkdocs
       python3Packages.mkdocs-material
+      sshfs
       nvd
       openssl
       p7zip
