@@ -17,6 +17,9 @@
   jellyfinConfig.enable = true;
   caddyConfig.enable = true;
 
+  networking.firewall = {
+    allowedTCPPorts = [ 443 ];
+  };
   environment = {
     etc."tmpfiles.d/home-permissions.conf".text = ''
       d /home/pagedmov 0750 pagedmov users -
