@@ -4,6 +4,15 @@
   };
   config = lib.mkIf config.sysServices.enable {
     services = {
+      keyd = {
+        enable = true;
+        keyboards.default = {
+          ids = ["*"];
+          settings.main = {
+            capslock = "esc";
+          };
+        };
+      };
       pipewire = {
         enable = true;
         pulse.enable = true;
