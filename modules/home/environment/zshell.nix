@@ -76,6 +76,13 @@
             runbg aplay "$1"
           fi
         }
+        kitty_ssh_theme() {
+          if [ -n "$SSH_CONNECTION" ]; then
+            kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
+          else
+            kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
+          fi
+        }
         gitcheckout_sfx() {
           if git checkout "$@"; then
             playshellsound ${self}/assets/sound/gitcheckout.wav
@@ -186,6 +193,7 @@
         autoload -U down-line-or-beginning-search; zle -N down-line-or-beginning-search
 
         bindkey -v
+        kitty_ssh_theme
         type starship_zle-keymap-select >/dev/null || \
         {
           eval "$(starship init zsh)"

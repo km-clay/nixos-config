@@ -1,7 +1,30 @@
-{ lib, self, config, ... }:
+{pkgs, scheme, lib, self, config, ... }:
 
 # This folder is for programs that do not have existing configuration modules in NixOS.
 # Basically a to-do list for stuff I need to write my own modules for.
+let
+  # Custom theme that activates in ssh
+  ssh_base16 = "atelier-cave";
+
+  scheme_path = "${pkgs.base16-schemes}/share/themes/${ssh_base16}.yaml";
+  scheme_string = builtins.readFile scheme_path;
+  scheme_list = lib.splitString "\n" "${scheme_string}";
+  colors = lib.filter (line: builtins.match "^ *base[0-9A-F]{2}: .*" line != null) scheme_list;
+  ssh_scheme =
+    lib.lists.foldl' (
+      acc: line: let
+        splitLine = lib.splitString ": " line;
+        key = builtins.elemAt splitLine 0;
+        value = builtins.elemAt splitLine 1;
+        trimmedKey = lib.trim key;
+        cleanValue_step1 = lib.splitString " " value;
+        cleanValue_step2 = builtins.elemAt cleanValue_step1 0;
+        cleanValue_final = builtins.substring 1 (builtins.stringLength cleanValue_step2 - 2) cleanValue_step2;
+      in
+        acc // {"${trimmedKey}" = cleanValue_final;}
+    ) {}
+    colors;
+in
 {
   options = {
     homeFiles.enable = lib.mkEnableOption "enables declared custom files";
@@ -114,6 +137,77 @@
         xoffset=0
 
         stdout="off"
+      '';
+
+      ".config/kitty/default-theme.conf".text = ''
+        background #${scheme.base00}
+        foreground #${scheme.base05}
+        selection_background #${scheme.base05}
+        selection_foreground #${scheme.base00}
+        url_color #${scheme.base04}
+        cursor #${scheme.base05}
+        active_border_color #${scheme.base03}
+        inactive_border_color #${scheme.base01}
+        active_tab_background #${scheme.base00}
+        active_tab_foreground #${scheme.base05}
+        inactive_tab_background #${scheme.base01}
+        inactive_tab_foreground #${scheme.base04}
+        tab_bar_background #${scheme.base01}
+
+        # normal
+        color0 #${scheme.base01}
+        color1 #${scheme.base08}
+        color2 #${scheme.base0B}
+        color3 #${scheme.base0A}
+        color4 #${scheme.base0D}
+        color5 #${scheme.base0E}
+        color6 #${scheme.base0C}
+        color7 #${scheme.base05}
+
+        # bright
+        color8 #${scheme.base03}
+        color9 #${scheme.base09}
+        color10 #${scheme.base01}
+        color11 #${scheme.base02}
+        color12 #${scheme.base04}
+        color13 #${scheme.base06}
+        color14 #${scheme.base0F}
+        color15 #${scheme.base07}
+      '';
+      ".config/kitty/ssh-theme.conf".text = ''
+        background #${ssh_scheme.base00}
+        foreground #${ssh_scheme.base05}
+        selection_background #${ssh_scheme.base05}
+        selection_foreground #${ssh_scheme.base00}
+        url_color #${ssh_scheme.base04}
+        cursor #${ssh_scheme.base05}
+        active_border_color #${ssh_scheme.base03}
+        inactive_border_color #${ssh_scheme.base01}
+        active_tab_background #${ssh_scheme.base00}
+        active_tab_foreground #${ssh_scheme.base05}
+        inactive_tab_background #${ssh_scheme.base01}
+        inactive_tab_foreground #${ssh_scheme.base04}
+        tab_bar_background #${ssh_scheme.base01}
+
+        # normal
+        color0 #${ssh_scheme.base01}
+        color1 #${ssh_scheme.base08}
+        color2 #${ssh_scheme.base0B}
+        color3 #${ssh_scheme.base0A}
+        color4 #${ssh_scheme.base0D}
+        color5 #${ssh_scheme.base0E}
+        color6 #${ssh_scheme.base0C}
+        color7 #${ssh_scheme.base05}
+
+        # bright
+        color8 #${ssh_scheme.base03}
+        color9 #${ssh_scheme.base09}
+        color10 #${ssh_scheme.base01}
+        color11 #${ssh_scheme.base02}
+        color12 #${ssh_scheme.base04}
+        color13 #${ssh_scheme.base06}
+        color14 #${ssh_scheme.base0F}
+        color15 #${ssh_scheme.base07}
       '';
     };
   };

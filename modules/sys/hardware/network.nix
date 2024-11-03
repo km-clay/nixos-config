@@ -10,11 +10,11 @@
       hosts = {
         "192.168.1.200" = ["xenon"];
         "192.168.1.201" = ["oganesson"];
-        "192.168.1.223" = ["mercury"];
+        "192.168.1.202" = ["mercury"];
       };
       firewall = {
         enable = true;
-        allowedTCPPorts = [ 443 ];
+        allowedTCPPorts = [ 443 8080 ];
       };
     };
   };

@@ -37,6 +37,7 @@ in {
         chafa
         nemo
         flavours
+        nicotine-plus
         ags
         sassc
         gtk3
