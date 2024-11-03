@@ -41,8 +41,8 @@
   } @ inputs: let
     system = "x86_64-linux";
     username = "pagedmov";
-    wallpaper = "${self}/assets/wallpapers/sleeping.png";
-    base16scheme = "nord"; # can be easily changed with the chscheme script
+    wallpaper = "${self}/assets/wallpapers/sleeping-blackmetal.png";
+    base16scheme = "black-metal-immortal"; # can be easily changed with the chscheme script
 
     # Map colors from yaml to attribute set
     # Extracting colors into a set here allows them to be propagated across the entire config, with or without stylix

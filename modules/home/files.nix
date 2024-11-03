@@ -4,7 +4,7 @@
 # Basically a to-do list for stuff I need to write my own modules for.
 let
   # Custom theme that activates in ssh
-  ssh_base16 = "black-metal-venom";
+  ssh_base16 = "atelier-cave";
 
   scheme_path = "${pkgs.base16-schemes}/share/themes/${ssh_base16}.yaml";
   scheme_string = builtins.readFile scheme_path;
