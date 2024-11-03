@@ -33,42 +33,6 @@
         "ctrl+shift+left" = "no_op";
         "ctrl+shift+right" = "no_op";
       };
-
-      extraConfig = ''
-        background #${scheme.base00}
-        foreground #${scheme.base05}
-        selection_background #${scheme.base05}
-        selection_foreground #${scheme.base00}
-        url_color #${scheme.base04}
-        cursor #${scheme.base05}
-        active_border_color #${scheme.base03}
-        inactive_border_color #${scheme.base01}
-        active_tab_background #${scheme.base00}
-        active_tab_foreground #${scheme.base05}
-        inactive_tab_background #${scheme.base01}
-        inactive_tab_foreground #${scheme.base04}
-        tab_bar_background #${scheme.base01}
-
-        # normal
-        color0 #${scheme.base01}
-        color1 #${scheme.base08}
-        color2 #${scheme.base0B}
-        color3 #${scheme.base0A}
-        color4 #${scheme.base0D}
-        color5 #${scheme.base0E}
-        color6 #${scheme.base0C}
-        color7 #${scheme.base05}
-
-        # bright
-        color8 #${scheme.base03}
-        color9 #${scheme.base09}
-        color10 #${scheme.base01}
-        color11 #${scheme.base02}
-        color12 #${scheme.base04}
-        color13 #${scheme.base06}
-        color14 #${scheme.base0F}
-        color15 #${scheme.base07}
-      '';
     };
   };
 }

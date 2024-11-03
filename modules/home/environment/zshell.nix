@@ -77,7 +77,7 @@
           fi
         }
         kitty_ssh_theme() {
-          if [ -n "$SSH_CONNECTION" ]; then
+          if [ -z "$SSH_CONNECTION" ]; then
             kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
           else
             kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
