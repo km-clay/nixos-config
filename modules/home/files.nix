@@ -1,10 +1,11 @@
-{pkgs, scheme, lib, self, config, ... }:
+{pkgs, lib, self, config, ... }:
 
 # This folder is for programs that do not have existing configuration modules in NixOS.
 # Basically a to-do list for stuff I need to write my own modules for.
 let
   # Custom theme that activates in ssh
   ssh_base16 = "atelier-cave";
+  def_scheme = config.lib.stylix.colors;
 
   scheme_path = "${pkgs.base16-schemes}/share/themes/${ssh_base16}.yaml";
   scheme_string = builtins.readFile scheme_path;
@@ -140,39 +141,39 @@ in
       '';
 
       ".config/kitty/default-theme.conf".text = ''
-        background #${scheme.base00}
-        foreground #${scheme.base05}
-        selection_background #${scheme.base05}
-        selection_foreground #${scheme.base00}
-        url_color #${scheme.base04}
-        cursor #${scheme.base05}
-        active_border_color #${scheme.base03}
-        inactive_border_color #${scheme.base01}
-        active_tab_background #${scheme.base00}
-        active_tab_foreground #${scheme.base05}
-        inactive_tab_background #${scheme.base01}
-        inactive_tab_foreground #${scheme.base04}
-        tab_bar_background #${scheme.base01}
+        background #${def_scheme.base00}
+        foreground #${def_scheme.base05}
+        selection_background #${def_scheme.base05}
+        selection_foreground #${def_scheme.base00}
+        url_color #${def_scheme.base04}
+        cursor #${def_scheme.base05}
+        active_border_color #${def_scheme.base03}
+        inactive_border_color #${def_scheme.base01}
+        active_tab_background #${def_scheme.base00}
+        active_tab_foreground #${def_scheme.base05}
+        inactive_tab_background #${def_scheme.base01}
+        inactive_tab_foreground #${def_scheme.base04}
+        tab_bar_background #${def_scheme.base01}
 
         # normal
-        color0 #${scheme.base01}
-        color1 #${scheme.base08}
-        color2 #${scheme.base0B}
-        color3 #${scheme.base0A}
-        color4 #${scheme.base0D}
-        color5 #${scheme.base0E}
-        color6 #${scheme.base0C}
-        color7 #${scheme.base05}
+        color0 #${def_scheme.base01}
+        color1 #${def_scheme.base08}
+        color2 #${def_scheme.base0B}
+        color3 #${def_scheme.base0A}
+        color4 #${def_scheme.base0D}
+        color5 #${def_scheme.base0E}
+        color6 #${def_scheme.base0C}
+        color7 #${def_scheme.base05}
 
         # bright
-        color8 #${scheme.base03}
-        color9 #${scheme.base09}
-        color10 #${scheme.base01}
-        color11 #${scheme.base02}
-        color12 #${scheme.base04}
-        color13 #${scheme.base06}
-        color14 #${scheme.base0F}
-        color15 #${scheme.base07}
+        color8 #${def_scheme.base03}
+        color9 #${def_scheme.base09}
+        color10 #${def_scheme.base01}
+        color11 #${def_scheme.base02}
+        color12 #${def_scheme.base04}
+        color13 #${def_scheme.base06}
+        color14 #${def_scheme.base0F}
+        color15 #${def_scheme.base07}
       '';
       ".config/kitty/ssh-theme.conf".text = ''
         background #${ssh_scheme.base00}

@@ -4,9 +4,7 @@
   self,
   inputs,
   username,
-  wallpaper,
   lib,
-  scheme ? {},
   config,
   ...
 }: let
@@ -17,7 +15,7 @@ in {
     useUserPackages = true;
     useGlobalPkgs = true;
     backupFileExtension = "backup";
-    extraSpecialArgs = {inherit self inputs host wallpaper scheme username nur;};
+    extraSpecialArgs = {inherit self inputs host username nur;};
     users = {
       ${username} = {
         programs.home-manager.enable = true;

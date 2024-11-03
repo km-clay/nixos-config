@@ -1,19 +1,27 @@
 {
   pkgs,
-  scheme ? {},
-  wallpaper,
+  self,
   lib,
   config,
   ...
-}: {
+}:
+
+let
+  scheme = "black-metal-venom";
+in
+{
   options = {
     stylixConfig.enable = lib.mkEnableOption "enables custom stylix options";
   };
   config = lib.mkIf config.stylixConfig.enable {
     stylix = {
       enable = true;
-      base16Scheme = scheme;
-      image = wallpaper;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
+      image =  "${self}/assets/wallpapers/sleeping-blackmetal.png";
+      homeManagerIntegration = {
+        autoImport = true;
+        followSystem = true;
+      };
       polarity = "dark";
       autoEnable = true;
       opacity.terminal = 0.5;

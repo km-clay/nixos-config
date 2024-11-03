@@ -1,4 +1,4 @@
-{lib, config, pkgs, scheme ? {}, wallpaper, ... }: {
+{lib, config, pkgs, ... }: {
   options = {
     stylixHomeConfig.enable = lib.mkEnableOption "enables my stylix Home-Manager options";
   };

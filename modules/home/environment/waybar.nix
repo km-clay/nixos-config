@@ -1,4 +1,4 @@
-{pkgs, scheme ? {}, host, lib, config, ...}:
+{pkgs, host, lib, config, ...}:
 
 let
   desktop = host == "oganesson";
@@ -22,6 +22,8 @@ let
         "eDP-1" = [1 2 3 4];
       };
   };
+
+  scheme = config.lib.stylix.colors;
   bg = {
     darkester = scheme.base00;
     darkest = scheme.base01;
@@ -435,7 +437,7 @@ in {
           }
 
           #custom-power {
-            color: #${colors.color0};
+            color: #${colors.color2};
             font-size: 18px;
           }
 
@@ -445,7 +447,7 @@ in {
           }
 
           #custom-reboot {
-            color: #${colors.color2};
+            color: #${colors.color0};
             font-size: 18px;
           }
 
