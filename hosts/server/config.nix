@@ -18,7 +18,7 @@
   caddyConfig.enable = true;
 
   networking.firewall = {
-    allowedTCPPorts = [ 443 ];
+    allowedTCPPorts = [ 443 8920 ];
   };
   environment = {
     etc."tmpfiles.d/home-permissions.conf".text = ''
