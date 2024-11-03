@@ -76,11 +76,15 @@
             runbg aplay "$1"
           fi
         }
+        ssh() { # reverts ssh theme upon returning
+          command ssh "$@"
+          kitty_ssh_theme
+        }
         kitty_ssh_theme() {
-          if [ -z "$SSH_CONNECTION" ]; then
+          if [ -n "$SSH_CONNECTION" ]; then
             kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
           else
-            kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
+            kitty @ set-colors -a ~/.config/kitty/default-theme.conf
           fi
         }
         gitcheckout_sfx() {
