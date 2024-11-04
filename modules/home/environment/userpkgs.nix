@@ -1,5 +1,6 @@
-{lib, config, pkgs, host, ... }: let
-  desktop = host == "oganesson";
+{lib, config, pkgs, ... }:
+
+let
   extraFigletFonts = pkgs.fetchFromGitHub {
     owner = "xero";
     repo = "figlet-fonts";
@@ -15,39 +16,21 @@
       cp -r ${extraFigletFonts}/* $out/share/figlet
     '';
   });
-
-  desktop_pkgs =
-    if desktop
-    then
-      with pkgs; [
-        uhk-agent
-        zathura
-        handbrake
-        snes9x-gtk
-        obs-studio
-      ]
-    else [];
-in {
+in
+{
   options = {
     userPkgs.enable = lib.mkEnableOption "enables my default user packages";
   };
   config = lib.mkIf config.userPkgs.enable {
     home.packages = with pkgs;
       [
-        chafa
         nemo
-        flavours
-        nicotine-plus
-        ags
-        sassc
         gtk3
         sqlite
         gimp
         imagemagick
-        yt-dlp
         vlc
         lolcat
-        speedtest-cli
         vesktop
         qbittorrent
         neovide
@@ -62,7 +45,6 @@ in {
         ripgrep
         toilet-extrafonts
         python3
-      ]
-      ++ desktop_pkgs;
+      ];
     };
 }
