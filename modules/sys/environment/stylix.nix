@@ -7,7 +7,7 @@
 }:
 
 let
-  scheme = "black-metal-venom";
+  scheme = "black-metal-immortal";
 in
 {
   options = {
