@@ -104,7 +104,7 @@ in {
           gaps_out = 8;
           border_size = 3;
           #"col.inactive_border" = "0xff${scheme.base01}";
-          "col.active_border" = lib.mkForce "0xff${scheme.base0F}";
+          "col.active_border" = lib.mkForce "0xff${scheme.base04}";
           border_part_of_window = false;
           no_border_on_floating = false;
         };
@@ -135,7 +135,7 @@ in {
         };
 
         decoration = {
-          rounding = 16;
+          rounding = 10;
           # active_opacity = 0.90;
           inactive_opacity = 0.90;
           fullscreen_opacity = 1.0;

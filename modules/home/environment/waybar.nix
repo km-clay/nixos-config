@@ -354,8 +354,8 @@ in {
           }
 
           window#waybar {
-            border-radius: 20px;
-            border: 3px solid #${colors.color7};
+            border-radius: 10px;
+            border: 3px solid #${fg.light};
             background: rgba(23,29,35,0.50);
             margin: 20px;
           }
@@ -366,22 +366,22 @@ in {
           #workspaces {
             margin: 3px;
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
           }
 
           #workspaces button:hover {
-            border-radius: 20px;
+            border-radius: 8px;
           }
 
           #workspaces button.active {
             background: #${fg.lightester};
-            border-radius: 20px;
+            border-radius: 8px;
             color: #${bg.darkest};
           }
 
           #cava {
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
             margin: 3px 3px 3px 6px;
             padding: 0px 15px 0px 15px;
             color: #${colors.color6};
@@ -390,7 +390,7 @@ in {
           #window {
             margin: 3px;
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
             padding: 0 15px 0 15px;
             font-weight: bold;
           }
@@ -399,7 +399,7 @@ in {
             margin: 3px;
             padding: 0 10px 0 10px;
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
           }
 
           #custom-disk-icon, #cpu, #memory {
@@ -423,7 +423,7 @@ in {
           #clock {
             font-weight: bold;
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
             margin: 3px;
             padding: 0 10px 0 10px;
             font-size: 18px;
@@ -431,7 +431,7 @@ in {
 
           #powerbtns {
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
             margin: 3px;
             padding: 0 5px 0 10px;
           }
@@ -453,7 +453,7 @@ in {
 
           #audio {
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
             margin: 3px;
             padding: 5px 0 10px 0;
           }
@@ -488,14 +488,14 @@ in {
             color: #${colors.color1};
             font-size: 20px;
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
             margin: 3px;
             padding: 5px 0 5px 6px;
           }
 
           #brightness {
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
             margin: 3px;
             padding: 10px 0px 5px 0;
           }
@@ -510,7 +510,7 @@ in {
             color: #${colors.color4};
             font-size: 20px;
             background: #${bg.dark};
-            border-radius: 20px;
+            border-radius: 8px;
             margin: 3px;
             padding: 5px 0 5px 0px;
           }
