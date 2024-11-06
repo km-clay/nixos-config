@@ -11,7 +11,7 @@
   splash          = import ./commands/splash.nix { inherit self pkgs; };
   runbg           = import ./commands/runbg.nix { inherit self pkgs; };
   mkbackup        = import ./commands/mkbackup.nix { inherit pkgs; };
-  icanhazip        = import ./commands/icanhazip.nix { inherit pkgs; };
+  icanhazip       = import ./commands/icanhazip.nix { inherit pkgs; };
   garbage-collect = import ./nix/garbage-collect.nix { inherit self pkgs; };
   nsp             = import ./nix/nsp.nix { inherit self pkgs; };
   scheck          = import ./wm-controls/s_check.nix { inherit self pkgs; };
@@ -22,6 +22,7 @@
   viconf          = import ./commands/viconf.nix { inherit pkgs; };
   chscheme        = import ./wm-controls/chscheme.nix { inherit pkgs; };
   chpaper         = import ./wm-controls/chpaper.nix { inherit pkgs; };
+  mkscreenshots   = import ./wm-controls/mkscreenshots.nix { inherit pkgs; };
   scriptOverride =
     doc:
     group:
@@ -70,6 +71,9 @@ in {
       scriptOverride "Ensures floating windows remain on screen" "hyprlandControls" "moveonscreen";
     movScripts.hyprlandControls.switchmon.enable =
       scriptOverride "Moves cursor to the center of the second monitor" "hyprlandControls" "switchmon";
+    movScripts.hyprlandControls.mkscreenshots.enable =
+      scriptOverride "Generates screenshots, and updates the README.md with the current rev hash" "hyprlandControls" "switchmon";
+
 
     movScripts.nixShortcuts.garbage-collect.enable =
       scriptOverride "Enables the garbage-collect script" "nixShortcuts" "garbage-collect";
@@ -94,6 +98,7 @@ in {
                     ++ lib.optionals config.movScripts.hyprlandControls.keyring.enable [ keyring ]
                     ++ lib.optionals config.movScripts.hyprlandControls.moveonscreen.enable [ moveonscreen ]
                     ++ lib.optionals config.movScripts.hyprlandControls.switchmon.enable [ switchmon ]
+                    ++ lib.optionals config.movScripts.hyprlandControls.mkscreenshots.enable [ mkscreenshots ]
 
                     ++ lib.optionals config.movScripts.nixShortcuts.garbage-collect.enable [ garbage-collect ]
                     ++ lib.optionals config.movScripts.nixShortcuts.nsp.enable [ nsp ]
