@@ -23,7 +23,7 @@ pkgs.writeShellScriptBin "keyring" ''
   echo "Password copied. Clearing clipboard in 10 seconds."
 
   # start a timer for 10 seconds, clear clipboard, resume cliphist tracking
-  nohup bash <<- EOF &
+  nohup bash <<-EOF > /dev/null &
     sleep 10
     wl-copy -c
     pkill -CONT wl-paste

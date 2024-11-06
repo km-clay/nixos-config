@@ -18,7 +18,7 @@ pkgs.writeShellScriptBin "chscheme" ''
       exit 1
   fi
 
-  echo "$selected_scheme" | xargs -I {} sed -i '/base16scheme\s*=\s*"/s/"[^"]*"/"{}"/' "$FLAKEPATH"/flake.nix
+  echo "$selected_scheme" | xargs -I {} sed -i '/^[[:space:]]*scheme\s*=\s*"/s/"[^"]*"/"{}"/' "$FLAKEPATH"/modules/sys/environment/stylix.nix
   if [ $? -ne 0 ]; then
       echo "Failed to change color scheme."
       exit 1

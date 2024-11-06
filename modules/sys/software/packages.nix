@@ -36,6 +36,7 @@
       wine
       uhk-agent
       obs-studio
+      jq
       wl-clipboard
       libnotify
       file

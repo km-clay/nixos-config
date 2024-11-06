@@ -27,6 +27,7 @@
         svcu = "systemctl --user";
         svc = "sudo systemctl";
         viflake = "nvim flake.nix";
+        iv = "invoke";
 
         #git
         "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
@@ -204,7 +205,6 @@
         }
         unalias ls
         clear
-        splash
         playshellsound ${self}/assets/sound/sh-source.wav
         [ ! -f $FLAKEPATH/flake.nix ] && echo "WARNING: flake.nix not found at \$FLAKEPATH. Shell aliases for editing config files won't work correctly!" && echo "Edit the FLAKEPATH session variable in zshell.nix to point to the path where you saved the system configuration flake."
       '';

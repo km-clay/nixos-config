@@ -45,6 +45,7 @@ in
         ripgrep
         toilet-extrafonts
         python3
+        chafa
       ];
     };
 }

@@ -7,7 +7,8 @@
 }:
 
 let
-  scheme = "black-metal-venom";
+  scheme = "tokyo-night-dark";
+  wallpaper = "${self}/assets/wallpapers/nord-balloons.png";
 in
 {
   options = {
@@ -18,7 +19,7 @@ in
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
       override.base00 = "030303";
-      image =  "${self}/assets/wallpapers/sleeping-blackmetal.png";
+      image = wallpaper;
       homeManagerIntegration = {
         autoImport = true;
         followSystem = true;

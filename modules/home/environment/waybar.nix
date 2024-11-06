@@ -356,7 +356,7 @@ in {
           window#waybar {
             border-radius: 20px;
             border: 3px solid #${colors.color7};
-            background: rgba(46,52,64,0.15);
+            background: rgba(46,52,64,0.66);
             margin: 20px;
           }
           window#waybar.empty #window {
