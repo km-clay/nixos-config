@@ -1,9 +1,11 @@
 {
-  self,
   pkgs,
 }:
-pkgs.writeShellScriptBin "switchmon" ''
-  #!/bin/zsh
+pkgs.writeShellApplication {
+  name = "switchmon";
+  text = ''
+    #!/bin/zsh
 
-  hyprctl dispatch focusmonitor $(echo "$(hyprctl -j monitors)" | jq -r '.[] | select(.focused == false) | .name')
-''
+    hyprctl dispatch focusmonitor "$(hyprctl -j monitors | jq -r '.[] | select(.focused == false) | .name')"
+  '';
+}

@@ -1,9 +1,11 @@
 {
-  self,
-  pkgs,
+  pkgs
 }:
-pkgs.writeShellScriptBin "invoke" ''
-  cmd="$1"
-  shift
-  nix run nixpkgs#"$cmd" -- "$@"
-''
+pkgs.writeShellApplication {
+  name = "invoke";
+  text = ''
+    cmd="$1"
+    shift
+    nix run nixpkgs#"$cmd" -- "$@"
+  '';
+}

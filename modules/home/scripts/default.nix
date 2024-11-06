@@ -6,16 +6,15 @@
   pkgs,
   ...
 }: let
-  keyring         = import ./wm-controls/keyring.nix { inherit self pkgs; };
-  invoke          = import ./commands/invoke.nix { inherit self pkgs; };
-  splash          = import ./commands/splash.nix { inherit self pkgs; };
-  runbg           = import ./commands/runbg.nix { inherit self pkgs; };
-  mkbackup        = import ./commands/mkbackup.nix { inherit pkgs; };
+  keyring         = import ./wm-controls/keyring.nix { inherit pkgs; };
+  invoke          = import ./commands/invoke.nix { inherit pkgs; };
+  splash          = import ./commands/splash.nix { inherit pkgs; };
+  runbg           = import ./commands/runbg.nix { inherit pkgs; };
   icanhazip       = import ./commands/icanhazip.nix { inherit pkgs; };
-  garbage-collect = import ./nix/garbage-collect.nix { inherit self pkgs; };
-  nsp             = import ./nix/nsp.nix { inherit self pkgs; };
-  scheck          = import ./wm-controls/s_check.nix { inherit self pkgs; };
-  switchmon       = import ./wm-controls/switchmon.nix { inherit self pkgs; };
+  garbage-collect = import ./nix/garbage-collect.nix { inherit pkgs; };
+  nsp             = import ./nix/nsp.nix { inherit pkgs; };
+  scheck          = import ./wm-controls/s_check.nix { inherit pkgs; };
+  switchmon       = import ./wm-controls/switchmon.nix { inherit pkgs; };
   rebuild         = import ./nix/rebuild.nix { inherit host self pkgs; };
   moveonscreen    = import ./wm-controls/moveonscreen.nix { inherit pkgs; };
   toolbelt        = import ./commands/toolbelt.nix { inherit pkgs; };
@@ -44,8 +43,6 @@ in {
       lib.mkEnableOption "Enables all Nix shortcut scripts";
 
     # Individual options using scriptOverride or mkEnableOption directly
-    movScripts.commandScripts.mkbackup.enable =
-      scriptOverride "Enables the mkbackup command" "commandScripts" "mkbackup";
     movScripts.commandScripts.icanhazip.enable =
       scriptOverride "Enables the icanhazip command" "commandScripts" "icanhazip";
     movScripts.commandScripts.invoke.enable =
@@ -86,7 +83,6 @@ in {
   config = lib.mkIf config.movScripts.enable {
     home.packages = lib.optionals config.movScripts.commandScripts.invoke.enable [ invoke ]
                     ++ lib.optionals config.movScripts.commandScripts.runbg.enable [ runbg ]
-                    ++ lib.optionals config.movScripts.commandScripts.mkbackup.enable [ mkbackup ]
                     ++ lib.optionals config.movScripts.commandScripts.icanhazip.enable [ icanhazip ]
                     ++ lib.optionals config.movScripts.commandScripts.splash.enable [ splash ]
                     ++ lib.optionals config.movScripts.commandScripts.toolbelt.enable [ toolbelt ]
