@@ -13,7 +13,7 @@ If you are on NixOS and have flakes enabled, you can just clone the repo and run
 
 ![desktop-neofetch](./assets/screens/desktop-neofetch.png)
 ![busy-desktop](./assets/screens/desktop-busy.png)
-Screenshots up to date as of [this commit](https://github.com/pagedMov/nixos-config/commit/cf20f8ef68783d8313c21e8811304f1ac6634699)
+Screenshots up to date as of [this commit](https://github.com/pagedMov/nixos-config/commit/2721e0ec3180dc83ebe0507c1e87fe97f8ee72e1)
 
 ## Programs
 
