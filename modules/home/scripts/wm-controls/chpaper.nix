@@ -7,7 +7,7 @@ pkgs.writeShellScriptBin "chpaper" ''
   select choice in "Yes" "No"; do
   	case $choice in
   		"Yes")
-  			rebuild;pkill -9 hyprpaper;exit 0;;
+  			rebuild;systemctl --user restart hyprpaper;exit 0;;
   		"No")
   			echo "Exiting...";exit 0;;
   	esac

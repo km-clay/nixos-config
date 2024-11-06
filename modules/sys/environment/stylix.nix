@@ -8,7 +8,7 @@
 
 let
   scheme = "tokyo-night-dark";
-  wallpaper = "${self}/assets/wallpapers/nord-balloons.png";
+  wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
 in
 {
   options = {
@@ -26,7 +26,7 @@ in
       };
       polarity = "dark";
       autoEnable = true;
-      opacity.terminal = 0.5;
+      opacity.terminal = 0.50;
       targets = {
         console.enable = true;
         feh.enable = true;
