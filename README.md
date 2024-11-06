@@ -23,6 +23,18 @@ Screenshots up to date as of [this commit](https://github.com/pagedMov/nixos-con
 | Text Editor    | [Nixvim](https://github.com/nix-community/nixvim) |
 | Image Viewer   | [feh](https://github.com/derf/feh)                |
 
+## Installation
+
+If you are on NixOS and have flakes enabled, you can just follow these steps: 
+
+    1. Clone the repo to a directory
+    
+    2. Run nixos-generate-config --show-hardware-config > hardware.nix to get a hardware config
+    
+    3. Move the hardware config to the folder of the host you want to use
+    
+    4. Run sudo nixos-rebuild switch --flake /path/to/flake#host where "host" is the name of the config you want to use
+
 ## Configs
 
 Currently there are two complete system configurations available. These are:
@@ -36,18 +48,6 @@ The 'Xenon' config is my server configuration and is highly unlikely to be of us
 
 This config uses custom modules for the home-manager and system configurations. Basically every part of the configuration can be toggled using an option, and some configs have extra options as well.
 All of the options declared in these modules can be found in the documentation under docs/options
-
-## Installation
-
-If you are on NixOS and have flakes enabled, you can just follow these steps: 
-
-    1. Clone the repo to a directory
-    
-    2. Run nixos-generate-config --show-hardware-config > hardware.nix to get a hardware config
-    
-    3. Move the hardware config to the folder of the host you want to use
-    
-    4. Run sudo nixos-rebuild switch --flake /path/to/flake#host where "host" is the name of the config you want to use
 
 ## Scripts
 
