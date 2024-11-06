@@ -3,11 +3,7 @@
 Special thanks to Frost-Phoenix, this config started out as a fork of his dots. [Check out his
 config here](https://github.com/Frost-Phoenix/nixos-config/tree/catppuccin)
 
-Take whatever you like, just know that the hardware configurations in my hosts folder won't work on your machine : )
 
-My dots are written 100% in Nix so if you bring your own hardware-configuration.nix, these should work on any machine out of the box.
-
-If you are on NixOS and have flakes enabled, you can just clone the repo and run sudo nixos-rebuild switch --flake /path/to/this-repo (again, just make sure you don't use my hardware configuration on your machine)
 
 ## Gallery
 
@@ -27,12 +23,25 @@ Screenshots up to date as of [this commit](https://github.com/pagedMov/nixos-con
 | Text Editor    | [Nixvim](https://github.com/nix-community/nixvim) |
 | Image Viewer   | [feh](https://github.com/derf/feh)                |
 
+## Installation
+
+If you are on NixOS and have flakes enabled, you can just follow these steps: 
+
+    1. Clone the repo to a directory
+    
+    2. Run nixos-generate-config --show-hardware-config > hardware.nix to get a hardware config
+    
+    3. Move the hardware config to the folder of the host you want to use
+    
+    4. Run sudo nixos-rebuild switch --flake /path/to/flake#host where "host" is the name of the config you want to use
+
 ## Configs
 
 Currently there are two complete system configurations available. These are:
 
 * **Oganesson** - My desktop configuration. Generalist workflow which includes virtualization and gaming features.
 * **Mercury** - My laptop configuration. My laptop is a pretty weak machine so this configuration is stripped down a bit.
+
 The 'Xenon' config is my server configuration and is highly unlikely to be of use to anyone but me, as the setup has some very specific use-cases.
 
 ## Modules
