@@ -3,12 +3,13 @@
   screenshot_bind =
     if desktop
     then [
-      # My laptop does not have a printscreen button
       "super, print, exec, grimblast copy area"
     ]
     else [
+      # My laptop does not have a printscreen button
       "super, insert, exec, grimblast copy area"
     ];
+  scheme = config.lib.stylix.colors;
 in {
   options = {
     hyprlandConfig.enable = lib.mkEnableOption "enables my hyprland config";
@@ -101,9 +102,9 @@ in {
           layout = "dwindle";
           gaps_in = 4;
           gaps_out = 8;
-          border_size = 2;
+          border_size = 3;
           #"col.inactive_border" = "0xff${scheme.base01}";
-          #"col.active_border" = "0xff${scheme.base0F}";
+          "col.active_border" = lib.mkForce "0xff${scheme.base0F}";
           border_part_of_window = false;
           no_border_on_floating = false;
         };
@@ -134,16 +135,16 @@ in {
         };
 
         decoration = {
-          rounding = 20;
+          rounding = 16;
           # active_opacity = 0.90;
-          # inactive_opacity = 0.90;
-          # fullscreen_opacity = 1.0;
+          inactive_opacity = 0.90;
+          fullscreen_opacity = 1.0;
 
           blur = {
             enabled = true;
             # size = 1;
             # passes = 1;
-            size = 4;
+            size = 2;
             passes = 1;
             brightness = 1;
             contrast = 1.400;

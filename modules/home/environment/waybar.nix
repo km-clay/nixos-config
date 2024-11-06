@@ -459,7 +459,7 @@ in {
           }
 
           #pulseaudio {
-            color: #${colors.color4};
+            color: #${colors.color1};
             font-size: 18px;
           }
 
@@ -481,11 +481,11 @@ in {
           #backlight-slider highlight,
           #pulseaudio-slider highlight {
             border-radius: 8px;
-            background-color: #${colors.color3};
+            background-color: #${colors.color4};
           }
 
           #network {
-            color: #${colors.color3};
+            color: #${colors.color1};
             font-size: 20px;
             background: #${bg.dark};
             border-radius: 20px;
