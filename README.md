@@ -33,6 +33,7 @@ Currently there are two complete system configurations available. These are:
 
 * **Oganesson** - My desktop configuration. Generalist workflow which includes virtualization and gaming features.
 * **Mercury** - My laptop configuration. My laptop is a pretty weak machine so this configuration is stripped down a bit.
+
 The 'Xenon' config is my server configuration and is highly unlikely to be of use to anyone but me, as the setup has some very specific use-cases.
 
 ## Modules
