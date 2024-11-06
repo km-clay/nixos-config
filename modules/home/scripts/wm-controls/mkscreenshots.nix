@@ -32,7 +32,7 @@ pkgs.writeShellScriptBin "mkscreenshots" ''
 
   hyprctl dispatch workspace 4
   hyprctl dispatch exec "[float;size 40% 25%;move 1% 66%] kitty bash -c '$temp_script'"
-  hyprctl dispatch exec "[float;size 40% 50%;move 57% 5%] nemo"
+  hyprctl dispatch exec "[float;size 40% 50%;move 57% 8%] nemo"
 
   sleep 1
   grimblast save output "$FLAKEPATH"/assets/screens/desktop-neofetch.png

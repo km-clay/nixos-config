@@ -206,6 +206,11 @@
 	- Type: Boolean
 	- Default: true
 	- Defined in 'modules/home/scripts/default.nix'
+### mkscreenshots.enable
+	- Enables the mkscreenshots command
+	- Type: Boolean
+	- Default: true
+	- Defined in 'modules/home/scripts/default.nix'
 
 ## movScripts.nixShortcuts
 ### enable
