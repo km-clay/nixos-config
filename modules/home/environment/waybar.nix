@@ -475,13 +475,13 @@ in {
             min-width: 9px;
             min-height: 90px;
             border-radius: 8px;
-            background: #343434;
+            background: #121212;
           }
 
           #backlight-slider highlight,
           #pulseaudio-slider highlight {
             border-radius: 8px;
-            background-color: #2096C0;
+            background-color: #${colors.color3};
           }
 
           #network {
@@ -501,7 +501,7 @@ in {
           }
 
           #backlight {
-            color: #${colors.color2};
+            color: #${colors.color4};
             font-size: 18px;
             padding: 0 4px 0 0;
           }
