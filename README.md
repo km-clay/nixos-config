@@ -37,7 +37,7 @@ The 'Xenon' config is my server configuration and is highly unlikely to be of us
 This config uses custom modules for the home-manager and system configurations. Basically every part of the configuration can be toggled using an option, and some configs have extra options as well.
 All of the options declared in these modules can be found in the documentation under docs/options
 
-# Installation
+## Installation
 
 If you are on NixOS and have flakes enabled, you can just follow these steps: 
 
