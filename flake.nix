@@ -44,7 +44,7 @@
           inherit pkgs;
           extraSpecialArgs = {
             host = "oganesson";
-            inherit self username inputs nur;
+            inherit self username inputs;
           };
 
           # Specific Home Manager config for oganesson
@@ -52,6 +52,8 @@
             ./hosts/desktop/home.nix
             ./modules/home
             stylix.homeManagerModules.stylix
+            nixvim.homeManagerModules.nixvim
+            nur.nixosModules.nur
           ];
         };
 
@@ -86,7 +88,6 @@
             ./modules/sys
             home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
-            nixvim.nixosModules.nixvim
             nur.nixosModules.nur
           ];
         };

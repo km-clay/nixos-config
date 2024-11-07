@@ -365,7 +365,8 @@ in {
 
           #workspaces {
             margin: 3px;
-            background: #${bg.dark};
+            background: #${bg.darker};
+            border: 3px solid #${bg.dark};
             border-radius: 8px;
           }
 
@@ -380,8 +381,9 @@ in {
           }
 
           #cava {
-            background: #${bg.dark};
+            background: #${bg.darker};
             border-radius: 8px;
+            border: 3px solid #${bg.dark};
             margin: 3px 3px 3px 6px;
             padding: 0px 15px 0px 15px;
             color: #${colors.color6};
@@ -389,8 +391,9 @@ in {
 
           #window {
             margin: 3px;
-            background: #${bg.dark};
+            background: #${bg.darker};
             border-radius: 8px;
+            border: 3px solid #${bg.dark};
             padding: 0 15px 0 15px;
             font-weight: bold;
           }
@@ -398,8 +401,9 @@ in {
           #hardware {
             margin: 3px;
             padding: 0 10px 0 10px;
-            background: #${bg.dark};
+            background: #${bg.darker};
             border-radius: 8px;
+            border: 3px solid #${bg.dark};
           }
 
           #custom-disk-icon, #cpu, #memory {
@@ -422,16 +426,18 @@ in {
 
           #clock {
             font-weight: bold;
-            background: #${bg.dark};
+            background: #${bg.darker};
             border-radius: 8px;
+            border: 3px solid #${bg.dark};
             margin: 3px;
             padding: 0 10px 0 10px;
             font-size: 18px;
           }
 
           #powerbtns {
-            background: #${bg.dark};
+            background: #${bg.darker};
             border-radius: 8px;
+            border: 3px solid #${bg.dark};
             margin: 3px;
             padding: 0 5px 0 10px;
           }
@@ -452,8 +458,9 @@ in {
           }
 
           #audio {
-            background: #${bg.dark};
+            background: #${bg.darker};
             border-radius: 8px;
+            border: 3px solid #${bg.dark};
             margin: 3px;
             padding: 5px 0 10px 0;
           }
@@ -487,15 +494,17 @@ in {
           #network {
             color: #${colors.color1};
             font-size: 20px;
-            background: #${bg.dark};
+            background: #${bg.darker};
             border-radius: 8px;
+            border: 3px solid #${bg.dark};
             margin: 3px;
             padding: 5px 0 5px 6px;
           }
 
           #brightness {
-            background: #${bg.dark};
+            background: #${bg.darker};
             border-radius: 8px;
+            border: 3px solid #${bg.dark};
             margin: 3px;
             padding: 10px 0px 5px 0;
           }
@@ -509,7 +518,8 @@ in {
           #battery {
             color: #${colors.color4};
             font-size: 20px;
-            background: #${bg.dark};
+            background: #${bg.darker};
+            border: 3px solid #${bg.dark};
             border-radius: 8px;
             margin: 3px;
             padding: 5px 0 5px 0px;
