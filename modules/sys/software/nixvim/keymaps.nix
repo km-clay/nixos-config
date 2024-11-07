@@ -2,6 +2,16 @@
   programs.nixvim = {
     keymaps = [
       {
+        action = "<cmd>lua vim.lsp.buf.format()<CR>";
+        key = "!fmt";
+        mode = "n";
+      }
+      {
+        action = "<cmd>lua vim.diagnostic.open_float()<CR>";
+        key = "!df";
+        mode = "n";
+      }
+      {
         action = "<C-W>W";
         key = "<S-Tab>";
         mode = "n";

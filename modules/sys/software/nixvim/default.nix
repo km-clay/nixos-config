@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  host,
+  self,
   ...
 }: {
   imports = [

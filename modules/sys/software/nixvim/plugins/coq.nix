@@ -3,7 +3,7 @@
     plugins.coq-nvim = {
       enable = true;
       settings = {
-        auto_start = false;
+        auto_start = true;
       };
     };
   };

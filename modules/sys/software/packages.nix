@@ -1,8 +1,8 @@
 {lib, config, pkgs, inputs, ... }: {
   options = {
-    sysPkgs.enable = lib.mkEnableOption "enables default system packages";
+    movOpts.sysPkgs.enable = lib.mkEnableOption "enables default system packages";
   };
-  config = lib.mkIf config.sysPkgs.enable {
+  config = lib.mkIf config.movOpts.sysPkgs.enable {
     environment.systemPackages = with pkgs; [
       alsa-lib
       alsa-utils
@@ -25,6 +25,7 @@
       nixos-option
       nix-search-cli
       nix-template
+      nixfmt
       sshfs
       nvd
       pamixer

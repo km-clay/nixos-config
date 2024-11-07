@@ -1,8 +1,8 @@
 {lib, config, ...}: {
   options = {
-    sysServices.enable = lib.mkEnableOption "enables default system services";
+    movOpts.sysServices.enable = lib.mkEnableOption "enables default system services";
   };
-  config = lib.mkIf config.sysServices.enable {
+  config = lib.mkIf config.movOpts.sysServices.enable {
     services = {
       keyd = {
         enable = true;

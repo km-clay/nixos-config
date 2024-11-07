@@ -1,8 +1,8 @@
 {lib, config, username, ...}: {
   options = {
-    virtConfig.enable = lib.mkEnableOption "enables virtualization";
+    movOpts.virtConfig.enable = lib.mkEnableOption "enables virtualization";
   };
-  config = lib.mkIf config.virtConfig.enable {
+  config = lib.mkIf config.movOpts.virtConfig.enable {
     virtualisation.libvirtd.enable = true;
     programs.virt-manager.enable = true;
   };

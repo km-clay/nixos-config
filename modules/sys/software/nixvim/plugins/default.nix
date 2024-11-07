@@ -1,3 +1,5 @@
+{ host, self, ... }:
+
 {
   imports = [
     ./alpha.nix
@@ -6,7 +8,7 @@
     ./coq.nix
     ./barbar.nix
     ./cmp.nix
-    ./lsp.nix
+    ( import ./lsp.nix { inherit host self; })
     ./lualine.nix
     ./plugins.nix
     ./nvim-tree.nix
