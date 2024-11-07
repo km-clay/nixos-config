@@ -6,6 +6,7 @@
   pkgs,
   ...
 }: let
+  vipkg = import ./commands/vipkg.nix { inherit pkgs; };
   keyring         = import ./wm-controls/keyring.nix { inherit pkgs; };
   invoke          = import ./commands/invoke.nix { inherit pkgs; };
   splash          = import ./commands/splash.nix { inherit pkgs; };
@@ -42,7 +43,9 @@ in {
     movOpts.movScripts.nixShortcuts.enable =
       lib.mkEnableOption "Enables all Nix shortcut scripts";
 
-    # Individual options using scriptOverride or mkEnableOption directly
+    # Command Scripts
+    movOpts.movScripts.commandScripts.vipkg.enable = 
+      scriptOverride "Search through the nixpkgs/pkgs directory for a package derivation. Useful for overrides." "commandScripts" "vipkg";
     movOpts.movScripts.commandScripts.icanhazip.enable =
       scriptOverride "Enables the icanhazip command" "commandScripts" "icanhazip";
     movOpts.movScripts.commandScripts.invoke.enable =
@@ -56,6 +59,7 @@ in {
     movOpts.movScripts.commandScripts.viconf.enable =
       scriptOverride "Enables the viconf command" "commandScripts" "viconf";
 
+    # Hyprland Controls
     movOpts.movScripts.hyprlandControls.chpaper.enable =
       scriptOverride "Enables the chpaper command" "hyprlandControls" "chpaper";
     movOpts.movScripts.hyprlandControls.scheck.enable =
@@ -72,6 +76,7 @@ in {
       scriptOverride "Generates screenshots, and updates the README.md with the current rev hash" "hyprlandControls" "switchmon";
 
 
+    # Nix Shortcuts
     movOpts.movScripts.nixShortcuts.garbage-collect.enable =
       scriptOverride "Enables the garbage-collect script" "nixShortcuts" "garbage-collect";
     movOpts.movScripts.nixShortcuts.nsp.enable =
@@ -81,13 +86,17 @@ in {
   };
 
   config = lib.mkIf config.movOpts.movScripts.enable {
-    home.packages = lib.optionals config.movOpts.movScripts.commandScripts.invoke.enable [ invoke ]
+    home.packages =
+                       lib.optionals config.movOpts.movScripts.commandScripts.invoke.enable [ invoke ]
+                    # Command Scripts Overrides
+                    ++ lib.optionals config.movOpts.movScripts.commandScripts.vipkg.enable [ vipkg ]
                     ++ lib.optionals config.movOpts.movScripts.commandScripts.runbg.enable [ runbg ]
                     ++ lib.optionals config.movOpts.movScripts.commandScripts.icanhazip.enable [ icanhazip ]
                     ++ lib.optionals config.movOpts.movScripts.commandScripts.splash.enable [ splash ]
                     ++ lib.optionals config.movOpts.movScripts.commandScripts.toolbelt.enable [ toolbelt ]
                     ++ lib.optionals config.movOpts.movScripts.commandScripts.viconf.enable [ viconf ]
 
+                    # Hyprland Controls Overrides
                     ++ lib.optionals config.movOpts.movScripts.hyprlandControls.chpaper.enable [ chpaper ]
                     ++ lib.optionals config.movOpts.movScripts.hyprlandControls.scheck.enable [ scheck ]
                     ++ lib.optionals config.movOpts.movScripts.hyprlandControls.chscheme.enable [ chscheme ]
@@ -96,6 +105,7 @@ in {
                     ++ lib.optionals config.movOpts.movScripts.hyprlandControls.switchmon.enable [ switchmon ]
                     ++ lib.optionals config.movOpts.movScripts.hyprlandControls.mkscreenshots.enable [ mkscreenshots ]
 
+                    # Nix Shortcuts Overrides
                     ++ lib.optionals config.movOpts.movScripts.nixShortcuts.garbage-collect.enable [ garbage-collect ]
                     ++ lib.optionals config.movOpts.movScripts.nixShortcuts.nsp.enable [ nsp ]
                     ++ lib.optionals config.movOpts.movScripts.nixShortcuts.rebuild.enable [ rebuild ];

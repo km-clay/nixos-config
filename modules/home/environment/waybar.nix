@@ -104,14 +104,14 @@ in {
             higher_cutoff_freq = 10000;
             method = "pulse";
             source = "auto";
-            hide_on_silence = true;
+            hide_on_silence = false;
             stereo = true;
             reverse = true;
             bar_delimiter = 0;
             monstercat = false;
             waves = false;
             noise_reduction = 0.77;
-            input_delay = 2;
+            input_delay = 1;
             format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
           };
 
@@ -361,6 +361,7 @@ in {
           }
           window#waybar.empty #window {
             background: none;
+            border: none;
           }
 
           #workspaces {

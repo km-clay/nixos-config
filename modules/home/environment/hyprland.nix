@@ -1,4 +1,4 @@
-{inputs, pkgs, lib, config, username, host, ... }: let
+{inputs, pkgs, lib, config, self, host, ... }: let
   desktop = host == "oganesson";
   screenshot_bind =
     if desktop
@@ -10,7 +10,9 @@
       "super, insert, exec, grimblast copy area"
     ];
   scheme = config.lib.stylix.colors;
+
 in {
+
   options = {
     movOpts.hyprlandConfig.enable = lib.mkEnableOption "enables my hyprland config";
   };
@@ -56,7 +58,7 @@ in {
           "systemctl --user import-environment &"
           "hash dbus-update-activation-environment 2>/dev/null &"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
-          "aplay /home/${username}/sound/sys/login.wav &"
+          "aplay ${self}/assets/sound/login.wav &"
         ];
 
         workspace =
