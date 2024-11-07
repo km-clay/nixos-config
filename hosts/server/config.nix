@@ -7,16 +7,17 @@
     ./hardware.nix
     ./home.nix
   ];
-  nixSettings.enable = true;
-  networkModule.enable = true;
-  bootLoader.enable = true;
-  issue.enable = true;
-  sysPkgs.enable = true;
-  sysProgs.enable = true;
-  sysServices.enable = true;
-  jellyfinConfig.enable = true;
-  caddyConfig.enable = true;
-
+  movOpts = {
+    nixSettings.enable = true;
+    networkModule.enable = true;
+    bootLoader.enable = true;
+    issue.enable = true;
+    sysPkgs.enable = true;
+    sysProgs.enable = true;
+    sysServices.enable = true;
+    jellyfinConfig.enable = true;
+    caddyConfig.enable = true;
+  };
   networking.firewall = {
     allowedTCPPorts = [ 443 8920 ];
   };

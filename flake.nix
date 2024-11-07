@@ -1,5 +1,5 @@
 {
-  description = "pagedMov's NixOS configuration";
+  description = "pagedMov's NixOS and Home Manager configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -30,77 +30,111 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    nur,
-    self,
-    nixvim,
-    stylix,
-    ...
-  } @ inputs: let
-    system = "x86_64-linux";
-    username = "pagedmov";
-  in {
-    homeManagerModules.default = ./modules/home;
-    nixosModules.default = ./modules/sys;
-    serverModules.default = ./modules/server;
-    nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  outputs = { self, home-manager, nixpkgs, nur, nixvim, stylix, ... } @ inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+      username = "pagedmov";
+    in {
+      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
-    nixosConfigurations = {
-      oganesson = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          host = "oganesson";
-          inherit self inputs username;
+      # Home Manager configurations for each user/machine
+      homeConfigurations = {
+        oganessonHome = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            host = "oganesson";
+            inherit self username inputs nur;
+          };
+
+          # Specific Home Manager config for oganesson
+          modules = [
+            ./hosts/desktop/home.nix
+            ./modules/home
+            stylix.homeManagerModules.stylix
+          ];
         };
-        inherit system;
-        modules = [
-          ./hosts/desktop/config.nix
-          ./modules/sys
-          stylix.nixosModules.stylix
-          nixvim.nixosModules.nixvim
-          nur.nixosModules.nur
-        ];
+
+        mercuryHome = home-manager.lib.homeManagerConfiguration {
+          inherit system;
+          pkgs = pkgs;
+          extraSpecialArgs = { inherit self inputs username; };
+
+          # Specific Home Manager config for mercury
+          configuration = import ./hosts/laptop/home.nix;
+        };
+
+        xenonHome = home-manager.lib.homeManagerConfiguration {
+          inherit system;
+          pkgs = pkgs;
+          extraSpecialArgs = { inherit self inputs username; };
+
+          # Specific Home Manager config for xenon
+          configuration = import ./hosts/server/home.nix;
+        };
       };
 
-      mercury = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          host = "mercury";
-          inherit self inputs username;
+      nixosConfigurations = {
+        oganesson = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            host = "oganesson";
+            inherit self inputs username;
+          };
+          inherit system;
+          modules = [
+            ./hosts/desktop/config.nix
+            ./modules/sys
+            home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
+            nixvim.nixosModules.nixvim
+            nur.nixosModules.nur
+          ];
         };
-        modules = [
-          ./hosts/laptop/config.nix
-          ./modules/sys
-          stylix.nixosModules.stylix
-          nixvim.nixosModules.nixvim
-          nur.nixosModules.nur
-        ];
-      };
 
-      xenon = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          host = "xenon";
-          inherit self inputs username;
+        mercury = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            host = "mercury";
+            inherit self inputs username;
+          };
+          inherit system;
+          modules = [
+            ./hosts/laptop/config.nix
+            ./modules/sys
+            home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
+            nixvim.nixosModules.nixvim
+            nur.nixosModules.nur
+          ];
         };
-        modules = [
-          ./hosts/server/config.nix
-          ./modules/sys
-          ./modules/server
-          stylix.nixosModules.stylix
-          nixvim.nixosModules.nixvim
-          nur.nixosModules.nur
-        ];
-      };
 
-      installer = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          host = "installer";
-          inherit self inputs;
+        xenon = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            host = "xenon";
+            inherit self inputs username;
+          };
+          inherit system;
+          modules = [
+            ./hosts/server/config.nix
+            ./modules/sys
+            ./modules/server
+            home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
+            nixvim.nixosModules.nixvim
+            nur.nixosModules.nur
+          ];
         };
-        modules = [
-          ./hosts/installer
-          nixvim.nixosModules.nixvim
-        ];
+
+        installer = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            host = "installer";
+            inherit self inputs;
+          };
+          inherit system;
+          modules = [
+            ./hosts/installer
+            nixvim.nixosModules.nixvim
+          ];
+        };
       };
     };
-  };
 }

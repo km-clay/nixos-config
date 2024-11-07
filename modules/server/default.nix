@@ -5,7 +5,8 @@
     ./cdn
     ./glasshaus
   ];
-
-  jellyfinConfig.enable = lib.mkDefault false;
-  caddyConfig.enable = lib.mkDefault false;
+  movOpts = {
+    jellyfinConfig.enable = lib.mkDefault false;
+    caddyConfig.enable = lib.mkDefault false;
+  };
 }

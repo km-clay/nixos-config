@@ -1,7 +1,6 @@
-{pkgs, ...}: {
+{pkgs, username, ...}: {
   imports = [
     ./hardware.nix
-    ./home.nix
   ];
 
   # My module options
@@ -42,6 +41,23 @@
       bash
     ];
   };
+
+  users = {
+    groups.persist = {};
+    users = {
+      root.initialPassword = "1234";
+      ${username} = {
+        isNormalUser = true;
+        initialPassword = "1234";
+        shell = pkgs.zsh;
+        extraGroups = ["wheel" "persist" "libvirtd"];
+      };
+    };
+  };
+  security.sudo.extraConfig = ''
+    ${username} ALL=(ALL) NOPASSWD: /etc/profiles/per-user/${username}/bin/rebuild
+  '';
+  nix.settings.allowed-users = ["${username}"];
 
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";

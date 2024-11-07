@@ -1,4 +1,4 @@
-{lib, config, nur, username, self, ... }: {
+{lib, config, nur, username, self, pkgs, ... }: {
   options = {
     movOpts.firefoxConfig.enable = lib.mkEnableOption "enables my firefox configuration";
   };
@@ -82,17 +82,6 @@
             name = "Nerd Fonts Cheatsheet";
             url = "https://www.nerdfonts.com/cheat-sheet";
           }
-        ];
-        extensions = with nur.repos.rycee.firefox-addons; [
-          darkreader
-          adnauseam
-          cookie-autodelete
-          disconnect
-          firefox-color
-          vimium
-          firenvim
-          privacy-badger
-          new-tab-override
         ];
         extraConfig = ''
            "browser.startup.homepage" = "${self}/glasshouse-desktop/home/firefox/homepage.html";
