@@ -6,6 +6,7 @@
   pkgs,
   ...
 }: let
+  fetchfromgh = import ./nix/fetchfromgh.nix { inherit pkgs; };
   vipkg = import ./commands/vipkg.nix { inherit pkgs; };
   keyring         = import ./wm-controls/keyring.nix { inherit pkgs; };
   invoke          = import ./commands/invoke.nix { inherit pkgs; };
@@ -77,6 +78,8 @@ in {
 
 
     # Nix Shortcuts
+    movOpts.movScripts.nixShortcuts.fetchfromgh.enable = 
+      scriptOverride "Provides a full pkgs.fetchFromGitHub call from a repository url" "nixShortcuts" "fetchfromgh";
     movOpts.movScripts.nixShortcuts.garbage-collect.enable =
       scriptOverride "Enables the garbage-collect script" "nixShortcuts" "garbage-collect";
     movOpts.movScripts.nixShortcuts.nsp.enable =
@@ -106,6 +109,7 @@ in {
                     ++ lib.optionals config.movOpts.movScripts.hyprlandControls.mkscreenshots.enable [ mkscreenshots ]
 
                     # Nix Shortcuts Overrides
+                    ++ lib.optionals config.movOpts.movScripts.nixShortcuts.fetchfromgh.enable [ fetchfromgh ]
                     ++ lib.optionals config.movOpts.movScripts.nixShortcuts.garbage-collect.enable [ garbage-collect ]
                     ++ lib.optionals config.movOpts.movScripts.nixShortcuts.nsp.enable [ nsp ]
                     ++ lib.optionals config.movOpts.movScripts.nixShortcuts.rebuild.enable [ rebuild ];
