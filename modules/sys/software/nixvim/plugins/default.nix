@@ -5,10 +5,10 @@
     ./alpha.nix
     ./haskell.nix
     ./vim-matchup.nix
-    ./coq.nix
+    # ./coq.nix
     ./barbar.nix
     ./cmp.nix
-    ( import ./lsp.nix { inherit host self; })
+    ./lsp.nix
     ./lualine.nix
     ./plugins.nix
     ./nvim-tree.nix
