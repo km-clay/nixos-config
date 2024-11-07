@@ -11,7 +11,6 @@
     [(import ./packages.nix)]
     ++ [(import ./programs.nix)]
     ++ [(import ./services.nix)]
-    ++ [(import ./nixvim)]
     ++ [(import ./virtualization.nix)]
     ++ [(import ./gaming)];
 }

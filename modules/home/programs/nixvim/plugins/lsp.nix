@@ -38,9 +38,6 @@
                 })
               '';
             };
-            completion = {
-              keyword_length = 3;
-            };
             window = {
               completion.border = "rounded";
             };

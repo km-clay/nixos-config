@@ -8,13 +8,8 @@
   config,
   home-manager,
   ...
-}: let
-  desktop = host == "onagesson";
-  desktop_modules =
-    if desktop
-    then [(import ./gaming)]
-    else [];
-in {
+}:
+{
   imports =
     [(import ./btop.nix)]
     ++ [(import ./yazi.nix)]
@@ -28,5 +23,5 @@ in {
     ++ [(import ./password-store.nix)]
     ++ [(import ./autojump.nix)]
     ++ [(import ./firefox.nix)]
-    ++ desktop_modules;
+    ++ [(import ./nixvim)];
 }
