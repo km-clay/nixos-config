@@ -35,7 +35,7 @@
 		- `viconf <part of path or filename>`
 	- Examples:
 		- `viconf hyprland` - Opens $FLAKEPATH/modules/home/environment/hyprland.nix
-		- `viconf sys` - Opens fuzzyfinder window containing all nix files in modules/sys
+		- `viconf sys` - Opens fuzzyfinder window containing all nix files in modules/sys and its subdirectories
 		- `viconf config` - Opens fuzzyfinder window containing all nix files called 'config.nix'
 		- `viconf scripts/def` - Opens $FLAKEPATH/modules/home/scripts/default.nix
 	- Defined in 'modules/home/scripts/commands/viconf.nix'
