@@ -23,9 +23,23 @@ pkgs.writeShellApplication {
       results=$(echo "$results" | cut -d'/' -f4-)
       results=$(echo "$results" | grep "$1")
 
-      echo "$results" | tr ' ' '\n' | fzf | xargs -I {} nvim "$results_prefix"/{}
+      file=$(echo "$results" | tr ' ' '\n' | fzf)
+      file="$results_prefix/$file"
+
+      # Check if the file contains any non-UTF-8 characters
+      if grep --color='auto' -P -q "[^\x00-\x7F]" "$file"; then
+        NIXD_FLAGS="--semantic-tokens=false" nvim "$results_prefix"/"$file"
+      else
+        nvim "$file"
+      fi
+
     else
-      nvim "$results"
+      # Check if the file contains any non-UTF-8 characters
+      if grep --color='auto' -P -q "[^\x00-\x7F]" "$results"; then
+        NIXD_FLAGS="--semantic-tokens=false" nvim "$results"
+      else
+        nvim "$results"
+      fi
     fi
   '';
 }
