@@ -36,9 +36,6 @@
       pkgs = import nixpkgs { inherit system; };
       username = "pagedmov";
     in {
-      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-
-      # Home Manager configurations for each user/machine
       homeConfigurations = {
         oganessonHome = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
@@ -47,7 +44,6 @@
             inherit self username inputs;
           };
 
-          # Specific Home Manager config for oganesson
           modules = [
             ./hosts/desktop/home.nix
             ./modules/home
@@ -58,21 +54,33 @@
         };
 
         mercuryHome = home-manager.lib.homeManagerConfiguration {
-          inherit system;
-          pkgs = pkgs;
-          extraSpecialArgs = { inherit self inputs username; };
+          inherit pkgs;
+          extraSpecialArgs = {
+            host = "oganesson";
+            inherit self username inputs;
+          };
 
-          # Specific Home Manager config for mercury
-          configuration = import ./hosts/laptop/home.nix;
+          modules = [
+            ./hosts/laptop/home.nix
+            ./modules/home
+            stylix.homeManagerModules.stylix
+            nixvim.homeManagerModules.nixvim
+            nur.nixosModules.nur
+          ];
         };
 
         xenonHome = home-manager.lib.homeManagerConfiguration {
-          inherit system;
-          pkgs = pkgs;
-          extraSpecialArgs = { inherit self inputs username; };
+          inherit pkgs;
+          extraSpecialArgs = {
+            host = "oganesson";
+            inherit self username inputs;
+          };
 
-          # Specific Home Manager config for xenon
-          configuration = import ./hosts/server/home.nix;
+          modules = [
+            ./hosts/server/home.nix
+            ./modules/home/servermodule.nix
+            nixvim.homeManagerModules.nixvim
+          ];
         };
       };
 
@@ -86,7 +94,6 @@
           modules = [
             ./hosts/desktop/config.nix
             ./modules/sys
-            home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
             nur.nixosModules.nur
           ];
@@ -101,9 +108,7 @@
           modules = [
             ./hosts/laptop/config.nix
             ./modules/sys
-            home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
-            nixvim.nixosModules.nixvim
             nur.nixosModules.nur
           ];
         };
@@ -118,9 +123,7 @@
             ./hosts/server/config.nix
             ./modules/sys
             ./modules/server
-            home-manager.nixosModules.home-manager
             stylix.nixosModules.stylix
-            nixvim.nixosModules.nixvim
             nur.nixosModules.nur
           ];
         };
