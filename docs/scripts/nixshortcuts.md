@@ -1,7 +1,7 @@
 # pagedMov's Nix Aliases
 
 ## fetchfromgh
-  - Given a username and repo name like someuser/somerepo, generates a full pkgs.fetchFromGitHub call.
+  - Given a username and repo name like someuser/somerepo, generates a full pkgs.fetchFromGitHub call. Uses the most recent commit.
   - Usage:
     - `fetchfromgh someuser/somerepo`
   - Example:
