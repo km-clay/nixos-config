@@ -1,8 +1,8 @@
 {lib, config, nur, username, self, ... }: {
   options = {
-    firefoxConfig.enable = lib.mkEnableOption "enables my firefox configuration";
+    movOpts.firefoxConfig.enable = lib.mkEnableOption "enables my firefox configuration";
   };
-  config = lib.mkIf config.firefoxConfig.enable {
+  config = lib.mkIf config.movOpts.firefoxConfig.enable {
     programs.firefox = {
       enable = true;
       policies = {

@@ -1,8 +1,8 @@
 {lib, config, ...}: {
   options = {
-    fzfConfig.enable = lib.mkEnableOption "enables my fzf options";
+    movOpts.fzfConfig.enable = lib.mkEnableOption "enables my fzf options";
   };
-  config = lib.mkIf config.fzfConfig.enable {
+  config = lib.mkIf config.movOpts.fzfConfig.enable {
     programs.fzf = {
       enable = true;
       enableZshIntegration = true;

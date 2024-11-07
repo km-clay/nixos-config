@@ -22,7 +22,7 @@ in
                 nixpkgs.expr = "import <nixpkgs> { }";
                 formatting.command = "nixfmt";
                 options = {
-                  nixos.expr = "(builtins.getFlake \"${flakePath}\").nixosConfigurations.${host}.options";
+                  nixos.expr = "(builtins.getFlake \"github:pagedMov/nixos-config\").nixosConfigurations.xenon.options";
                 };
               };
             };

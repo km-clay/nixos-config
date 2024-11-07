@@ -57,7 +57,7 @@ let
     ];
 in {
   options = {
-    waybarConfig.enable = lib.mkEnableOption "enables my waybar configuration";
+    movOpts.waybarConfig.enable = lib.mkEnableOption "enables my waybar configuration";
   };
   config = {
     programs.waybar = {

@@ -12,9 +12,9 @@
   scheme = config.lib.stylix.colors;
 in {
   options = {
-    hyprlandConfig.enable = lib.mkEnableOption "enables my hyprland config";
+    movOpts.hyprlandConfig.enable = lib.mkEnableOption "enables my hyprland config";
   };
-  config = lib.mkIf config.hyprlandConfig.enable {
+  config = lib.mkIf config.movOpts.hyprlandConfig.enable {
     home.packages = with pkgs; [
       swaybg
       inputs.hypr-contrib.packages.${pkgs.system}.grimblast

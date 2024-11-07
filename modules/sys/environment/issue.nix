@@ -1,8 +1,8 @@
 {lib, config, ...}: {
   options = {
-    issue.enable = lib.mkEnableOption "enables custom /etc/issue splash screen for the tty";
+    movOpts.issue.enable = lib.mkEnableOption "enables custom /etc/issue splash screen for the tty";
   };
-  config = lib.mkIf config.issue.enable {
+  config = lib.mkIf config.movOpts.issue.enable {
     environment.etc."issue".text = ''
 
              \e[38;5;27m▓▓▓▓       \e[38;5;81m▒▒▒▒    ▒▒▒▒

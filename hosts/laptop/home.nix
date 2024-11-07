@@ -59,7 +59,7 @@ in {
         movScripts.hyprlandControls.enable = true;
         movScripts.nixShortcuts.enable = true;
 
-        dconf.settings = lib.mkIf config.virtConfig.enable {
+        dconf.settings = lib.mkIf config.movOpts.virtConfig.enable {
           "org/virt-manager/virt-manager/connections" = {
             autoconnect = ["qemu:///system"];
             uris = ["qemu:///system"];

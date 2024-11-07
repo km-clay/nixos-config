@@ -33,7 +33,6 @@
   outputs = {
     nixpkgs,
     nur,
-    home-manager,
     self,
     nixvim,
     stylix,
@@ -43,6 +42,9 @@
     username = "pagedmov";
   in {
     homeManagerModules.default = ./modules/home;
+    nixosModules.default = ./modules/sys;
+    serverModules.default = ./modules/server;
+    nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
     nixosConfigurations = {
       oganesson = nixpkgs.lib.nixosSystem {

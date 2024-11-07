@@ -5,18 +5,20 @@
   ];
 
   # My module options
-  networkModule.enable = true;
-  nixSettings.enable = true;
-  bootLoader.enable = true;
-  issue.enable = true;
-  sddmConfig.enable = true;
-  stylixConfig.enable = true;
-  gamingPkgs.enable = true;
-  steamConfig.enable = true;
-  sysPkgs.enable = true;
-  sysProgs.enable = true;
-  sysServices.enable = true;
-  virtConfig.enable = true;
+  movOpts = {
+    networkModule.enable = true;
+    nixSettings.enable = true;
+    bootLoader.enable = true;
+    issue.enable = true;
+    sddmConfig.enable = true;
+    stylixConfig.enable = true;
+    gamingPkgs.enable = true;
+    steamConfig.enable = true;
+    sysPkgs.enable = true;
+    sysProgs.enable = true;
+    sysServices.enable = true;
+    virtConfig.enable = true;
+  };
 
   nix = {
     settings = {

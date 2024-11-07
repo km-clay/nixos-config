@@ -28,7 +28,7 @@ let
 in
 {
   options = {
-    homeFiles.enable = lib.mkEnableOption "enables declared custom files";
+    movOpts.homeFiles.enable = lib.mkEnableOption "enables declared custom files";
   };
   config = {
     home.file = {

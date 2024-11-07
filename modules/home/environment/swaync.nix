@@ -1,8 +1,8 @@
 {lib, config, pkgs, ...}: {
   options = {
-    swayncConfig.enable = lib.mkEnableOption "enables my swaync configuration";
+    movOpts.swayncConfig.enable = lib.mkEnableOption "enables my swaync configuration";
   };
-  config = lib.mkIf config.swayncConfig.enable {
+  config = lib.mkIf config.movOpts.swayncConfig.enable {
     home.packages = with pkgs; [swaynotificationcenter];
     xdg.configFile."swaync/style.css".text = ''
       @define-color shadow rgba(0, 0, 0, 0.25);

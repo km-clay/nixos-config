@@ -1,8 +1,8 @@
 {lib, config, self, ...}: {
   options = {
-    zshConfig.enable = lib.mkEnableOption "enables my zsh configuration";
+    movOpts.zshConfig.enable = lib.mkEnableOption "enables my zsh configuration";
   };
-  config = lib.mkIf config.zshConfig.enable {
+  config = lib.mkIf config.movOpts.zshConfig.enable {
     programs.zoxide = {
       enable = true;
       enableZshIntegration = true;
