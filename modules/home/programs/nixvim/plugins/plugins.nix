@@ -9,6 +9,7 @@
       neoscroll.enable = true;
       endwise.enable = true;
       firenvim.enable = true;
+      helpview.enable = true;
       floaterm.enable = true;
       fugitive.enable = true;
       gitsigns.enable = true;

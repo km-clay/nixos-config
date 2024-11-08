@@ -9,6 +9,7 @@
     ./barbar.nix
     ./cmp.nix
     ./lsp.nix
+    ./fidget.nix
     ./lualine.nix
     ./plugins.nix
     ./nvim-tree.nix
