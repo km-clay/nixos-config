@@ -1,8 +1,8 @@
 {lib, config, pkgs, ...}: {
   options = {
-    movOpts.btopConfig.enable = lib.mkEnableOption "enables my btop config";
+    movOpts.programConfigs.btopConfig.enable = lib.mkEnableOption "enables my btop config";
   };
-  config = lib.mkIf config.movOpts.btopConfig.enable {
+  config = lib.mkIf config.movOpts.programConfigs.btopConfig.enable {
     programs.btop = {
       enable = true;
 

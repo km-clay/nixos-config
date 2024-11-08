@@ -4,9 +4,9 @@
 in {
   imports = [inputs.spicetify-nix.homeManagerModules.default];
   options = {
-    movOpts.spicetifyConfig.enable = lib.mkEnableOption "enable my spicetify options";
+    movOpts.envConfig.spicetifyConfig.enable = lib.mkEnableOption "enable my spicetify options";
   };
-  config = lib.mkIf config.movOpts.spicetifyConfig.enable {
+  config = lib.mkIf config.movOpts.envConfig.spicetifyConfig.enable {
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [
         "spotify"

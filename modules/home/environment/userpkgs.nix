@@ -19,9 +19,9 @@ let
 in
 {
   options = {
-    movOpts.userPkgs.enable = lib.mkEnableOption "enables my default user packages";
+    movOpts.envConfig.userPkgs.enable = lib.mkEnableOption "enables my default user packages";
   };
-  config = lib.mkIf config.movOpts.userPkgs.enable {
+  config = lib.mkIf config.movOpts.envConfig.userPkgs.enable {
     home.packages = with pkgs;
       [
         nemo

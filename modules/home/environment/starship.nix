@@ -1,8 +1,8 @@
 {config, lib, inputs, ... }: {
   options = {
-    movOpts.starshipConfig.enable = lib.mkEnableOption "enables my starship configuration";
+    movOpts.envConfig.starshipConfig.enable = lib.mkEnableOption "enables my starship configuration";
   };
-  config = lib.mkIf config.movOpts.starshipConfig.enable {
+  config = lib.mkIf config.movOpts.envConfig.starshipConfig.enable {
     programs.starship = {
       enable = true;
       enableZshIntegration = false;

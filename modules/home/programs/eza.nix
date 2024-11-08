@@ -1,8 +1,8 @@
 {lib, config, ...}: {
   options = {
-    movOpts.ezaConfig.enable = lib.mkEnableOption "enables my eza options";
+    movOpts.programConfigs.ezaConfig.enable = lib.mkEnableOption "enables my eza options";
   };
-  config = lib.mkIf config.movOpts.ezaConfig.enable {
+  config = lib.mkIf config.movOpts.programConfigs.ezaConfig.enable {
     programs.eza = {
       enable = true;
       enableZshIntegration = false;

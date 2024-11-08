@@ -1,8 +1,8 @@
 {lib, config, inputs, ...}: {
   options = {
-    movOpts.batConfig.enable = lib.mkEnableOption "enables my bat options";
+    movOpts.programConfigs.batConfig.enable = lib.mkEnableOption "enables my bat options";
   };
-  config = lib.mkIf config.movOpts.batConfig.enable {
+  config = lib.mkIf config.movOpts.programConfigs.batConfig.enable {
     programs.bat = {
       enable = true;
       config = {

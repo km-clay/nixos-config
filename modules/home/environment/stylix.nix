@@ -6,9 +6,9 @@ let
 in
 {
   options = {
-    movOpts.stylixHomeConfig.enable = lib.mkEnableOption "enables my stylix Home-Manager options";
+    movOpts.envConfig.stylixHomeConfig.enable = lib.mkEnableOption "enables my stylix Home-Manager options";
   };
-  config = lib.mkIf config.movOpts.stylixHomeConfig.enable {
+  config = lib.mkIf config.movOpts.envConfig.stylixHomeConfig.enable {
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";

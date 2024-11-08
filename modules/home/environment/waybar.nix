@@ -13,12 +13,12 @@ let
       "6" = "六";
     };
     persistent-workspaces =
-      if (config.movOpts.hyprlandConfig.workspaceLayout == "singlemonitor") then {
+      if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "singlemonitor") then {
         "${builtins.elemAt monitors 0}" = [ 1 2 3 4 ];
-      } else if (config.movOpts.hyprlandConfig.workspaceLayout == "dualmonitor") then {
+      } else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "dualmonitor") then {
         "${builtins.elemAt monitors 0}" = [ 1 2 3 ];
         "${builtins.elemAt monitors 1}" = [ 4 5 6 ];
-      } else if (config.movOpts.hyprlandConfig.workspaceLayout == "trimonitor") then {
+      } else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "trimonitor") then {
         "${builtins.elemAt monitors 2}" = [ 1 2 ];
         "${builtins.elemAt monitors 1}" = [ 3 4 ];
         "${builtins.elemAt monitors 0}" = [ 5 6 ];
@@ -49,10 +49,10 @@ let
     color6 = scheme.base0E;
     color7 = scheme.base0F;
   };
-  monitors = config.movOpts.hyprlandConfig.monitorNames;
+  monitors = config.movOpts.envConfig.hyprlandConfig.monitorNames;
 in {
   options = {
-    movOpts.waybarConfig.enable = lib.mkEnableOption "enables my waybar configuration";
+    movOpts.envConfig.waybarConfig.enable = lib.mkEnableOption "enables my waybar configuration";
   };
   config = {
     programs.waybar = {

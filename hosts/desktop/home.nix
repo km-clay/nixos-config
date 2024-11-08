@@ -12,39 +12,45 @@
     homeFiles.enable = true;
 
     # modules/home/environment
-    hyprlandConfig = {
-      enable = true;
-      monitorNames = [ "HDMI-A-1" "DP-1" ];
-      workspaceLayout = "dualmonitor";
+    envConfig = {
+      hyprlandConfig = {
+        enable = true;
+        monitorNames = [ "HDMI-A-1" "DP-1" ];
+        workspaceLayout = "dualmonitor";
+      };
+      userPkgs.enable = true;
+      stylixHomeConfig.enable = true;
+      waybarConfig.enable = true;
+      gtkConfig.enable = true;
+      spicetifyConfig.enable = true;
+      starshipConfig.enable = true;
+      swayncConfig.enable = true;
+      zshConfig.enable = true;
     };
-    autojumpConfig.enable = true;
-    stylixHomeConfig.enable = true;
-    waybarConfig.enable = true;
-    gtkConfig.enable = true;
-    spicetifyConfig.enable = true;
-    starshipConfig.enable = true;
 
     # modules/home/programs
-    btopConfig.enable = true;
-    swayncConfig.enable = true;
-    userPkgs.enable = true;
-    cavaConfig.enable = true;
-    ezaConfig.enable = true;
-    firefoxConfig.enable = true;
-    fuzzelConfig.enable = true;
-    fzfConfig.enable = true;
-    gitConfig.enable = true;
-    kittyConfig.enable = true;
-    yaziConfig.enable = true;
-    zshConfig.enable = true;
-    passConfig.enable = true;
-    batConfig.enable = true;
+    programConfigs = {
+      autojumpConfig.enable = true;
+      btopConfig.enable = true;
+      cavaConfig.enable = true;
+      ezaConfig.enable = true;
+      firefoxConfig.enable = true;
+      fuzzelConfig.enable = true;
+      fzfConfig.enable = true;
+      gitConfig.enable = true;
+      kittyConfig.enable = true;
+      yaziConfig.enable = true;
+      passConfig.enable = true;
+      batConfig.enable = true;
+    };
 
     # modules/home/scripts
-    movScripts.enable = true;
-    movScripts.commandScripts.enable = true;
-    movScripts.hyprlandControls.enable = true;
-    movScripts.nixShortcuts.enable = true;
+    movScripts = {
+      enable = true;
+      commandScripts.enable = true;
+      hyprlandControls.enable = true;
+      nixShortcuts.enable = true;
+    };
   };
 
   dconf.settings = {

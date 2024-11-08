@@ -1,8 +1,8 @@
 {lib, config, ...}: {
   options = {
-    movOpts.yaziConfig.enable = lib.mkEnableOption "enables my yazi config";
+    movOpts.programConfigs.yaziConfig.enable = lib.mkEnableOption "enables my yazi config";
   };
-  config = lib.mkIf config.movOpts.yaziConfig.enable {
+  config = lib.mkIf config.movOpts.programConfigs.yaziConfig.enable {
     programs.yazi = {
       enable = true;
       enableZshIntegration = true;

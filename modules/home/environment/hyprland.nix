@@ -9,12 +9,12 @@ let
       "super, insert, exec, grimblast copy area"
     ];
   scheme = config.lib.stylix.colors;
-  mons = config.movOpts.hyprlandConfig.monitorNames;
+  mons = config.movOpts.envConfig.hyprlandConfig.monitorNames;
 
 in {
 
   options = {
-    movOpts.hyprlandConfig = {
+    movOpts.envConfig.hyprlandConfig = {
       enable = lib.mkEnableOption "enables my hyprland config";
       workspaceLayout = lib.mkOption {
         type = lib.types.str;
@@ -28,7 +28,7 @@ in {
       };
     };
   };
-  config = lib.mkIf config.movOpts.hyprlandConfig.enable {
+  config = lib.mkIf config.movOpts.envConfig.hyprlandConfig.enable {
     home.packages = with pkgs; [
       swaybg
       inputs.hypr-contrib.packages.${pkgs.system}.grimblast
@@ -69,19 +69,19 @@ in {
         ];
 
         workspace =
-          if (config.movOpts.hyprlandConfig.workspaceLayout == "dualmonitor") then [
+          if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "dualmonitor") then [
             "1,persistent=true,monitor:${builtins.elemAt mons 0}"
             "2,persistent=true,monitor:${builtins.elemAt mons 0}"
             "3,persistent=true,monitor:${builtins.elemAt mons 0}"
             "4,persistent=true,monitor:${builtins.elemAt mons 1}"
             "5,persistent=true,monitor:${builtins.elemAt mons 1}"
             "6,persistent=true,monitor:${builtins.elemAt mons 1}"
-          ] else if (config.movOpts.hyprlandConfig.workspaceLayout == "singlemonitor") then [
+          ] else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "singlemonitor") then [
             "1,persistent=true,monitor:${builtins.elemAt mons 0} "
             "2,persistent=true,monitor:${builtins.elemAt mons 0}"
             "3,persistent=true,monitor:${builtins.elemAt mons 0}"
             "4,persistent=true,monitor:${builtins.elemAt mons 0}"
-          ] else if (config.movOpts.hyprlandConfig.workspaceLayout == "trimonitor") then [
+          ] else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "trimonitor") then [
             "1,persistent=true,monitor:${builtins.elemAt mons 2}"
             "2,persistent=true,monitor:${builtins.elemAt mons 2}"
             "3,persistent=true,monitor:${builtins.elemAt mons 1}"

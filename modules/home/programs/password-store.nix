@@ -2,9 +2,9 @@
   home = "/home/${username}";
 in {
   options = {
-    movOpts.passConfig.enable = lib.mkEnableOption "enables my pass config";
+    movOpts.programConfigs.passConfig.enable = lib.mkEnableOption "enables my pass config";
   };
-  config = lib.mkIf config.movOpts.passConfig.enable {
+  config = lib.mkIf config.movOpts.programConfigs.passConfig.enable {
     programs.password-store = {
       enable = true;
       settings = {

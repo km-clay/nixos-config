@@ -1,8 +1,8 @@
 {lib, config, pkgs, ... }: {
   options = {
-    movOpts.kittyConfig.enable = lib.mkEnableOption "enables my kitty configuration";
+    movOpts.programConfigs.kittyConfig.enable = lib.mkEnableOption "enables my kitty configuration";
   };
-  config = lib.mkIf config.movOpts.kittyConfig.enable {
+  config = lib.mkIf config.movOpts.programConfigs.kittyConfig.enable {
     programs.kitty = {
       enable = true;
 
