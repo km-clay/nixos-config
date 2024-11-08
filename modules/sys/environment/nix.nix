@@ -1,8 +1,8 @@
 {lib, config, ... }: {
   options = {
-    movOpts.nixSettings.enable = lib.mkEnableOption "enables my nixos settings";
+    movOpts.sysEnv.nixSettings.enable = lib.mkEnableOption "enables my nixos settings";
   };
-  config = lib.mkIf config.movOpts.nixSettings.enable {
+  config = lib.mkIf config.movOpts.sysEnv.nixSettings.enable {
     system.stateVersion = "24.05";
     nixpkgs.config.allowUnfree = true;
     nix = {

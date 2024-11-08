@@ -1,8 +1,8 @@
 {pkgs, lib, config, ...}: {
   options = {
-    movOpts.bootLoader.enable = lib.mkEnableOption "enables bootloader config";
+    movOpts.hardwareCfg.bootLoader.enable = lib.mkEnableOption "enables bootloader config";
   };
-  config = lib.mkIf config.movOpts.bootLoader.enable {
+  config = lib.mkIf config.movOpts.hardwareCfg.bootLoader.enable {
     boot = {
       loader.systemd-boot.enable = true;
       loader.efi.canTouchEfiVariables = true;

@@ -1,8 +1,8 @@
 {lib, config, pkgs, inputs, ... }: {
   options = {
-    movOpts.sysPkgs.enable = lib.mkEnableOption "enables default system packages";
+    movOpts.softwareCfg.sysPkgs.enable = lib.mkEnableOption "enables default system packages";
   };
-  config = lib.mkIf config.movOpts.sysPkgs.enable {
+  config = lib.mkIf config.movOpts.softwareCfg.sysPkgs.enable {
     environment.systemPackages = with pkgs; [
       alsa-lib
       alsa-utils

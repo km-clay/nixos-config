@@ -1,8 +1,8 @@
 {lib, config,  ... }: {
   options = {
-    movOpts.powerProfiles.enable = lib.mkEnableOption "enables power profiles";
+    movOpts.hardwareCfg.powerProfiles.enable = lib.mkEnableOption "enables power profiles";
   };
-  config = lib.mkIf config.movOpts.powerProfiles.enable {
+  config = lib.mkIf config.movOpts.hardwareCfg.powerProfiles.enable {
     services = {
 
       power-profiles-daemon.enable = true;

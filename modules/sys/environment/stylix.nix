@@ -12,9 +12,9 @@ let
 in
 {
   options = {
-    movOpts.stylixConfig.enable = lib.mkEnableOption "enables custom stylix options";
+    movOpts.sysEnv.stylixConfig.enable = lib.mkEnableOption "enables custom stylix options";
   };
-  config = lib.mkIf config.movOpts.stylixConfig.enable {
+  config = lib.mkIf config.movOpts.sysEnv.stylixConfig.enable {
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";

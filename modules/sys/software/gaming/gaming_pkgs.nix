@@ -12,9 +12,9 @@ let
 in
 {
   options = {
-    movOpts.gamingPkgs.enable = lib.mkEnableOption "enables gaming packages";
+    movOpts.softwareCfg.gamingPkgs.enable = lib.mkEnableOption "enables gaming packages";
   };
-  config = lib.mkIf config.movOpts.gamingPkgs.enable {
+  config = lib.mkIf config.movOpts.softwareCfg.gamingPkgs.enable {
     environment.systemPackages = with pkgs; [
       snes9x-gtk
       cust-openrct2

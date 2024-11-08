@@ -1,8 +1,8 @@
 {lib, config, ...}: {
   options = {
-    movOpts.steamConfig.enable = lib.mkEnableOption "enables steam configuration";
+    movOpts.softwareCfg.steamConfig.enable = lib.mkEnableOption "enables steam configuration";
   };
-  config = lib.mkIf config.movOpts.steamConfig.enable {
+  config = lib.mkIf config.movOpts.softwareCfg.steamConfig.enable {
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;

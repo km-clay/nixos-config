@@ -1,8 +1,8 @@
 {lib, config, pkgs, ...}: {
   options = {
-    movOpts.sysProgs.enable = lib.mkEnableOption "enables default system programs";
+    movOpts.softwareCfg.sysProgs.enable = lib.mkEnableOption "enables default system programs";
   };
-  config = lib.mkIf config.movOpts.sysProgs.enable {
+  config = lib.mkIf config.movOpts.softwareCfg.sysProgs.enable {
     programs = {
       hyprland.enable = lib.mkDefault true;
       zsh.enable = lib.mkDefault true;

@@ -1,9 +1,9 @@
 {host, lib, config, ...}:
 {
   options = {
-    movOpts.networkModule.enable = lib.mkEnableOption "enables network configuration";
+    movOpts.hardwareCfg.networkModule.enable = lib.mkEnableOption "enables network configuration";
   };
-  config = lib.mkIf config.movOpts.networkModule.enable {
+  config = lib.mkIf config.movOpts.hardwareCfg.networkModule.enable {
     networking = {
       networkmanager.enable = true;
       hostName = "${host}";
