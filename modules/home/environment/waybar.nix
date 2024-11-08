@@ -13,14 +13,17 @@ let
       "6" = "六";
     };
     persistent-workspaces =
-      if desktop
-      then {
-        "HDMI-A-1" = [1 2 3];
-        "DP-1" = [4 5 6];
-      }
-      else {
-        "eDP-1" = [1 2 3 4];
-      };
+      if (config.movOpts.hyprlandConfig.workspaceLayout == "singlemonitor") then {
+        "${builtins.elemAt monitors 0}" = [ 1 2 3 4 ];
+      } else if (config.movOpts.hyprlandConfig.workspaceLayout == "dualmonitor") then {
+        "${builtins.elemAt monitors 0}" = [ 1 2 3 ];
+        "${builtins.elemAt monitors 1}" = [ 4 5 6 ];
+      } else if (config.movOpts.hyprlandConfig.workspaceLayout == "trimonitor") then {
+        "${builtins.elemAt monitors 2}" = [ 1 2 ];
+        "${builtins.elemAt monitors 1}" = [ 3 4 ];
+        "${builtins.elemAt monitors 0}" = [ 5 6 ];
+      } else {};
+
   };
 
   scheme = config.lib.stylix.colors;
@@ -46,15 +49,7 @@ let
     color6 = scheme.base0E;
     color7 = scheme.base0F;
   };
-  monitors =
-    if desktop
-    then [
-      "DP-1"
-      "HDMI-A-1"
-    ]
-    else [
-      "eDP-1"
-    ];
+  monitors = config.movOpts.hyprlandConfig.monitorNames;
 in {
   options = {
     movOpts.waybarConfig.enable = lib.mkEnableOption "enables my waybar configuration";
@@ -68,7 +63,7 @@ in {
       settings = {
         mainBar = {
           layer = "bottom";
-          output = builtins.elemAt monitors 0;
+          output = builtins.elemAt monitors 1;
           position = "top";
           name = "mainBar";
           margin-left = 8;
@@ -242,8 +237,8 @@ in {
             layer = "bottom";
             output =
               if desktop
-              then builtins.elemAt monitors 1
-              else builtins.elemAt monitors 0;
+              then builtins.elemAt monitors 0
+              else builtins.elemAt monitors 1;
             position = "right";
             margin-top = 8;
             margin-right = 5;

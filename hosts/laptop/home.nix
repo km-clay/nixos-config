@@ -12,7 +12,11 @@
     homeFiles.enable = true;
 
     # modules/home/environment
-    hyprlandConfig.enable = true;
+    hyprlandConfig = {
+      enable = true;
+      workspaceLayout = "singlemonitor";
+      monitorNames = [ "eDP-1" ];
+    };
     autojumpConfig.enable = true;
     stylixHomeConfig.enable = true;
     waybarConfig.enable = true;

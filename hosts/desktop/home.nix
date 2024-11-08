@@ -12,7 +12,11 @@
     homeFiles.enable = true;
 
     # modules/home/environment
-    hyprlandConfig.enable = true;
+    hyprlandConfig = {
+      enable = true;
+      monitorNames = [ "HDMI-A-1" "DP-1" ];
+      workspaceLayout = "dualmonitor";
+    };
     autojumpConfig.enable = true;
     stylixHomeConfig.enable = true;
     waybarConfig.enable = true;
