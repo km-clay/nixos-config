@@ -1,6 +1,7 @@
-{lib, config, pkgs, ...}: {
+{ lib, config, pkgs, ... }: {
   options = {
-    movOpts.softwareCfg.sysProgs.enable = lib.mkEnableOption "enables default system programs";
+    movOpts.softwareCfg.sysProgs.enable =
+      lib.mkEnableOption "enables default system programs";
   };
   config = lib.mkIf config.movOpts.softwareCfg.sysProgs.enable {
     programs = {
@@ -8,10 +9,7 @@
       zsh.enable = lib.mkDefault true;
       nix-ld = {
         enable = lib.mkDefault true;
-        libraries = with pkgs; [
-          stdenv.cc.cc
-          ffmpeg-full
-        ];
+        libraries = with pkgs; [ stdenv.cc.cc ffmpeg-full ];
       };
       gnupg.agent = {
         enable = lib.mkDefault true;

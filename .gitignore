@@ -1,4 +1,3 @@
-
-secrets.nix
+env.nix
 result
 hardware.nix

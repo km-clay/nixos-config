@@ -10,9 +10,7 @@
       };
       matchParen = {
         hiSurroundAlways = true;
-        offscreen = {
-          method = "popup";
-        };
+        offscreen = { method = "popup"; };
       };
       treesitterIntegration = {
         enable = true;

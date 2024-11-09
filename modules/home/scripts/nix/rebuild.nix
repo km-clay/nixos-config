@@ -1,8 +1,4 @@
-{
-  host,
-  self,
-  pkgs,
-}:
+{ host, self, pkgs, }:
 pkgs.writeShellApplication {
   name = "rebuild";
   text = ''

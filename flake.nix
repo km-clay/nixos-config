@@ -30,18 +30,19 @@
     };
   };
 
-  outputs = { self, home-manager, nixpkgs, nur, nixvim, stylix, ... } @ inputs:
+  outputs = { self, home-manager, nixpkgs, nur, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       username = "pagedmov";
+      env = import ./env.nix;
     in {
       homeConfigurations = {
         oganessonHome = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
             host = "oganesson";
-            inherit self username inputs;
+            inherit self username env inputs;
           };
 
           modules = [
@@ -57,7 +58,7 @@
           inherit pkgs;
           extraSpecialArgs = {
             host = "oganesson";
-            inherit self username inputs;
+            inherit self env username inputs;
           };
 
           modules = [
@@ -73,7 +74,7 @@
           inherit pkgs;
           extraSpecialArgs = {
             host = "oganesson";
-            inherit self username inputs;
+            inherit self env username inputs;
           };
 
           modules = [
@@ -88,7 +89,7 @@
         oganesson = nixpkgs.lib.nixosSystem {
           specialArgs = {
             host = "oganesson";
-            inherit self inputs username;
+            inherit self inputs env username;
           };
           inherit system;
           modules = [
@@ -102,7 +103,7 @@
         mercury = nixpkgs.lib.nixosSystem {
           specialArgs = {
             host = "mercury";
-            inherit self inputs username;
+            inherit self inputs env username;
           };
           inherit system;
           modules = [
@@ -116,7 +117,7 @@
         xenon = nixpkgs.lib.nixosSystem {
           specialArgs = {
             host = "xenon";
-            inherit self inputs username;
+            inherit self inputs env username;
           };
           inherit system;
           modules = [
@@ -134,10 +135,7 @@
             inherit self inputs;
           };
           inherit system;
-          modules = [
-            ./hosts/installer
-            nixvim.nixosModules.nixvim
-          ];
+          modules = [ ./hosts/installer nixvim.nixosModules.nixvim ];
         };
       };
     };

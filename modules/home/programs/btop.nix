@@ -1,6 +1,7 @@
-{lib, config, pkgs, ...}: {
+{ lib, config, pkgs, ... }: {
   options = {
-    movOpts.programConfigs.btopConfig.enable = lib.mkEnableOption "enables my btop config";
+    movOpts.programConfigs.btopConfig.enable =
+      lib.mkEnableOption "enables my btop config";
   };
   config = lib.mkIf config.movOpts.programConfigs.btopConfig.enable {
     programs.btop = {
@@ -19,6 +20,6 @@
       };
     };
 
-    home.packages = with pkgs; [nvtopPackages.intel];
+    home.packages = with pkgs; [ nvtopPackages.intel ];
   };
 }

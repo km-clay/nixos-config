@@ -6,15 +6,9 @@ let
     rev = "63dacb46bf939521bdc93981b4cbb7ecb58427a0";
     hash = "sha256-vboIEwIQojofItm2xGCdZCzW96U85l9nDW3ifMuAIdM=";
   };
-in
-pkgs.writeShellApplication {
+in pkgs.writeShellApplication {
   name = "vipkg";
-  runtimeInputs = with pkgs; [
-    coreutils
-    fd
-    ripgrep
-    fzf
-  ];
+  runtimeInputs = with pkgs; [ coreutils fd ripgrep fzf ];
   text = ''
     [ ! $# -eq 1 ] && echo "Usage: vipkg <nixpkgs package name>" && exit 1
 

@@ -1,6 +1,7 @@
-{lib, config, nur, username, self, pkgs, ... }: {
+{ lib, config, nur, username, self, pkgs, ... }: {
   options = {
-    movOpts.programConfigs.firefoxConfig.enable = lib.mkEnableOption "enables my firefox configuration";
+    movOpts.programConfigs.firefoxConfig.enable =
+      lib.mkEnableOption "enables my firefox configuration";
   };
   config = lib.mkIf config.movOpts.programConfigs.firefoxConfig.enable {
     programs.firefox = {
@@ -22,7 +23,8 @@
         OverridePostUpdatePage = "";
         DontCheckDefaultBrowser = true;
         DisplayBookmarksToolbar = "always"; # alternatives: "always" or "newtab"
-        DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
+        DisplayMenuBar =
+          "default-off"; # alternatives: "always", "never" or "default-on"
         SearchBar = "unified"; # alternative: "separate"		isDefault = true;
       };
       profiles.${username} = {

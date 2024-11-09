@@ -1,12 +1,10 @@
-{
-  pkgs,
-}:
+{ pkgs, }:
 pkgs.writeShellApplication {
   name = "runbg";
   runtimeInputs = with pkgs; [
-    coreutils   # Provides `basename`, `which`, etc.
-    bash        # Provides the Bash shell
-    util-linux  # Provides `tty`
+    coreutils # Provides `basename`, `which`, etc.
+    bash # Provides the Bash shell
+    util-linux # Provides `tty`
   ];
   text = ''
     #!/usr/bin/env bash

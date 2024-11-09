@@ -1,11 +1,7 @@
 # USAGE in your configuration.nix.
 # Update devices to match your hardware.
-{
-  device ? throw "Set this to your disk device, e.g. /dev/sda",
-  root_size,
-  nix_size,
-  ...
-}: {
+{ device ? throw "Set this to your disk device, e.g. /dev/sda", root_size
+, nix_size, ... }: {
   disko.devices = {
     disk = {
       main = {
@@ -25,7 +21,7 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
-                mountOptions = ["umask=0077"];
+                mountOptions = [ "umask=0077" ];
               };
             };
             nix = {

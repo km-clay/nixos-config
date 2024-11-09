@@ -1,4 +1,4 @@
-{pkgs, host, lib, config, ...}:
+{ pkgs, host, lib, config, ... }:
 
 let
   desktop = host == "oganesson";
@@ -13,16 +13,20 @@ let
       "6" = "六";
     };
     persistent-workspaces =
-      if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "singlemonitor") then {
-        "${builtins.elemAt monitors 0}" = [ 1 2 3 4 ];
-      } else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "dualmonitor") then {
-        "${builtins.elemAt monitors 0}" = [ 1 2 3 ];
-        "${builtins.elemAt monitors 1}" = [ 4 5 6 ];
-      } else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "trimonitor") then {
-        "${builtins.elemAt monitors 2}" = [ 1 2 ];
-        "${builtins.elemAt monitors 1}" = [ 3 4 ];
-        "${builtins.elemAt monitors 0}" = [ 5 6 ];
-      } else {};
+      if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
+        == "singlemonitor") then {
+          "${builtins.elemAt monitors 0}" = [ 1 2 3 4 ];
+        } else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
+          == "dualmonitor") then {
+            "${builtins.elemAt monitors 0}" = [ 1 2 3 ];
+            "${builtins.elemAt monitors 1}" = [ 4 5 6 ];
+          } else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
+            == "trimonitor") then {
+              "${builtins.elemAt monitors 2}" = [ 1 2 ];
+              "${builtins.elemAt monitors 1}" = [ 3 4 ];
+              "${builtins.elemAt monitors 0}" = [ 5 6 ];
+            } else
+        { };
 
   };
 
@@ -52,14 +56,15 @@ let
   monitors = config.movOpts.envConfig.hyprlandConfig.monitorNames;
 in {
   options = {
-    movOpts.envConfig.waybarConfig.enable = lib.mkEnableOption "enables my waybar configuration";
+    movOpts.envConfig.waybarConfig.enable =
+      lib.mkEnableOption "enables my waybar configuration";
   };
   config = {
     programs.waybar = {
       enable = true;
       package = pkgs.waybar.overrideAttrs (oa: {
-          mesonFlags = (oa.mesonFlags or []) ++ ["-Dexperimental=true"];
-        });
+        mesonFlags = (oa.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ];
+      });
       settings = {
         mainBar = {
           layer = "bottom";
@@ -68,25 +73,13 @@ in {
           name = "mainBar";
           margin-left = 8;
           margin-top = 5;
-          margin-right =
-            if desktop
-            then 8
-            else 5;
+          margin-right = if desktop then 8 else 5;
           mode = "dock";
           "gtk-layer-shell" = true;
 
-          modules-left = [
-            "hyprland/workspaces"
-            "cava"
-          ];
-          modules-center = [
-            "hyprland/window"
-          ];
-          modules-right = [
-            "group/hardware"
-            "clock"
-            "group/powerbtns"
-          ];
+          modules-left = [ "hyprland/workspaces" "cava" ];
+          modules-center = [ "hyprland/window" ];
+          modules-right = [ "group/hardware" "clock" "group/powerbtns" ];
 
           "hyprland/workspaces" = workspaces;
 
@@ -107,16 +100,12 @@ in {
             waves = false;
             noise_reduction = 0.77;
             input_delay = 1;
-            format-icons = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
+            format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
           };
 
           "group/hardware" = {
             orientation = "inherit";
-            modules = [
-              "custom/disk-icon"
-              "memory"
-              "cpu"
-            ];
+            modules = [ "custom/disk-icon" "memory" "cpu" ];
           };
 
           "custom/disk-icon" = {
@@ -146,34 +135,14 @@ in {
             return-type = "json";
             rotate = 270;
             format = "{icon}";
-            format-icons = [
-              "󰝦"
-              "󰪞"
-              "󰪟"
-              "󰪠"
-              "󰪡"
-              "󰪢"
-              "󰪣"
-              "󰪤"
-              "󰪥"
-            ];
+            format-icons = [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
           };
 
           memory = {
             interval = 1;
             rotate = 270;
             format = "{icon}";
-            format-icons = [
-              "󰝦"
-              "󰪞"
-              "󰪟"
-              "󰪠"
-              "󰪡"
-              "󰪢"
-              "󰪣"
-              "󰪤"
-              "󰪥"
-            ];
+            format-icons = [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
             max-length = 10;
             tooltip-format = "RAM: {used:0.1f} GB / {total:0.1f} GB";
           };
@@ -182,17 +151,7 @@ in {
             interval = 1;
             rotate = 270;
             format = "{icon}";
-            format-icons = [
-              "󰝦"
-              "󰪞"
-              "󰪟"
-              "󰪠"
-              "󰪡"
-              "󰪢"
-              "󰪣"
-              "󰪤"
-              "󰪥"
-            ];
+            format-icons = [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
             tooltip-format = "CPU: {usage:0.1f}%";
           };
 
@@ -221,11 +180,7 @@ in {
               children-class = "power-drawer";
               transition-left-to-right = false;
             };
-            modules = [
-              "custom/power"
-              "custom/logout"
-              "custom/reboot"
-            ];
+            modules = [ "custom/power" "custom/logout" "custom/reboot" ];
           };
 
           clock = {
@@ -234,292 +189,268 @@ in {
           };
         };
         sideBar = {
-            layer = "bottom";
-            output =
-              if desktop
-              then builtins.elemAt monitors 0
-              else builtins.elemAt monitors 1;
-            position = "right";
-            margin-top = 8;
-            margin-right = 5;
-            margin-bottom = 8;
-            name = "sideBar";
-            mode = "dock";
-            "gtk-layer-shell" = true;
+          layer = "bottom";
+          output = if desktop then
+            builtins.elemAt monitors 0
+          else
+            builtins.elemAt monitors 1;
+          position = "right";
+          margin-top = 8;
+          margin-right = 5;
+          margin-bottom = 8;
+          name = "sideBar";
+          mode = "dock";
+          "gtk-layer-shell" = true;
 
-            modules-left =
-              if desktop
-              then [
-                "hyprland/workspaces"
-              ]
-              else [
-                "group/brightness"
-                "battery"
-              ];
-            modules-center = [
-            ];
-            modules-right = [
-              "network"
-              "group/audio"
-            ];
+          modules-left = if desktop then
+            [ "hyprland/workspaces" ]
+          else [
+            "group/brightness"
+            "battery"
+          ];
+          modules-center = [ ];
+          modules-right = [ "network" "group/audio" ];
 
-            "hyprland/workspaces" = workspaces;
+          "hyprland/workspaces" = workspaces;
 
-            "pulseaudio/slider" = {
-              orientation = "vertical";
-            };
+          "pulseaudio/slider" = { orientation = "vertical"; };
 
-            "group/audio" = {
-              orientation = "vertical";
-              modules = [
-                "pulseaudio/slider"
-                "pulseaudio"
-              ];
-            };
+          "group/audio" = {
+            orientation = "vertical";
+            modules = [ "pulseaudio/slider" "pulseaudio" ];
+          };
 
-            pulseaudio = {
-              format = "{icon}";
-              format-muted = " ";
-              format-icons = {
-                default = [
-                  " "
-                  " "
-                ];
-              };
-              on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-              on-click-right = "hyprctl dispatch exec '[float;size 40% 55%] pavucontrol'";
-            };
+          pulseaudio = {
+            format = "{icon}";
+            format-muted = " ";
+            format-icons = { default = [ " " " " ]; };
+            on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
+            on-click-right =
+              "hyprctl dispatch exec '[float;size 40% 55%] pavucontrol'";
+          };
 
-            network = {
-              interval = 30;
-              format-wifi = "󰖩 ";
-              tooltip-format-wifi = "{essid} ({signalStrength}%)";
-              format-ethernet = " ";
-              tooltip-format-ethernet = "{ifname}";
-              format-disconnected = "󰖪 ";
-              tooltip-format-disconnected = "Disconnected";
-              on-click = "hyprctl dispatch exec '[float;size 40% 55%] kitty nmtui'";
-            };
+          network = {
+            interval = 30;
+            format-wifi = "󰖩 ";
+            tooltip-format-wifi = "{essid} ({signalStrength}%)";
+            format-ethernet = " ";
+            tooltip-format-ethernet = "{ifname}";
+            format-disconnected = "󰖪 ";
+            tooltip-format-disconnected = "Disconnected";
+            on-click =
+              "hyprctl dispatch exec '[float;size 40% 55%] kitty nmtui'";
+          };
 
-            battery = {
-              bat = "BAT1";
-              interval = 1;
-              tooltip-format = "{capacity}%\nTil empty: {time}";
-              tooltip-format-charging = "{capacity}%\nTil full: {time}";
-              format = "{icon}";
-              format-icons = [
-                "󰁺"
-                "󰁻"
-                "󰁽"
-                "󰁾"
-                "󰁿"
-                "󰂀"
-                "󰂁"
-                "󰂂"
-                "󰁹"
-              ];
-              format-charging = "󰂄";
-            };
+          battery = {
+            bat = "BAT1";
+            interval = 1;
+            tooltip-format = ''
+              {capacity}%
+              Til empty: {time}'';
+            tooltip-format-charging = ''
+              {capacity}%
+              Til full: {time}'';
+            format = "{icon}";
+            format-icons = [ "󰁺" "󰁻" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            format-charging = "󰂄";
+          };
 
-            "group/brightness" = {
-              orientation = "vertical";
-              modules = [
-                "backlight"
-                "backlight/slider"
-              ];
-            };
-            backlight = {
-              format = "󰃠";
-              tooltip = "{percentage}%";
-            };
-            "backlight/slider" = {
-              min = 10;
-              max = 100;
-              orientation = "vertical";
-              rotate = 180;
-            };
+          "group/brightness" = {
+            orientation = "vertical";
+            modules = [ "backlight" "backlight/slider" ];
+          };
+          backlight = {
+            format = "󰃠";
+            tooltip = "{percentage}%";
+          };
+          "backlight/slider" = {
+            min = 10;
+            max = 100;
+            orientation = "vertical";
+            rotate = 180;
+          };
         };
       };
       style = ''
-          * {
-            border: none;
-            border-radius: 0;
-            font-size: 16px;
-            font-family: "JetBrains Mono Nerd Font";
-          }
+        * {
+          border: none;
+          border-radius: 0;
+          font-size: 16px;
+          font-family: "JetBrains Mono Nerd Font";
+        }
 
-          window#waybar {
-            border-radius: 10px;
-            border: 3px solid #${fg.light};
-            background: rgba(23,29,35,0.50);
-            margin: 20px;
-          }
-          window#waybar.empty #window {
-            background: none;
-            border: none;
-          }
+        window#waybar {
+          border-radius: 10px;
+          border: 3px solid #${fg.light};
+          background: rgba(23,29,35,0.50);
+          margin: 20px;
+        }
+        window#waybar.empty #window {
+          background: none;
+          border: none;
+        }
 
-          #workspaces {
-            margin: 3px;
-            background: #${bg.darker};
-            border: 3px solid #${bg.dark};
-            border-radius: 8px;
-          }
+        #workspaces {
+          margin: 3px;
+          background: #${bg.darker};
+          border: 3px solid #${bg.dark};
+          border-radius: 8px;
+        }
 
-          #workspaces button:hover {
-            border-radius: 8px;
-          }
+        #workspaces button:hover {
+          border-radius: 8px;
+        }
 
-          #workspaces button.active {
-            background: #${fg.lightester};
-            border-radius: 8px;
-            color: #${bg.darkest};
-          }
+        #workspaces button.active {
+          background: #${fg.lightester};
+          border-radius: 8px;
+          color: #${bg.darkest};
+        }
 
-          #cava {
-            background: #${bg.darker};
-            border-radius: 8px;
-            border: 3px solid #${bg.dark};
-            margin: 3px 3px 3px 6px;
-            padding: 0px 15px 0px 15px;
-            color: #${colors.color6};
-          }
+        #cava {
+          background: #${bg.darker};
+          border-radius: 8px;
+          border: 3px solid #${bg.dark};
+          margin: 3px 3px 3px 6px;
+          padding: 0px 15px 0px 15px;
+          color: #${colors.color6};
+        }
 
-          #window {
-            margin: 3px;
-            background: #${bg.darker};
-            border-radius: 8px;
-            border: 3px solid #${bg.dark};
-            padding: 0 15px 0 15px;
-            font-weight: bold;
-          }
+        #window {
+          margin: 3px;
+          background: #${bg.darker};
+          border-radius: 8px;
+          border: 3px solid #${bg.dark};
+          padding: 0 15px 0 15px;
+          font-weight: bold;
+        }
 
-          #hardware {
-            margin: 3px;
-            padding: 0 10px 0 10px;
-            background: #${bg.darker};
-            border-radius: 8px;
-            border: 3px solid #${bg.dark};
-          }
+        #hardware {
+          margin: 3px;
+          padding: 0 10px 0 10px;
+          background: #${bg.darker};
+          border-radius: 8px;
+          border: 3px solid #${bg.dark};
+        }
 
-          #custom-disk-icon, #cpu, #memory {
-            margin-bottom: 4px;
-            font-size: 20px;
-            font-weight: bold;
-          }
+        #custom-disk-icon, #cpu, #memory {
+          margin-bottom: 4px;
+          font-size: 20px;
+          font-weight: bold;
+        }
 
-          #custom-disk-icon {
-            color: #${colors.color4};
-          }
+        #custom-disk-icon {
+          color: #${colors.color4};
+        }
 
-          #memory {
-            color: #${colors.color1};
-          }
+        #memory {
+          color: #${colors.color1};
+        }
 
-          #cpu {
-            color: #${colors.color3};
-          }
+        #cpu {
+          color: #${colors.color3};
+        }
 
-          #clock {
-            font-weight: bold;
-            background: #${bg.darker};
-            border-radius: 8px;
-            border: 3px solid #${bg.dark};
-            margin: 3px;
-            padding: 0 10px 0 10px;
-            font-size: 18px;
-          }
+        #clock {
+          font-weight: bold;
+          background: #${bg.darker};
+          border-radius: 8px;
+          border: 3px solid #${bg.dark};
+          margin: 3px;
+          padding: 0 10px 0 10px;
+          font-size: 18px;
+        }
 
-          #powerbtns {
-            background: #${bg.darker};
-            border-radius: 8px;
-            border: 3px solid #${bg.dark};
-            margin: 3px;
-            padding: 0 5px 0 10px;
-          }
+        #powerbtns {
+          background: #${bg.darker};
+          border-radius: 8px;
+          border: 3px solid #${bg.dark};
+          margin: 3px;
+          padding: 0 5px 0 10px;
+        }
 
-          #custom-power {
-            color: #${colors.color2};
-            font-size: 18px;
-          }
+        #custom-power {
+          color: #${colors.color2};
+          font-size: 18px;
+        }
 
-          #custom-logout {
-            color: #${colors.color4};
-            font-size: 18px;
-          }
+        #custom-logout {
+          color: #${colors.color4};
+          font-size: 18px;
+        }
 
-          #custom-reboot {
-            color: #${colors.color0};
-            font-size: 18px;
-          }
+        #custom-reboot {
+          color: #${colors.color0};
+          font-size: 18px;
+        }
 
-          #audio {
-            background: #${bg.darker};
-            border-radius: 8px;
-            border: 3px solid #${bg.dark};
-            margin: 3px;
-            padding: 5px 0 10px 0;
-          }
+        #audio {
+          background: #${bg.darker};
+          border-radius: 8px;
+          border: 3px solid #${bg.dark};
+          margin: 3px;
+          padding: 5px 0 10px 0;
+        }
 
-          #pulseaudio {
-            color: #${colors.color1};
-            font-size: 18px;
-          }
+        #pulseaudio {
+          color: #${colors.color1};
+          font-size: 18px;
+        }
 
-          #backlight-slider slider,
-          #pulseaudio-slider slider {
-                background: #${colors.color4};
-                background-color: transparent;
-                box-shadow: none;
-              }
+        #backlight-slider slider,
+        #pulseaudio-slider slider {
+              background: #${colors.color4};
+              background-color: transparent;
+              box-shadow: none;
+            }
 
-          #backlight-slider trough,
-          #pulseaudio-slider trough {
-            min-width: 9px;
-            min-height: 90px;
-            border-radius: 8px;
-            background: #121212;
-          }
+        #backlight-slider trough,
+        #pulseaudio-slider trough {
+          min-width: 9px;
+          min-height: 90px;
+          border-radius: 8px;
+          background: #121212;
+        }
 
-          #backlight-slider highlight,
-          #pulseaudio-slider highlight {
-            border-radius: 8px;
-            background-color: #${colors.color4};
-          }
+        #backlight-slider highlight,
+        #pulseaudio-slider highlight {
+          border-radius: 8px;
+          background-color: #${colors.color4};
+        }
 
-          #network {
-            color: #${colors.color1};
-            font-size: 20px;
-            background: #${bg.darker};
-            border-radius: 8px;
-            border: 3px solid #${bg.dark};
-            margin: 3px;
-            padding: 5px 0 5px 6px;
-          }
+        #network {
+          color: #${colors.color1};
+          font-size: 20px;
+          background: #${bg.darker};
+          border-radius: 8px;
+          border: 3px solid #${bg.dark};
+          margin: 3px;
+          padding: 5px 0 5px 6px;
+        }
 
-          #brightness {
-            background: #${bg.darker};
-            border-radius: 8px;
-            border: 3px solid #${bg.dark};
-            margin: 3px;
-            padding: 10px 0px 5px 0;
-          }
+        #brightness {
+          background: #${bg.darker};
+          border-radius: 8px;
+          border: 3px solid #${bg.dark};
+          margin: 3px;
+          padding: 10px 0px 5px 0;
+        }
 
-          #backlight {
-            color: #${colors.color4};
-            font-size: 18px;
-            padding: 0 4px 0 0;
-          }
+        #backlight {
+          color: #${colors.color4};
+          font-size: 18px;
+          padding: 0 4px 0 0;
+        }
 
-          #battery {
-            color: #${colors.color4};
-            font-size: 20px;
-            background: #${bg.darker};
-            border: 3px solid #${bg.dark};
-            border-radius: 8px;
-            margin: 3px;
-            padding: 5px 0 5px 0px;
-          }
+        #battery {
+          color: #${colors.color4};
+          font-size: 20px;
+          background: #${bg.darker};
+          border: 3px solid #${bg.dark};
+          border-radius: 8px;
+          margin: 3px;
+          padding: 5px 0 5px 0px;
+        }
       '';
     };
   };

@@ -1,10 +1,7 @@
 { pkgs }:
 pkgs.writeShellApplication {
   name = "chscheme";
-  runtimeInputs = with pkgs; [
-    fzf
-    coreutils
-  ];
+  runtimeInputs = with pkgs; [ fzf coreutils ];
   text = ''
     selected_scheme=$(/usr/bin/env ls "$(nix-build '<nixpkgs>' -A base16-schemes)"/share/themes | \
         sed 's/\.yaml//g' | \

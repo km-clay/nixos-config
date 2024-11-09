@@ -1,16 +1,16 @@
-{lib, config, pkgs, inputs, ... }: let
+{ lib, config, pkgs, inputs, ... }:
+let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   scheme = config.lib.stylix.colors;
 in {
-  imports = [inputs.spicetify-nix.homeManagerModules.default];
+  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
   options = {
-    movOpts.envConfig.spicetifyConfig.enable = lib.mkEnableOption "enable my spicetify options";
+    movOpts.envConfig.spicetifyConfig.enable =
+      lib.mkEnableOption "enable my spicetify options";
   };
   config = lib.mkIf config.movOpts.envConfig.spicetifyConfig.enable {
     nixpkgs.config.allowUnfreePredicate = pkg:
-      builtins.elem (lib.getName pkg) [
-        "spotify"
-      ];
+      builtins.elem (lib.getName pkg) [ "spotify" ];
 
     programs.spicetify = {
       enable = true;

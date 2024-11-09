@@ -1,12 +1,7 @@
-{pkgs}:
+{ pkgs }:
 pkgs.writeShellApplication {
   name = "viconf";
-  runtimeInputs = with pkgs; [
-    coreutils
-    fd
-    ripgrep
-    fzf
-  ];
+  runtimeInputs = with pkgs; [ coreutils fd ripgrep fzf ];
   text = ''
     #!/usr/bin/env bash
 

@@ -1,13 +1,4 @@
-{
-  inputs,
-  nixpkgs,
-  config,
-  self,
-  username,
-  host,
-  lib,
-  ...
-}: {
+{ inputs, nixpkgs, config, self, username, host, lib, ... }: {
   imports = [
     ./environment/starship.nix
     ./environment/userpkgs.nix

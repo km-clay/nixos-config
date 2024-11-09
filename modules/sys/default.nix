@@ -1,16 +1,3 @@
-{
-  inputs,
-  nixpkgs,
-  config,
-  self,
-  username,
-  host,
-  lib,
-  ...
-}: {
-  imports = [
-    ./hardware
-    ./software
-    ./environment
-  ];
+{ inputs, nixpkgs, config, self, username, host, lib, ... }: {
+  imports = [ ./hardware ./software ./environment ];
 }

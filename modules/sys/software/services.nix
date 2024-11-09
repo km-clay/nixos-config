@@ -1,16 +1,15 @@
-{lib, config, ...}: {
+{ lib, config, ... }: {
   options = {
-    movOpts.softwareCfg.sysServices.enable = lib.mkEnableOption "enables default system services";
+    movOpts.softwareCfg.sysServices.enable =
+      lib.mkEnableOption "enables default system services";
   };
   config = lib.mkIf config.movOpts.softwareCfg.sysServices.enable {
     services = {
       keyd = {
         enable = true;
         keyboards.default = {
-          ids = ["*"];
-          settings.main = {
-            capslock = "esc";
-          };
+          ids = [ "*" ];
+          settings.main = { capslock = "esc"; };
         };
       };
       pipewire = {

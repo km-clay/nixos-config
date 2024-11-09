@@ -1,6 +1,4 @@
-{
-  pkgs
-}:
+{ pkgs }:
 pkgs.writeShellApplication {
   name = "garbage-collect";
   runtimeInputs = with pkgs; [

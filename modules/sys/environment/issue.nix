@@ -1,6 +1,7 @@
-{lib, config, ...}: {
+{ lib, config, ... }: {
   options = {
-    movOpts.sysEnv.issue.enable = lib.mkEnableOption "enables custom /etc/issue splash screen for the tty";
+    movOpts.sysEnv.issue.enable =
+      lib.mkEnableOption "enables custom /etc/issue splash screen for the tty";
   };
   config = lib.mkIf config.movOpts.sysEnv.issue.enable {
     environment.etc."issue".text = ''

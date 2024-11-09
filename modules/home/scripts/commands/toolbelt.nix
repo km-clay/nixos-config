@@ -1,4 +1,4 @@
-{pkgs}:
+{ pkgs }:
 pkgs.writeShellApplication {
   name = "toolbelt";
   runtimeInputs = with pkgs; [

@@ -1,6 +1,7 @@
-{lib, config,  ... }: {
+{ lib, config, ... }: {
   options = {
-    movOpts.hardwareCfg.powerProfiles.enable = lib.mkEnableOption "enables power profiles";
+    movOpts.hardwareCfg.powerProfiles.enable =
+      lib.mkEnableOption "enables power profiles";
   };
   config = lib.mkIf config.movOpts.hardwareCfg.powerProfiles.enable {
     services = {

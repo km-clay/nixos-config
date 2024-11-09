@@ -1,12 +1,7 @@
-{
-  config,
-  ...
-}:
+{ config, ... }:
 
-let
-  scheme = config.lib.stylix.colors;
-in
-{
+let scheme = config.lib.stylix.colors;
+in {
   programs.nixvim = {
     colorschemes.base16 = {
       enable = true;

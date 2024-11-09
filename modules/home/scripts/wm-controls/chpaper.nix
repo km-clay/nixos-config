@@ -1,13 +1,7 @@
-{pkgs}:
+{ pkgs }:
 pkgs.writeShellApplication {
   name = "chpaper";
-  runtimeInputs = with pkgs; [
-    chafa
-    fzf
-    ripgrep
-    findutils
-    coreutils
-  ];
+  runtimeInputs = with pkgs; [ chafa fzf ripgrep findutils coreutils ];
   text = ''
     paper="$\{self}/assets/wallpapers/$(find "$FLAKEPATH"/assets/wallpapers -exec basename {} \; | rg "\.\w+$" | fzf --preview "chafa -s 30x40 $FLAKEPATH/assets/wallpapers/{}")"
     [ "$paper" = "$\{self}/assets/wallpapers/" ] && echo "Cancelling wallpaper change" && exit 1

@@ -1,6 +1,7 @@
-{config, lib, ...}: {
+{ config, lib, ... }: {
   options = {
-    movOpts.programConfigs.fuzzelConfig.enable = lib.mkEnableOption "enables my fuzzel configuration";
+    movOpts.programConfigs.fuzzelConfig.enable =
+      lib.mkEnableOption "enables my fuzzel configuration";
   };
   config = lib.mkIf config.movOpts.programConfigs.fuzzelConfig.enable {
     programs.fuzzel = {

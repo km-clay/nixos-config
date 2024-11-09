@@ -1,5 +1,3 @@
-{...}: {
-  imports =
-    [(import ./steam.nix)]
-    ++ [(import ./gaming_pkgs.nix)];
+{ ... }: {
+  imports = [ (import ./steam.nix) ] ++ [ (import ./gaming_pkgs.nix) ];
 }

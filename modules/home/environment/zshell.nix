@@ -1,6 +1,7 @@
-{lib, config, self, ...}: {
+{ lib, config, self, ... }: {
   options = {
-    movOpts.envConfig.zshConfig.enable = lib.mkEnableOption "enables my zsh configuration";
+    movOpts.envConfig.zshConfig.enable =
+      lib.mkEnableOption "enables my zsh configuration";
   };
   config = lib.mkIf config.movOpts.envConfig.zshConfig.enable {
     programs.zoxide = {
@@ -28,7 +29,8 @@
         svc = "sudo systemctl";
         viflake = "nvim flake.nix";
         iv = "invoke";
-        cfgfilecount = "find $FLAKEPATH -name \"*.nix\" | wc -l | toilet -f 3d | lolcat";
+        cfgfilecount =
+          ''find $FLAKEPATH -name "*.nix" | wc -l | toilet -f 3d | lolcat'';
 
         #git
         "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
@@ -52,7 +54,7 @@
 
       oh-my-zsh = {
         enable = true;
-        plugins = ["git" "fzf"];
+        plugins = [ "git" "fzf" ];
       };
 
       enableCompletion = true;

@@ -2,12 +2,7 @@
 
 pkgs.writeShellApplication {
   name = "icanhazip";
-  runtimeInputs = with pkgs; [
-    iproute2
-    curl
-    gawk
-    coreutils
-  ];
+  runtimeInputs = with pkgs; [ iproute2 curl gawk coreutils ];
   text = ''
     if [ $# -eq 0 ]; then
       echo "Public IP: $(curl -s icanhazip.com -4)"

@@ -68,27 +68,30 @@ in {
           "aplay ${self}/assets/sound/login.wav &"
         ];
 
-        workspace =
-          if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "dualmonitor") then [
+        workspace = if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
+          == "dualmonitor") then [
             "1,persistent=true,monitor:${builtins.elemAt mons 0}"
             "2,persistent=true,monitor:${builtins.elemAt mons 0}"
             "3,persistent=true,monitor:${builtins.elemAt mons 0}"
             "4,persistent=true,monitor:${builtins.elemAt mons 1}"
             "5,persistent=true,monitor:${builtins.elemAt mons 1}"
             "6,persistent=true,monitor:${builtins.elemAt mons 1}"
-          ] else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "singlemonitor") then [
-            "1,persistent=true,monitor:${builtins.elemAt mons 0} "
-            "2,persistent=true,monitor:${builtins.elemAt mons 0}"
-            "3,persistent=true,monitor:${builtins.elemAt mons 0}"
-            "4,persistent=true,monitor:${builtins.elemAt mons 0}"
-          ] else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "trimonitor") then [
-            "1,persistent=true,monitor:${builtins.elemAt mons 2}"
-            "2,persistent=true,monitor:${builtins.elemAt mons 2}"
-            "3,persistent=true,monitor:${builtins.elemAt mons 1}"
-            "4,persistent=true,monitor:${builtins.elemAt mons 1}"
-            "5,persistent=true,monitor:${builtins.elemAt mons 0}"
-            "6,persistent=true,monitor:${builtins.elemAt mons 0}"
-          ] else [];
+          ] else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
+            == "singlemonitor") then [
+              "1,persistent=true,monitor:${builtins.elemAt mons 0} "
+              "2,persistent=true,monitor:${builtins.elemAt mons 0}"
+              "3,persistent=true,monitor:${builtins.elemAt mons 0}"
+              "4,persistent=true,monitor:${builtins.elemAt mons 0}"
+            ] else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
+              == "trimonitor") then [
+                "1,persistent=true,monitor:${builtins.elemAt mons 2}"
+                "2,persistent=true,monitor:${builtins.elemAt mons 2}"
+                "3,persistent=true,monitor:${builtins.elemAt mons 1}"
+                "4,persistent=true,monitor:${builtins.elemAt mons 1}"
+                "5,persistent=true,monitor:${builtins.elemAt mons 0}"
+                "6,persistent=true,monitor:${builtins.elemAt mons 0}"
+              ] else
+          [ ];
 
         env = [
           "XDG_CONFIG_HOME,$HOME/.config"

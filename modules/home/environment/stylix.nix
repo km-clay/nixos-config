@@ -1,12 +1,12 @@
-{lib, self, config, pkgs, ... }:
+{ lib, self, config, pkgs, ... }:
 
 let
   scheme = "tokyo-night-dark";
   wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
-in
-{
+in {
   options = {
-    movOpts.envConfig.stylixHomeConfig.enable = lib.mkEnableOption "enables my stylix Home-Manager options";
+    movOpts.envConfig.stylixHomeConfig.enable =
+      lib.mkEnableOption "enables my stylix Home-Manager options";
   };
   config = lib.mkIf config.movOpts.envConfig.stylixHomeConfig.enable {
     stylix = {
@@ -15,7 +15,7 @@ in
       image = wallpaper;
       polarity = "dark";
       autoEnable = true;
-      opacity.terminal = 0.50;
+      opacity.terminal = 0.5;
       targets = {
         waybar.enable = false;
         btop.enable = false;
@@ -26,15 +26,15 @@ in
       };
       fonts = {
         monospace = {
-          package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+          package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
           name = "JetBrains Mono Nerd Font";
         };
         sansSerif = {
-          package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+          package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
           name = "JetBrains Mono Nerd Font";
         };
         serif = {
-          package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
+          package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
           name = "JetBrains Mono Nerd Font";
         };
         sizes = {

@@ -1,7 +1,5 @@
-{pkgs, username, ...}: {
-  imports = [
-    ./hardware.nix
-  ];
+{ pkgs, username, ... }: {
+  imports = [ ./hardware.nix ];
 
   # My module options
   movOpts = {
@@ -28,8 +26,8 @@
   nix = {
     settings = {
       auto-optimise-store = true;
-      experimental-features = ["nix-command" "flakes"];
-      substituters = ["https://nix-gaming.cachix.org"];
+      experimental-features = [ "nix-command" "flakes" ];
+      substituters = [ "https://nix-gaming.cachix.org" ];
     };
     gc = {
       automatic = true;
@@ -39,31 +37,26 @@
   };
 
   environment = {
-    variables = {
-      PATH = "${pkgs.clang-tools}/bin:$PATH";
-    };
-    shells = with pkgs; [
-      zsh
-      bash
-    ];
+    variables = { PATH = "${pkgs.clang-tools}/bin:$PATH"; };
+    shells = with pkgs; [ zsh bash ];
   };
 
   users = {
-    groups.persist = {};
+    groups.persist = { };
     users = {
       root.initialPassword = "1234";
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
         shell = pkgs.zsh;
-        extraGroups = ["wheel" "persist" "libvirtd"];
+        extraGroups = [ "wheel" "persist" "libvirtd" ];
       };
     };
   };
   security.sudo.extraConfig = ''
     ${username} ALL=(ALL) NOPASSWD: /etc/profiles/per-user/${username}/bin/rebuild
   '';
-  nix.settings.allowed-users = ["${username}"];
+  nix.settings.allowed-users = [ "${username}" ];
 
   time.timeZone = "America/New_York";
   i18n.defaultLocale = "en_US.UTF-8";

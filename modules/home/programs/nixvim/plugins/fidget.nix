@@ -3,9 +3,7 @@
     enable = true;
     notification = {
       overrideVimNotify = true;
-      window = {
-        border = "rounded";
-      };
+      window = { border = "rounded"; };
     };
   };
 }

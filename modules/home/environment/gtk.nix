@@ -1,26 +1,22 @@
-{lib, config, pkgs, ... }: {
+{ lib, config, pkgs, ... }: {
   options = {
-    movOpts.envConfig.gtkConfig.enable = lib.mkEnableOption "enable my gtk options";
+    movOpts.envConfig.gtkConfig.enable =
+      lib.mkEnableOption "enable my gtk options";
   };
   config = lib.mkIf config.movOpts.envConfig.gtkConfig.enable {
     fonts.fontconfig.enable = true;
-    home.packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-          "CascadiaCode"
-          "NerdFontsSymbolsOnly"
-        ];
-      })
-    ];
+    home.packages = with pkgs;
+      [
+        (nerdfonts.override {
+          fonts = [ "JetBrainsMono" "CascadiaCode" "NerdFontsSymbolsOnly" ];
+        })
+      ];
 
     gtk = {
       enable = true;
       iconTheme = {
         name = "Papirus-Dark";
-        package = pkgs.papirus-nord.override {
-          accent = "frostblue4";
-        };
+        package = pkgs.papirus-nord.override { accent = "frostblue4"; };
       };
       #cursorTheme = {
       #	name = "Bibata-Modern-Ice";

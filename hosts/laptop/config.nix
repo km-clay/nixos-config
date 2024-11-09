@@ -1,18 +1,11 @@
-{pkgs, config, ...}: {
-  imports = [
-    ./hardware.nix
-    ./home.nix
-  ];
+{ pkgs, config, ... }: {
+  imports = [ ./hardware.nix ./home.nix ];
 
   powerProfiles.enable = true;
   boot = {
-    kernelModules = ["acpi_call"];
+    kernelModules = [ "acpi_call" ];
     extraModulePackages = with config.boot.kernelPackages;
-      [
-        acpi_call
-        cpupower
-      ]
-      ++ [pkgs.cpupower-gui];
+      [ acpi_call cpupower ] ++ [ pkgs.cpupower-gui ];
   };
 
   networkModule.enable = true;
@@ -26,20 +19,9 @@
   sysServices.enable = true;
 
   environment = {
-    variables = {
-      PATH = "${pkgs.clang-tools}/bin:$PATH";
-    };
-    shells = with pkgs; [
-      zsh
-      bash
-    ];
-    systemPackages = with pkgs; [
-      acpi
-      brightnessctl
-      cpupower-gui
-      powertop
-    ];
+    variables = { PATH = "${pkgs.clang-tools}/bin:$PATH"; };
+    shells = with pkgs; [ zsh bash ];
+    systemPackages = with pkgs; [ acpi brightnessctl cpupower-gui powertop ];
   };
-
 
 }

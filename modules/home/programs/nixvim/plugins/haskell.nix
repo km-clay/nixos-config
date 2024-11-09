@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.nixvim = {
     extraPlugins = [
       (pkgs.vimUtils.buildVimPlugin {
@@ -11,8 +11,6 @@
         };
       })
     ];
-    plugins = {
-      haskell-scope-highlighting.enable = true;
-    };
+    plugins = { haskell-scope-highlighting.enable = true; };
   };
 }

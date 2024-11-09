@@ -2,15 +2,7 @@
 
 pkgs.writeShellApplication {
   name = "mkscreenshots";
-  runtimeInputs = with pkgs; [
-    jq
-    neofetch
-    kitty
-    coreutils
-    nemo
-    grimblast
-    git
-  ];
+  runtimeInputs = with pkgs; [ jq neofetch kitty coreutils nemo grimblast git ];
   text = ''
     if [ -n "$(hyprctl clients -j | jq -r '.[] | select(.workspace.name == "4")')" ]; then
       echo "There are windows in workspace 4. This script uses workspace 4, so move those windows and run it again."

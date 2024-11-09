@@ -1,12 +1,5 @@
-{
-  pkgs,
-  username,
-  ...
-}: {
-  imports = [
-    ./hardware.nix
-    ./home.nix
-  ];
+{ pkgs, username, ... }: {
+  imports = [ ./hardware.nix ./home.nix ];
   movOpts = {
     nixSettings.enable = true;
     networkModule.enable = true;
@@ -18,9 +11,7 @@
     jellyfinConfig.enable = true;
     caddyConfig.enable = true;
   };
-  networking.firewall = {
-    allowedTCPPorts = [ 443 8920 ];
-  };
+  networking.firewall = { allowedTCPPorts = [ 443 8920 ]; };
   environment = {
     etc."tmpfiles.d/home-permissions.conf".text = ''
       d /home/pagedmov 0750 pagedmov users -
@@ -29,9 +20,6 @@
       PATH = "${pkgs.clang-tools}/bin:$PATH";
       TERM = "kitty";
     };
-    shells = with pkgs; [
-      zsh
-      bash
-    ];
+    shells = with pkgs; [ zsh bash ];
   };
 }

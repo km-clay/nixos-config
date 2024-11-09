@@ -1,6 +1,7 @@
-{config, lib, inputs, ... }: {
+{ config, lib, inputs, ... }: {
   options = {
-    movOpts.envConfig.starshipConfig.enable = lib.mkEnableOption "enables my starship configuration";
+    movOpts.envConfig.starshipConfig.enable =
+      lib.mkEnableOption "enables my starship configuration";
   };
   config = lib.mkIf config.movOpts.envConfig.starshipConfig.enable {
     programs.starship = {
@@ -23,7 +24,9 @@
           format = "[$user]($style)";
         };
         directory = {
-          format = "\n[$path](bold cyan)[/](bold green) ";
+          format = ''
+
+            [$path](bold cyan)[/](bold green) '';
           style = "bold #b4befe";
         };
 
@@ -42,7 +45,9 @@
         };
 
         git_branch = {
-          format = "\non [$symbol$branch](bold purple)";
+          format = ''
+
+            on [$symbol$branch](bold purple)'';
           symbol = " ";
           truncation_length = 15;
           style = "bold purple";
