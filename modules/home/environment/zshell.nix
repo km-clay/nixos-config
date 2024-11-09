@@ -46,6 +46,8 @@
         LANG = "en_US.UTF-8";
         BROWSER = "firefox";
         FLAKEPATH = "$HOME/.sysflake";
+        STEAMPATH = "$HOME/.local/share/Steam";
+        PATH = "$PATH:$HOME/.userpath/";
       };
 
       oh-my-zsh = {

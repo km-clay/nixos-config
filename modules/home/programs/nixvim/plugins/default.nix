@@ -11,6 +11,8 @@
     ./lsp.nix
     ./fidget.nix
     ./lualine.nix
+    ./nvim-lightbulb.nix
+    ./neocord.nix
     ./plugins.nix
     ./nvim-tree.nix
     ./telescope.nix

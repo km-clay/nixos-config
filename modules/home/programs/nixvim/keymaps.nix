@@ -2,6 +2,16 @@
   programs.nixvim = {
     keymaps = [
       {
+        action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
+        key = "!ca";
+        mode = "n";
+      }
+      {
+        action = "<cmd>Telescope<CR>";
+        key = "!t";
+        mode = "n";
+      }
+      {
         action = "<cmd>lua vim.lsp.buf.format()<CR>";
         key = "!fmt";
         mode = "n";

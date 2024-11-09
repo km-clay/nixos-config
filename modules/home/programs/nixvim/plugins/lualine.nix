@@ -25,7 +25,7 @@
         sections = {
           lualine_a = ["mode"];
           lualine_b = ["buffers"];
-          lualine_c = [""];
+          lualine_c = [];
           lualine_x = ["searchcount" "fileformat" "filetype"];
           lualine_y = ["branch" "diff" "diagnostics"];
           lualine_z = ["location"];

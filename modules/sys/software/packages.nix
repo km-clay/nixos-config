@@ -5,6 +5,7 @@
   config = lib.mkIf config.movOpts.softwareCfg.sysPkgs.enable {
     environment.systemPackages = with pkgs; [
       alsa-lib
+      wayland
       alsa-utils
       bc
       cliphist
