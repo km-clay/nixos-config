@@ -33,16 +33,19 @@
   outputs = { self, home-manager, nixpkgs, nur, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [ (import ./overlay/overlay.nix) ];
+      };
       username = "pagedmov";
-      env = import ./env.nix;
     in {
+      inherit pkgs;
       homeConfigurations = {
         oganessonHome = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
             host = "oganesson";
-            inherit self username env inputs;
+            inherit self username inputs;
           };
 
           modules = [
@@ -58,7 +61,7 @@
           inherit pkgs;
           extraSpecialArgs = {
             host = "oganesson";
-            inherit self env username inputs;
+            inherit self username inputs;
           };
 
           modules = [
@@ -74,7 +77,7 @@
           inherit pkgs;
           extraSpecialArgs = {
             host = "oganesson";
-            inherit self env username inputs;
+            inherit self username inputs;
           };
 
           modules = [
@@ -89,7 +92,7 @@
         oganesson = nixpkgs.lib.nixosSystem {
           specialArgs = {
             host = "oganesson";
-            inherit self inputs env username;
+            inherit self inputs username;
           };
           inherit system;
           modules = [
@@ -103,7 +106,7 @@
         mercury = nixpkgs.lib.nixosSystem {
           specialArgs = {
             host = "mercury";
-            inherit self inputs env username;
+            inherit self inputs username;
           };
           inherit system;
           modules = [
@@ -117,7 +120,7 @@
         xenon = nixpkgs.lib.nixosSystem {
           specialArgs = {
             host = "xenon";
-            inherit self inputs env username;
+            inherit self inputs username;
           };
           inherit system;
           modules = [
