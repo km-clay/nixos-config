@@ -65,7 +65,6 @@ in {
           "systemctl --user import-environment &"
           "hash dbus-update-activation-environment 2>/dev/null &"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
-          "aplay ${self}/assets/sound/login.wav &"
         ];
 
         workspace = if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout

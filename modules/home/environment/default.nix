@@ -3,6 +3,7 @@
     ./gtk.nix
     ./spicetify.nix
     ./stylixhome.nix
+    ./userservices.nix
     ./starship.nix
     ./userpkgs.nix
     ./zshell.nix

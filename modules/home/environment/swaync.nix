@@ -134,7 +134,7 @@
           color: @text;
           /* color: @theme_text_color; */
           font-size: 16px;
-          padding: 0px;
+          padding-left: 0px;
       }
 
       .time {
@@ -154,10 +154,12 @@
           /* color: alpha(@theme_text_color, 0.9); */
           text-shadow: none;
           margin: 0px 0px 0px 0px;
+          padding-left: 8px;
       }
 
       .body-image {
-          border-radius: 4px;
+          border-radius: 2px;
+          padding-right: 2px;
       }
 
       /* The "Notifications" and "Do Not Disturb" text widget */

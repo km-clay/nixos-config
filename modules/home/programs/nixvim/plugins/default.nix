@@ -8,7 +8,6 @@
     # ./coq.nix
     ./barbar.nix
     ./cmp.nix
-    ./chatgpt.nix
     ./lsp.nix
     ./fidget.nix
     ./lualine.nix
