@@ -19,6 +19,7 @@
         alsa.enable = true;
         alsa.support32Bit = true;
       };
+      pcscd.enable = true;
       udev.enable = true;
       dbus.enable = true;
       mullvad-vpn.enable = true;

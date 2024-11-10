@@ -2,6 +2,21 @@
   programs.nixvim = {
     keymaps = [
       {
+        action = "<cmd>ChatGPTEditWithInstructions<CR>";
+        key = "!egpt";
+        mode = "n";
+      }
+      {
+        action = "<cmd>ChatGPTCompleteCode<CR>";
+        key = "!cgpt";
+        mode = "n";
+      }
+      {
+        action = "<cmd>ChatGPT<CR>";
+        key = "!gpt";
+        mode = "n";
+      }
+      {
         action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
         key = "!ca";
         mode = "n";

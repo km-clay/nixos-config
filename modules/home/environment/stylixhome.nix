@@ -19,6 +19,10 @@ in {
       targets = {
         waybar.enable = false;
         btop.enable = false;
+        nixvim.transparentBackground = {
+          main = false;
+          signColumn = false;
+        };
       };
       cursor = {
         package = pkgs.bibata-cursors;

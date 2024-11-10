@@ -24,6 +24,8 @@ in {
   config = lib.mkIf config.movOpts.envConfig.userPkgs.enable {
     home.packages = with pkgs; [
       nemo
+      yubikey-manager
+      yubikey-personalization
       gtk3
       sqlite
       gimp

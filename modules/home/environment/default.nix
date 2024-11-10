@@ -2,7 +2,7 @@
   imports = [
     ./gtk.nix
     ./spicetify.nix
-    ./stylix.nix
+    ./stylixhome.nix
     ./starship.nix
     ./userpkgs.nix
     ./zshell.nix
