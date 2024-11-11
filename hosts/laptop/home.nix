@@ -12,33 +12,37 @@
     homeFiles.enable = true;
 
     # modules/home/environment
-    hyprlandConfig = {
-      enable = true;
-      workspaceLayout = "singlemonitor";
-      monitorNames = [ "eDP-1" ];
+    envConfig = {
+      hyprlandConfig = {
+        enable = true;
+        workspaceLayout = "singlemonitor";
+        monitorNames = [ "eDP-1" ];
+      };
+      userPkgs.enable = true;
+      stylixHomeConfig.enable = true;
+      waybarConfig.enable = true;
+      gtkConfig.enable = true;
+      spicetifyConfig.enable = true;
+      starshipConfig.enable = true;
+      swayncConfig.enable = true;
+      zshConfig.enable = true;
     };
-    autojumpConfig.enable = true;
-    stylixHomeConfig.enable = true;
-    waybarConfig.enable = true;
-    gtkConfig.enable = true;
-    spicetifyConfig.enable = true;
-    starshipConfig.enable = true;
 
     # modules/home/programs
-    btopConfig.enable = true;
-    swayncConfig.enable = true;
-    userPkgs.enable = true;
-    cavaConfig.enable = true;
-    ezaConfig.enable = true;
-    firefoxConfig.enable = true;
-    fuzzelConfig.enable = true;
-    fzfConfig.enable = true;
-    gitConfig.enable = true;
-    kittyConfig.enable = true;
-    yaziConfig.enable = true;
-    zshConfig.enable = true;
-    passConfig.enable = true;
-    batConfig.enable = true;
+    programConfigs = {
+      autojumpConfig.enable = true;
+      btopConfig.enable = true;
+      cavaConfig.enable = true;
+      ezaConfig.enable = true;
+      firefoxConfig.enable = true;
+      fuzzelConfig.enable = true;
+      fzfConfig.enable = true;
+      gitConfig.enable = true;
+      kittyConfig.enable = true;
+      yaziConfig.enable = true;
+      passConfig.enable = true;
+      batConfig.enable = true;
+    };
 
     # modules/home/scripts
     movScripts = {

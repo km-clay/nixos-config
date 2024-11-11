@@ -1,7 +1,8 @@
 { pkgs, host, lib, config, ... }:
 
 let
-  desktop = host == "oganesson";
+  desktop = (host == "oganesson");
+  layout = config.movOpts.envConfig.hyprlandConfig.workspaceLayout;
   workspaces = {
     format = "{icon}";
     format-icons = {
@@ -13,15 +14,12 @@ let
       "6" = "六";
     };
     persistent-workspaces =
-      if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
-        == "singlemonitor") then {
+      if (layout == "singlemonitor") then {
           "${builtins.elemAt monitors 0}" = [ 1 2 3 4 ];
-        } else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
-          == "dualmonitor") then {
+        } else if (layout == "dualmonitor") then {
             "${builtins.elemAt monitors 0}" = [ 1 2 3 ];
             "${builtins.elemAt monitors 1}" = [ 4 5 6 ];
-          } else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout
-            == "trimonitor") then {
+          } else if (layout == "trimonitor") then {
               "${builtins.elemAt monitors 2}" = [ 1 2 ];
               "${builtins.elemAt monitors 1}" = [ 3 4 ];
               "${builtins.elemAt monitors 0}" = [ 5 6 ];
@@ -71,7 +69,8 @@ in {
       settings = {
         mainBar = {
           layer = "bottom";
-          output = builtins.elemAt monitors 1;
+          output = if layout == "singlemonitor" then builtins.elemAt monitors 0
+                    else builtins.elemAt monitors 1;
           position = "top";
           name = "mainBar";
           margin-left = 8;
@@ -193,10 +192,7 @@ in {
         };
         sideBar = {
           layer = "bottom";
-          output = if desktop then
-            builtins.elemAt monitors 0
-          else
-            builtins.elemAt monitors 1;
+          output = builtins.elemAt monitors 0;
           position = "right";
           margin-top = 8;
           margin-right = 5;

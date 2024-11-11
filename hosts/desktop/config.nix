@@ -59,5 +59,4 @@
   nix.settings.allowed-users = [ "${username}" ];
 
   time.timeZone = "America/New_York";
-  i18n.defaultLocale = "en_US.UTF-8";
 }
