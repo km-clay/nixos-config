@@ -54,6 +54,9 @@ let
     color7 = scheme.base0F;
   };
   monitors = config.movOpts.envConfig.hyprlandConfig.monitorNames;
+  circle-gauge =  [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
+  cava-gauge =    [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+  battery-gauge = [ "󰁺" "󰁻" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
 in {
   options = {
     movOpts.envConfig.waybarConfig.enable =
@@ -100,7 +103,7 @@ in {
             waves = false;
             noise_reduction = 0.77;
             input_delay = 1;
-            format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+            format-icons = cava-gauge;
           };
 
           "group/hardware" = {
@@ -127,7 +130,7 @@ in {
                   nix_percent = $5
                 }
                 END {
-                  printf "{\"class\": \"disk-icon\", \"tooltip\": \"/home: %s / %s\\n/nix: %s / %s\", \"percentage\": \"%s\"}\n",
+                  printf "{\"class\": \"disk-icon\", \"tooltip\": \"/home: %s / %s\\n/nix: %s / %s\", \"percentage\": %s}\n",
                   format(home_usage), format(home_total), format(nix_usage), format(nix_total), home_percent
                 }' | jq --unbuffered --compact-output
             '';
@@ -135,14 +138,14 @@ in {
             return-type = "json";
             rotate = 270;
             format = "{icon}";
-            format-icons = [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
+            format-icons = circle-gauge;
           };
 
           memory = {
             interval = 1;
             rotate = 270;
             format = "{icon}";
-            format-icons = [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
+            format-icons = circle-gauge;
             max-length = 10;
             tooltip-format = "RAM: {used:0.1f} GB / {total:0.1f} GB";
           };
@@ -151,7 +154,7 @@ in {
             interval = 1;
             rotate = 270;
             format = "{icon}";
-            format-icons = [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
+            format-icons = circle-gauge;
             tooltip-format = "CPU: {usage:0.1f}%";
           };
 
@@ -251,7 +254,7 @@ in {
               {capacity}%
               Til full: {time}'';
             format = "{icon}";
-            format-icons = [ "󰁺" "󰁻" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            format-icons = battery-gauge;
             format-charging = "󰂄";
           };
 

@@ -82,6 +82,10 @@
             runbg aplay "$1"
           fi
         }
+        grimblast() {
+          command grimblast "$@"
+          playshellsound ${self}/assets/sound/screenshot.wav
+        }
         ssh() { # reverts ssh theme upon returning
           command ssh "$@"
           kitty_ssh_theme

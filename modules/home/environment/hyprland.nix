@@ -205,7 +205,7 @@ in {
             "super, q, exec, kitty --title Kitty"
             "super shift, q, exec, [float;size 40% 30%;move onscreen cursor -50% -50%] kitty --title Kitty"
             "super, c, killactive,"
-            "super, e, exec, nemo"
+            "super, e, exec, [float;size 40% 50%;move onscreen cursor -50% -50%] nemo"
             "super, p, exec, [float;size 40% 25%;move onscreen cursor] [ ! -f /tmp/keyringfile ] && kitty toolbelt"
             "super shift, m, exit,"
             "super, m, exec, fuzzel"
