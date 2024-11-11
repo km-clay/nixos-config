@@ -25,8 +25,8 @@ in {
         };
       };
       cursor = {
-        package = pkgs.myPkgs.breezex-cursor;
-        name = "BreezeX-Dark";
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Ice";
       };
       fonts = {
         monospace = {

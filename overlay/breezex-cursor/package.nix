@@ -1,10 +1,25 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  stdenvNoCC,
+  fetchFromGitHub,
+  fetchzip,
+  clickgen,
+  lib
+}:
 
-pkgs.stdenvNoCC.mkDerivation rec {
+let
+  pagedMov = {
+    email = "kylerclay@proton.me";
+    github = "pagedMov";
+    githubId = 19557376;
+    name = "Kyler Clay";
+    keys = [ { fingerprint = "784B 3623 94E7 8F11 0B9D AE0F 56FD CFA6 2A93 B51E"; } ];
+  };
+in
+stdenvNoCC.mkDerivation rec {
   pname = "breezex-cursor";
   version = "2.0.1";
 
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "ful1e5";
     repo = "BreezeX_Cursor";
     rev = "refs/tags/v${version}";
@@ -12,10 +27,10 @@ pkgs.stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    pkgs.clickgen
+    clickgen
   ];
 
-  bitmaps = pkgs.fetchzip {
+  bitmaps = fetchzip {
     url = "https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.1/bitmaps.zip";
     hash = "sha256-JncEE+G4tPgcLgabe/dD7DOVMLOWCI7e+3VdmXuZSo8=";
   };
@@ -34,4 +49,11 @@ pkgs.stdenvNoCC.mkDerivation rec {
     cp -rf themes/* $out/share/icons/
     runHook postInstall
   '';
+
+  meta = {
+    description = "Extended KDE cursor, inspired by KDE Breeze";
+    homepage = "https://github.com/ful1e5/BreezeX_Cursor";
+    license = lib.licenses.gpl3;
+    maintainers = [ pagedMov ];
+  };
 }
