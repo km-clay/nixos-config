@@ -60,7 +60,7 @@
         mercuryHome = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
-            host = "oganesson";
+            host = "mercury";
             inherit self username inputs;
           };
 
@@ -76,7 +76,7 @@
         xenonHome = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
-            host = "oganesson";
+            host = "xenon";
             inherit self username inputs;
           };
 
