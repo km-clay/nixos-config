@@ -13,6 +13,7 @@
       fail2ban
       git
       hyprland-workspaces
+      hyprpaper
       hyprpicker
       inetutils
       kitty

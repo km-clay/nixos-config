@@ -15,7 +15,7 @@
     services = {
       loginSound = {
         Unit= {
-          description = "Plays a sound on login";
+          Description = "Plays a sound on login";
           After = [ "graphical-session.target" ];
           WantedBy = [ "graphical-session.target" ];
         };
@@ -27,7 +27,7 @@
       };
       maintenanceCheck = {
         Unit = {
-          description = "Check for updates in my maintained packages";
+          Description = "Check for updates in my maintained packages";
         };
 
         Service = {

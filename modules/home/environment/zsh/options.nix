@@ -25,6 +25,11 @@
         size = 10000;
         share = true;
       };
+
+      autosuggestion = {
+        enable = true;
+        highlight = "fg=#4C566A,underline";
+      };
     };
   };
 }
