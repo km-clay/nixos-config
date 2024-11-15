@@ -1,11 +1,11 @@
 { pkgs }:
 pkgs.writeShellApplication {
   name = "chscheme";
-  runtimeInputs = with pkgs; [ fzf coreutils ];
+  runtimeInputs = with pkgs; [ base16-schemes fzf coreutils ];
   text = ''
     selected_scheme=$(/usr/bin/env ls "$(nix-build '<nixpkgs>' -A base16-schemes)"/share/themes | \
         sed 's/\.yaml//g' | \
-        fzf --preview "cat \"$(nix-build '<nixpkgs>' -A base16-schemes)/share/themes/{}.yaml\" | \
+        fzf --preview "cat $(nix-build '<nixpkgs>' -A base16-schemes)/share/themes/{}.yaml | \
         while IFS=\": \" read -r key value; do \
             if [[ \$key =~ base0[0-9A-F] ]]; then \
                 clean_value=\$(echo \"\$value\" | tr -d '\"'); \
