@@ -1,235 +1,225 @@
 # Home-Manager Options
 
-## homeFiles.enable
-  - Enables my declared files
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/files/neofetch.nix'
+- **movOpts**
 
-## hyprlandConfig.enable
-  - Enables my custom hyprland configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/hyprland.nix'
+  - **homeFiles**
+    - **enable**
+      - Enables my declared files.
+      - *Type*: Boolean
+      - *Default*: `true`
+      - *Defined in*: `modules/home/files.nix`
 
-## autojumpConfig.enable
-  - Enables my autojump options
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/autojump.nix'
+---
 
-## stylixHomeConfig.enable
-  - Enables my stylix home-manager options
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/stylix.nix'
+  - **envConfig**
 
-## waybarConfig.enable
-  - Enables my custom waybar configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/waybar.nix'
+    - **hyprlandConfig**
+      - **enable**
+        - Enables my custom Hyprland configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/environment/hyprland.nix`
+      - **monitorNames**
+        - List of monitor names for my Hyprland configuration.
+        - *Type*: List of Strings
+        - *Default*: `[]`
+        - *Defined in*: `modules/home/environment/hyprland.nix`
+      - **workspaceLayout**
+        - Workspace layout for Hyprland (e.g., dual monitor setups).
+        - *Type*: String
+        - *Default*: `"dualmonitor"`
+        - *Defined in*: `modules/home/environment/hyprland.nix`
 
-## gtkConfig.enable
-  - Enables my gtk configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/gtk.nix'
+    - **userPkgs**
+      - **enable**
+        - Enables my default user packages.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/environment/userpkgs.nix`
 
-## spicetifyConfig.enable
-  - Enables my spicetify configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/spicetify.nix'
+    - **stylixHomeConfig**
+      - **enable**
+        - Enables my Stylix Home-Manager options.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/environment/stylix.nix`
 
-## starshipConfig.enable
-  - Enables my starship configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/starship.nix'
+    - **waybarConfig**
+      - **enable**
+        - Enables my custom Waybar configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/environment/waybar.nix`
 
-## btopConfig.enable
-  - Enables my btop configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/btop.nix'
+    - **gtkConfig**
+      - **enable**
+        - Enables my GTK configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/environment/gtk.nix`
 
-## swayncConfig.enable
-  - Enables my swaync configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/swaync.nix'
+    - **spicetifyConfig**
+      - **enable**
+        - Enables my Spicetify configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/environment/spicetify.nix`
 
-## userPkgs.enable
-  - Enables my default user packages
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/userpkgs.nix'
+    - **starshipConfig**
+      - **enable**
+        - Enables my Starship prompt configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/environment/starship.nix`
 
-## cavaConfig.enable
-  - Enables my cava configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/cava.nix'
+    - **swayncConfig**
+      - **enable**
+        - Enables my SwayNC configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/environment/swaync.nix`
 
-## ezaConfig.enable
-  - Enables my eza configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/eza.nix'
+    - **zshConfig**
+      - **shellAliases**
+        - **enable**
+          - Enables custom shell aliases.
+          - *Type*: Boolean
+          - *Default*: `true`
+          - *Defined in*: `modules/home/environment/zsh/aliases.nix`
+      - **envVariables**
+        - **enable**
+          - Enables custom environment variables for Zsh.
+          - *Type*: Boolean
+          - *Default*: `true`
+          - *Defined in*: `modules/home/environment/zsh/env.nix`
+      - **shellOptions**
+        - **enable**
+          - Enables custom shell options for Zsh.
+          - *Type*: Boolean
+          - *Default*: `true`
+          - *Defined in*: `modules/home/environment/zsh/options.nix`
+      - **extraConfig**
+        - **enable**
+          - Enables extra custom configuration for Zsh.
+          - *Type*: Boolean
+          - *Default*: `true`
+          - *Defined in*: `modules/home/environment/zsh/extraconfig.nix`
 
-## firefoxConfig.enable
-  - Enables my firefox configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/firefox.nix'
+---
 
-## fuzzelConfig.enable
-  - Enables my fuzzel configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/fuzzel.nix'
+  - **programConfigs**
 
-## fzfConfig.enable
-  - Enables my fzf configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/fzf.nix'
+    - **autojumpConfig**
+      - **enable**
+        - Enables my Autojump options.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/autojump.nix`
 
-## gitConfig.enable
-  - Enables my git configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/git.nix'
+    - **btopConfig**
+      - **enable**
+        - Enables my Btop configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/btop.nix`
 
-## kittyConfig.enable
-  - Enables my kitty configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/kitty.nix'
+    - **cavaConfig**
+      - **enable**
+        - Enables my Cava configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/cava.nix`
 
-## yaziConfig.enable
-  - Enables my yazi configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/yazi.nix'
+    - **ezaConfig**
+      - **enable**
+        - Enables my Eza configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/eza.nix`
 
-## zshConfig.enable
-  - Enables my zsh configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/environment/zshell.nix'
+    - **firefoxConfig**
+      - **enable**
+        - Enables my Firefox configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/firefox.nix`
 
-## passConfig.enable
-  - Enables my password-store configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/password-store.nix'
+    - **fuzzelConfig**
+      - **enable**
+        - Enables my Fuzzel configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/fuzzel.nix`
 
-## batConfig.enable
-  - Enables my bat configuration
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/programs/bat.nix'
+    - **fzfConfig**
+      - **enable**
+        - Enables my FZF configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/fzf.nix`
 
-## movScripts.enable
-  - Enables my custom script binaries
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
+    - **gitConfig**
+      - **enable**
+        - Enables my Git configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/git.nix`
 
-## movScripts.commandScripts
-### enable
-  - Enables my custom command scripts
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### invoke.enable
-  - Enables the invoke command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### runbg.enable
-  - Enables the runbg command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### splash.enable
-  - Enables the splash command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### toolbelt.enable
-  - Enables the toolbelt command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### viconf.enable
-  - Enables the viconf command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
+    - **kittyConfig**
+      - **enable**
+        - Enables my Kitty configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/kitty.nix`
 
-## movScripts.hyprlandControls
-### enable
-  - Enables my hyprland control shortcut scripts
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### chpaper.enable
-  - Enables the chpaper command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### scheck.enable
-  - Enables the scheck command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### chscheme.enable
-  - Enables the chscheme command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### keyring.enable
-  - Enables the keyring command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### moveonscreen.enable
-  - Enables the moveonscreen command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### switchmon.enable
-  - Enables the switchmon command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### mkscreenshots.enable
-  - Enables the mkscreenshots command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
+    - **yaziConfig**
+      - **enable**
+        - Enables my Yazi configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/yazi.nix`
 
-## movScripts.nixShortcuts
-### enable
-  - Enables my NixOS aliases
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### garbage-collect.enable
-  - Enables the garbage-collect command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### nsp.enable
-  - Enables the nsp command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
-### rebuild.enable
-  - Enables the rebuild command
-  - Type: Boolean
-  - Default: true
-  - Defined in 'modules/home/scripts/default.nix'
+    - **passConfig**
+      - **enable**
+        - Enables my Password-Store configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/password-store.nix`
+
+    - **batConfig**
+      - **enable**
+        - Enables my Bat configuration.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/programs/bat.nix`
+
+---
+
+  - **movScripts**
+
+    - **enable**
+      - Enables all custom script binaries.
+      - *Type*: Boolean
+      - *Default*: `true`
+      - *Defined in*: `modules/home/scripts/default.nix`
+
+    - **commandScripts**
+      - **enable**
+        - Enables my custom command scripts.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/scripts/default.nix`
+
+    - **hyprlandControls**
+      - **enable**
+        - Enables my Hyprland control shortcut scripts.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/scripts/default.nix`
+
+    - **nixShortcuts**
+      - **enable**
+        - Enables my NixOS alias scripts.
+        - *Type*: Boolean
+        - *Default*: `true`
+        - *Defined in*: `modules/home/scripts/default.nix`
