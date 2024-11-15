@@ -6,15 +6,6 @@
   lib
 }:
 
-let
-  pagedMov = {
-    email = "kylerclay@proton.me";
-    github = "pagedMov";
-    githubId = 19557376;
-    name = "Kyler Clay";
-    keys = [ { fingerprint = "784B 3623 94E7 8F11 0B9D AE0F 56FD CFA6 2A93 B51E"; } ];
-  };
-in
 stdenvNoCC.mkDerivation rec {
   pname = "breezex-cursor";
   version = "2.0.1";
@@ -51,9 +42,9 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = {
-    description = "Extended KDE cursor, inspired by KDE Breeze";
+    description = "Extended KDE cursor theme, inspired by KDE Breeze";
     homepage = "https://github.com/ful1e5/BreezeX_Cursor";
     license = lib.licenses.gpl3;
-    maintainers = [ pagedMov ];
+    maintainers = with lib.maintainers; [ pagedMov ];
   };
 }
