@@ -1,4 +1,4 @@
-{ username, lib, config, ... }: {
+{ username, ... }: {
   home.username = "${username}"; # Replace with your actual username
   home.homeDirectory =
     "/home/${username}"; # Replace with your actual home directory
@@ -25,7 +25,12 @@
       spicetifyConfig.enable = true;
       starshipConfig.enable = true;
       swayncConfig.enable = true;
-      zshConfig.enable = true;
+      zshConfig = {
+        shellAliases.enable = true;
+        envVariables.enable = true;
+        shellOptions.enable = true;
+        extraConfig.enable = true;
+      };
     };
 
     # modules/home/programs

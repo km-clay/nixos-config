@@ -6,7 +6,7 @@
     ./userservices.nix
     ./starship.nix
     ./userpkgs.nix
-    ./zshell.nix
+    ./zsh
     ./swaync.nix
     ./hyprland.nix
     ./waybar.nix

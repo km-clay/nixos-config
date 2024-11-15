@@ -1,75 +1,11 @@
-{ lib, config, self, ... }: {
+{ lib, config, self, ... }:
+
+{
   options = {
-    movOpts.envConfig.zshConfig.enable =
-      lib.mkEnableOption "enables my zsh configuration";
+    movOpts.envConfig.zshConfig.extraConfig.enable = lib.mkEnableOption "enables my extra shell configurations";
   };
-  config = lib.mkIf config.movOpts.envConfig.zshConfig.enable {
-    programs.zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-    };
+  config = lib.mkIf config.movOpts.envConfig.zshConfig.extraConfig.enable {
     programs.zsh = {
-      enable = true;
-
-      shellAliases = {
-        grep = "grep --color=auto";
-        yazi = "y";
-        vi = "nvim";
-        mv = "mv -v";
-        cp = "cp -vr";
-        gt = "gtrash";
-        gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
-        sr = "source ~/.zshrc";
-        ".." = "cd ..";
-        rm = "echo 'use \"gtp\" instead'";
-        psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
-        mkdir = "mkdir -p";
-        pk = "pkill -9 -f";
-        svcu = "systemctl --user";
-        svc = "sudo systemctl";
-        viflake = "nvim flake.nix";
-        iv = "invoke";
-        cfgfilecount =
-          ''find $FLAKEPATH -name "*.nix" | wc -l | toilet -f 3d | lolcat'';
-
-        #git
-        "ga" = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
-        gcomm = "gitcommit_sfx";
-        gpush = "gitpush_sfx";
-        gpull = "gitpull_sfx";
-        greb = "gitrebase_sfx";
-      };
-
-      sessionVariables = {
-        SOUNDS_ENABLED = "1";
-        EDITOR = "nvim";
-        SUDO_EDITOR = "nvim";
-        VISUAL = "nvim";
-        LANG = "en_US.UTF-8";
-        BROWSER = "firefox";
-        FLAKEPATH = "$HOME/.sysflake";
-        STEAMPATH = "$HOME/.local/share/Steam";
-        PATH = "$PATH:$HOME/.userpath/";
-      };
-
-      oh-my-zsh = {
-        enable = true;
-        plugins = [ "git" "fzf" ];
-      };
-
-      enableCompletion = true;
-      history = {
-        path = "$HOME/.zsh_history";
-        save = 10000;
-        size = 10000;
-        share = true;
-      };
-
-      autosuggestion = {
-        enable = true;
-        highlight = "fg=#4C566A,underline";
-      };
-
       initExtra = ''
         playshellsound() {
           if [ $# -ne 1 ]; then
