@@ -94,6 +94,7 @@ All of the options declared in these modules can be found in the documentation u
 'mod' is Super by default.
 <details>
     <summary>Utility</summary>
+    
     ```mod + printscreen``` = grimblast copy area
 
     ```mod + t``` = open swaync-client
@@ -115,6 +116,7 @@ All of the options declared in these modules can be found in the documentation u
 </details>
 <details>
     <summary>Navigation</summary>
+    
     ```super + b``` = change split direction
 
     ```super + f``` = float/unfloat window
