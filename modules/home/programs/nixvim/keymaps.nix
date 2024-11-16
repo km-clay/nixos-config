@@ -2,6 +2,11 @@
   programs.nixvim = {
     keymaps = [
       {
+        action = "gg<S-V>G"; # select entire document
+        key = "<C-a>";
+        mode = "n";
+      }
+      {
         action = "<cmd>ChatGPTEditWithInstructions<CR>";
         key = "!egpt";
         mode = "n";
