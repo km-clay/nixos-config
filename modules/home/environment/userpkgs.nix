@@ -16,6 +16,26 @@ let
       cp -r ${extraFigletFonts}/* $out/share/figlet
     '';
   });
+  scripts = with pkgs; [
+    myScripts.icanhazip
+    myScripts.invoke
+    myScripts.runbg
+    myScripts.splash
+    myScripts.toolbelt
+    myScripts.viconf
+    myScripts.vipkg
+    myScripts.fetchfromgh
+    myScripts.garbage-collect
+    myScripts.nsp
+    myScripts.rebuild
+    myScripts.chpaper
+    myScripts.chscheme
+    myScripts.keyring
+    myScripts.mkscreenshots
+    myScripts.moveonscreen
+    myScripts.s_check
+    myScripts.switchmon
+  ];
 in {
   options = {
     movOpts.envConfig.userPkgs.enable =
@@ -47,6 +67,6 @@ in {
       toilet-extrafonts
       python3
       chafa
-    ];
+    ] ++ scripts;
   };
 }

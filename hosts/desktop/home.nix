@@ -48,14 +48,6 @@
       passConfig.enable = true;
       batConfig.enable = true;
     };
-
-    # modules/home/scripts
-    movScripts = {
-      enable = true;
-      commandScripts.enable = true;
-      hyprlandControls.enable = true;
-      nixShortcuts.enable = true;
-    };
   };
 
   dconf.settings = {
