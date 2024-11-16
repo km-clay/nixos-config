@@ -33,19 +33,22 @@
   outputs = { self, home-manager, nixpkgs, nur, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [ (import ./overlay/overlay.nix) ];
-      };
       username = "pagedmov";
+      nixpkgsConfig = {
+        allowUnfree = true;
+      };
     in {
-      inherit pkgs;
       homeConfigurations = {
-        oganessonHome = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        oganessonHome = let host = "oganesson"; in home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [
+              (import ./overlay/overlay.nix { inherit host; root = self; })
+            ];
+          };
           extraSpecialArgs = {
-            host = "oganesson";
-            inherit self username inputs;
+            inherit host self username inputs;
           };
 
           modules = [
@@ -57,11 +60,16 @@
           ];
         };
 
-        mercuryHome = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        mercuryHome = let host = "mercury"; in home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [
+              (import ./overlay/overlay.nix { inherit host; root = self; })
+            ];
+          };
           extraSpecialArgs = {
-            host = "mercury";
-            inherit self username inputs;
+            inherit host self username inputs;
           };
 
           modules = [
@@ -73,11 +81,16 @@
           ];
         };
 
-        xenonHome = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        xenonHome = let host = "xenon"; in home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [
+              (import ./overlay/overlay.nix { inherit host; root = self; })
+            ];
+          };
           extraSpecialArgs = {
-            host = "xenon";
-            inherit self username inputs;
+            inherit host self username inputs;
           };
 
           modules = [
@@ -91,10 +104,15 @@
       nixosConfigurations = {
         oganesson = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            host = "oganesson";
             inherit self inputs username;
+            host = "oganesson";
           };
           inherit system;
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [];
+          };
           modules = [
             ./hosts/desktop/config.nix
             ./modules/sys
@@ -105,10 +123,15 @@
 
         mercury = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            host = "mercury";
             inherit self inputs username;
+            host = "mercury";
           };
           inherit system;
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [];
+          };
           modules = [
             ./hosts/laptop/config.nix
             ./modules/sys
@@ -119,10 +142,15 @@
 
         xenon = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            host = "xenon";
             inherit self inputs username;
+            host = "xenon";
           };
           inherit system;
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [];
+          };
           modules = [
             ./hosts/server/config.nix
             ./modules/sys
@@ -138,6 +166,11 @@
             inherit self inputs;
           };
           inherit system;
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [];
+          };
           modules = [ ./hosts/installer nixvim.nixosModules.nixvim ];
         };
       };

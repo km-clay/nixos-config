@@ -18,10 +18,6 @@
             runbg aplay "$1"
           fi
         }
-        grimblast() {
-          command grimblast "$@"
-          playshellsound ${self}/assets/sound/screenshot.wav
-        }
         ssh() { # reverts ssh theme upon returning
           command ssh "$@"
           kitty_ssh_theme
@@ -31,6 +27,11 @@
             kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
           else
             kitty @ set-colors -a ~/.config/kitty/default-theme.conf
+          fi
+        }
+        grimblast() {
+          if grimblast "$@"; then
+            playshellsound ${self}/assets/sound/screenshot.wav
           fi
         }
         gitcheckout_sfx() {

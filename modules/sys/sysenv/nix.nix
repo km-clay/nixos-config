@@ -5,7 +5,6 @@
   };
   config = lib.mkIf config.movOpts.sysEnv.nixSettings.enable {
     system.stateVersion = "24.05";
-    nixpkgs.config.allowUnfree = true;
     nix = {
       settings = {
         auto-optimise-store = true;
