@@ -10,10 +10,10 @@ pkgs.writeShellApplication {
       str="''${str::-1}"
       if [ "$char" = "-" ]; then return 0; fi
       case "$char" in
-        "a") if checkbools; then echo "$usage" && exit 1; else all=true; fi ;;
-        "s") if checkbools; then system=true; else echo "$usage" && exit 1; fi ;;
-        "h") if checkbools; then home=true; else echo "$usage" && exit 1; fi ;;
-        "n") if [ "$dry" = false ]; then dry=true; else echo "$usage" && exit 1; fi ;;
+        "a") if checkbools; then all=true; else echo -e "$usage" && exit 1; fi ;;
+        "s") if checkbools; then system=true; else echo -e "$usage" && exit 1; fi ;;
+        "h") if checkbools; then home=true; else echo -e "$usage" && exit 1; fi ;;
+        "n") if [ "$dry" = false ]; then dry=true; else echo -e "$usage" && exit 1; fi ;;
         *) echo -e "$usage" && exit 1 ;;
       esac
       checkflags "$str"

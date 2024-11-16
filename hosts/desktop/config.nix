@@ -5,7 +5,7 @@
   movOpts = {
     sysEnv = {
       issue.enable = true;
-      sddmConfig.enable = true;
+      sddmConfig.enable = false;
       stylixConfig.enable = true;
       nixSettings.enable = true;
     };

@@ -5,10 +5,14 @@ pkgs.writeShellApplication {
   text = ''
     #!/usr/bin/env bash
 
-    [ ! $# -eq 1 ] && echo "Usage: viconf <*.nix>" && exit 1
+    if [ ! $# -eq 1 ]; then
+      results=$(find "$FLAKEPATH" -exec find {} \; | sort | uniq | rg '\.nix$')
+      numresults=$(echo "$results" | wc -l)
+    else
+      results=$(find "$FLAKEPATH" -wholename "*$1*" -exec find {} \; | sort | uniq | rg '\.nix$')
+      numresults=$(echo "$results" | wc -l)
+    fi
 
-    results=$(find "$FLAKEPATH" -wholename "*$1*" -exec find {} \; | sort | uniq | rg '\.nix$')
-    numresults=$(echo "$results" | wc -l)
 
     [ "$numresults" -eq 0 ] && echo "$1 not found in \$FLAKEPATH" && exit 1
 
