@@ -1,4 +1,4 @@
-# ❄️ pagedMov's NixOS dots ❄️
+# ❄️ pagedMov's NixOS config ❄️
 
 Special thanks to Frost-Phoenix, this config started out as a fork of his dots. [Check out his
 config here](https://github.com/Frost-Phoenix/nixos-config/tree/catppuccin)
