@@ -36,6 +36,7 @@ let
     myScripts.s_check
     myScripts.switchmon
     myScripts.git-compose
+    myScripts.playshellsound
   ];
 in {
   options = {

@@ -1,5 +1,9 @@
-{ lib, config, self, ... }:
+{ lib, config, self, pkgs, ... }:
 
+let
+  shellsound = "${pkgs.myScripts.playshellsound}/bin/playshellsound";
+  sndpath = "${self}/assets/sound";
+in
 {
   options = {
     movOpts.envConfig.zshConfig.extraConfig.enable = lib.mkEnableOption "enables my extra shell configurations";
@@ -7,17 +11,6 @@
   config = lib.mkIf config.movOpts.envConfig.zshConfig.extraConfig.enable {
     programs.zsh = {
       initExtra = ''
-        playshellsound() {
-          if [ $# -ne 1 ]; then
-            echo "Usage: playshellsound <path/to/sound>"
-            return 1
-          fi
-          if ! scheck; then
-            return 0
-          else
-            runbg aplay "$1"
-          fi
-        }
         build-drv() { # Put the derivation path in $RESULT instead of making a 'result' symlink
           RESULT=$(nix-build "$@" --no-link)
           if [ -z "$RESULT" ]; then
@@ -26,6 +19,11 @@
           export RESULT
           echo "\$RESULT = $RESULT"
         }
+        nvim() {
+          ${shellsound} ${sndpath}/nvim.wav
+          command nvim "$@"
+        }
+        alias vi="nvim"
         ssh() { # reverts ssh theme upon returning
           command ssh "$@"
           kitty_ssh_theme
@@ -39,58 +37,58 @@
         }
         grimblast() {
           if grimblast "$@"; then
-            playshellsound ${self}/assets/sound/screenshot.wav
+            ${shellsound} ${sndpath}/screenshot.wav
           fi
         }
         gitcheckout_sfx() {
           if git checkout "$@"; then
-            playshellsound ${self}/assets/sound/gitcheckout.wav
+            ${shellsound} ${sndpath}/gitcheckout.wav
             return 0
           else
-            playshellsound ${self}/assets/sound/error.wav
+            ${shellsound} ${sndpath}/error.wav
             return 1
           fi
         }
         gitrebase_sfx() {
           if git rebase "$@"; then
-            playshellsound ${self}/assets/sound/gitrebase.wav
+            ${shellsound} ${sndpath}/gitrebase.wav
             return 0
           else
-            playshellsound ${self}/assets/sound/error.wav
+            ${shellsound} ${sndpath}/error.wav
             return 1
           fi
         }
         gitcommit_sfx() {
           if git commit "$@"; then
-            playshellsound ${self}/assets/sound/gitcommit.wav
+            ${shellsound} ${sndpath}/gitcommit.wav
             return 0
           else
-            playshellsound ${self}/assets/sound/error.wav
+            ${shellsound} ${sndpath}/error.wav
             return 1
           fi
         }
         gitpush_sfx() {
           if git push "$@"; then
-            playshellsound ${self}/assets/sound/gitpush.wav
+            ${shellsound} ${sndpath}/gitpush.wav
             return 0
           else
-            playshellsound ${self}/assets/sound/error.wav
+            ${shellsound} ${sndpath}/error.wav
             return 1
           fi
         }
         gitpull_sfx() {
           if git pull "$@"; then
-            playshellsound ${self}/assets/sound/gitpull.wav
+            ${shellsound} ${sndpath}/gitpull.wav
             return 0
           else
-            playshellsound ${self}/assets/sound/error.wav
+            ${shellsound} ${sndpath}/error.wav
             return 1
           fi
         }
         unalias ls
         ls() {
           eza -1 --group-directories-first --icons "$@"
-          playshellsound ${self}/assets/sound/ls.wav
+          ${shellsound} ${sndpath}/ls.wav
           return 0
         }
 
@@ -113,7 +111,7 @@
           eza -1 --group-directories-first --icons "$@"
           SOUNDS_ENABLED=$prev_sounds_enabled
           builtin cd "$@"
-          playshellsound /nix/store/7a9w7np3qrvmzxjbs7xj05qq2yccgfsj-source/assets/sound/cd.wav
+          ${shellsound} /nix/store/7a9w7np3qrvmzxjbs7xj05qq2yccgfsj-source/assets/sound/cd.wav
           return 0
         }
         if [ ! -e $HOME/.zsh_history ]; then
@@ -157,7 +155,7 @@
         {
           eval "$(starship init zsh)"
         }
-        playshellsound ${self}/assets/sound/sh-source.wav
+        ${shellsound} ${sndpath}/sh-source.wav
         [ ! -f $FLAKEPATH/flake.nix ] && echo "WARNING: flake.nix not found at \$FLAKEPATH. Shell aliases for editing config files won't work correctly!" && echo "Edit the FLAKEPATH session variable in zshell.nix to point to the path where you saved the system configuration flake."
       '';
     };

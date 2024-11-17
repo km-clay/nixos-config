@@ -23,6 +23,7 @@
     chpaper = super.callPackage ./scripts/wm-controls/chpaper.nix {};
     chscheme = super.callPackage ./scripts/wm-controls/chscheme.nix {};
     keyring = super.callPackage ./scripts/wm-controls/keyring.nix {};
+    playshellsound = super.callPackage ./scripts/wm-controls/playshellsound.nix {};
     mkscreenshots = super.callPackage ./scripts/wm-controls/mkscreenshots.nix {};
     moveonscreen = super.callPackage ./scripts/wm-controls/moveonscreen.nix {};
     s_check = super.callPackage ./scripts/wm-controls/s_check.nix {};

@@ -1,6 +1,9 @@
 { host, self, pkgs, }:
 pkgs.writeShellApplication {
   name = "rebuild";
+  runtimeInputs = [
+    pkgs.myScripts.playshellsound
+  ];
   text = ''
     checkbools() { [ "$all" = false ] && [ "$system" = false ] && [ "$home" = false ]; }
     checkflags() {
@@ -24,8 +27,8 @@ pkgs.writeShellApplication {
     all=false
     dry=false
 
-    hooray() { scheck && runbg aplay "${self}/assets/sound/update.wav"; }
-    damn() { scheck && runbg aplay "${self}/assets/sound/error.wav"; }
+    hooray() { playshellsound "${self}/assets/sound/update.wav"; }
+    damn() { playshellsound "${self}/assets/sound/error.wav"; }
 
     usage="\033[1;4;38;2;243;139;168mUsage\033[0m: rebuild -h for home config, rebuild -s for sys config, rebuild -a for both. Including 'n' with the flag does a dry run, i.e. rebuild -nh"
 
