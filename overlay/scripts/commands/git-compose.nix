@@ -16,7 +16,7 @@ pkgs.writeShellApplication {
     (
       cd "$toplevel" || { echo "Failed to change to repo root"; exit 1; }
 
-      git reset
+      git reset > /dev/null 2>&1
       unstaged=$(git status --porcelain | awk '{print $2}') || { echo "Failed to get git status"; exit 1; }
 
       if [ -z "$unstaged" ]; then
