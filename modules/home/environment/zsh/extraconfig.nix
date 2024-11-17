@@ -18,6 +18,14 @@
             runbg aplay "$1"
           fi
         }
+        build-drv() { # Put the derivation path in $RESULT instead of making a 'result' symlink
+          RESULT=$(nix-build "$@" --no-link)
+          if [ -z "$RESULT" ]; then
+            return 1
+          fi
+          export RESULT
+          echo "\$RESULT = $RESULT"
+        }
         ssh() { # reverts ssh theme upon returning
           command ssh "$@"
           kitty_ssh_theme
@@ -149,8 +157,6 @@
         {
           eval "$(starship init zsh)"
         }
-        unalias ls
-        clear
         playshellsound ${self}/assets/sound/sh-source.wav
         [ ! -f $FLAKEPATH/flake.nix ] && echo "WARNING: flake.nix not found at \$FLAKEPATH. Shell aliases for editing config files won't work correctly!" && echo "Edit the FLAKEPATH session variable in zshell.nix to point to the path where you saved the system configuration flake."
       '';

@@ -44,6 +44,7 @@ in {
   config = lib.mkIf config.movOpts.envConfig.userPkgs.enable {
     home.packages = with pkgs; [
       nemo
+      feh
       yubikey-manager
       yubikey-personalization
       gtk3
