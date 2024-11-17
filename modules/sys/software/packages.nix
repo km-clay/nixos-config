@@ -6,6 +6,7 @@
   config = lib.mkIf config.movOpts.softwareCfg.sysPkgs.enable {
     environment.systemPackages = with pkgs; [
       alsa-lib
+      xwayland
       wayland
       alsa-utils
       bc
