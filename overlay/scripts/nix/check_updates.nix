@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs }:
 
 pkgs.stdenv.mkDerivation {
     pname = "pkg_maintenance_check";

@@ -31,7 +31,7 @@
         };
 
         Service = {
-          ExecStart = "${pkgs.nix}/bin/nix-shell -p python3Packages.requests --run '${pkgs.python311}/bin/python ${pkgs.myPkgs.check_updates}/bin/checkupdates.py'";
+          ExecStart = "${pkgs.nix}/bin/nix-shell -p python3Packages.requests --run '${pkgs.python311}/bin/python ${pkgs.myScripts.check_updates}/bin/checkupdates.py'";
           Type = "simple";
         };
       };
