@@ -4,6 +4,6 @@ pkgs.writeShellApplication {
   text = ''
     #!/run/current-system/sw/bin/bash
 
-    [ "$SOUNDS_ENABLED" = "true" ]
+    [ "$SOUNDS_ENABLED" -eq 1 ]
   '';
 }
