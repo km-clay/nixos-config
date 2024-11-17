@@ -35,6 +35,7 @@ let
     myScripts.moveonscreen
     myScripts.s_check
     myScripts.switchmon
+    myScripts.git-compose
   ];
 in {
   options = {

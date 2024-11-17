@@ -10,6 +10,7 @@
     # Scripts written using pkgs.writeShellApplication
     icanhazip = super.callPackage ./scripts/commands/icanhazip.nix { pkgs = super; };
     invoke = super.callPackage ./scripts/commands/invoke.nix { pkgs = super; self = root; };
+    git-compose = super.callPackage ./scripts/commands/git-compose.nix { pkgs = super; };
     runbg = super.callPackage ./scripts/commands/runbg.nix { pkgs = super; };
     splash = super.callPackage ./scripts/commands/splash.nix { pkgs = super; };
     toolbelt = super.callPackage ./scripts/commands/toolbelt.nix { pkgs = super; };
