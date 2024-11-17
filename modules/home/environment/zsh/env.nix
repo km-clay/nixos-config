@@ -7,7 +7,7 @@
   config = lib.mkIf config.movOpts.envConfig.zshConfig.envVariables.enable {
     programs.zsh = {
       sessionVariables = {
-        SOUNDS_ENABLED = "1";
+        SOUNDS_ENABLED = "true";
         EDITOR = "nvim";
         SUDO_EDITOR = "nvim";
         VISUAL = "nvim";
