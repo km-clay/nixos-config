@@ -37,6 +37,7 @@ let
     myScripts.switchmon
     myScripts.git-compose
     myScripts.playshellsound
+    myScripts.color-commit
   ];
 in {
   options = {

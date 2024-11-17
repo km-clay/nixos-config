@@ -28,5 +28,6 @@
     moveonscreen = super.callPackage ./scripts/wm-controls/moveonscreen.nix {};
     s_check = super.callPackage ./scripts/wm-controls/s_check.nix {};
     switchmon = super.callPackage ./scripts/wm-controls/switchmon.nix {};
+    color-commit = super.callPackage ./scripts/misc/color-commit.nix {};
   };
 }

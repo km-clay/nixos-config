@@ -2,6 +2,7 @@
 
 let
   shellsound = "${pkgs.myScripts.playshellsound}/bin/playshellsound";
+  color-commit = "${pkgs.myScripts.color-commit}/bin/color-commit";
   sndpath = "${self}/assets/sound";
 in
 {
@@ -59,11 +60,14 @@ in
           fi
         }
         gitcommit_sfx() {
-          if git commit "$@"; then
+          output=$(git commit "$@")
+          if [ -n "$output" ]; then
             ${shellsound} ${sndpath}/gitcommit.wav
+            echo "$output" | ${color-commit}
             return 0
           else
             ${shellsound} ${sndpath}/error.wav
+            echo "$output"
             return 1
           fi
         }

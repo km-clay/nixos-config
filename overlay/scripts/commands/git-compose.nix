@@ -4,6 +4,7 @@ pkgs.writeShellApplication {
   runtimeInputs = with pkgs; [
     git
     gawk
+    myScripts.color-commit
   ];
   text = ''
     set -e
@@ -64,7 +65,7 @@ pkgs.writeShellApplication {
         if [ -z "$line" ]; then
           if [ -n "$msg" ] && [ ''${#lines[@]} -gt 0 ]; then
             git add "''${lines[@]}"
-            git commit -m "$msg"
+            git commit -m "$msg" | color-commit
           fi
           collecting=false
           msg=""
@@ -80,7 +81,7 @@ pkgs.writeShellApplication {
       # Final cleanup
       if [ -n "$msg" ] && [ ''${#lines[@]} -gt 0 ]; then
         git add "''${lines[@]}"
-        git commit -m "$msg"
+        git commit -m "$msg" | color-commit
       fi
     )
   '';

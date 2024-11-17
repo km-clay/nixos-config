@@ -18,16 +18,16 @@
         markEmptyLines = false;
         stripLeadingSymbols = false;
       };
-     extraConfig = {
-       color.diff = {
-#         meta = "black yellow bold";
-#         frag = "white blue bold";
-         old = "#A9B1D6 #301A1F";
-         new = "#A9B1D6 #12261E";
-#         plain = "normal";
-#         whitespace = "reverse red";
-       };
-     };
+      extraConfig = {
+        color.diff = {
+          #         meta = "black yellow bold";
+          #         frag = "white blue bold";
+          old = "#A9B1D6 #301A1F";
+          new = "#A9B1D6 #12261E";
+          #         plain = "normal";
+          #         whitespace = "reverse red";
+        };
+      };
     };
   };
 }

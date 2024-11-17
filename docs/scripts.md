@@ -215,3 +215,12 @@ included in my nixpkgs overlay as custom packages, and these packages are declar
   - *Usage*:
     - `switchmon` - Does not take arguments.
   - *Defined in*: `overlay/scripts/wm-controls/switchmon.nix`
+
+---
+
+- **color-commit**
+  - *Description*:
+    - Colorizes the output of `git commit` if piped into it via stdin
+  - *Usage*:
+    - `git commit -m "message" | color-commit`
+  - *Defined in*: `overlay/scripts/misc/color-commit.nix`

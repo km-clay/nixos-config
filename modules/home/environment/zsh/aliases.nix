@@ -6,7 +6,6 @@
       shellAliases = {
         grep = "grep --color=auto";
         yazi = "y";
-        vi = "nvim";
         mv = "mv -v";
         cp = "cp -vr";
         gt = "gtrash";
