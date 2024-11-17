@@ -11,7 +11,7 @@
         cp = "cp -vr";
         gt = "gtrash";
         gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
-        sr = "source ~/.zshrc";
+        sr = "source ~/.zshrc && source ~/.zshenv";
         ".." = "cd ..";
         rm = "echo 'use \"gtp\" instead'";
         psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
