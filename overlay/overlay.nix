@@ -1,5 +1,23 @@
 { host, root, ... }: self: super:
+
+let
+  extraFigletFonts = super.fetchFromGitHub {
+    owner = "xero";
+    repo = "figlet-fonts";
+    rev = "master";
+    sha256 = "sha256-dAs7N66D2Fpy4/UB5Za1r2qb1iSAJR6TMmau1asxgtY=";
+  };
+in
 {
+  toilet = super.toilet.overrideAttrs (old: {
+    buildInputs = old.buildInputs or [ ] ++ [ extraFigletFonts ];
+
+    installPhase = ''
+      make install PREFIX=$out
+      mkdir -p $out/share/figlet
+      cp -r ${extraFigletFonts}/* $out/share/figlet
+    '';
+  });
   myPkgs = {
     # Packages that I've made
     tinyfetch = super.callPackage ./tinyfetch/package.nix {};
