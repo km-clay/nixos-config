@@ -4,7 +4,7 @@
       lib.mkEnableOption "enables my nixos settings";
   };
   config = lib.mkIf config.movOpts.sysEnv.nixSettings.enable {
-    system.stateVersion = "24.05";
+    system.stateVersion = "25.05";
     nix = {
       settings = {
         auto-optimise-store = true;

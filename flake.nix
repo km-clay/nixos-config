@@ -99,10 +99,40 @@
             nixvim.homeManagerModules.nixvim
           ];
         };
+        neonImpermanenceHome = let host = "neonImpermanence"; in home-manager.lib.homeManagerConfiguration { # Live Environment
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+          };
+          extraSpecialArgs = {
+            inherit host self username inputs;
+          };
+          modules = [
+            ./modules/home
+            (import ./hosts/live-env/home.nix { username = "impermanence"; })
+            nixvim.homeManagerModules.nixvim
+            stylix.homeManagerModules.stylix
+          ];
+        };
+        neonPersistenceHome = let host = "neonPersistence"; in home-manager.lib.homeManagerConfiguration { # Live Environment
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+          };
+          extraSpecialArgs = {
+            inherit host self username inputs;
+          };
+          modules = [
+            ./modules/home
+            (import ./hosts/live-env/home.nix { username = "persistence"; })
+            nixvim.homeManagerModules.nixvim
+            stylix.homeManagerModules.stylix
+          ];
+        };
       };
 
       nixosConfigurations = {
-        oganesson = nixpkgs.lib.nixosSystem {
+        oganesson = nixpkgs.lib.nixosSystem { # Desktop
           specialArgs = {
             inherit self inputs username;
             host = "oganesson";
@@ -121,7 +151,7 @@
           ];
         };
 
-        mercury = nixpkgs.lib.nixosSystem {
+        mercury = nixpkgs.lib.nixosSystem { # Laptop
           specialArgs = {
             inherit self inputs username;
             host = "mercury";
@@ -140,7 +170,7 @@
           ];
         };
 
-        xenon = nixpkgs.lib.nixosSystem {
+        xenon = nixpkgs.lib.nixosSystem { # Server
           specialArgs = {
             inherit self inputs username;
             host = "xenon";
@@ -159,10 +189,9 @@
             nur.nixosModules.nur
           ];
         };
-
-        installer = nixpkgs.lib.nixosSystem {
+        neon = nixpkgs.lib.nixosSystem { # Live environment
           specialArgs = {
-            host = "installer";
+            host = "neon";
             inherit self inputs;
           };
           inherit system;
@@ -171,7 +200,12 @@
             config = nixpkgsConfig;
             overlays = [];
           };
-          modules = [ ./hosts/installer nixvim.nixosModules.nixvim ];
+          modules = [
+            ./hosts/live-env
+            ./modules/sys
+            nixvim.nixosModules.nixvim
+            stylix.nixosModules.stylix
+          ];
         };
       };
     };

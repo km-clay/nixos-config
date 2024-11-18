@@ -58,7 +58,6 @@ in {
       lolcat
       vesktop
       qbittorrent
-      neovide
       zsh
       zsh-syntax-highlighting
       zsh-history-substring-search
