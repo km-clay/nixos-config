@@ -23,19 +23,6 @@
     };
   };
 
-  nix = {
-    settings = {
-      auto-optimise-store = true;
-      experimental-features = [ "nix-command" "flakes" ];
-      substituters = [ "https://nix-gaming.cachix.org" ];
-    };
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
-
   environment = {
     variables = { PATH = "${pkgs.clang-tools}/bin:$PATH"; };
     shells = with pkgs; [ zsh bash ];

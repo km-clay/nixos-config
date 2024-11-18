@@ -1,9 +1,8 @@
 { username, ... }: {
-  home.username = "${username}"; # Replace with your actual username
+  home.username = "${username}";
   home.homeDirectory =
-    "/home/${username}"; # Replace with your actual home directory
-  home.stateVersion =
-    "24.05"; # Adjust this based on your system's NixOS version
+    "/home/${username}";
+  home.stateVersion = "25.05";
 
   programs.home-manager.enable = true;
 
@@ -37,7 +36,7 @@
     programConfigs = {
       autojumpConfig.enable = true;
       btopConfig.enable = true;
-      cavaConfig.enable = true;
+      cavaConfig.enable = false;
       ezaConfig.enable = true;
       firefoxConfig.enable = true;
       fuzzelConfig.enable = true;
