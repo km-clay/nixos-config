@@ -20,7 +20,6 @@
       kitty
       lolcat
       lsof
-      mpd
       neofetch
       nh
       nix-index
@@ -35,12 +34,9 @@
       pamixer
       pavucontrol
       playerctl
-      tor
       usbutils
       vim
-      wine
       uhk-agent
-      obs-studio
       jq
       wl-clipboard
       libnotify
