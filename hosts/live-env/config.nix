@@ -35,6 +35,14 @@ in
     umount /btrfs_tmp
   '';
 
+  environment.persistence."/home" = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "persistence"
+    ];
+  };
+
   movOpts = {
     sysEnv = {
       issue.enable = true;

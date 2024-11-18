@@ -8,6 +8,7 @@
     hyprpicker.url = "github:hyprwm/hyprpicker";
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
+    impermanence.url = "github:nix-community/impermanence";
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -31,7 +32,7 @@
     };
   };
 
-  outputs = { self, home-manager, disko, nixpkgs, nur, nixvim, stylix, ... }@inputs:
+  outputs = { self, home-manager, disko, nixpkgs, nur, impermanence, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
       username = "pagedmov";
@@ -212,6 +213,7 @@
             ./modules/sys
             disko.nixosModules.default
             nixvim.nixosModules.nixvim
+            impermanence.nixosModules.impermanence
             stylix.nixosModules.stylix
             nur.nixosModules.nur
           ];
