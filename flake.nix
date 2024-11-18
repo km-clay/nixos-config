@@ -7,6 +7,7 @@
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     stylix.url = "github:danth/stylix";
+    disko.url = "github:nix-community/disko";
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -30,7 +31,7 @@
     };
   };
 
-  outputs = { self, home-manager, nixpkgs, nur, nixvim, stylix, ... }@inputs:
+  outputs = { self, home-manager, disko, nixpkgs, nur, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
       username = "pagedmov";
@@ -207,7 +208,9 @@
           };
           modules = [
             ./hosts/live-env/config.nix
+            (import ./hosts/live-env/disko.nix { device = "/dev/sdd"; })
             ./modules/sys
+            disko.nixosModules.default
             nixvim.nixosModules.nixvim
             stylix.nixosModules.stylix
             nur.nixosModules.nur
