@@ -103,6 +103,9 @@
           pkgs = import nixpkgs {
             inherit system;
             config = nixpkgsConfig;
+            overlays = [
+              (import ./overlay/overlay.nix { inherit host; root = self; })
+            ];
           };
           extraSpecialArgs = {
             inherit host self username inputs;
@@ -112,12 +115,16 @@
             (import ./hosts/live-env/home.nix { username = "impermanence"; })
             nixvim.homeManagerModules.nixvim
             stylix.homeManagerModules.stylix
+            nur.nixosModules.nur
           ];
         };
         neonPersistenceHome = let host = "neonPersistence"; in home-manager.lib.homeManagerConfiguration { # Live Environment
           pkgs = import nixpkgs {
             inherit system;
             config = nixpkgsConfig;
+            overlays = [
+              (import ./overlay/overlay.nix { inherit host; root = self; })
+            ];
           };
           extraSpecialArgs = {
             inherit host self username inputs;
@@ -127,6 +134,7 @@
             (import ./hosts/live-env/home.nix { username = "persistence"; })
             nixvim.homeManagerModules.nixvim
             stylix.homeManagerModules.stylix
+            nur.nixosModules.nur
           ];
         };
       };
@@ -141,7 +149,6 @@
           pkgs = import nixpkgs {
             inherit system;
             config = nixpkgsConfig;
-            overlays = [];
           };
           modules = [
             ./hosts/desktop/config.nix
@@ -160,7 +167,6 @@
           pkgs = import nixpkgs {
             inherit system;
             config = nixpkgsConfig;
-            overlays = [];
           };
           modules = [
             ./hosts/laptop/config.nix
@@ -179,7 +185,6 @@
           pkgs = import nixpkgs {
             inherit system;
             config = nixpkgsConfig;
-            overlays = [];
           };
           modules = [
             ./hosts/server/config.nix
@@ -201,10 +206,11 @@
             overlays = [];
           };
           modules = [
-            ./hosts/live-env
+            ./hosts/live-env/config.nix
             ./modules/sys
             nixvim.nixosModules.nixvim
             stylix.nixosModules.stylix
+            nur.nixosModules.nur
           ];
         };
       };

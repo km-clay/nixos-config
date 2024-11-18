@@ -22,11 +22,43 @@ in
       bootLoader.enable = true;
     };
     softwareCfg = {
-      sysPkgs.enable = true;
       sysProgs.enable = true;
       sysServices.enable = true;
     };
   };
+
+  environment.systemPackages = with pkgs;[
+    alsa-lib
+    xwayland
+    wayland
+    alsa-utils
+    bc
+    cliphist
+    git
+    hyprpaper
+    hyprpicker
+    inetutils
+    kitty
+    lsof
+    neofetch
+    nh
+    nix-output-monitor
+    nix-prefetch-scripts
+    nixos-option
+    nix-search-cli
+    nix-template
+    nixfmt
+    nvd
+    pamixer
+    pavucontrol
+    playerctl
+    usbutils
+    vim
+    jq
+    wl-clipboard
+    libnotify
+    file
+  ];
 
   users = {
     groups.persist = { };
