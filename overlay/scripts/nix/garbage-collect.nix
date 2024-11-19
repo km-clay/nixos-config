@@ -28,7 +28,7 @@ pkgs.writeShellApplication {
     # Get the size of the trash folder before deleting
     if [ "$(ls -A ~/.local/share/Trash/files/ 2>/dev/null)" ]; then
       rm_freed=$(du -sm ~/.local/share/Trash/files | awk '{print $1}')
-      /run/current-system/sw/bin/rm -rfv ~/.local/share/Trash/files/*  # Verbose output
+      /run/current-system/sw/bin/rm -rf ~/.local/share/Trash/files/*
       mkdir -p ~/.local/share/Trash/files
     else
       rm_freed="0"

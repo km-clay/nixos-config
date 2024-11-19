@@ -10,8 +10,9 @@ pkgs.writeShellApplication {
     STACK_FILE="/tmp/mntstack.txt"
 
     validate_entry() {
-      local entry_dev entry_mntpoint test_mntpoint
+      local entry_dev entry_mntpoint
       IFS=' ' read -r entry_dev entry_mntpoint <<< "$1"
+      echo "$entry_dev" > /dev/null # Don't ask
       [ -n "$(findmnt -no SOURCE,TARGET "$entry_mntpoint" | cut -d' ' -f1-)" ]
     }
 
@@ -67,9 +68,9 @@ pkgs.writeShellApplication {
         mapfile -t stack < "$STACK_FILE"
 
         # Get the last entry
-        last_path="${stack[-1]}"
+        last_path="''${stack[-1]}"
         if ! validate_entry "$last_path"; then
-          echo "Warning: Invalid stack entry '${stack[-1]}'"
+          echo -e "Warning: Invalid stack entry \"''${stack[-1]}\""
           sed -i '$d' "$STACK_FILE"
           return 0
         fi

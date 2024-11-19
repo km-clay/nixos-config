@@ -37,7 +37,7 @@ in
           fi
         }
         grimblast() {
-          if grimblast "$@"; then
+          if command grimblast "$@"; then
             ${shellsound} ${sndpath}/screenshot.wav
           fi
         }

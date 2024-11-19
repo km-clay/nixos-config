@@ -27,7 +27,7 @@ in
     # Scripts written using pkgs.writeShellApplication
     icanhazip = super.callPackage ./scripts/commands/icanhazip.nix {};
     invoke = super.callPackage ./scripts/commands/invoke.nix { self = root; };
-    git-compose = super.callPackage ./scripts/commands/git-compose.nix {};
+    git-compose = super.callPackage ./scripts/commands/git-compose.nix { self = root; };
     runbg = super.callPackage ./scripts/commands/runbg.nix {};
     splash = super.callPackage ./scripts/commands/splash.nix {};
     toolbelt = super.callPackage ./scripts/commands/toolbelt.nix {};

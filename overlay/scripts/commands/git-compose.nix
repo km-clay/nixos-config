@@ -1,10 +1,13 @@
-{ pkgs }:
+{ pkgs, self }:
 pkgs.writeShellApplication {
   name = "git-compose";
   runtimeInputs = with pkgs; [
     git
+    alsa-utils
     gawk
     myScripts.color-commit
+    myScripts.s_check
+    myScripts.playshellsound
   ];
   text = ''
     set -e
@@ -83,6 +86,7 @@ pkgs.writeShellApplication {
         git add "''${lines[@]}"
         git commit -m "$msg" | color-commit
       fi
+      playshellsound ${self}/assets/sound/gitcommit.wav
     )
   '';
 }
