@@ -224,3 +224,17 @@ included in my nixpkgs overlay as custom packages, and these packages are declar
   - *Usage*:
     - `git commit -m "message" | color-commit`
   - *Defined in*: `overlay/scripts/misc/color-commit.nix`
+
+---
+
+- **mntstack**
+  - *Description*:
+    - Keeps mounts in a stack and allows you to easily mount and then unmount volumes in the same order that they were mounted. Useful for quickly setting up and tearing down chroot environments.
+  - *Usage*:
+    - `mntstack push </device/path> </mount/point/path>` -Push an entry into the stack
+    - `mntstack push --bind </directory/path> </mount/point/path>` -Use bind to mount directories
+    - `mntstack pop` -Unmounts and removes the most recently mounted volume
+    - `mntstack pop -c #` -Pops a given number of mounts
+    - `mntstack pop -a` -Pops the entire stack
+    - `mntstack list` -Shows the current stack, and the order which they will be popped in
+  - *Defined in*: `overlay/scripts/misc/mntstack.nix`

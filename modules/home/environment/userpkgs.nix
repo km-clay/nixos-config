@@ -23,6 +23,7 @@ let
     myScripts.git-compose
     myScripts.playshellsound
     myScripts.color-commit
+    myScripts.mntstack
   ];
 in {
   options = {
