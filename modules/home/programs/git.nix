@@ -8,7 +8,7 @@
       enable = true;
       signing = {
         gpgPath = "${pkgs.gnupg}/bin/gpg";
-        key = "76118C11E525D3D0CBCA0F6EB2A3D477E86843DB";
+        key = "0DA69D51BA4B2D2B58FC9CB574ED6528A37CA99A";
         signByDefault = true;
       };
       userEmail = "kylerclay@proton.me";
