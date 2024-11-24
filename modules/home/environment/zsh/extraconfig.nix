@@ -20,20 +20,20 @@ in
           export RESULT
           echo "\$RESULT = $RESULT"
         }
+        precmd() { # Reset kitty color scheme
+          trap 'NIX_SHELL=false kitty_theme' EXIT SIGINT SIGTERM SIGHUP
+        }
         nix-shell() {
-          # set an environment variable to track if you're in a nix shell or not
-          trap 'NIX_SHELL=false kitty_theme' EXIT
           NIX_SHELL=true command nix-shell "$@" --run zsh
+        }
+        nsp() {
+          NIX_SHELL=true command nix-shell -p "$@" --run zsh
         }
         nvim() {
           ${shellsound} ${sndpath}/nvim.wav
           command nvim "$@"
         }
         alias vi="nvim"
-        ssh() { # reverts ssh theme upon returning
-          command ssh "$@"
-          kitty_ssh_theme
-        }
         kitty_theme() {
           if [ -n "$SSH_CONNECTION" ]; then
             kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
