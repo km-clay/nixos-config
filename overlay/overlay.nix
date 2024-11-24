@@ -36,7 +36,6 @@ in
     fetchfromgh = super.callPackage ./scripts/nix/fetchfromgh.nix {};
     garbage-collect = super.callPackage ./scripts/nix/garbage-collect.nix {};
     check_updates = super.callPackage ./scripts/nix/check_updates.nix {};
-    nsp = super.callPackage ./scripts/nix/nsp.nix {};
     rebuild = super.callPackage ./scripts/nix/rebuild.nix { inherit host; self = root; };
     chpaper = super.callPackage ./scripts/wm-controls/chpaper.nix {};
     chscheme = super.callPackage ./scripts/wm-controls/chscheme.nix {};
