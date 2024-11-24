@@ -7,26 +7,26 @@ let
   extractSchemeFromYaml = base16_scheme: let
     scheme_path = "${pkgs.base16-schemes}/share/themes/${base16_scheme}.yaml";
     scheme_string = builtins.readFile scheme_path;
-    scheme_list = lib.splitString "\n" scheme_string;
+    scheme_list = lib.splitString "\n" scheme_string; # Split into a list
     colors =
-      lib.filter (line: builtins.match "^ *base[0-9A-F]{2}: .*" line != null)
+      lib.filter (line: builtins.match "^ *base[0-9A-F]{2}: .*" line != null) # Get raw hex values from scheme list
       scheme_list;
-    parsed_scheme = lib.lists.foldl' (acc: line:
+    parsed_scheme = lib.lists.foldl' (acc: line: # Initialize attribute set and begin folding values into it
       let
-        splitLine = lib.splitString ": " line;
+        splitLine = lib.splitString ": " line; # Split into keys (base00, base01, etc.) and values
         key = builtins.elemAt splitLine 0;
         value = builtins.elemAt splitLine 1;
-        trimmedKey = lib.trim key;
+        trimmedKey = lib.trim key; # Start cleaning values
         cleanValue_step1 = lib.splitString " " value;
-        cleanValue_step2 = builtins.elemAt cleanValue_step1 0;
+        cleanValue_step2 = builtins.elemAt cleanValue_step1 0; # Get just the hex value, ignore comments etc.
         cleanValue_final =
           builtins.substring 1 (builtins.stringLength cleanValue_step2 - 2)
           cleanValue_step2;
-      in acc // { "${trimmedKey}" = cleanValue_final; }) { } colors;
-    in parsed_scheme;
+      in acc // { "${trimmedKey}" = cleanValue_final; }) { } colors; # Accumulate keys/values into attribute set
+    in parsed_scheme; # Return parsed color scheme
 
   ssh_scheme = extractSchemeFromYaml "atelier-cave" ;
-  nix-shell_scheme = extractSchemeFromYaml  "apathy";
+  nix-shell_scheme = extractSchemeFromYaml  "blueish";
   def_scheme = config.lib.stylix.colors;
 
 

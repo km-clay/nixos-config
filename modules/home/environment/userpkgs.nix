@@ -11,7 +11,6 @@ let
     myScripts.vipkg
     myScripts.fetchfromgh
     myScripts.garbage-collect
-    myScripts.nsp
     myScripts.rebuild
     myScripts.chpaper
     myScripts.chscheme

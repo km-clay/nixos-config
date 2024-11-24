@@ -21,7 +21,11 @@ in
           echo "\$RESULT = $RESULT"
         }
         precmd() { # Reset kitty color scheme
-          trap 'NIX_SHELL=false kitty_theme' EXIT SIGINT SIGTERM SIGHUP
+          if [ "$NIX_SHELL" = "false" ]; then # don't run this in a nix-shell
+            trap 'NIX_SHELL=false kitty_theme' EXIT SIGINT SIGTERM SIGHUP
+          else # but still apply ssh theme logic in nix-shell
+            trap 'kitty_theme' EXIT SIGINT SIGTERM SIGHUP
+          fi
         }
         nix-shell() {
           NIX_SHELL=true command nix-shell "$@" --run zsh
