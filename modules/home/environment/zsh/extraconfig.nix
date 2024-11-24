@@ -20,6 +20,11 @@ in
           export RESULT
           echo "\$RESULT = $RESULT"
         }
+        nix-shell() {
+          # set an environment variable to track if you're in a nix shell or not
+          trap 'NIX_SHELL=false kitty_theme' EXIT
+          NIX_SHELL=true command nix-shell "$@" --run zsh
+        }
         nvim() {
           ${shellsound} ${sndpath}/nvim.wav
           command nvim "$@"
@@ -29,9 +34,11 @@ in
           command ssh "$@"
           kitty_ssh_theme
         }
-        kitty_ssh_theme() {
+        kitty_theme() {
           if [ -n "$SSH_CONNECTION" ]; then
             kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
+          elif [ "$name" = "nix-shell-env" ] || [ "$NIX_SHELL" = "true" ]; then
+            kitty @ set-colors -a ~/.config/kitty/nix-shell-theme.conf
           else
             kitty @ set-colors -a ~/.config/kitty/default-theme.conf
           fi
@@ -154,7 +161,7 @@ in
         autoload -U down-line-or-beginning-search; zle -N down-line-or-beginning-search
 
         bindkey -v
-        kitty_ssh_theme
+        kitty_theme
         type starship_zle-keymap-select >/dev/null || \
         {
           eval "$(starship init zsh)"

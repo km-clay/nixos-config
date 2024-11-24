@@ -9,6 +9,7 @@
     ./barbar.nix
     ./cmp.nix
     ./lsp.nix
+    ./rustaceanvim.nix
     ./fidget.nix
     ./lualine.nix
     ./nvim-lightbulb.nix

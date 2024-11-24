@@ -3,28 +3,34 @@
 # This folder is for programs that do not have existing configuration modules in NixOS.
 # Basically a to-do list for stuff I need to write my own modules for.
 let
-  # Custom theme that activates in ssh
-  ssh_base16 = "atelier-cave";
+  # Extract color scheme from base_16 yaml file
+  extractSchemeFromYaml = base16_scheme: let
+    scheme_path = "${pkgs.base16-schemes}/share/themes/${base16_scheme}.yaml";
+    scheme_string = builtins.readFile scheme_path;
+    scheme_list = lib.splitString "\n" scheme_string;
+    colors =
+      lib.filter (line: builtins.match "^ *base[0-9A-F]{2}: .*" line != null)
+      scheme_list;
+    parsed_scheme = lib.lists.foldl' (acc: line:
+      let
+        splitLine = lib.splitString ": " line;
+        key = builtins.elemAt splitLine 0;
+        value = builtins.elemAt splitLine 1;
+        trimmedKey = lib.trim key;
+        cleanValue_step1 = lib.splitString " " value;
+        cleanValue_step2 = builtins.elemAt cleanValue_step1 0;
+        cleanValue_final =
+          builtins.substring 1 (builtins.stringLength cleanValue_step2 - 2)
+          cleanValue_step2;
+      in acc // { "${trimmedKey}" = cleanValue_final; }) { } colors;
+    in parsed_scheme;
+
+  ssh_scheme = extractSchemeFromYaml "atelier-cave" ;
+  nix-shell_scheme = extractSchemeFromYaml  "apathy";
   def_scheme = config.lib.stylix.colors;
 
-  scheme_path = "${pkgs.base16-schemes}/share/themes/${ssh_base16}.yaml";
-  scheme_string = builtins.readFile scheme_path;
-  scheme_list = lib.splitString "\n" "${scheme_string}";
-  colors =
-    lib.filter (line: builtins.match "^ *base[0-9A-F]{2}: .*" line != null)
-    scheme_list;
-  ssh_scheme = lib.lists.foldl' (acc: line:
-    let
-      splitLine = lib.splitString ": " line;
-      key = builtins.elemAt splitLine 0;
-      value = builtins.elemAt splitLine 1;
-      trimmedKey = lib.trim key;
-      cleanValue_step1 = lib.splitString " " value;
-      cleanValue_step2 = builtins.elemAt cleanValue_step1 0;
-      cleanValue_final =
-        builtins.substring 1 (builtins.stringLength cleanValue_step2 - 2)
-        cleanValue_step2;
-    in acc // { "${trimmedKey}" = cleanValue_final; }) { } colors;
+
+  # Custom theme for nix-shell
 in {
   options = {
     movOpts.homeFiles.enable =
@@ -209,6 +215,41 @@ in {
         color13 #${ssh_scheme.base06}
         color14 #${ssh_scheme.base0F}
         color15 #${ssh_scheme.base07}
+      '';
+      ".config/kitty/nix-shell-theme.conf".text = ''
+        background #${nix-shell_scheme.base00}
+        foreground #${nix-shell_scheme.base05}
+        selection_background #${nix-shell_scheme.base05}
+        selection_foreground #${nix-shell_scheme.base00}
+        url_color #${nix-shell_scheme.base04}
+        cursor #${nix-shell_scheme.base05}
+        active_border_color #${nix-shell_scheme.base03}
+        inactive_border_color #${nix-shell_scheme.base01}
+        active_tab_background #${nix-shell_scheme.base00}
+        active_tab_foreground #${nix-shell_scheme.base05}
+        inactive_tab_background #${nix-shell_scheme.base01}
+        inactive_tab_foreground #${nix-shell_scheme.base04}
+        tab_bar_background #${nix-shell_scheme.base01}
+
+        # normal
+        color0 #${nix-shell_scheme.base01}
+        color1 #${nix-shell_scheme.base08}
+        color2 #${nix-shell_scheme.base0B}
+        color3 #${nix-shell_scheme.base0A}
+        color4 #${nix-shell_scheme.base0D}
+        color5 #${nix-shell_scheme.base0E}
+        color6 #${nix-shell_scheme.base0C}
+        color7 #${nix-shell_scheme.base05}
+
+        # bright
+        color8 #${nix-shell_scheme.base03}
+        color9 #${nix-shell_scheme.base09}
+        color10 #${nix-shell_scheme.base01}
+        color11 #${nix-shell_scheme.base02}
+        color12 #${nix-shell_scheme.base04}
+        color13 #${nix-shell_scheme.base06}
+        color14 #${nix-shell_scheme.base0F}
+        color15 #${nix-shell_scheme.base07}
       '';
     };
   };

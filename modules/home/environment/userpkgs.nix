@@ -48,6 +48,7 @@ in {
       gtrash
       ripgrep
       toilet
+      vkbasalt
     ] ++ scripts;
   };
 }

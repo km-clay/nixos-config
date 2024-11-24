@@ -20,7 +20,6 @@
       nvim-surround.enable = true;
       rainbow-delimiters.enable = true;
       render-markdown.enable = true;
-      rustaceanvim.enable = true;
       treesitter.enable = true;
       trim.enable = true;
       trouble.enable = true;

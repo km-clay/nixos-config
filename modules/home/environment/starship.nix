@@ -12,7 +12,7 @@
         right_format = "($custom)";
 
         format = lib.concatStrings [
-          "($ssh_symbol)($username)($hostname)(bold white)($cmd_duration)($character)"
+          "($ssh_symbol)($username)($hostname)($nix_shell)(bold white)($cmd_duration)($character)"
           "($git_branch)($git_status)($rust)($nix-shell)"
           "($directory)"
           "$line_break[ > ](bold #89b4fa)"
@@ -57,6 +57,11 @@
           ssh_symbol = "🌐";
           ssh_only = false;
           format = "[@](bold blue)[$hostname](bold red)";
+        };
+
+        nix_shell = {
+          format = " via [$symbol]($style)";
+          symbol = " ";
         };
 
         custom.shellver = {
