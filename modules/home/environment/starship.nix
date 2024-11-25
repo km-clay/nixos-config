@@ -13,7 +13,7 @@
 
         format = lib.concatStrings [
           "($ssh_symbol)($username)($hostname)($nix_shell)(bold white)($cmd_duration)($character)"
-          "($git_branch)($git_status)($rust)($nix-shell)"
+          "($git_branch)($git_status)($rust)"
           "($directory)"
           "$line_break[ > ](bold #89b4fa)"
         ];
@@ -23,6 +23,11 @@
           style_user = "bold white";
           format = "[$user]($style)";
         };
+
+        rust = {
+          format = " via [$symbol($version)]($style)";
+        };
+
         directory = {
           format = ''
 
