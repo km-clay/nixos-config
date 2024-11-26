@@ -61,7 +61,7 @@
         hostname = {
           ssh_symbol = "🌐";
           ssh_only = false;
-          format = "[@](bold blue)[$hostname](bold red)";
+          format = "[@](bold blue)[$hostname](bold red) [via $ssh_symbol]";
         };
 
         nix_shell = {
