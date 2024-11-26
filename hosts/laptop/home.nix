@@ -25,14 +25,18 @@
       spicetifyConfig.enable = true;
       starshipConfig.enable = true;
       swayncConfig.enable = true;
-      zshConfig.enable = true;
+      zshConfig = {
+        shellAliases.enable = true;
+        envVariables.enable = true;
+        shellOptions.enable = true;
+        extraConfig.enable = true;
+      };
     };
 
     # modules/home/programs
     programConfigs = {
       autojumpConfig.enable = true;
       btopConfig.enable = true;
-      cavaConfig.enable = true;
       ezaConfig.enable = true;
       firefoxConfig.enable = true;
       fuzzelConfig.enable = true;
@@ -42,14 +46,6 @@
       yaziConfig.enable = true;
       passConfig.enable = true;
       batConfig.enable = true;
-    };
-
-    # modules/home/scripts
-    movScripts = {
-      enable = true;
-      commandScripts.enable = true;
-      hyprlandControls.enable = true;
-      nixShortcuts.enable = true;
     };
   };
 }
