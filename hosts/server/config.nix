@@ -2,12 +2,15 @@
   imports = [ ./hardware.nix ];
   movOpts = {
     sysEnv = {
-      nixSettings.enable = true;
       issue.enable = true;
+      sddmConfig.enable = true;
+      stylixConfig.enable = true;
+      nixSettings.enable = true;
     };
     hardwareCfg = {
       networkModule.enable = true;
       bootLoader.enable = true;
+      powerProfiles.enable = true;
     };
     softwareCfg = {
       sysPkgs.enable = true;

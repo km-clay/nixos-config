@@ -14,6 +14,7 @@
     # modules/home/environment
     envConfig = {
       starshipConfig.enable = true;
+      stylixHomeConfig.enable = true;
       userPkgs.enable = true;
       zshConfig = {
         shellAliases.enable = true;
@@ -26,6 +27,7 @@
     # modules/home/programs
     programConfigs = {
       autojumpConfig.enable = true;
+      kittyConfig.enable = true;
       btopConfig.enable = true;
       ezaConfig.enable = true;
       fzfConfig.enable = true;

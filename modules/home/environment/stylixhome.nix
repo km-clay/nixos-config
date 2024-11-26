@@ -16,7 +16,7 @@ in {
       image = wallpaper;
       polarity = "dark";
       autoEnable = true;
-      opacity.terminal = if !server then 0.5 else null;
+      opacity.terminal = 0.5;
       targets = {
         waybar.enable = false;
         btop.enable = false;

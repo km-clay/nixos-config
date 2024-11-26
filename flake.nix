@@ -97,8 +97,9 @@
 
           modules = [
             ./hosts/server/home.nix
-            ./modules/home/servermodule.nix
-	    stylix.homeManagerModules.stylix
+            ./modules/home
+            stylix.homeManagerModules.stylix
+            nur.nixosModules.nur
             nixvim.homeManagerModules.nixvim
           ];
         };
