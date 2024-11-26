@@ -1,8 +1,9 @@
-{ lib, self, config, pkgs, ... }:
+{ lib, self, config, host, pkgs, ... }:
 
 let
   scheme = "tokyo-night-dark";
   wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
+  server = (host == "xenon");
 in {
   options = {
     movOpts.envConfig.stylixHomeConfig.enable =
@@ -15,7 +16,7 @@ in {
       image = wallpaper;
       polarity = "dark";
       autoEnable = true;
-      opacity.terminal = 0.5;
+      opacity.terminal = if !server then 0.5 else null;
       targets = {
         waybar.enable = false;
         btop.enable = false;

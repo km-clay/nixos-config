@@ -2,10 +2,10 @@
 
 {
   options = {
-    movOpts.jellyfinConfig.enable =
+    movOpts.serverCfg.jellyfinConfig.enable =
       lib.mkEnableOption "Enables the server's jellyfin config";
   };
-  config = lib.mkIf config.movOpts.jellyfinConfig.enable {
+  config = lib.mkIf config.movOpts.serverCfg.jellyfinConfig.enable {
     services.jellyfin = {
       enable = true;
       openFirewall = true;

@@ -1,34 +1,37 @@
 { host, pkgs, self, inputs, lib, username, config, ... }: {
 
-  home.username = "${username}"; # Replace with your actual username
+  home.username = "${username}";
   home.homeDirectory =
-    "/home/${username}"; # Replace with your actual home directory
+    "/home/${username}";
   home.stateVersion =
-    "24.05"; # Adjust this based on your system's NixOS version
+    "24.05";
 
   programs.home-manager.enable = true;
 
   movOpts = {
+    homeFiles.enable = true;
+
     # modules/home/environment
-    autojumpConfig.enable = true;
-    starshipConfig.enable = true;
-    zshConfig.enable = true;
+    envConfig = {
+      starshipConfig.enable = true;
+      userPkgs.enable = true;
+      zshConfig = {
+        shellAliases.enable = true;
+        envVariables.enable = true;
+        shellOptions.enable = true;
+        extraConfig.enable = true;
+      };
+    };
 
     # modules/home/programs
-    btopConfig.enable = true;
-    userPkgs.enable = true;
-    ezaConfig.enable = true;
-    fzfConfig.enable = true;
-    gitConfig.enable = true;
-    yaziConfig.enable = true;
-    batConfig.enable = true;
-
-    # modules/home/scripts
-    movScripts = {
-      enable = true;
-      commandScripts.enable = true;
-      hyprlandControls.enable = true;
-      nixShortcuts.enable = true;
+    programConfigs = {
+      autojumpConfig.enable = true;
+      btopConfig.enable = true;
+      ezaConfig.enable = true;
+      fzfConfig.enable = true;
+      gitConfig.enable = true;
+      yaziConfig.enable = true;
+      batConfig.enable = true;
     };
   };
 }
