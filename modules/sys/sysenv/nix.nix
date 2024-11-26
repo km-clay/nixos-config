@@ -7,14 +7,8 @@
     system.stateVersion = "25.05";
     nix = {
       settings = {
-        auto-optimise-store = true;
         experimental-features = [ "nix-command" "flakes" ];
         substituters = [ "https://nix-gaming.cachix.org" ];
-      };
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
       };
     };
     time.timeZone = "America/New_York";
