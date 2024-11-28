@@ -46,6 +46,7 @@ in {
       libreoffice
       gtrash
       ripgrep
+      wf-recorder
       toilet
       vkbasalt
     ] ++ scripts;

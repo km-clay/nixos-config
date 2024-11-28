@@ -20,8 +20,8 @@
         svc = "sudo systemctl";
         viflake = "nvim flake.nix";
         iv = "invoke";
-        cfgfilecount =
-          ''find $FLAKEPATH -name "*.nix" | wc -l | toilet -f 3d | lolcat'';
+        cfgfilecount = ''find $FLAKEPATH -name "*.nix" | wc -l | toilet -f 3d | lolcat'';
+        record = "wf-recorder";
         #git
         ga = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
         gcomm = "gitcommit_sfx";
