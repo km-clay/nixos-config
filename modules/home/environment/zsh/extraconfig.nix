@@ -39,7 +39,7 @@ in
         }
         alias vi="nvim"
         kitty_theme() {
-          if [ $TERM = "kitty" ]; then
+          if [ $TERM = "xterm-kitty" ]; then
             if [ -n "$SSH_CONNECTION" ]; then
               kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
             elif [ "$name" = "nix-shell-env" ] || [ "$NIX_SHELL" = "true" ]; then
