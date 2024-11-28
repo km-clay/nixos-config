@@ -15,6 +15,10 @@ in {
       lib.mkEnableOption "enables gaming packages";
   };
   config = lib.mkIf config.movOpts.softwareCfg.gamingPkgs.enable {
-    environment.systemPackages = with pkgs; [ snes9x-gtk cust-openrct2 ];
+    environment.systemPackages = with pkgs; [
+      snes9x-gtk
+      cust-openrct2
+      dwarf-fortress-packages.dwarf-fortress-full
+    ];
   };
 }
