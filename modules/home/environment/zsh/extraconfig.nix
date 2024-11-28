@@ -39,12 +39,14 @@ in
         }
         alias vi="nvim"
         kitty_theme() {
-          if [ -n "$SSH_CONNECTION" ]; then
-            kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
-          elif [ "$name" = "nix-shell-env" ] || [ "$NIX_SHELL" = "true" ]; then
-            kitty @ set-colors -a ~/.config/kitty/nix-shell-theme.conf
-          else
-            kitty @ set-colors -a ~/.config/kitty/default-theme.conf
+          if [ $TERM = "kitty" ]; then
+            if [ -n "$SSH_CONNECTION" ]; then
+              kitty @ set-colors -a ~/.config/kitty/ssh-theme.conf
+            elif [ "$name" = "nix-shell-env" ] || [ "$NIX_SHELL" = "true" ]; then
+              kitty @ set-colors -a ~/.config/kitty/nix-shell-theme.conf
+            else
+              kitty @ set-colors -a ~/.config/kitty/default-theme.conf
+            fi
           fi
         }
         grimblast() {
