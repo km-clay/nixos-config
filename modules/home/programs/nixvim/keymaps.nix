@@ -2,6 +2,11 @@
   programs.nixvim = {
     keymaps = [
       {
+        action = "<cmd>Telescope find_files<CR>"; # select entire document
+        key = "!fs";
+        mode = "n";
+      }
+      {
         action = "gg<S-V>G"; # select entire document
         key = "<C-a>";
         mode = "n";
