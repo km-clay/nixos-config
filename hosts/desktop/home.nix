@@ -38,7 +38,6 @@
       btopConfig.enable = true;
       cavaConfig.enable = false;
       ezaConfig.enable = true;
-      firefoxConfig.enable = true;
       fuzzelConfig.enable = true;
       fzfConfig.enable = true;
       gitConfig.enable = true;

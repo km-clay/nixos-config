@@ -1,4 +1,4 @@
-{ host, nur, nixvim, self, inputs, username, config, home-manager, ... }: {
+{ host, nixvim, self, inputs, username, config, home-manager, ... }: {
   imports = [
     ./gtk.nix
     ./spicetify.nix

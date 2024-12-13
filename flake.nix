@@ -2,8 +2,7 @@
   description = "pagedMov's NixOS and Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur.url = "github:nix-community/NUR";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     hypr-contrib.url = "github:hyprwm/contrib";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     stylix.url = "github:danth/stylix";
@@ -32,7 +31,7 @@
     };
   };
 
-  outputs = { self, home-manager, disko, nixpkgs, nur, impermanence, nixvim, stylix, ... }@inputs:
+  outputs = { self, home-manager, disko, nixpkgs, impermanence, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
       username = "pagedmov";
@@ -58,7 +57,6 @@
             ./modules/home
             stylix.homeManagerModules.stylix
             nixvim.homeManagerModules.nixvim
-            nur.nixosModules.nur
           ];
         };
 
@@ -79,7 +77,6 @@
             ./modules/home
             stylix.homeManagerModules.stylix
             nixvim.homeManagerModules.nixvim
-            nur.nixosModules.nur
           ];
         };
 
@@ -99,7 +96,6 @@
             ./hosts/server/home.nix
             ./modules/home
             stylix.homeManagerModules.stylix
-            nur.nixosModules.nur
             nixvim.homeManagerModules.nixvim
           ];
         };
@@ -119,7 +115,6 @@
             (import ./hosts/live-env/home.nix { username = "impermanence"; })
             nixvim.homeManagerModules.nixvim
             stylix.homeManagerModules.stylix
-            nur.nixosModules.nur
           ];
         };
         neonPersistenceHome = let host = "neonPersistence"; in home-manager.lib.homeManagerConfiguration { # Live Environment
@@ -138,7 +133,6 @@
             (import ./hosts/live-env/home.nix { username = "persistence"; })
             nixvim.homeManagerModules.nixvim
             stylix.homeManagerModules.stylix
-            nur.nixosModules.nur
           ];
         };
       };
@@ -158,7 +152,6 @@
             ./hosts/desktop/config.nix
             ./modules/sys
             stylix.nixosModules.stylix
-            nur.nixosModules.nur
           ];
         };
 
@@ -176,7 +169,6 @@
             ./hosts/laptop/config.nix
             ./modules/sys
             stylix.nixosModules.stylix
-            nur.nixosModules.nur
           ];
         };
 
@@ -195,7 +187,6 @@
             ./modules/sys
             ./modules/server
             stylix.nixosModules.stylix
-            nur.nixosModules.nur
           ];
         };
         neon = nixpkgs.lib.nixosSystem { # Live environment
@@ -217,7 +208,6 @@
             nixvim.nixosModules.nixvim
             impermanence.nixosModules.impermanence
             stylix.nixosModules.stylix
-            nur.nixosModules.nur
           ];
         };
       };
