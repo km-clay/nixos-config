@@ -7,6 +7,7 @@
     ./vim-matchup.nix
     # ./coq.nix
     ./barbar.nix
+    ./scrollview.nix
     ./cmp.nix
     ./lsp.nix
     ./rustaceanvim.nix

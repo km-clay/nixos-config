@@ -6,7 +6,6 @@
         extensions.dap-ui.enable = true;
       };
       nix.enable = true;
-      neoscroll.enable = true;
       endwise.enable = true;
       firenvim.enable = true;
       helpview.enable = true;
