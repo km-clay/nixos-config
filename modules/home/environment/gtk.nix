@@ -7,9 +7,9 @@
     fonts.fontconfig.enable = true;
     home.packages = with pkgs;
       [
-        (nerdfonts.override {
-          fonts = [ "JetBrainsMono" "CascadiaCode" "NerdFontsSymbolsOnly" ];
-        })
+        nerd-fonts.jetbrains-mono
+        nerd-fonts.symbols-only
+        cascadia-code
       ];
 
     gtk = {
