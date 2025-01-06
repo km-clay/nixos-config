@@ -37,7 +37,12 @@ in
           ${shellsound} ${sndpath}/nvim.wav
           command nvim "$@"
         }
+        neovide() {
+          ${shellsound} ${sndpath}/nvim.wav
+          command neovide "$@"
+        }
         alias vi="nvim"
+        alias vide="neovide"
         kitty_theme() {
           if [ $TERM = "xterm-kitty" ]; then
             if [ -n "$SSH_CONNECTION" ]; then
@@ -134,6 +139,10 @@ in
         if [ ! -e $HOME/.zsh_history ]; then
           touch $HOME/.zsh_history
           chmod 600 $HOME/.zsh_history
+        fi
+        if [ "$TERM" = "linux" ]; then
+          echo -en "\e]P0101010"
+          setfont ter-v32b
         fi
         setopt APPEND_HISTORY     # Append history to the history file (don't overwrite)
         setopt INC_APPEND_HISTORY # Append to the history file incrementally

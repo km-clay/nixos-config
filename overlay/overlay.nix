@@ -1,4 +1,4 @@
-{ host, root, ... }: self: super:
+{ host ? "oganesson", root, ... }: self: super:
 
 let
   extraFigletFonts = super.fetchFromGitHub {
@@ -22,6 +22,7 @@ in
     # Packages that I've made
     tinyfetch = super.callPackage ./tinyfetch/package.nix {};
     breezex-cursor = super.callPackage ./breezex-cursor/package.nix {};
+    rsh = super.callPackage ./rsh/package.nix {};
   };
   myScripts = {
     # Scripts written using pkgs.writeShellApplication

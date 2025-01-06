@@ -6,6 +6,11 @@
   config = lib.mkIf config.movOpts.programConfigs.kittyConfig.enable {
     programs.kitty = {
       enable = true;
+      font = {
+        package = lib.mkForce pkgs.fira-code;
+        name = lib.mkForce "Fira Code";
+        size = lib.mkForce 20;
+      };
 
       settings = {
         confirm_os_window_close = 0;

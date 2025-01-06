@@ -1,0 +1,202 @@
+## TODO:
+### priority
+- [ ] **Phase 1** - implement essential bash compatibility
+- [ ] **Phase 2** - implement essential rsh features
+- [ ] **Phase 3** - implement QoL performance and UX refinements (testing, async, syntax highlighting)
+
+### rsh features
+- [ ] macros and custom builtins
+	- [ ] macro definition syntax
+	- [ ] macro execution syntax
+	- [ ] macros with args
+	- [ ] builtin macros for very common tasks
+		- [ ] string replacement
+		- [ ] pattern searching
+		- [ ] field extraction
+- [ ] handling for JSON and modern data structures
+- [ ] modern error handling such as stack tracing and try/except (logging macros as well?)
+	- [ ] includes line/col numbers
+	- [ ] shows the line where the error occured like python/rust
+	- [ ] points to the exact location of the error like python/rust
+- [ ] typing system - typing builtins like int, string, float, etc along with the usual weak bash types
+	- [ ] support for default bash typing
+	- [ ] support for strongly typing function arguments like function(int:arg1,string:arg2)
+- [ ] improved bash control structures?
+- [ ] support for explicitly declaring expected arguments
+	- [ ] do this in the shebang `#!/usr/bin/env rsh arg1 arg2`
+	- [ ] do this in functions `function(arg1,arg2)`
+	- [ ] allow for extra arguments `#!/usr/bin/env rsh arg1 arg2 ...`, `function(arg1, arg2, ...)`
+	- [ ] allow for default values `arg1=default`, `string:arg1="hello"`
+- [ ] syntax highlighting in shell prompt
+- [ ] language server?
+- [ ] better support for asynchronous scripting
+- [ ] portability features
+	- [ ] detection of missing commands at script runtime
+	- [ ] detection of unset environment variables at script runtime
+- [ ] builtin testing framework for scripts using asserts
+
+### bash features
+- [x] unquoted string suppport. (space character taken care of) (that one may still be a bit buggy)
+- [x] "quoted" string support. (space character taken care of)
+- [x] 'quoted' string support. (space character taken care of)
+- [ ] \`backticked\` string support. (space character taken care of)
+- [ ] binary numbers support (uint only for now ?). 0b mark. (i64 by default)
+- [ ] octal numbers support (uint only for now ?). 0 mark. (i64 by default)
+- [ ] hexadecimal numbers support (uint only for now ?). 0x mark. (i64 by default)
+- [ ] (signed) int support (i64 by default).
+- [ ] (signed) float support (f64 by default). exponent correctly parsed.
+- [x] variable assignment. (type is autodetected)
+- [ ] array assignment. (type is autodetected)
+- [ ] shebang (#!) and comments are correctly parsed.
+- [ ] : syntax
+- [ ] compgen builtin.
+- [ ] complete builtin.
+- [ ] compopt builtin.
+- [ ] fc builtin.
+- [ ] history builtin.
+- [ ] local builtin.
+- [ ] mapfile builtin.
+- [ ] readarray builtin.
+- [ ] return builtin.
+- [ ] shift builtin.
+- [ ] test builtin.
+- [ ] trap builtin.
+- [ ] ulimit builtin.
+- [ ] umask builtin.
+- [ ] unalias builtin.
+- [ ] arrays support (single dimension, can be both associative and indexed, and store int, float or string.
+- [x] $variable, ${variable} and parameter ($1 etc).
+- [ ] ${parameter-default} ${parameter:-default} If parameter not set, use default.
+- [ ] ${parameter=default}, ${parameter:=default} If parameter not set, set it to default.
+- [ ] ${parameter+alt_value}, ${parameter:+alt_value} If parameter set, use alt_value, else use null string.
+- [ ] ${parameter?err_msg}, ${parameter:?err_msg} If parameter set, use it, else print err_msg and abort the script with an exit status of 1.
+- [ ] variable builtin ${#string} (var length).
+- [ ] variable builtin ${string:pos} (extract substring at pos).
+- [ ] variable builtin ${string:pos:len} (extract len substring at pos).
+- [ ] variable builtin ${string#substr} (deletes shortest match of $substr from front of $string).
+- [ ] variable builtin ${string##substr} (deletes longest match of $substr from front of $string).
+- [ ] variable builtin ${string%substr} (deletes shortest match of $substr from back of $string).
+- [ ] variable builtin ${string%%substr} (deletes longest match of $substr from back of $string).
+- [ ] variable builtin ${string/substr/repl} (Replace first match of $substr with $repl).
+- [ ] variable builtin ${string//substr/repl} (Replace all matches of $substr with $repl).
+- [ ] variable builtin ${string/#substr/repl} (If $substr matches front end of $string, substitute $repl for $substr.).
+- [ ] variable builtin ${string/%substr/repl} (If $substr matches back end of $string, substitute $repl for $substr.).
+- [ ] variable builtin ${!varprefix*}, ${!varprefix@} (Matches names of all previously declared variables beginning with varprefix.).
+- [ ] alias substitution and builtin.
+- [ ] $(command) substitution (kind of similar to backtick).
+- [ ] ~ expansion.
+- [ ] !! expansion (history).
+- [ ] {} expansion.
+- [ ] $(( )) arithmetic expansion.
+- [ ] [[ ]] expansion.
+- [ ] [ ] expansion.
+- [ ] * ? etc expansion.
+- [ ] regexp support =~
+- [ ] POSIX characters classes [:alnum:] matches alphabetic or numeric characters. This is equivalent to A-Za-z0-9.
+- [ ] POSIX characters classes [:alpha:] matches alphabetic characters. This is equivalent to A-Za-z.
+- [ ] POSIX characters classes [:blank:] matches a space or a tab.
+- [ ] POSIX characters classes [:cntrl:] matches control characters.
+- [ ] POSIX characters classes [:digit:] matches (decimal) digits. This is equivalent to 0-9.
+- [ ] POSIX characters classes [:graph:] (graphic printable characters). Matches characters in the range of ASCII 33 - 126. This is the same as [:print:], below, but excluding the space character.
+- [ ] POSIX characters classes [:lower:] matches lowercase alphabetic characters. This is equivalent to a-z.
+- [ ] POSIX characters classes [:print:] (printable characters). Matches characters in the range of ASCII 32 - 126. This is the same as [:graph:], above, but adding the space character.
+- [ ] POSIX characters classes [:space:] matches whitespace characters (space and horizontal tab).
+- [ ] POSIX characters classes [:upper:] matches uppercase alphabetic characters. This is equivalent to A-Z.
+- [ ] POSIX characters classes [:xdigit:] matches hexadecimal digits. This is equivalent to 0-9A-Fa-f.
+- [x] if elif else fi.
+- [ ] case "$var" in "value") command ;; "value2") command ;; esac
+- [ ] for n in list do done { } may be used instead of do done
+- [ ] for ((a=1; a<bla; a++)) do done { } may be used instead of do done
+- [ ] while [condition] do done (optional brackets)
+- [ ] while (( condition )) do done
+- [ ] until [condition] do done
+- [ ] do done
+- [ ] break
+- [ ] continue
+- [ ] function function_name() { } and function() { }
+- [ ] select variable in list (optional in list) do command break done
+- [ ] command execution
+- [x] pipes
+- [x] > < >> << 2>&1 etc redirections. don’t forget <<EOF kind.
+- [ ] <(command list) >(command list) process substitution.
+- [x] || && operators
+- [ ] echo (complete support)
+- [ ] printf
+- [ ] read
+- [ ] cd
+- [ ] pwd
+- [ ] popd
+- [ ] pushd
+- [ ] dirs
+- [ ] let += -= /= \*= %=
+- [ ] eval
+- [ ] set
+- [ ] unset
+- [ ] export
+- [ ] declare
+- [ ] typeset
+- [ ] readonly
+- [ ] getopts
+- [ ] source .
+- [ ] exit
+- [ ] exec
+- [ ] shopt
+- [ ] caller
+- [ ] true
+- [ ] false
+- [ ] type
+- [ ] hash
+- [ ] bind
+- [ ] help
+- [ ] jobs
+- [ ] disown
+- [ ] bg
+- [ ] fg
+- [ ] wait
+- [ ] suspend
+- [ ] logout
+- [ ] times
+- [ ] kill
+- [ ] killall
+- [ ] command
+- [ ] builtin
+- [ ] enable
+- [ ] autoload
+- [ ] .pest files will need a complete overhaul to be cleaner and better structured.
+
+### core
+- [x] Variables management (simple variables, aliases and single dimension arrays).
+- [x] Variables assignment.
+- [ ] Arrays assignment.
+- [x] $variable, ${variable} and parameter ($1 etc) expansion.
+- [ ] ${parameter-default} ${parameter:-default} expansion.
+- [ ] ${parameter=default}, ${parameter:=default} expansion.
+- [ ] ${parameter+alt_value}, ${parameter:+alt_value} expansion.
+- [ ] ${parameter?err_msg}, ${parameter:?err_msg} expansion.
+- [ ] variable builtin ${#string} expansion.
+- [ ] variable builtin ${string:pos} expansion.
+- [ ] variable builtin ${string:pos:len} expansion.
+- [ ] variable builtin ${string#substr} expansion.
+- [ ] variable builtin ${string##substr} expansion.
+- [ ] variable builtin ${string%substr} expansion.
+- [ ] variable builtin ${string%%substr} expansion.
+- [ ] variable builtin ${string/substr/repl} expansion.
+- [ ] variable builtin ${string//substr/repl} expansion.
+- [ ] variable builtin ${string/#substr/repl} expansion.
+- [ ] variable builtin ${string/%substr/repl}  expansion.
+- [ ] variable builtin ${!varprefix*}, ${!varprefix@} expansion.
+- [ ] Write everything linked to builtins, pipes etc (yeah, that will be *very* long).
+- [ ] Have a 100% code coverage when it comes to documentation *and* testing.
+- [ ] Multi-lingual support (i18n ? l20n.rs ?).
+- [ ] Proper color management (using [term](https://crates.io/crates/term) crate maybe ?).
+- [ ] Think of ways to get speed with rsh (read: be faster than Bash). JIT ? Some kind of « parsed script ready to be executed » ?
+- [ ] Support float processing. (kind of done, see variable management above).
+- [ ] Deprecate several bashy thing (older versions compatibility etc, bash is so much of a noodles plate now due to history that I won’t be able to cover every point so I’ll have to focus).
+- [ ] Use [hashbrown](https://github.com/Amanieu/hashbrown) instead of [seahash](https://crates.io/crates/seahash). It will be used by [default](https://github.com/rust-lang/rust/pull/58623) in std once rust 1.36 is out.
+- [x] Use of cargo clippy.
+- [x] Use of cargo fmt.
+- [ ] Use of tarpaulin.
+- [ ] Use of criterion for benchmarking.
+- [ ] Put tests and benches in their own directories.
+- [ ] Use of error-chain, some fuzzer ?
+- [ ] So many other things. multidimensionnal arrays ?

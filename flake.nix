@@ -142,6 +142,9 @@
           specialArgs = {
             inherit self inputs username;
             host = "oganesson";
+            overlays = [
+              (import ./overlay/overlay.nix { root = self; })
+            ];
           };
           inherit system;
           pkgs = import nixpkgs {

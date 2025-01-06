@@ -13,6 +13,8 @@
       cliphist
       fail2ban
       git
+      gcc
+      lldb
       hyprland-workspaces
       hyprpaper
       hyprpicker

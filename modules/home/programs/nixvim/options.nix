@@ -5,6 +5,7 @@ in {
   programs.nixvim = {
     colorschemes.base16 = {
       enable = true;
+      colorscheme = "ayu-dark";
       #colorscheme = {
       #	base00 = "#${scheme.base00}";
       #	base01 = "#${scheme.base01}";
@@ -51,8 +52,10 @@ in {
       vim.opt.linebreak = true
       vim.opt.textwidth = 0
       vim.opt.breakat = " \t!@*-+;:,./?"
+      vim.opt.guifont = "Fira Code:h18"
 
       vim.g.mapleader = "!"
+      vim.g.rust_recommended_style = 0
     '';
   };
 }

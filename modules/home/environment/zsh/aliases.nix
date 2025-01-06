@@ -4,7 +4,9 @@
   config = lib.mkIf config.movOpts.envConfig.zshConfig.shellAliases.enable {
     programs.zsh = {
       shellAliases = {
-        grep = "grep --color=auto";
+        grep = "rg";
+        find = "fd";
+        cat = "bat";
         yazi = "y";
         mv = "mv -v";
         cp = "cp -vr";
@@ -28,6 +30,7 @@
         gpush = "gitpush_sfx";
         gpull = "gitpull_sfx";
         greb = "gitrebase_sfx";
+        rsh = "$HOME/Coding/projects/rust/rsh/target/debug/rsh";
       };
     };
   };

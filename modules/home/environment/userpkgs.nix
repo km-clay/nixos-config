@@ -49,6 +49,16 @@ in {
       wf-recorder
       toilet
       vkbasalt
+      firefox
+      dust
+      porsmo
+      rustup
+      w3m
+      neovide
+      python3
+      ghostty
+      fd
+      delta
     ] ++ scripts;
   };
 }

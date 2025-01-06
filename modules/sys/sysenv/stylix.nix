@@ -19,9 +19,9 @@ in {
       };
       polarity = "dark";
       autoEnable = true;
-      opacity.terminal = 0.5;
+      opacity.terminal = 0.8;
       targets = {
-        console.enable = true;
+        console.enable = false;
         feh.enable = true;
         grub.enable = true;
         gtk.enable = true;

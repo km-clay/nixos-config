@@ -7,33 +7,18 @@
         mode = "n";
       }
       {
+        action = "<cmd>UndotreeToggle<CR>"; # select entire document
+        key = "!t";
+        mode = "n";
+      }
+      {
         action = "gg<S-V>G"; # select entire document
-        key = "<C-a>";
-        mode = "n";
-      }
-      {
-        action = "<cmd>ChatGPTEditWithInstructions<CR>";
-        key = "!egpt";
-        mode = "n";
-      }
-      {
-        action = "<cmd>ChatGPTCompleteCode<CR>";
-        key = "!cgpt";
-        mode = "n";
-      }
-      {
-        action = "<cmd>ChatGPT<CR>";
-        key = "!gpt";
+        key = "!a";
         mode = "n";
       }
       {
         action = "<cmd>lua vim.lsp.buf.code_action()<CR>";
         key = "!ca";
-        mode = "n";
-      }
-      {
-        action = "<cmd>Telescope<CR>";
-        key = "!t";
         mode = "n";
       }
       {
@@ -57,19 +42,14 @@
         mode = "n";
       }
       {
-        action = "<cmd>FloatermToggle shadeterm<CR>";
+        action = "<cmd>FloatermToggle def_term<CR>";
         key = "<F2>";
-        mode = "n";
+        mode = [ "n" "t" ];
       }
       {
         action = "<cmd>NvimTreeToggle<CR>";
         key = "<F3>";
         mode = "n";
-      }
-      {
-        action = "<cmd>FloatermToggle shadeterm<CR>";
-        key = "<F2>";
-        mode = "t";
       }
       {
         action = "<cmd>COQnow<CR>";

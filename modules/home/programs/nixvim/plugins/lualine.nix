@@ -1,7 +1,7 @@
 {
   programs.nixvim = {
     plugins.lualine = {
-      enable = true;
+      enable = false;
       settings = {
         options = {
           icons_enabled = true;

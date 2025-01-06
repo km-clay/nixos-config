@@ -19,15 +19,16 @@
         alsa.enable = true;
         alsa.support32Bit = true;
       };
+      openssh = {
+        enable = true;
+        allowSFTP = true;
+      };
+      ratbagd.enable = true;
       pcscd.enable = true;
       udev.enable = true;
       dbus.enable = true;
       mullvad-vpn.enable = true;
       blueman.enable = true;
-      openssh = {
-        enable = true;
-        allowSFTP = true;
-      };
     };
   };
 }

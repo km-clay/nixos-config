@@ -1,7 +1,7 @@
 { lib, self, config, host, pkgs, ... }:
 
 let
-  scheme = "tokyo-night-dark";
+  scheme = "ayu-dark";
   wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
   server = (host == "xenon");
 in {
@@ -16,10 +16,11 @@ in {
       image = wallpaper;
       polarity = "dark";
       autoEnable = true;
-      opacity.terminal = 0.5;
+      opacity.terminal = 1.0;
       targets = {
         waybar.enable = false;
         btop.enable = false;
+        nixvim.enable = false;
         nixvim.transparentBackground = {
           main = false;
           signColumn = false;
