@@ -25,19 +25,15 @@
         active_tab_font_style = "normal";
         inactive_tab_font_style = "normal";
         tab_bar_style = "powerline";
+        tab_bar_edge = "top";
         tab_powerline_style = "round";
       };
 
       keybindings = {
-        ## Tabs
-        "alt+1" = "goto_tab 1";
-        "alt+2" = "goto_tab 2";
-        "alt+3" = "goto_tab 3";
-        "alt+4" = "goto_tab 4";
-
-        ## Unbind
-        "ctrl+shift+left" = "no_op";
-        "ctrl+shift+right" = "no_op";
+        "ctrl+shift+h" = "next_tab";
+        "ctrl+shift+l" = "previous_tab";
+        "ctrl+shift+j" = "scroll_end";
+        "ctrl+shift+k" = "scroll_home";
       };
     };
   };

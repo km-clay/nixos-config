@@ -59,6 +59,9 @@ in {
       ghostty
       fd
       delta
+      glfw
+      glxinfo
+      xwayland
     ] ++ scripts;
   };
 }

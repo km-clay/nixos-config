@@ -8,6 +8,7 @@
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
     impermanence.url = "github:nix-community/impermanence";
+    ghostty.url = "github:ghostty-org/ghostty";
 
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -31,7 +32,7 @@
     };
   };
 
-  outputs = { self, home-manager, disko, nixpkgs, impermanence, nixvim, stylix, ... }@inputs:
+  outputs = { self, home-manager, ghostty, disko, nixpkgs, impermanence, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
       username = "pagedmov";

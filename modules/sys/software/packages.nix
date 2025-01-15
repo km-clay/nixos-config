@@ -15,6 +15,8 @@
       git
       gcc
       lldb
+      zip
+      unzip
       hyprland-workspaces
       hyprpaper
       hyprpicker

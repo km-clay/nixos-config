@@ -19,6 +19,7 @@ in {
       snes9x-gtk
       cust-openrct2
       dwarf-fortress-packages.dwarf-fortress-full
+      prismlauncher
     ];
   };
 }

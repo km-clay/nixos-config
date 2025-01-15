@@ -63,7 +63,7 @@ in
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
-        shell = pkgs.zsh;
+        shell = pkgs.elvish;
         extraGroups = [ "input" "wheel" "persist" "libvirtd" ];
       };
     };

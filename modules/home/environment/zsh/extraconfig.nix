@@ -42,7 +42,6 @@ in
           command neovide "$@"
         }
         alias vi="nvim"
-        alias vide="neovide"
         kitty_theme() {
           if [ $TERM = "xterm-kitty" ]; then
             if [ -n "$SSH_CONNECTION" ]; then

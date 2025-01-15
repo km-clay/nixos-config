@@ -68,6 +68,7 @@
               };
             };
           };
+          jdtls.enable = true;
           pyright.enable = true;
           sqls.enable = true;
           hls = {
