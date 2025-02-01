@@ -19,6 +19,7 @@ in {
       opacity.terminal = 1.0;
       targets = {
         waybar.enable = false;
+        spicetify.enable = false;
         btop.enable = false;
         nixvim.enable = false;
         nixvim.transparentBackground = {

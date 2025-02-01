@@ -34,6 +34,9 @@
         "ctrl+shift+l" = "previous_tab";
         "ctrl+shift+j" = "scroll_end";
         "ctrl+shift+k" = "scroll_home";
+        "ctrl+shift+equal" = "change_font_size all +2.0";
+        "ctrl+shift+minus" = "change_font_size all -2.0";
+        "ctrl+shift+backspace" = "change_font_size all 0";
       };
     };
   };

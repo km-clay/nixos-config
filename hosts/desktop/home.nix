@@ -21,7 +21,7 @@
       stylixHomeConfig.enable = true;
       waybarConfig.enable = true;
       gtkConfig.enable = true;
-      spicetifyConfig.enable = true;
+      spicetifyConfig.enable = false;
       starshipConfig.enable = true;
       swayncConfig.enable = true;
       zshConfig = {

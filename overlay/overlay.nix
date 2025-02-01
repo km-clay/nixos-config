@@ -20,9 +20,7 @@ in
   });
   myPkgs = {
     # Packages that I've made
-    tinyfetch = super.callPackage ./tinyfetch/package.nix {};
-    breezex-cursor = super.callPackage ./breezex-cursor/package.nix {};
-    rsh = super.callPackage ./rsh/package.nix {};
+    ox = super.callPackage ./pkgs/ox/package.nix {};
   };
   myScripts = {
     # Scripts written using pkgs.writeShellApplication

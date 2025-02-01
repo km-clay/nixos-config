@@ -1,2 +1,0 @@
-#!/home/pagedmov/Coding/projects/rust/rsh/target/debug/rsh
-for var in 1 2 3; do case var in;1) if until until until echo; do echo; done; do if echo; then echo; elif echo; then if echo; then echo; elif echo; then echo; fi; fi; done; do for i in 1 2 3; do echo; done; done; then until if until echo; do echo; done; then if echo; then echo; elif echo; then echo; fi; elif for i in 1 2 3; do echo; done; then until echo; do echo; done; fi; do if echo; then echo; elif echo; then echo; fi; done; fi;;2) until echo; do echo; done;;3) for i in 1 2 3; do echo; done ;;esac; done

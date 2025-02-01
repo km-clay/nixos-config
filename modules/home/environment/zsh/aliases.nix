@@ -31,6 +31,8 @@
         gpull = "gitpull_sfx";
         greb = "gitrebase_sfx";
         rsh = "$HOME/Coding/projects/rust/rsh/target/debug/rsh";
+        vide = "neovide";
+        pk9 = "pkill -9";
       };
     };
   };

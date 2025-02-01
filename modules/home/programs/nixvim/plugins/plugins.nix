@@ -5,6 +5,10 @@
         enable = true;
         extensions.dap-ui.enable = true;
       };
+      dap-lldb = {
+        enable = true;
+        autoLoad = true;
+      };
       nix.enable = true;
       endwise.enable = true;
       undotree.enable = true;

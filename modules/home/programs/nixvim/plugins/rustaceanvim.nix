@@ -2,9 +2,10 @@
 
 {
   programs.nixvim.plugins.rustaceanvim = {
-    enable = true;
+    enable = false;
     settings = {
       server.auto_attach = true;
+      dap.adapter = false;
     };
   };
 }

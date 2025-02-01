@@ -48,10 +48,17 @@
           ccls.enable = true;
           clangd.enable = true;
           cmake.enable = true;
+          ts_ls.enable = true;
+          eslint.enable = true;
           html.enable = true;
           jsonls.enable = true;
           lua_ls.enable = true;
           marksman.enable = true;
+          rust_analyzer = {
+            enable = true;
+            installCargo = false;
+            installRustc = false;
+          };
           nixd = {
             enable = true;
             settings = {

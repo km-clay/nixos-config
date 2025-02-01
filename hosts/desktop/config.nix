@@ -1,30 +1,5 @@
-{ pkgs, username, ... }:
+{ ox, pkgs, username, ... }:
 
-let rsh = pkgs.rustPlatform.buildRustPackage {
-  pname = "rsh";
-  version = "0.0.1";
-  buildType = "debug";
-
-  src = ../../overlay/pkgs/rsh/rsh;
-
-  cargoHash = "sha256-8Lb7AohSah2A7pcoT2JPDgza0LfIyD897yj4QHNklDw=";
-  cargoLock = {
-    lockFile = ../../overlay/pkgs/rsh/rsh/Cargo.lock;
-  };
-
-  buildInputs = [ ];
-
-  meta = {
-    description = "Modern shell scripting";
-    homepage = "https://github.com/pagedMov/rsh";
-    license = pkgs.lib.licenses.gpl3;
-    maintainers = with pkgs.lib.maintainers; [ pagedMov ];
-  };
-  passthru = {
-    shellPath = "/bin/rsh";
-  };
-};
-in
 {
   imports = [ ./hardware.nix ];
 
@@ -53,7 +28,7 @@ in
 
   environment = {
     variables = { PATH = "${pkgs.clang-tools}/bin:$PATH"; };
-    shells = [ rsh pkgs.zsh pkgs.bash ];
+    shells = [ pkgs.myPkgs.ox pkgs.zsh pkgs.bash ];
   };
 
   users = {
@@ -63,7 +38,7 @@ in
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
-        shell = pkgs.elvish;
+        shell = pkgs.myPkgs.ox;
         extraGroups = [ "input" "wheel" "persist" "libvirtd" ];
       };
     };
