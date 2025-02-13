@@ -20,7 +20,7 @@ in
   });
   myPkgs = {
     # Packages that I've made
-    ox = super.callPackage ./pkgs/ox/package.nix {};
+    lash = super.callPackage ./pkgs/lash/package.nix {};
   };
   myScripts = {
     # Scripts written using pkgs.writeShellApplication

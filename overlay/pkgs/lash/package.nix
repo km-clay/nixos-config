@@ -1,14 +1,14 @@
 { pkgs ? import <nixpkgs> {} }:
 
 pkgs.rustPlatform.buildRustPackage rec {
-				pname = "ox";
-				version = "v0.3.0-alpha_16aa803";
+				pname = "lash";
+				version = "v0.5.0_5c038fb";
 
 				  src = pkgs.fetchFromGitHub {
     owner = "pagedMov";
-    repo = "ox";
-    rev = "16aa803faad2db175298f75278947b91b1e91267";
-    hash = "sha256-qhH6gPETDIMgRHtWPwmiwalsT1kAqx0ODtlWStVP1d0=";
+    repo = "lash";
+    rev = "5c038fbb569fdad802f22fa0bd5ca9a839dcaed8";
+    hash = "sha256-AGItl4LN8hWqcNmE6d9snIkaV/FZKKD58e2pf7A22UA=";
   };
   
 
@@ -17,6 +17,6 @@ pkgs.rustPlatform.buildRustPackage rec {
 				cargoLock.lockFile = ./Cargo.lock;
 
 				passthru = {
-					shellPath = "/bin/ox";
+					shellPath = "/bin/lash";
 				};
 			}

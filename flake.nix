@@ -30,14 +30,14 @@
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ox_flake.url = "github:pagedMov/ox";
+    lash_flake.url = "github:pagedMov/lash";
   };
 
-  outputs = { self, home-manager, disko, ox_flake, nixpkgs, impermanence, nixvim, stylix, ... }@inputs:
+  outputs = { self, home-manager, disko, lash_flake, nixpkgs, impermanence, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
       username = "pagedmov";
-      ox = ox_flake.packages.${system}.default;
+      lash = lash_flake.packages.${system}.default;
       nixpkgsConfig = {
         allowUnfree = true;
       };
@@ -143,7 +143,7 @@
       nixosConfigurations = {
         oganesson = nixpkgs.lib.nixosSystem { # Desktop
           specialArgs = {
-            inherit self inputs username ox;
+            inherit self inputs username lash;
             host = "oganesson";
             overlays = [
               (import ./overlay/overlay.nix { root = self; })

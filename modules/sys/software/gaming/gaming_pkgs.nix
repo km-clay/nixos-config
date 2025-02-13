@@ -16,9 +16,9 @@ in {
   };
   config = lib.mkIf config.movOpts.softwareCfg.gamingPkgs.enable {
     environment.systemPackages = with pkgs; [
-      snes9x-gtk
-      cust-openrct2
-      dwarf-fortress-packages.dwarf-fortress-full
+      #snes9x-gtk
+      #cust-openrct2
+      #dwarf-fortress-packages.dwarf-fortress-full
       prismlauncher
     ];
   };

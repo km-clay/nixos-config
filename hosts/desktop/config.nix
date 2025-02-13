@@ -1,4 +1,4 @@
-{ ox, pkgs, username, ... }:
+{ lash, pkgs, username, ... }:
 
 {
   imports = [ ./hardware.nix ];
@@ -28,7 +28,7 @@
 
   environment = {
     variables = { PATH = "${pkgs.clang-tools}/bin:$PATH"; };
-    shells = [ pkgs.myPkgs.ox pkgs.zsh pkgs.bash ];
+    shells = [ pkgs.myPkgs.lash pkgs.zsh pkgs.bash ];
   };
 
   users = {
@@ -38,7 +38,7 @@
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
-        shell = pkgs.myPkgs.ox;
+        shell = pkgs.myPkgs.lash;
         extraGroups = [ "input" "wheel" "persist" "libvirtd" ];
       };
     };

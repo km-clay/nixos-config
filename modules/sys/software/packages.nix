@@ -14,7 +14,6 @@
       fail2ban
       git
       gcc
-      lldb
       zip
       unzip
       hyprland-workspaces
@@ -46,6 +45,9 @@
       libnotify
       file
       libvirt-glib
+      man-pages
+      man-pages-posix
+      most
     ];
   };
 }
