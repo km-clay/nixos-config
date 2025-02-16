@@ -932,13 +932,13 @@
         "lastModified": 1739483770,
         "narHash": "sha256-AGItl4LN8hWqcNmE6d9snIkaV/FZKKD58e2pf7A22UA=",
         "owner": "pagedMov",
-        "repo": "lash",
+        "repo": "slash",
         "rev": "5c038fbb569fdad802f22fa0bd5ca9a839dcaed8",
         "type": "github"
       },
       "original": {
         "owner": "pagedMov",
-        "repo": "lash",
+        "repo": "slash",
         "type": "github"
       }
     },

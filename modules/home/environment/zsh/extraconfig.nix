@@ -3,6 +3,7 @@
 let
   shellsound = "${pkgs.myScripts.playshellsound}/bin/playshellsound";
   color-commit = "${pkgs.myScripts.color-commit}/bin/color-commit";
+  fzf-tab = "${pkgs.myPkgs.fzf-tab}";
   sndpath = "${self}/assets/sound";
 in
 {
@@ -173,6 +174,9 @@ in
 
         autoload -U up-line-or-beginning-search; zle -N up-line-or-beginning-search
         autoload -U down-line-or-beginning-search; zle -N down-line-or-beginning-search
+
+        compinit
+        source ${fzf-tab}/fzf-tab.plugin.zsh
 
         bindkey -v
         kitty_theme

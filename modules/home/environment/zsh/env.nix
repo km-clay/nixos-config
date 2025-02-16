@@ -16,6 +16,8 @@
         FLAKEPATH = "$HOME/.sysflake";
         STEAMPATH = "$HOME/.local/share/Steam";
         PATH = "$PATH:$HOME/.userpath/";
+        FZF_DEFAULT_COMMAND = "fd";
+        FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
       };
     };
   };

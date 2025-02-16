@@ -20,7 +20,8 @@ in
   });
   myPkgs = {
     # Packages that I've made
-    lash = super.callPackage ./pkgs/lash/package.nix {};
+    slash = super.callPackage ./pkgs/slash/package.nix {};
+    fzf-tab = super.callPackage ./pkgs/zsh-fzf-tab/package.nix {};
   };
   myScripts = {
     # Scripts written using pkgs.writeShellApplication

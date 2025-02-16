@@ -18,7 +18,13 @@
 
       oh-my-zsh = {
         enable = true;
-        plugins = [ "git" "fzf" ];
+        plugins = [
+          "git"
+          "fzf"
+          "aliases"
+          "command-not-found"
+          "eza"
+        ];
       };
 
       enableCompletion = true;

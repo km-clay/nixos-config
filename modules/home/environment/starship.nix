@@ -15,7 +15,7 @@
           "($ssh_symbol)($username)($hostname)($nix_shell)(bold white)($cmd_duration)($character)"
           "($git_branch)($git_status)($rust)"
           "($directory)"
-          "$line_break[ > ](bold #89b4fa)"
+          "$line_break[  ](bold #89b4fa)"
         ];
 
         username = {
@@ -42,7 +42,7 @@
         };
 
         cmd_duration = {
-          format = "[ 󰔛 $duration]($style)";
+          format = "[󰔛 $duration]($style)";
           disabled = false;
           style = "bg:none fg:#f9e2af";
           show_notifications = false;
