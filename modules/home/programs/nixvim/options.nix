@@ -5,7 +5,7 @@ in {
   programs.nixvim = {
     colorschemes.base16 = {
       enable = true;
-      colorscheme = "ayu-dark";
+      colorscheme = "chalk";
       #colorscheme = {
       #	base00 = "#${scheme.base00}";
       #	base01 = "#${scheme.base01}";
@@ -36,6 +36,8 @@ in {
       	vim.g.neovide_cursor_vfx_mode = "sonicboom"
       	vim.g.neovide_cursor_animate_in_insert_mode = false
       end
+
+      vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = '.md'}}
 
       vim.opt.number = true
       vim.opt.relativenumber = true

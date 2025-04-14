@@ -2,7 +2,9 @@
 let
   desktop = host == "oganesson";
   screenshot_bind = if desktop then
-    [ "super, print, exec, grimblast copy area" ]
+  [ "super, print, exec, grimblast copy area"
+    "super shift, print, exec, grimblast --freeze copy area"
+]
   else
     [
       # My laptop does not have a printscreen button
@@ -189,7 +191,7 @@ in {
             "super, up, exec, pactl set-sink-volume @default_sink@ +10%"
             "super, down, exec, pactl set-sink-volume @default_sink@ -10%"
             "super, t, exec, swaync-client -t -sw"
-            "super, a, exec, firefox"
+            "super, a, exec, librewolf"
             "super, q, exec, kitty"
             "super shift, q, exec, [float;size 40% 30%;move onscreen cursor -50% -50%] kitty"
             "super, c, killactive,"

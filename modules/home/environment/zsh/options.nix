@@ -22,7 +22,6 @@
           "git"
           "fzf"
           "aliases"
-          "command-not-found"
           "eza"
         ];
       };

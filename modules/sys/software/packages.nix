@@ -42,8 +42,15 @@
       uhk-agent
       jq
       wl-clipboard
+      cmake
       libnotify
+      gnumake
       file
+      pkg-config
+      openssl
+      openssl_3
+      openssl_3_0
+      openssl_3_3
       libvirt-glib
       man-pages
       man-pages-posix

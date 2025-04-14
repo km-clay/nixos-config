@@ -30,8 +30,8 @@
       };
 
       keybindings = {
-        "ctrl+shift+h" = "next_tab";
-        "ctrl+shift+l" = "previous_tab";
+        "ctrl+shift+l" = "next_tab";
+        "ctrl+shift+h" = "previous_tab";
         "ctrl+shift+j" = "scroll_end";
         "ctrl+shift+k" = "scroll_home";
         "ctrl+shift+equal" = "change_font_size all +2.0";

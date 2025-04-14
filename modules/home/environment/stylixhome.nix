@@ -1,7 +1,7 @@
 { lib, self, config, host, pkgs, ... }:
 
 let
-  scheme = "ayu-dark";
+  scheme = "chalk";
   wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
   server = (host == "xenon");
 in {

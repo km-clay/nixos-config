@@ -49,7 +49,12 @@ in {
       wf-recorder
       toilet
       vkbasalt
-      firefox
+      librewolf
+      spotify
+      zathura
+      chromium
+      obs-studio
+      gparted
       dust
       porsmo
       rustup
@@ -62,6 +67,10 @@ in {
       glfw
       glxinfo
       xwayland
+      discord
+      cloc
+      wine
+      nodejs_latest
     ] ++ scripts;
   };
 }

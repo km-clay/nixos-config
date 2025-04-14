@@ -58,6 +58,9 @@
             enable = true;
             installCargo = false;
             installRustc = false;
+            settings = {
+              check.allTargets = false;
+            };
           };
           nixd = {
             enable = true;

@@ -1,7 +1,7 @@
 { pkgs, self, lib, config, ... }:
 
 let
-  scheme = "tokyo-night-dark";
+  scheme = "chalk";
   wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
 in {
   options = {

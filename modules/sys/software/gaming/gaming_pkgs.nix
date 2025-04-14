@@ -18,7 +18,8 @@ in {
     environment.systemPackages = with pkgs; [
       #snes9x-gtk
       #cust-openrct2
-      #dwarf-fortress-packages.dwarf-fortress-full
+      mgba
+      dwarf-fortress-packages.dwarf-fortress-full
       prismlauncher
     ];
   };
