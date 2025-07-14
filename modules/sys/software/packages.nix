@@ -31,7 +31,7 @@
       nixos-option
       nix-search-cli
       nix-template
-      nixfmt
+      nixfmt-classic
       sshfs
       nvd
       pamixer
@@ -48,9 +48,6 @@
       file
       pkg-config
       openssl
-      openssl_3
-      openssl_3_0
-      openssl_3_3
       libvirt-glib
       man-pages
       man-pages-posix

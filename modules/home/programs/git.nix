@@ -7,8 +7,8 @@
     programs.git = {
       enable = true;
       signing = {
-        gpgPath = "${pkgs.gnupg}/bin/gpg";
-        key = "0DA69D51BA4B2D2B58FC9CB574ED6528A37CA99A";
+        signer = "${pkgs.gnupg}/bin/gpg";
+        key = "2453DF4EF63B92D5D8FE8C9DC741C9DFD8156540";
         signByDefault = true;
       };
       userEmail = "kylerclay@proton.me";

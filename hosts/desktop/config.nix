@@ -14,6 +14,7 @@
     };
     hardwareCfg = {
       networkModule.enable = true;
+      kernelModule.enable = true;
       bootLoader.enable = true;
     };
     softwareCfg = {

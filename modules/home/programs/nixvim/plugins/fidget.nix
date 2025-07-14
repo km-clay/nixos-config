@@ -1,9 +1,11 @@
 {
   programs.nixvim.plugins.fidget = {
     enable = true;
-    notification = {
-      overrideVimNotify = true;
-      window = { border = "rounded"; };
+    settings = {
+      notification = {
+        overrideVimNotify = true;
+        window = { border = "rounded"; };
+      };
     };
   };
 }

@@ -5,7 +5,7 @@ let
     owner = "xero";
     repo = "figlet-fonts";
     rev = "master";
-    sha256 = "sha256-dAs7N66D2Fpy4/UB5Za1r2qb1iSAJR6TMmau1asxgtY=";
+    sha256 = "sha256-/Qj8CWqn7w1R83enixxgC5ijUrHvqN3C7ZvRCs/AzBI=";
   };
 in
 {

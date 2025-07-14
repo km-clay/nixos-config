@@ -26,7 +26,7 @@ in {
       #};
     };
     enable = true;
-    diagnostics.signs = false;
+    diagnostic.settings.signs = false;
     extraConfigLua = ''
       if vim.g.started_by_firenvim == true then
       	vim.o.laststatus = 0

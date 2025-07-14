@@ -62,6 +62,7 @@ in {
       neovide
       python3
       ghostty
+      firefox
       fd
       delta
       glfw

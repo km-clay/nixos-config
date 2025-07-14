@@ -12,7 +12,7 @@ in
   };
   config = lib.mkIf config.movOpts.envConfig.zshConfig.extraConfig.enable {
     programs.zsh = {
-      initExtra = ''
+      initContent = ''
         build-drv() { # Put the derivation path in $RESULT instead of making a 'result' symlink
           RESULT=$(nix-build "$@" --no-link)
           if [ -z "$RESULT" ]; then

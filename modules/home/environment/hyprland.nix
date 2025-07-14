@@ -96,7 +96,6 @@ in {
           "XDG_CACHE_HOME,$HOME/.cache"
         ];
         layerrule = [ "blur,waybar" "ignorezero,waybar" "blur,launcher" ];
-        windowrule = [ "opacity 0.8,nemo" ];
 
         input = {
           kb_layout = "us";
@@ -113,7 +112,6 @@ in {
           border_size = 3;
           #"col.inactive_border" = "0xff${scheme.base01}";
           "col.active_border" = lib.mkForce "0xff${scheme.base04}";
-          border_part_of_window = false;
           no_border_on_floating = false;
         };
         misc = {
@@ -191,7 +189,7 @@ in {
             "super, up, exec, pactl set-sink-volume @default_sink@ +10%"
             "super, down, exec, pactl set-sink-volume @default_sink@ -10%"
             "super, t, exec, swaync-client -t -sw"
-            "super, a, exec, librewolf"
+            "super, a, exec, firefox"
             "super, q, exec, kitty"
             "super shift, q, exec, [float;size 40% 30%;move onscreen cursor -50% -50%] kitty"
             "super, c, killactive,"

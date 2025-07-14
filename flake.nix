@@ -30,14 +30,12 @@
       url = "github:gerg-l/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    lash_flake.url = "github:pagedMov/slash";
   };
 
-  outputs = { self, home-manager, disko, lash_flake, nixpkgs, impermanence, nixvim, stylix, ... }@inputs:
+  outputs = { self, home-manager, disko, nixpkgs, impermanence, nixvim, stylix, ... }@inputs:
     let
       system = "x86_64-linux";
       username = "pagedmov";
-      slash = lash_flake.packages.${system}.default;
       nixpkgsConfig = {
         allowUnfree = true;
       };
@@ -58,7 +56,7 @@
           modules = [
             ./hosts/desktop/home.nix
             ./modules/home
-            stylix.homeManagerModules.stylix
+            stylix.homeModules.stylix
             nixvim.homeManagerModules.nixvim
           ];
         };
@@ -78,7 +76,7 @@
           modules = [
             ./hosts/laptop/home.nix
             ./modules/home
-            stylix.homeManagerModules.stylix
+            stylix.homeModules.stylix
             nixvim.homeManagerModules.nixvim
           ];
         };
@@ -98,44 +96,8 @@
           modules = [
             ./hosts/server/home.nix
             ./modules/home
-            stylix.homeManagerModules.stylix
+            stylix.homeModules.stylix
             nixvim.homeManagerModules.nixvim
-          ];
-        };
-        neonImpermanenceHome = let host = "neonImpermanence"; in home-manager.lib.homeManagerConfiguration { # Live Environment
-          pkgs = import nixpkgs {
-            inherit system;
-            config = nixpkgsConfig;
-            overlays = [
-              (import ./overlay/overlay.nix { inherit host; root = self; })
-            ];
-          };
-          extraSpecialArgs = {
-            inherit host self username inputs;
-          };
-          modules = [
-            ./modules/home
-            (import ./hosts/live-env/home.nix { username = "impermanence"; })
-            nixvim.homeManagerModules.nixvim
-            stylix.homeManagerModules.stylix
-          ];
-        };
-        neonPersistenceHome = let host = "neonPersistence"; in home-manager.lib.homeManagerConfiguration { # Live Environment
-          pkgs = import nixpkgs {
-            inherit system;
-            config = nixpkgsConfig;
-            overlays = [
-              (import ./overlay/overlay.nix { inherit host; root = self; })
-            ];
-          };
-          extraSpecialArgs = {
-            inherit host self username inputs;
-          };
-          modules = [
-            ./modules/home
-            (import ./hosts/live-env/home.nix { username = "persistence"; })
-            nixvim.homeManagerModules.nixvim
-            stylix.homeManagerModules.stylix
           ];
         };
       };
@@ -143,7 +105,7 @@
       nixosConfigurations = {
         oganesson = nixpkgs.lib.nixosSystem { # Desktop
           specialArgs = {
-            inherit self inputs username slash;
+            inherit self inputs username;
             host = "oganesson";
             overlays = [
               (import ./overlay/overlay.nix { root = self; })
@@ -195,27 +157,6 @@
             ./hosts/server/config.nix
             ./modules/sys
             ./modules/server
-            stylix.nixosModules.stylix
-          ];
-        };
-        neon = nixpkgs.lib.nixosSystem { # Live environment
-          specialArgs = {
-            host = "neon";
-            inherit self inputs;
-          };
-          inherit system;
-          pkgs = import nixpkgs {
-            inherit system;
-            config = nixpkgsConfig;
-            overlays = [];
-          };
-          modules = [
-            ./hosts/live-env/config.nix
-            (import ./hosts/live-env/disko.nix { device = "/dev/sdd"; })
-            ./modules/sys
-            disko.nixosModules.default
-            nixvim.nixosModules.nixvim
-            impermanence.nixosModules.impermanence
             stylix.nixosModules.stylix
           ];
         };
