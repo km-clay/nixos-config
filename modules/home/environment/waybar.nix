@@ -1,7 +1,6 @@
-{ pkgs, host, lib, config, ... }:
+{ pkgs, lib, config, ... }:
 
 let
-  desktop = (host == "oganesson");
   layout = config.movOpts.envConfig.hyprlandConfig.workspaceLayout;
   workspaces = {
     format = "{icon}";
@@ -55,20 +54,7 @@ let
     lighter = scheme.base05;
     light = scheme.base04;
   };
-  colors = {
-    color0 = scheme.base08;
-    color1 = scheme.base09;
-    color2 = scheme.base0A;
-    color3 = scheme.base0B;
-    color4 = scheme.base0C;
-    color5 = scheme.base0D;
-    color6 = scheme.base0E;
-    color7 = scheme.base0F;
-  };
   monitors = config.movOpts.envConfig.hyprlandConfig.monitorNames;
-  circle-gauge =  [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
-  cava-gauge =    [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
-  battery-gauge = [ "󰁺" "󰁻" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
 	bar-gauge = [
 		"░░░░░░░░"
 		"█░░░░░░░"
@@ -80,6 +66,17 @@ let
 		"███████░"
 		"████████"
 	];
+  bar-gauge-critical = [
+		"░░░░░░░░"
+		"█░░░░░░░"
+		"██░░░░░░"
+		"███░░░░░"
+		"████░░░░"
+		"█████░░░"
+		"██████░░"
+    "<span color='#F07178'>!!!!!!!!</span>"
+    "<span color='#F07178'>CRITICAL</span>"
+  ];
 in {
   options = {
     movOpts.envConfig.waybarConfig.enable =
@@ -159,17 +156,7 @@ in {
 						interval = 20;
 						format = "MEM: [ <span color='#272D38'>{icon}</span> ] <span size='8pt'>{percentage}%</span>";
 						tooltip-format = "MEM_TOT\t: {total}GiB\nSWP_TOT\t: {swapTotal}GiB\n\nMEM_USD\t: {used:0.1f}GiB\nSWP_USD\t: {swapUsed:0.1f}GiB";
-						format-icons = [
-							"░░░░░░░░"
-							"█░░░░░░░"
-							"██░░░░░░"
-							"███░░░░░"
-							"████░░░░"
-							"█████░░░"
-							"██████░░"
-							"<span color='#F07178'>!!!!!!!!</span>"
-							"<span color='#F07178'>CRITICAL</span>"
-						];
+						format-icons = bar-gauge-critical;
 					};
 
 					cpu = {
@@ -177,23 +164,13 @@ in {
 						interval = 1;
 						format = "CPU: [ <span color='#272D38'>{icon}</span> ] <span size='8pt'>{usage}%</span>";
 						tooltip = true;
-						format-icons = [
-							"░░░░░░░░"
-							"█░░░░░░░"
-							"██░░░░░░"
-							"███░░░░░"
-							"████░░░░"
-							"█████░░░"
-							"██████░░"
-							"<span color='#272D38'>!!!!!!!!</span>"
-							"<span color='#272D38'>CRITICAL</span>"
-						];
+						format-icons = bar-gauge-critical;
 					};
         };
       };
       style = ''
 				* {
-					font-size: 14px;
+					font-size: 16px;
 					border: none;
 					font-family: EnvyCodeR Nerd Font Mono;
 					font-weight: Bold;

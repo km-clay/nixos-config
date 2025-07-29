@@ -26,8 +26,8 @@ pkgs.writeShellApplication {
       cliphist decode "$selection" | wl-copy
     }
     btop_cmd() {
-
-      if [ "$(cat /etc/hostname)" = "oganesson" ]; then
+      hostname="$(cat /etc/hostname)"
+      if [ "$hostname" = "oganesson" ] || [ "$hostname"  = "phosphorous" ]; then
         hyprctl dispatch resizeactive 20% 155% &&
         moveonscreen --center &&
         btop &&
