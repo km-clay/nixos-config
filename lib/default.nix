@@ -1,10 +1,7 @@
 { inputs, username, nixpkgsConfig ? { allowUnfree = true; } }:
 
-let
+rec {
   mkHost = import ./mk_host.nix;
-in
-{
-  inherit mkHost;
   foldHosts = hosts: inputs.nixpkgs.lib.foldl'
     (acc: host:
       let result = mkHost ({ inherit inputs username nixpkgsConfig; } // host);

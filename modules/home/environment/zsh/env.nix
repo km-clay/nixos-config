@@ -15,6 +15,7 @@
         BROWSER = "firefox";
         FLAKEPATH = "$HOME/.sysflake";
         STEAMPATH = "$HOME/.local/share/Steam";
+        TFPATH = "$STEAMPATH/steamapps/common/Team Fortress 2/";
         PATH = "$PATH:$HOME/.userpath/";
         FZF_DEFAULT_COMMAND = "fd";
         FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";

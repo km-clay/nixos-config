@@ -34,6 +34,18 @@ in
         nsp() {
           NIX_SHELL=true command nix-shell -p "$@" --run zsh
         }
+        viflake() {
+          (
+            while ! [ -f ./flake.nix ]; do
+              builtin cd ..
+              if [ "$PWD" = "/" ]; then
+                echo "No flake.nix found in this directory, or any parent directories."
+                return 1
+              fi
+            done
+            nvim ./flake.nix
+          )
+        }
         nvim() {
           ${shellsound} ${sndpath}/nvim.wav
           command nvim "$@"
@@ -185,7 +197,7 @@ in
           eval "$(starship init zsh)"
         }
         ${shellsound} ${sndpath}/sh-source.wav
-        [ ! -f $FLAKEPATH/flake.nix ] && echo "WARNING: flake.nix not found at \$FLAKEPATH. Shell aliases for editing config files won't work correctly!" && echo "Edit the FLAKEPATH session variable in zshell.nix to point to the path where you saved the system configuration flake."
+        [ ! -f $FLAKEPATH/flake.nix ] && echo "WARNING: flake.nix not found at \$FLAKEPATH. Shell aliases for editing config files won't work correctly!" && echo "Edit the FLAKEPATH session variable in zsh/env.nix to point to the path where you saved the system configuration flake."
       '';
     };
   };

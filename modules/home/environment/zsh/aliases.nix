@@ -20,7 +20,6 @@
         pk = "pkill -9 -f";
         svcu = "systemctl --user";
         svc = "sudo systemctl";
-        viflake = "nvim flake.nix";
         iv = "invoke";
         cfgfilecount = ''find ".\.nix" $FLAKEPATH | wc -l | toilet -f 3d | lolcat'';
         record = "wf-recorder";
@@ -33,6 +32,10 @@
         rsh = "$HOME/Coding/projects/rust/rsh/target/debug/rsh";
         vide = "neovide";
         pk9 = "pkill -9";
+        mkexe = "chmod +x";
+        shortdate = "date '+%m-%d-%y'";
+        suvi = "sudoedit";
+        suvide = "EDITOR=neovide; suvi";
       };
     };
   };

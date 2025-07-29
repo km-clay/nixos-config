@@ -9,7 +9,7 @@
       font = {
         package = lib.mkForce pkgs.nerd-fonts.envy-code-r;
         name = lib.mkForce "EnvyCodeR Nerd Font Mono";
-        size = lib.mkForce 20;
+        size = lib.mkForce 19;
       };
 
       settings = {
