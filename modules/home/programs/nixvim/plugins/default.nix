@@ -16,6 +16,7 @@
     ./airline.nix
     ./nvim-lightbulb.nix
     ./neocord.nix
+    ./copilot.nix
     ./plugins.nix
     ./nvim-tree.nix
     ./telescope.nix

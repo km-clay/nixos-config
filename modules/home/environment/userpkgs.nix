@@ -34,7 +34,6 @@ in {
       nemo
       feh
       gtk3
-      gimp
       imagemagick
       vlc
       lolcat

@@ -60,6 +60,25 @@
             nixvim.homeManagerModules.nixvim
           ];
         };
+        phosphorousHome = let host = "phosphorous"; in home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [
+              (import ./overlay/overlay.nix { inherit host; root = self; })
+            ];
+          };
+          extraSpecialArgs = {
+            inherit host self username inputs;
+          };
+
+          modules = [
+            ./hosts/work/home.nix
+            ./modules/home
+            stylix.homeManagerModules.stylix
+            nixvim.homeManagerModules.nixvim
+          ];
+        };
 
         mercuryHome = let host = "mercury"; in home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
@@ -121,6 +140,29 @@
           };
           modules = [
             ./hosts/desktop/config.nix
+            ./modules/sys
+            stylix.nixosModules.stylix
+          ];
+        };
+
+        phosphorous = nixpkgs.lib.nixosSystem { # Desktop
+          specialArgs = {
+            inherit self inputs username;
+            host = "oganesson";
+            overlays = [
+              (import ./overlay/overlay.nix { root = self; })
+            ];
+          };
+          inherit system;
+          pkgs = import nixpkgs {
+            inherit system;
+            config = nixpkgsConfig;
+            overlays = [
+              (import ./overlay/overlay.nix { root = self; })
+            ];
+          };
+          modules = [
+            ./hosts/work/config.nix
             ./modules/sys
             stylix.nixosModules.stylix
           ];

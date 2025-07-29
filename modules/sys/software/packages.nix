@@ -20,6 +20,7 @@
       hyprpaper
       hyprpicker
       inetutils
+      rcon-cli
       kitty
       lolcat
       lsof

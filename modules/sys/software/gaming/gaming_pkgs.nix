@@ -9,6 +9,9 @@ let
       "-DDOWNLOAD_TITLE_SEQUENCES=ON"
     ];
   });
+  cust-prismlauncher = pkgs.prismlauncher.override (oldAttrs: {
+    jdks = [ pkgs.temurin-bin-21 ];
+  });
 in {
   options = {
     movOpts.softwareCfg.gamingPkgs.enable =
@@ -19,8 +22,7 @@ in {
       #snes9x-gtk
       #cust-openrct2
       mgba
-      dwarf-fortress-packages.dwarf-fortress-full
-      prismlauncher
+      cust-prismlauncher
     ];
   };
 }

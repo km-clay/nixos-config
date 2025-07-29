@@ -6,11 +6,6 @@
   config = lib.mkIf config.movOpts.programConfigs.gitConfig.enable {
     programs.git = {
       enable = true;
-      signing = {
-        signer = "${pkgs.gnupg}/bin/gpg";
-        key = "2453DF4EF63B92D5D8FE8C9DC741C9DFD8156540";
-        signByDefault = true;
-      };
       userEmail = "kylerclay@proton.me";
       userName = "${username}";
       extraConfig = {

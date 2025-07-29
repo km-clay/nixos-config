@@ -11,6 +11,7 @@
         "192.168.1.200" = [ "xenon" ];
         "192.168.1.201" = [ "oganesson" ];
         "192.168.1.202" = [ "mercury" ];
+        "192.168.1.134" = [ "hosting.localhost" ];
       };
       firewall = {
         enable = true;

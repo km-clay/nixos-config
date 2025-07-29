@@ -13,28 +13,51 @@
                 ['<C-j>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-k>'] = cmp.mapping.scroll_docs(4),
                 ['<C-Space>'] = cmp.mapping.complete(),
-                ['<C-e>'] = cmp.mapping.abort(),
+                ['<C-Enter>'] = function()
+                  local copilot = require("copilot.suggestion")
+                  cmp.abort()
+                  copilot.next()
+                end,
                 ['<CR>'] = function(fallback)
                   if cmp.visible() then
                     cmp.confirm()
                   else
                     fallback()
                   end
-                end,  -- Added a comma here
+                end,
                 ['<Tab>'] = function(fallback)
+                  local copilot = require("copilot.suggestion")
                   if cmp.visible() then
                     cmp.select_next_item()
+                  elseif copilot.is_visible() then
+                    cmp.abort()
+                    copilot.accept()
                   else
                     fallback()
                   end
-                end,  -- Added a comma here
-                ['<S-Tab>'] = function(fallback)
+                end,
+                ['<A-Tab>'] = function(fallback)
+                  local copilot = require("copilot.suggestion")
                   if cmp.visible() then
                     cmp.select_prev_item()
+                  elseif copilot.is_visible() then
+                    cmp.abort()
+                    copilot.accept_word()
                   else
                     fallback()
                   end
-                end  -- No comma needed for the last item
+                end,
+                ['<S-Tab>'] = function(fallback)
+                  local copilot = require("copilot.suggestion")
+                  if cmp.visible() then
+                    cmp.select_prev_item()
+                  elseif copilot.is_visible() then
+                    cmp.abort()
+                    copilot.accept_line()
+                  else
+                    fallback()
+                  end
+                end
               })
             '';
           };

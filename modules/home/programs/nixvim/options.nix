@@ -26,15 +26,17 @@ in {
       #};
     };
     enable = true;
-    diagnostic.settings.signs = false;
+    diagnostic.settings = {
+      virtual_text = true;
+      signs = false;
+    };
     extraConfigLua = ''
       if vim.g.started_by_firenvim == true then
       	vim.o.laststatus = 0
       end
       if vim.g.neovide then
       	vim.g.neovide_refresh_rate = 144
-      	vim.g.neovide_cursor_vfx_mode = "sonicboom"
-      	vim.g.neovide_cursor_animate_in_insert_mode = false
+      	vim.g.neovide_cursor_animate_in_insert_mode = true
       end
 
       vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = '.md'}}

@@ -6,12 +6,26 @@ let
   workspaces = {
     format = "{icon}";
     format-icons = {
-      "1" = "一";
-      "2" = "二";
-      "3" = "三";
-      "4" = "四";
-      "5" = "五";
-      "6" = "六";
+      "1" = "1";
+      "2" = "2";
+      "3" = "3";
+      "4" = "4";
+      "5" = "5";
+      "6" = "6";
+      "7" = "7";
+      "8" = "8";
+      "9" = "9";
+      "10" = "10";
+      "11" = "11";
+      "12" = "12";
+      "13" = "13";
+      "14" = "14";
+      "15" = "15";
+      "16" = "16";
+      "17" = "17";
+      "18" = "18";
+      "19" = "19";
+      "20" = "20";
     };
     persistent-workspaces =
       if (layout == "singlemonitor") then {
@@ -36,7 +50,7 @@ let
     dark = scheme.base03;
   };
   fg = {
-    lightester = scheme.base07;
+    lightest = scheme.base07;
     lightest = scheme.base06;
     lighter = scheme.base05;
     light = scheme.base04;
@@ -55,6 +69,17 @@ let
   circle-gauge =  [ "󰝦" "󰪞" "󰪟" "󰪠" "󰪡" "󰪢" "󰪣" "󰪤" "󰪥" ];
   cava-gauge =    [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
   battery-gauge = [ "󰁺" "󰁻" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+	bar-gauge = [
+		"░░░░░░░░"
+		"█░░░░░░░"
+		"██░░░░░░"
+		"███░░░░░"
+		"████░░░░"
+		"█████░░░"
+		"██████░░"
+		"███████░"
+		"████████"
+	];
 in {
   options = {
     movOpts.envConfig.waybarConfig.enable =
@@ -68,7 +93,7 @@ in {
       });
       settings = {
         mainBar = {
-          layer = "bottom";
+          layer = "top";
           output = if layout == "singlemonitor" then builtins.elemAt monitors 0
                     else builtins.elemAt monitors 1;
           position = "top";
@@ -77,374 +102,174 @@ in {
           margin-top = 5;
           margin-right = if desktop then 8 else 5;
           mode = "dock";
+					exclusive = true;
+					passthrough = false;
           "gtk-layer-shell" = true;
 
-          modules-left = [ "hyprland/workspaces" "cava" ];
-          modules-center = [ "hyprland/window" ];
-          modules-right = [ "group/hardware" "clock" "group/powerbtns" ];
+          modules-left = [ "clock" "hyprland/workspaces" "tray" ];
+          modules-center = [];
+          modules-right = [ "cpu" "memory" "pulseaudio" "network" ];
 
           "hyprland/workspaces" = workspaces;
-
-          cava = {
-            framerate = 30;
-            autosens = 1;
-            sensitivity = 1;
-            bars = 14;
-            lower_cutoff_freq = 50;
-            higher_cutoff_freq = 10000;
-            method = "pulse";
-            source = "auto";
-            hide_on_silence = false;
-            stereo = true;
-            reverse = true;
-            bar_delimiter = 0;
-            monstercat = false;
-            waves = false;
-            noise_reduction = 0.77;
-            input_delay = 1;
-            format-icons = cava-gauge;
-          };
-
-          "group/hardware" = {
-            orientation = "inherit";
-            modules = [ "custom/disk-icon" "memory" "cpu" ];
-          };
-
-          "custom/disk-icon" = {
-            exec = ''
-              df / | awk '
-                function format(size) {
-                  if (size >= 1024) return sprintf("%.1fTB", size / 1024);
-                  else return sprintf("%.1fGB", size)
-                }
-                $6 == "/" {
-                  usage = $3 / 1024 / 1024;
-                  total = $2 / 1024 / 1024;
-                  percent = $5;
-                  sub(/%/, "", percent);
-                  printf "{\"class\": \"disk-icon\", \"tooltip\": \"/: %s / %s\", \"percentage\": %s}\n", format(usage), format(total), percent
-                }
-              ' | jq --unbuffered --compact-output
-            '';
-            interval = 60;
-            return-type = "json";
-            rotate = 270;
-            format = "{icon}";
-            format-icons = circle-gauge;
-          };
-
-          memory = {
-            interval = 1;
-            rotate = 270;
-            format = "{icon}";
-            format-icons = circle-gauge;
-            max-length = 10;
-            tooltip-format = "RAM: {used:0.1f} GB / {total:0.1f} GB";
-          };
-
-          cpu = {
-            interval = 1;
-            rotate = 270;
-            format = "{icon}";
-            format-icons = circle-gauge;
-            tooltip-format = "CPU: {usage:0.1f}%";
-          };
-
-          "custom/power" = {
-            on-click = "shutdown now";
-            tooltip = false;
-            format = " ";
-          };
-
-          "custom/logout" = {
-            on-click = "hyprctl dispatch exit";
-            tooltip = false;
-            format = "󰗽 ";
-          };
-
-          "custom/reboot" = {
-            on-click = "reboot";
-            tooltip = false;
-            format = " ";
-          };
-
-          "group/powerbtns" = {
-            orientation = "horizontal";
-            drawer = {
-              transition-duration = 500;
-              children-class = "power-drawer";
-              transition-left-to-right = false;
-            };
-            modules = [ "custom/power" "custom/logout" "custom/reboot" ];
-          };
 
           clock = {
-            format = "{:%I:%M %p}";
-            tooltip = false;
-          };
-        };
-        sideBar = {
-          layer = "bottom";
-          output = builtins.elemAt monitors 0;
-          position = "right";
-          margin-top = 8;
-          margin-right = 5;
-          margin-bottom = 8;
-          name = "sideBar";
-          mode = "dock";
-          "gtk-layer-shell" = true;
-
-          modules-left = if desktop then
-            [ "hyprland/workspaces" ]
-          else [
-            "group/brightness"
-            "battery"
-          ];
-          modules-center = [ ];
-          modules-right = [ "network" "group/audio" ];
-
-          "hyprland/workspaces" = workspaces;
-
-          "pulseaudio/slider" = { orientation = "vertical"; };
-
-          "group/audio" = {
-            orientation = "vertical";
-            modules = [ "pulseaudio/slider" "pulseaudio" ];
+            format = "[ CLK: {:%H.%M <span size='8pt'> %a %b %d</span>} ]";
+						tooltip-format = "<tt>{calendar}";
+						calendar = {
+							mode = "month";
+							weeks-pos = "";
+							on-scroll = 1;
+							format = {
+								months = "<span size = '16pt'><b>CAL: {}\n</b></span>";
+								days = "<span size = '16pt'><b>{}</b></span>";
+								weeks = "<span size = '16pt'><b>{}</b></span>";
+								weekdays = "<span size = '16pt'><b>{}</b></span>";
+								today = "<span color='#E6E1CF'><b>{}</b></span>";
+							};
+						};
+						actions = {
+							on-scroll-up = "shift_down";
+							on-scroll-down = "shift_up";
+						};
           };
 
-          pulseaudio = {
-            format = "{icon}";
-            format-muted = " ";
-            format-icons = { default = [ " " " " ]; };
-            on-click = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-            on-click-right =
-              "hyprctl dispatch exec '[float;size 40% 55%] pavucontrol'";
-          };
+					pulseaudio = {
+						format = "VOL: [ <span color='#272D38'>{icon}</span> ] <span size='8pt'>{volume}%</span>";
+						tooltip = true;
+						tooltip-format = "DEVICE: {desc}";
+						format-muted = "VOL: <span color='#F07178'>[ XXXXXXXX ] <span size='8pt'>{volume}%</span></span>";
+						on-click = "if [ $(pamixer --get-mute) == true ]; then pamixer --unmute; else pamixer --mute; fi";
+						on-scroll-up = "pamixer -i 2";
+						on-scroll-down = "pamixer -d 2";
+						scroll-step = 2;
+						reverse-scrolling = true;
+						format-icons = bar-gauge;
+					};
 
-          network = {
-            interval = 30;
-            format-wifi = "󰖩 ";
-            tooltip-format-wifi = "{essid} ({signalStrength}%)";
-            format-ethernet = " ";
-            tooltip-format-ethernet = "{ifname}";
-            format-disconnected = "󰖪 ";
-            tooltip-format-disconnected = "Disconnected";
-            on-click =
-              "hyprctl dispatch exec '[float;size 40% 55%] kitty nmtui'";
-          };
+					network = {
+						format-wifi = "[ <span color='#B8CC52'>ONLINE</span> ]";
+						format-ethernet = "[ <span color='#B8CC52'>ONLINE</span> ]";
+						tooltip-format-wifi = "ESSID\t: {essid}\nSTRNGTH\t: {signaldBm}\n\nADDRESS\t: {ipaddr}\nGATE\t: {gwaddr}\nMASK\t: {netmask} | {cidr}";
+						tooltip-format-ethernet = "IFNAME: {ifname}\nADDRESS: {ipaddr}";
+						format-disconnected = "[ <span color='#F07178'>XXXXXX</span> ]";
+						on-click = "nm-connection-editor";
+					};
 
-          battery = {
-            bat = "BAT1";
-            interval = 1;
-            tooltip-format = ''
-              {capacity}%
-              Til empty: {time}'';
-            tooltip-format-charging = ''
-              {capacity}%
-              Til full: {time}'';
-            format = "{icon}";
-            format-icons = battery-gauge;
-            format-charging = "󰂄";
-          };
+					memory = {
+						interval = 20;
+						format = "MEM: [ <span color='#272D38'>{icon}</span> ] <span size='8pt'>{percentage}%</span>";
+						tooltip-format = "MEM_TOT\t: {total}GiB\nSWP_TOT\t: {swapTotal}GiB\n\nMEM_USD\t: {used:0.1f}GiB\nSWP_USD\t: {swapUsed:0.1f}GiB";
+						format-icons = [
+							"░░░░░░░░"
+							"█░░░░░░░"
+							"██░░░░░░"
+							"███░░░░░"
+							"████░░░░"
+							"█████░░░"
+							"██████░░"
+							"<span color='#F07178'>!!!!!!!!</span>"
+							"<span color='#F07178'>CRITICAL</span>" 
+						];
+					};
 
-          "group/brightness" = {
-            orientation = "vertical";
-            modules = [ "backlight" "backlight/slider" ];
-          };
-          backlight = {
-            format = "󰃠";
-            tooltip = "{percentage}%";
-          };
-          "backlight/slider" = {
-            min = 10;
-            max = 100;
-            orientation = "vertical";
-            rotate = 180;
-          };
+					cpu = {
+
+						interval = 1;
+						format = "CPU: [ <span color='#272D38'>{icon}</span> ] <span size='8pt'>{usage}%</span>";
+						tooltip = true;
+						format-icons = [
+							"░░░░░░░░"
+							"█░░░░░░░"
+							"██░░░░░░"
+							"███░░░░░"
+							"████░░░░"
+							"█████░░░"
+							"██████░░"
+							"<span color='#272D38'>!!!!!!!!</span>"
+							"<span color='#272D38'>CRITICAL</span>"
+						];
+					};
         };
       };
       style = ''
-        * {
-          border: none;
-          border-radius: 0;
-          font-size: 16px;
-          font-family: "JetBrains Mono Nerd Font";
-        }
+				* {
+					font-size: 14px;
+					border: none;
+					font-familty: EnvyCodeR Nerd Font Mono;
+					font-weight: Bold;
+					min-height: 0;
+					border-radius 0px;
+					padding: 2px;
+				}
 
-        window#waybar {
-          border-radius: 10px;
-          border: 3px solid #${fg.light};
-          background: rgba(23,29,35,0.50);
-          margin: 20px;
-        }
-        window#waybar.empty #window {
-          background: none;
-          border: none;
-        }
+				window#waybar {
+					color: #${fg.lightest};
+					background: #${bg.darkester};
+				}
 
-        #workspaces {
-          margin: 3px;
-          background: #${bg.darker};
-          border: 3px solid #${bg.dark};
-          border-radius: 8px;
-        }
+				tooltip {
+					background: #${bg.darkester};
+				}
 
-        #workspaces button:hover {
-          border-radius: 8px;
-          background: #${fg.lightest};
-          color: #${bg.darkest};
-        }
+				#workspaces button {
+					color: #${fg.lightest};
+					background: #${bg.darkester};
+				}
 
-        #workspaces button.active {
-          background: #${fg.lightester};
-          border-radius: 8px;
-          color: #${bg.darkest};
-        }
+				#workspaces button.active {
+					color: #${bg.darker};
+					background: #${bg.darkester};
+				}
 
-        #cava {
-          background: #${bg.darker};
-          border-radius: 8px;
-          border: 3px solid #${bg.dark};
-          margin: 3px 3px 3px 6px;
-          padding: 0px 15px 0px 15px;
-          color: #${colors.color6};
-        }
+				#workspaces button.focused {
+					color: #${bg.dark};
+					background: #${bg.darkester};
+				}
 
-        #window {
-          margin: 3px;
-          background: #${bg.darker};
-          border-radius: 8px;
-          border: 3px solid #${bg.dark};
-          padding: 0 15px 0 15px;
-          font-weight: bold;
-        }
+				#workspaces button.urgent {
+					color: #${fg.lightest};
+					background: #${bg.darkester};
+				}
 
-        #hardware {
-          margin: 3px;
-          padding: 0 10px 0 10px;
-          background: #${bg.darker};
-          border-radius: 8px;
-          border: 3px solid #${bg.dark};
-        }
+				#workspaces button:hover {
+					color: #${fg.lightest};
+					background: #${bg.darkester};
+				}
 
-        #custom-disk-icon, #cpu, #memory {
-          margin-bottom: 4px;
-          font-size: 20px;
-          font-weight: bold;
-        }
+				#window,
+				#clock,
+				#pulseaudio,
+				#network,
+				#workspaces,
+				#tray,
+				#cpu {
+					padding: 0px 10px;
+					margin: 0px;
+				}
 
-        #custom-disk-icon {
-          color: #${colors.color4};
-        }
+				#tray {
+					margin-right: 10px;
+				}
 
-        #memory {
-          color: #${colors.color1};
-        }
+				#workspaces {
+					color: #${fg.lightest};
+				}
 
-        #cpu {
-          color: #${colors.color3};
-        }
+				#window {
+					color: #${fg.lightest};
+				}
 
-        #clock {
-          font-weight: bold;
-          background: #${bg.darker};
-          border-radius: 8px;
-          border: 3px solid #${bg.dark};
-          margin: 3px;
-          padding: 0 10px 0 10px;
-          font-size: 18px;
-        }
+				#clock {
+					color: #${fg.lightest};
+				}
 
-        #powerbtns {
-          background: #${bg.darker};
-          border-radius: 8px;
-          border: 3px solid #${bg.dark};
-          margin: 3px;
-          padding: 0 5px 0 10px;
-        }
+				#network {
+					color: #${fg.lightest};
+				}
 
-        #custom-power {
-          color: #${colors.color2};
-          font-size: 18px;
-        }
-
-        #custom-logout {
-          color: #${colors.color4};
-          font-size: 18px;
-        }
-
-        #custom-reboot {
-          color: #${colors.color0};
-          font-size: 18px;
-        }
-
-        #audio {
-          background: #${bg.darker};
-          border-radius: 8px;
-          border: 3px solid #${bg.dark};
-          margin: 3px;
-          padding: 5px 0 10px 0;
-        }
-
-        #pulseaudio {
-          color: #${colors.color1};
-          font-size: 18px;
-        }
-
-        #backlight-slider slider,
-        #pulseaudio-slider slider {
-              background: #${colors.color4};
-              background-color: transparent;
-              box-shadow: none;
-            }
-
-        #backlight-slider trough,
-        #pulseaudio-slider trough {
-          min-width: 9px;
-          min-height: 90px;
-          border-radius: 8px;
-          background: #121212;
-        }
-
-        #backlight-slider highlight,
-        #pulseaudio-slider highlight {
-          border-radius: 8px;
-          background-color: #${colors.color4};
-        }
-
-        #network {
-          color: #${colors.color1};
-          font-size: 20px;
-          background: #${bg.darker};
-          border-radius: 8px;
-          border: 3px solid #${bg.dark};
-          margin: 3px;
-          padding: 5px 0 5px 6px;
-        }
-
-        #brightness {
-          background: #${bg.darker};
-          border-radius: 8px;
-          border: 3px solid #${bg.dark};
-          margin: 3px;
-          padding: 10px 0px 5px 0;
-        }
-
-        #backlight {
-          color: #${colors.color4};
-          font-size: 18px;
-          padding: 0 4px 0 0;
-        }
-
-        #battery {
-          color: #${colors.color4};
-          font-size: 20px;
-          background: #${bg.darker};
-          border: 3px solid #${bg.dark};
-          border-radius: 8px;
-          margin: 3px;
-          padding: 5px 0 5px 0px;
-        }
+				#pulseaudio {
+					color: #${fg.lightest};
+				}
       '';
     };
   };

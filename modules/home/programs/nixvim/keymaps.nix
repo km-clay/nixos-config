@@ -3,7 +3,7 @@
     keymaps = [
       {
         action = "<cmd>Telescope find_files<CR>"; # select entire document
-        key = "!fs";
+        key = "<F3>";
         mode = "n";
       }
       {
@@ -45,11 +45,6 @@
         action = "<cmd>FloatermToggle def_term<CR>";
         key = "<F2>";
         mode = [ "n" "t" ];
-      }
-      {
-        action = "<cmd>NvimTreeToggle<CR>";
-        key = "<F3>";
-        mode = "n";
       }
       {
         action = "<cmd>COQnow<CR>";
