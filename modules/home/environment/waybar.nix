@@ -50,7 +50,7 @@ let
     dark = scheme.base03;
   };
   fg = {
-    lightest = scheme.base07;
+    lightester = scheme.base07;
     lightest = scheme.base06;
     lighter = scheme.base05;
     light = scheme.base04;
@@ -98,9 +98,9 @@ in {
                     else builtins.elemAt monitors 1;
           position = "top";
           name = "mainBar";
-          margin-left = 8;
-          margin-top = 5;
-          margin-right = if desktop then 8 else 5;
+          margin-left = 0;
+          margin-top = 0;
+          margin-right = 0;
           mode = "dock";
 					exclusive = true;
 					passthrough = false;
@@ -114,16 +114,16 @@ in {
 
           clock = {
             format = "[ CLK: {:%H.%M <span size='8pt'> %a %b %d</span>} ]";
-						tooltip-format = "<tt>{calendar}";
+						tooltip-format = "<tt>{calendar}</tt>";
 						calendar = {
 							mode = "month";
 							weeks-pos = "";
 							on-scroll = 1;
 							format = {
-								months = "<span size = '16pt'><b>CAL: {}\n</b></span>";
-								days = "<span size = '16pt'><b>{}</b></span>";
-								weeks = "<span size = '16pt'><b>{}</b></span>";
-								weekdays = "<span size = '16pt'><b>{}</b></span>";
+								months = "<span size='16pt'><b>CAL: {}\n</b></span>";
+								days = "<span size='16pt'><b>{}</b></span>";
+								weeks = "<span size='16pt'><b>{}</b></span>";
+								weekdays = "<span size='16pt'><b>{}</b></span>";
 								today = "<span color='#E6E1CF'><b>{}</b></span>";
 							};
 						};
@@ -168,7 +168,7 @@ in {
 							"█████░░░"
 							"██████░░"
 							"<span color='#F07178'>!!!!!!!!</span>"
-							"<span color='#F07178'>CRITICAL</span>" 
+							"<span color='#F07178'>CRITICAL</span>"
 						];
 					};
 
@@ -195,10 +195,10 @@ in {
 				* {
 					font-size: 14px;
 					border: none;
-					font-familty: EnvyCodeR Nerd Font Mono;
+					font-family: EnvyCodeR Nerd Font Mono;
 					font-weight: Bold;
 					min-height: 0;
-					border-radius 0px;
+					border-radius: 0px;
 					padding: 2px;
 				}
 

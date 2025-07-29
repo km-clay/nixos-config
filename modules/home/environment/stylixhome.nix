@@ -34,16 +34,16 @@ in {
       };
       fonts = {
         monospace = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrains Mono Nerd Font";
+          package = pkgs.nerd-fonts.envy-code-r;
+          name = "EnvyCodeR Nerd Font Mono";
         };
         sansSerif = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrains Mono Nerd Font";
+          package = pkgs.nerd-fonts.envy-code-r;
+          name = "EnvyCodeR Nerd Font Mono";
         };
         serif = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrains Mono Nerd Font";
+          package = pkgs.nerd-fonts.envy-code-r;
+          name = "EnvyCodeR Nerd Font Mono";
         };
         sizes = {
           desktop = 10;

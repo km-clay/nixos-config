@@ -75,7 +75,7 @@
           modules = [
             ./hosts/work/home.nix
             ./modules/home
-            stylix.homeManagerModules.stylix
+            stylix.homeModules.stylix
             nixvim.homeManagerModules.nixvim
           ];
         };

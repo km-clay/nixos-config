@@ -2,7 +2,7 @@
 let
   desktop = host == "oganesson";
   screenshot_bind = if desktop then
-		[ 
+		[
 			"super, print, exec, grimblast copy area"
 			"super shift, print, exec, grimblast --freeze copy area"
 		]
@@ -134,7 +134,6 @@ in {
 					"float, title:^(Firefox — 共有インジケーター)$"
 					"nofocus, title:^(Firefox — 共有インジケーター)$"
 					"float, class:^(firefox)$,title^(Sign in - Google Accounts — Mozilla Firefox)$"
-					"= nofullscreenrequest, title:^(Firefox — 共有インジケーター)$"
 					"size 0 0, title:^(Firefox — 共有インジケーター)$"
 					"move 100%-470 15,title:^(Firefox — Sharing Indicator)$"
 					"move 100%-470 15,title:^(Firefox — 共有インジケーター)$"
@@ -152,8 +151,8 @@ in {
 					gaps_in = 5;
 					gaps_out = 9;
 					border_size = 3;
-					col.active_border = "rgba(404042ff)";
-					col.inactive_border = "rgba(83858a00)";
+					"col.active_border" = lib.mkForce "rgba(404042ff)";
+					"col.inactive_border" = lib.mkForce "rgba(83858a00)";
 					layout = "dwindle";
 					resize_on_border = true;
 					no_border_on_floating = false;
@@ -164,13 +163,18 @@ in {
 					};
 				};
         misc = {
+          font_family = "EnvyCodeR Nerd Font Mono";
           disable_autoreload = true;
           disable_hyprland_logo = true;
           always_follow_on_dnd = true;
           layers_hog_keyboard_focus = true;
           animate_manual_resizes = false;
+          swallow_regex = "^(kitty)$";
           enable_swallow = true;
           focus_on_activate = true;
+          vfr = true;
+          background_color = lib.mkForce "0x202020";
+          mouse_move_enables_dpms = true;
         };
 
         dwindle = {
@@ -192,7 +196,6 @@ in {
 						ignore_window = true;
 						range = 80;
 						render_power = 50;
-						color = "rbga(00000065)";
 					};
         };
 
