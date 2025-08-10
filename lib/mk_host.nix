@@ -21,7 +21,7 @@ let
     ../hosts/${hostDir}/home.nix
     ../modules/home
     inputs.stylix.homeModules.stylix
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
   ] ++ extraHomeModules;
   pkgs = import inputs.nixpkgs {
     inherit system;
