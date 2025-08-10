@@ -16,6 +16,7 @@
       firewall = {
         enable = true;
         allowedTCPPorts = [ 443 8080 ];
+        trustedInterfaces = [ "vnet9" "virbr0" "enp0s2" ];
       };
     };
   };

@@ -82,7 +82,10 @@
             installCargo = false;
             installRustc = false;
             settings = {
-              check.allTargets = false;
+              check = {
+                allTargets = false;
+                command = "clippy";
+              };
             };
           };
           nixd = {

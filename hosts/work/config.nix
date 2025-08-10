@@ -45,6 +45,7 @@
       };
     };
   };
+  security.polkit.enable = true;
   security.sudo.extraConfig = ''
     ${username} ALL=(ALL) NOPASSWD: /etc/profiles/per-user/${username}/bin/rebuild
   '';

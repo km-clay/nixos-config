@@ -56,7 +56,7 @@ in {
       vim.opt.linebreak = true
       vim.opt.textwidth = 0
       vim.opt.breakat = " \t!@*-+;:,./?"
-      vim.opt.guifont = "Fira Code:h18"
+      vim.opt.guifont = "EnvyCodeR Nerd Font Mono:h18"
 
       vim.g.mapleader = "!"
       vim.g.rust_recommended_style = 0

@@ -22,6 +22,7 @@ in {
       #snes9x-gtk
       #cust-openrct2
       mgba
+      shadps4
       cust-prismlauncher
     ];
   };

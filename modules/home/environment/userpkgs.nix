@@ -10,6 +10,7 @@ let
     myScripts.viconf
     myScripts.vipkg
     myScripts.fetchfromgh
+    myScripts.mkshell
     myScripts.garbage-collect
     myScripts.rebuild
     myScripts.chpaper
@@ -59,6 +60,7 @@ in {
       rustup
       w3m
       neovide
+      claude-code
       python3
       ghostty
       firefox
@@ -70,6 +72,7 @@ in {
       discord
       cloc
       wine
+      nerd-fonts.fira-code
       nodejs_latest
     ] ++ scripts;
   };

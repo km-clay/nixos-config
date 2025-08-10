@@ -17,6 +17,7 @@
     ./nvim-lightbulb.nix
     ./neocord.nix
     ./copilot.nix
+    ./claudecode.nix
     ./plugins.nix
     ./nvim-tree.nix
     ./telescope.nix
