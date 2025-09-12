@@ -35,6 +35,7 @@ in {
       nemo
       feh
       gtk3
+      vicut
       imagemagick
       vlc
       lolcat
@@ -72,6 +73,7 @@ in {
       discord
       cloc
       wine
+      fira-code
       nerd-fonts.fira-code
       nodejs_latest
     ] ++ scripts;

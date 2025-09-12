@@ -42,6 +42,11 @@
       vim
       uhk-agent
       jq
+      jinja2-cli
+      python3
+      python313Packages.jinja2
+      python313Packages.pillow
+      ffmpeg
       wl-clipboard
       cmake
       libnotify

@@ -1,6 +1,6 @@
 { inputs, pkgs, lib, config, self, host, ... }:
 let
-  desktop = host == "oganesson";
+  desktop = host == "oganesson" || host == "phosphorous";
   screenshot_bind = if desktop then
 		[
 			"super, print, exec, grimblast copy area"

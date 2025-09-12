@@ -14,7 +14,6 @@
         gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
         sr = "source ~/.zshrc && source ~/.zshenv";
         ".." = "cd ..";
-        rm = "echo 'use \"gtp\" instead'";
         psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
         mkdir = "mkdir -p";
         pk = "pkill -9 -f";
@@ -36,6 +35,7 @@
         shortdate = "date '+%m-%d-%y'";
         suvi = "sudoedit";
         suvide = "EDITOR=neovide; suvi";
+        rustdev = "nix develop github:km-clay/devshells#rust";
       };
     };
   };

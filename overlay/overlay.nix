@@ -7,10 +7,30 @@ let
     rev = "master";
     sha256 = "sha256-/Qj8CWqn7w1R83enixxgC5ijUrHvqN3C7ZvRCs/AzBI=";
   };
-in
-{
+  vicutSrc = super.fetchFromGitHub {
+    owner = "km-clay";
+    repo = "vicut";
+    rev = "v0.4.2";
+    sha256 = "sha256-y5H4m/1ZNYkvhYnfvKs2zVq6dzUgUYsu0UCBGpcoYgQ=";
+  };
+in {
+  vicut = super.rustPlatform.buildRustPackage {
+    pname = "vicut";
+    version = "v0.4.2";
+
+    src = vicutSrc;
+    cargoLock.lockFile = "${vicutSrc}/Cargo.lock";
+
+    meta = {
+      description = "A Vim-based, scriptable, headless text editor for the command line";
+      homepage = "https://github.com/km-clay/vicut";
+      license = super.lib.licenses.mit;
+      maintainers = [];
+    };
+  };
+
   toilet = super.toilet.overrideAttrs (old: {
-    buildInputs = old.buildInputs or [ ] ++ [ extraFigletFonts ];
+    buildInputs = (old.buildInputs or [ ]) ++ [ extraFigletFonts ];
 
     installPhase = ''
       make install PREFIX=$out
@@ -18,10 +38,11 @@ in
       cp -r ${extraFigletFonts}/* $out/share/figlet
     '';
   });
+
   myPkgs = {
-    # Packages that I've made
     slash = super.callPackage ./pkgs/slash/package.nix {};
     fzf-tab = super.callPackage ./pkgs/zsh-fzf-tab/package.nix {};
   };
+
   myScripts = import ./scripts { inherit super root host; };
 }

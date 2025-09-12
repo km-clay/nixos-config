@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hypr-contrib.url = "github:hyprwm/contrib";
+    copyparty.url = "github:9001/copyparty";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
@@ -44,6 +45,12 @@
           host = "phosphorous";
           hostDir = "work";
           kind = "both";
+          extraNixosModules = [
+            inputs.copyparty.nixosModules.default
+          ];
+          extraOverlays = [
+            inputs.copyparty.overlays.default
+          ];
         }
         {
           host = "mercury";

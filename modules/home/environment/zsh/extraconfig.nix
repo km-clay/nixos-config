@@ -21,6 +21,10 @@ in
           export RESULT
           echo "\$RESULT = $RESULT"
         }
+        escaped() {
+          # escapes regex chars
+          sed 's/[^^]/[&]/g; s/\^/\\^/g' <<<"$1"
+        }
         nix-shell() {
           NIX_SHELL=true command nix-shell "$@" --run zsh
         }

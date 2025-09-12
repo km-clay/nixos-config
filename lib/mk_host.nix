@@ -8,6 +8,7 @@
   kind,
   extraNixosModules ? [],
   extraHomeModules ? [],
+  extraOverlays ? [],
   overlay ? true
 }:
 
@@ -26,9 +27,9 @@ let
   pkgs = import inputs.nixpkgs {
     inherit system;
     config = nixpkgsConfig;
-    overlays = if overlay then [
+    overlays = extraOverlays ++ (if overlay then [
       (import ../overlay/overlay.nix { inherit host; root = inputs.self; })
-    ] else [];
+    ] else []);
   };
   specialArgs = {
     inherit inputs username host;
