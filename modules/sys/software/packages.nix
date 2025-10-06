@@ -43,6 +43,7 @@
       uhk-agent
       jq
       jinja2-cli
+      socat
       python3
       python313Packages.jinja2
       python313Packages.pillow

@@ -38,12 +38,12 @@ in {
           name = "EnvyCodeR Nerd Font Mono";
         };
         sansSerif = {
-          package = pkgs.nerd-fonts.envy-code-r;
-          name = "EnvyCodeR Nerd Font Mono";
+          package = pkgs.myPkgs.noto-sans-jp;
+          name = "Noto Sans JP";
         };
         serif = {
-          package = pkgs.nerd-fonts.envy-code-r;
-          name = "EnvyCodeR Nerd Font Mono";
+          package = pkgs.myPkgs.noto-sans-jp;
+          name = "Noto Sans JP";
         };
         sizes = {
           desktop = 10;

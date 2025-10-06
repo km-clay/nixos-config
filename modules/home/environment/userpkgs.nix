@@ -53,6 +53,8 @@ in {
       librewolf
       spotify
       zathura
+      tor
+      tor-browser
       chromium
       obs-studio
       gparted
@@ -76,6 +78,7 @@ in {
       fira-code
       nerd-fonts.fira-code
       nodejs_latest
+      myPkgs.noto-sans-jp
     ] ++ scripts;
   };
 }
