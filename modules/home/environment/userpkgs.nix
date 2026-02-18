@@ -25,6 +25,7 @@ let
     myScripts.color-commit
     myScripts.mntstack
   ];
+  pythonWithStuff = pkgs.python3.withPackages(ps: with ps; [ requests ]);
 in {
   options = {
     movOpts.envConfig.userPkgs.enable =
@@ -50,7 +51,7 @@ in {
       wf-recorder
       toilet
       vkbasalt
-      librewolf
+      firefox
       spotify
       zathura
       tor
@@ -64,21 +65,27 @@ in {
       w3m
       neovide
       claude-code
-      python3
+      pythonWithStuff
+      monero-cli
+      protonup-qt
+      piper
+      libratbag
       ghostty
       firefox
       fd
       delta
       glfw
-      glxinfo
+      mesa-demos
       xwayland
       discord
       cloc
       wine
+      gimp
       fira-code
       nerd-fonts.fira-code
       nodejs_latest
       myPkgs.noto-sans-jp
+      myPkgs.billy-font
     ] ++ scripts;
   };
 }

@@ -35,13 +35,14 @@
 
   users = {
     groups.persist = { };
+    groups.davfs2 = { };
     users = {
       root.initialPassword = "1234";
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
         shell = pkgs.zsh;
-        extraGroups = [ "input" "wheel" "persist" "libvirtd" ];
+        extraGroups = [ "davfs2" "input" "wheel" "persist" "libvirtd" ];
       };
     };
   };

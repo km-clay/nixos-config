@@ -13,6 +13,33 @@ in
   config = lib.mkIf config.movOpts.envConfig.zshConfig.extraConfig.enable {
     programs.zsh = {
       initContent = ''
+        claude() {
+          bash -c "claude $@"
+        }
+        logmeds() {
+          date >> "$HOME"/medlog.txt
+        }
+        medlog() {
+          cat "$HOME"/medlog.txt
+        }
+        encrypt() {
+          if [ -z "$1" ]; then
+            echo "Usage: encrypt <text> [recipient]"
+            return 1
+          fi
+          if [ -z "$2" ]; then
+            gpg --encrypt --armor -r "$1"
+          else
+            echo "$1" | gpg --encrypt --armor -r "$2"
+          fi
+        }
+        decrypt() {
+          if [ -z "$1" ]; then
+            gpg --decrypt --quiet 2>/dev/null
+          else
+            echo "$1" | gpg --decrypt --quiet
+          fi
+        }
         build-drv() { # Put the derivation path in $RESULT instead of making a 'result' symlink
           RESULT=$(nix-build "$@" --no-link)
           if [ -z "$RESULT" ]; then
@@ -107,6 +134,7 @@ in
         }
         unalias ls
         ls() {
+          if [ "$RAW_SHELL" = "1" ]; then command ls; fi
           eza -1 --group-directories-first --icons "$@"
           ${shellsound} ${sndpath}/ls.wav
           return 0
@@ -126,6 +154,7 @@ in
         }
 
         cd() {
+          if [ "$RAW_SHELL" = "1" ]; then builtin cd "$@"; return $?; fi
           local prev_sounds_enabled="$SOUNDS_ENABLED"
           SOUNDS_ENABLED=0
           eza -1 --group-directories-first --icons "$@"

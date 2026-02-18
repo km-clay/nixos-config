@@ -6,6 +6,7 @@
         defaults = {
           file_ignore_patterns = [
             "%.snap"
+            "^%.git/"
           ];
         };
         pickers = {

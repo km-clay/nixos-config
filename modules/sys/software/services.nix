@@ -13,6 +13,7 @@
       ];
     };
     services = {
+      davfs2.enable = true;
       keyd = {
         enable = true;
         keyboards.default = {

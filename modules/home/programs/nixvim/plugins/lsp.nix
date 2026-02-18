@@ -77,6 +77,7 @@
           jsonls.enable = true;
           lua_ls.enable = true;
           marksman.enable = true;
+          csharp_ls.enable = true;
           rust_analyzer = {
             enable = true;
             installCargo = false;

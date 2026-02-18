@@ -18,10 +18,10 @@ let
 		"f[1], gapsout:0, gapsin:0"
 	];
 	smartGapsWindowrules = [
-		"bordersize 0, floating:0, onworkspace:w[tv1]"
-		"rounding 0, floating:0, onworkspace:w[tv1]"
-		"bordersize 0, floating:0, onworkspace:f[1]"
-		"rounding 0, floating:0, onworkspace:f[1]"
+		"border_size 0, match:float 0, match:workspace w[tv1]"
+		"rounding 0, match:float 0, match:workspace w[tv1]"
+		"border_size 0, match:float 0, match:workspace f[1]"
+		"rounding 0, match:float 0, match:workspace f[1]"
 	];
 in {
 
@@ -76,7 +76,7 @@ in {
           "swaync &"
           "wl-paste --type text --watch cliphist store &"
           "wl-paste --type image --watch cliphist store &"
-          "wl-clip-persist --clipboard both"
+          "wl-clip-persist --clipboard regular"
           "systemctl --user import-environment &"
           "hash dbus-update-activation-environment 2>/dev/null &"
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
@@ -108,36 +108,38 @@ in {
           "XDG_DATA_HOME,$HOME/.local/share"
           "XDG_CACHE_HOME,$HOME/.cache"
         ];
-        layerrule = [ "blur,waybar" "ignorezero,waybar" "blur,launcher" ];
-				windowrulev2 = [
-					"float, class:^(thunar)$,title:^(.*File Operation Progress.*)$"
-					"float, class:^(firefox)$,title:^(Library)$"
-					"float, class:^(thunar)$,title:^(File Operation Progress)$"
-					"float, class:^(thunar)$,title:^(Confirm to replace files)$"
-					"float, title:^(bwarn)$"
-					"float, title:^(bwarn)$"
-					"noinitialfocus, class:^(steam)$"
-					"float, class:^(firefox)$,title:^(ログイン - Google アカウント — Mozilla Firefox)$"
-					"float, class:^(firefox)$,title:^(Firefox — Sharing Indicator)$"
-					"float, class:^(firefox)$,title:^(Firefox — 共有インジケーター)$"
-					"float, class:(firefox), title:^(*.Sign in.*)$"
-				];
+        layerrule = [
+          "match:namespace = waybar, blur 1"
+          "match:namespace = waybar, ignore_alpha 0"
+          "match:namespace = launcher, blur 1"
+        ];
 				windowrule = [
-					"float, class:^(qt5ct)$"
-					"float, class:^(zoom)$"
-					"float, class:^(Steam)$"
-					"idleinhibit focus, class:mpv"
-					"float, title:^(Picture-in-Picture)$"
-					"float, class:^(nm-connection-editor)$"
-					"float, class:^(waypaper)$"
-					"float, title:^(Sign In)(.*)$"
-					"float, title:^(Firefox — 共有インジケーター)$"
-					"nofocus, title:^(Firefox — 共有インジケーター)$"
-					"float, class:^(firefox)$,title^(Sign in - Google Accounts — Mozilla Firefox)$"
-					"size 0 0, title:^(Firefox — 共有インジケーター)$"
-					"move 100%-470 15,title:^(Firefox — Sharing Indicator)$"
-					"move 100%-470 15,title:^(Firefox — 共有インジケーター)$"
-
+					# From old windowrulev2
+					"float true, match:class ^(thunar)$, match:title ^(.*File Operation Progress.*)$"
+					"float true, match:class ^(firefox)$, match:title ^(Library)$"
+					"float true, match:class ^(thunar)$, match:title ^(File Operation Progress)$"
+					"float true, match:class ^(thunar)$, match:title ^(Confirm to replace files)$"
+					"float true, match:title ^(bwarn)$"
+					"no_initial_focus on, match:class ^(steam)$"
+					"float true, match:class ^(firefox)$, match:title ^(ログイン - Google アカウント — Mozilla Firefox)$"
+					"float true, match:class ^(firefox)$, match:title ^(Firefox — Sharing Indicator)$"
+					"float true, match:class ^(firefox)$, match:title ^(Firefox — 共有インジケーター)$"
+					"float true, match:class ^(firefox)$, match:title ^(.*Sign in.*)$"
+					# From old windowrule
+					"float true, match:class ^(qt5ct)$"
+					"float true, match:class ^(zoom)$"
+					"float true, match:class ^(Steam)$"
+					"idle_inhibit focus, match:class ^(mpv)$"
+					"float true, match:title ^(Picture-in-Picture)$"
+					"float true, match:class ^(nm-connection-editor)$"
+					"float true, match:class ^(waypaper)$"
+					"float true, match:title ^(Sign In)(.*)$"
+					"float true, match:title ^(Firefox — 共有インジケーター)$"
+					"no_focus on, match:title ^(Firefox — 共有インジケーター)$"
+					"float true, match:class ^(firefox)$, match:title ^(Sign in - Google Accounts — Mozilla Firefox)$"
+					"size 0 0, match:title ^(Firefox — 共有インジケーター)$"
+					"move 100%-470 15, match:title ^(Firefox — Sharing Indicator)$"
+					"move 100%-470 15, match:title ^(Firefox — 共有インジケーター)$"
 				] ++ smartGapsWindowrules;
 
         input = {
@@ -149,13 +151,12 @@ in {
         };
 				general = {
 					gaps_in = 5;
-					gaps_out = 9;
+					gaps_out = "0, 9, 9, 9";  # top, right, bottom, left
 					border_size = 3;
 					"col.active_border" = lib.mkForce "rgba(404042ff)";
 					"col.inactive_border" = lib.mkForce "rgba(83858a00)";
 					layout = "dwindle";
 					resize_on_border = true;
-					no_border_on_floating = false;
 
 					snap = {
 						enabled = true;
@@ -201,10 +202,6 @@ in {
 
 				cursor = {
 					hide_on_key_press = true;
-				};
-
-				experimental = {
-					xx_color_management_v4 = true;
 				};
 
         animations = {

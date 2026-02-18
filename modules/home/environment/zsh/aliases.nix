@@ -22,13 +22,6 @@
         iv = "invoke";
         cfgfilecount = ''find ".\.nix" $FLAKEPATH | wc -l | toilet -f 3d | lolcat'';
         record = "wf-recorder";
-        #git
-        ga = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
-        gcomm = "gitcommit_sfx";
-        gpush = "gitpush_sfx";
-        gpull = "gitpull_sfx";
-        greb = "gitrebase_sfx";
-        rsh = "$HOME/Coding/projects/rust/rsh/target/debug/rsh";
         vide = "neovide";
         pk9 = "pkill -9";
         mkexe = "chmod +x";
@@ -36,6 +29,14 @@
         suvi = "sudoedit";
         suvide = "EDITOR=neovide; suvi";
         rustdev = "nix develop github:km-clay/devshells#rust";
+        claude = "RAW_SHELL=1 claude";
+
+        #git
+        ga = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
+        gcomm = "gitcommit_sfx";
+        gpush = "gitpush_sfx";
+        gpull = "gitpull_sfx";
+        greb = "gitrebase_sfx";
       };
     };
   };

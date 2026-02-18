@@ -1,4 +1,4 @@
-{ lib, config, ... }: {
+{ lib, config, pkgs, ... }: {
   options = {
     movOpts.softwareCfg.steamConfig.enable =
       lib.mkEnableOption "enables steam configuration";
@@ -7,6 +7,9 @@
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+      ];
     };
   };
 }

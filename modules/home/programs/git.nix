@@ -6,9 +6,11 @@
   config = lib.mkIf config.movOpts.programConfigs.gitConfig.enable {
     programs.git = {
       enable = true;
-      userEmail = "kylerclay@proton.me";
-      userName = "${username}";
-      extraConfig = {
+      settings = {
+        user = {
+          email = "kylerclay@proton.me";
+          name = "${username}";
+        };
         core.pager = "delta";
         interactive.diffFilter = "delta --color-only";
         delta.navigate = "true";

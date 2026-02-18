@@ -5,7 +5,7 @@ let
     owner = "xero";
     repo = "figlet-fonts";
     rev = "master";
-    sha256 = "sha256-/Qj8CWqn7w1R83enixxgC5ijUrHvqN3C7ZvRCs/AzBI=";
+    sha256 = "sha256-wT1DjM+3+UasAm2IHavBXs0R8eNMJn9uLtWSqwS+XU0=";
   };
   vicutSrc = super.fetchFromGitHub {
     owner = "km-clay";
@@ -43,6 +43,7 @@ in {
     slash = super.callPackage ./pkgs/slash/package.nix {};
     fzf-tab = super.callPackage ./pkgs/zsh-fzf-tab/package.nix {};
     noto-sans-jp = super.callPackage ./pkgs/noto-sans-jp/package.nix {};
+    billy-font = super.callPackage ./pkgs/billy-font/package.nix {};
   };
 
   myScripts = import ./scripts { inherit super root host; };

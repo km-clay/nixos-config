@@ -42,6 +42,7 @@ in {
       vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = '.md'}}
 
       vim.opt.number = true
+      vim.opt.autochdir = false
       vim.opt.relativenumber = true
       vim.opt.hlsearch = true
       vim.opt.incsearch = true

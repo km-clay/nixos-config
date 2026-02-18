@@ -5,6 +5,7 @@
   };
   config = lib.mkIf config.movOpts.softwareCfg.sysPkgs.enable {
     environment.systemPackages = with pkgs; [
+      dotnetCorePackages.sdk_8_0_4xx
       alsa-lib
       xwayland
       wayland
@@ -59,6 +60,7 @@
       man-pages
       man-pages-posix
       most
+      wget
     ];
   };
 }
