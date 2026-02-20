@@ -1,5 +1,8 @@
-{ slash, pkgs, username, ... }:
+{ inputs, pkgs, username, ... }:
 
+let
+  fern = inputs.fern.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
 {
   imports = [ ./hardware.nix ];
 
@@ -39,7 +42,7 @@
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
-        shell = pkgs.zsh;
+        shell = fern;
         extraGroups = [ "input" "wheel" "persist" "libvirtd" ];
       };
     };

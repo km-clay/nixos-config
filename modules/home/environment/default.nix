@@ -7,6 +7,7 @@
     ./starship.nix
     ./userpkgs.nix
     ./zsh
+    ./fern
     ./swaync.nix
     ./hyprland.nix
     ./waybar.nix

@@ -41,6 +41,12 @@ in {
 
       vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = '.md'}}
 
+      vim.filetype.add({
+        filename = {
+          [".fernrc"] = "sh",
+        }
+      })
+
       vim.opt.number = true
       vim.opt.autochdir = false
       vim.opt.relativenumber = true

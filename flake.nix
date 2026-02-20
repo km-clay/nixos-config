@@ -8,6 +8,7 @@
     hyprpicker.url = "github:hyprwm/hyprpicker";
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
+    fern.url = "github:km-clay/fern";
 
     nixvim.url = "github:nix-community/nixvim";
 
@@ -42,17 +43,6 @@
           kind = "both";
         }
         {
-          host = "phosphorous";
-          hostDir = "work";
-          kind = "both";
-          extraNixosModules = [
-            inputs.copyparty.nixosModules.default
-          ];
-          extraOverlays = [
-            inputs.copyparty.overlays.default
-          ];
-        }
-        {
           host = "mercury";
           hostDir = "laptop";
           kind = "both";
@@ -63,6 +53,22 @@
           kind = "both";
           extraNixosModules = [
             ./modules/server
+          ];
+        }
+        {
+          host = "phosphorous";
+          hostDir = "work";
+          kind = "both";
+          extraNixosModules = [
+            inputs.fern.nixosModules.fern
+            inputs.copyparty.nixosModules.default
+          ];
+          extraHomeModules = [
+            inputs.fern.homeModules.fern
+          ];
+          extraOverlays = [
+            inputs.fern.overlays.default
+            inputs.copyparty.overlays.default
           ];
         }
       ];

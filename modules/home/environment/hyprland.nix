@@ -43,7 +43,7 @@ in {
   config = lib.mkIf config.movOpts.envConfig.hyprlandConfig.enable {
     home.packages = with pkgs; [
       swaybg
-      inputs.hypr-contrib.packages.${pkgs.system}.grimblast
+      inputs.hypr-contrib.packages.${pkgs.stdenv.hostPlatform.system}.grimblast
       hyprpicker
       grim
       slurp

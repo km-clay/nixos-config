@@ -12,7 +12,7 @@ pkgs.writeShellApplication {
       exit 1
     fi
     if scheck; then
-      runbg aplay "$1"
+      runbg aplay "$1" > /dev/null 2>&1
     else
       exit 1
     fi

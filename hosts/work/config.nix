@@ -1,4 +1,8 @@
-{ slash, pkgs, username, ... }:
+{ inputs, pkgs, username, ... }:
+
+let
+  fern = inputs.fern.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
 {
   imports = [
     ./hardware.nix
@@ -33,6 +37,8 @@
     shells = [ pkgs.myPkgs.slash pkgs.zsh pkgs.bash ];
   };
 
+  programs.fern.enable = true;
+
   users = {
     groups.persist = { };
     groups.davfs2 = { };
@@ -41,7 +47,7 @@
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
-        shell = pkgs.zsh;
+        shell = pkgs.fern;
         extraGroups = [ "davfs2" "input" "wheel" "persist" "libvirtd" ];
       };
     };

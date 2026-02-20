@@ -3,11 +3,16 @@
     movOpts.softwareCfg.sysPkgs.enable =
       lib.mkEnableOption "enables default system packages";
   };
-  config = lib.mkIf config.movOpts.softwareCfg.sysPkgs.enable {
+  config =
+  let
+    fern = inputs.fern.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  in
+  lib.mkIf config.movOpts.softwareCfg.sysPkgs.enable {
     environment.systemPackages = with pkgs; [
       dotnetCorePackages.sdk_8_0_4xx
       alsa-lib
       xwayland
+      fern
       wayland
       alsa-utils
       bc
@@ -33,7 +38,7 @@
       nixos-option
       nix-search-cli
       nix-template
-      nixfmt-classic
+      nixfmt
       sshfs
       nvd
       pamixer

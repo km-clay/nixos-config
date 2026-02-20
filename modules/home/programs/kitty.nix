@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ self, lib, config, pkgs, ... }: {
   options = {
     movOpts.programConfigs.kittyConfig.enable =
       lib.mkEnableOption "enables my kitty configuration";
@@ -16,9 +16,10 @@
         confirm_os_window_close = 0;
         window_padding_width = 4;
         scrollback_lines = 10000;
-        enable_audio_bell = false;
+        enable_audio_bell = true;
         allow_remote_control = true;
         mouse_hide_wait = 60;
+        command_on_bell = "${pkgs.myScripts.playshellsound}/bin/playshellsound ${self}/assets/sound/bell.wav";
 
         ## Tabs
         tab_title_template = "{index}";
