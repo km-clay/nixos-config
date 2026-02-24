@@ -144,11 +144,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1771897953,
-        "narHash": "sha256-43d9HLWOASfHYxG3JSNpMUAFQA114y00VpGRGanPdaM=",
+        "lastModified": 1771899927,
+        "narHash": "sha256-HKBWp3eiDsm9XjmC5ppqjbfI9Wldg2LjBz1zZXIL6l8=",
         "owner": "km-clay",
         "repo": "fern",
-        "rev": "05f731b8c517fc19d65c8da5977b68fd04cf4346",
+        "rev": "62d651eb8df535c0176b254f6dee25d176d0aeff",
         "type": "github"
       },
       "original": {

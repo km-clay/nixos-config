@@ -5,6 +5,7 @@ pkgs.writeShellApplication {
     pkgs.myScripts.playshellsound
   ];
   text = ''
+    exec > /dev/tty 2>&1
     checkbools() { [ "$all" = false ] && [ "$system" = false ] && [ "$home" = false ]; }
     checkflags() {
       str="$1"
