@@ -8,13 +8,15 @@ in
   programs.fern = {
     settings.extraPreConfig = ''
       prompt_topline() {
+        local last_cmd_status
+        local last_cmd_runtime
         if [ "$?" -eq "0" ]; then
           last_cmd_status="\e[1;32m\e[0m"
         else
           last_cmd_status="\e[1;31m\e[0m"
         fi
-        user_and_host="\e[1m$USER\e[1;36m@\e[1;31m$HOST\e[0m"
-        last_runtime_raw="$(echo -p "\t")"
+        local user_and_host="\e[1m$USER\e[1;36m@\e[1;31m$HOST\e[0m"
+        local last_runtime_raw="$(echo -p "\t")"
         if [ -z "$last_runtime_raw" ]; then
           last_cmd_runtime=""
           last_cmd_status=""
@@ -27,19 +29,19 @@ in
       prompt_midline() {
         git rev-parse --is-inside-work-tree > /dev/null 2>&1 || return
 
-        status="$(git status --porcelain 2>/dev/null)"
-        gitsigns=""
+        local gitsigns
+        local status="$(git status --porcelain 2>/dev/null)"
 
         [ -n "$status" ] && echo "$status" | command grep -q '^ [MADR]' && gitsigns="$gitsigns!"
         [ -n "$status" ] && echo "$status" | command grep -q '^??' && gitsigns="$gitsigns?"
         [ -n "$status" ] && echo "$status" | command grep -q '^[MADR]' && gitsigns="$gitsigns+"
 
-        ahead="$(git rev-list --count @{upstream}..HEAD 2>/dev/null)"
-        behind="$(git rev-list --count HEAD..@{upstream} 2>/dev/null)"
+        local ahead="$(git rev-list --count @{upstream}..HEAD 2>/dev/null)"
+        local behind="$(git rev-list --count HEAD..@{upstream} 2>/dev/null)"
         [ $ahead -gt 0 ] && gitsigns="$gitsigns↑"
         [ $behind -gt 0 ] && gitsigns="$gitsigns↓"
 
-        branch="$(git branch --show-current 2>/dev/null)"
+        local branch="$(git branch --show-current 2>/dev/null)"
 
         if [ -n "$gitsigns" ] || [ -n "$branch" ]; then
           if [ -n "$gitsigns" ]; then
@@ -54,12 +56,14 @@ in
       }
 
       prompt() {
-        top="$(prompt_topline)"
-        mid="$(prompt_midline)"
-        bot="$(prompt_botline)"
-        dollar="$(echo -p "\$ ")"
-        dollar="$(echo -e "\e[1;32m$dollar\e[0m")"
-        echo -en "$top$mid$bot\n$dollar"
+        local top="$(prompt_topline)"
+        local mid="$(prompt_midline)"
+        local bot="$(prompt_botline)"
+        local dollar="$(echo -p "\$ ")"
+        local dollar="$(echo -e "\e[1;32m$dollar\e[0m")"
+        local prompt="$top$mid$bot\n$dollar"
+
+        echo -en "$prompt"
       }
 
       export PS1="\n\!prompt "
@@ -125,7 +129,7 @@ in
         fi
       }
       gitcommit_sfx() {
-        output="$(git commit "$@")"
+        local output="$(git commit "$@")"
         if [ "$?" -eq "0" ]; then
           ${shellsound} ${sndpath}/gitcommit.wav
           echo "$output" | ${color-commit}
@@ -164,6 +168,13 @@ in
         eza -1 --group-directories-first --icons "$@" 2> /dev/null
         builtin cd "$@"
         ${shellsound} ${sndpath}/cd.wav
+      }
+
+      vipe() {
+        local tmp=$(mktemp)
+        $EDITOR "$tmp" >/dev/tty </dev/tty
+        cat "$tmp"
+        rm "$tmp"
       }
 
       if [ "$0" = "-fern" ]; then

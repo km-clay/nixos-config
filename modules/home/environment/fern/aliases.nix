@@ -1,11 +1,12 @@
-{ lib, config, self, ... }:
+{ lib, config, pkgs, self, ... }:
 {
   programs.fern = {
     aliases = {
       mv = "mv -v";
       cp = "cp -vr";
       gt = "gtrash";
-      gtp = "playshellsound ${self}/assets/sound/rm.wav";
+      gtp = "${pkgs.myScripts.playshellsound}/bin/playshellsound ${self}/assets/sound/rm.wav && gtrash put";
+      diff = "diff --color=auto";
       sr = "source ~/.fernrc";
       psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
       mkdir = "mkdir -p";
