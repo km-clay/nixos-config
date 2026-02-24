@@ -5,12 +5,13 @@ let
   sndpath = "${self}/assets/sound";
 in
 {
-  programs.fern = {
+  programs.shed = {
     settings.extraPreConfig = ''
       prompt_topline() {
+        local last_exit_code="$?"
         local last_cmd_status
         local last_cmd_runtime
-        if [ "$?" -eq "0" ]; then
+        if [ "$last_exit_code" -eq "0" ]; then
           last_cmd_status="\e[1;32m\e[0m"
         else
           last_cmd_status="\e[1;31m\e[0m"
@@ -89,16 +90,32 @@ in
       }
 
       viflake() {
-        (
-          while ! [ -f ./flake.nix ]; do
-            builtin cd ..
-            if [ "$PWD" = "/" ]; then
-              echo "No flake.nix found in this directory or any parent directories."
-              return 1
+        filename="$(upfind flake.nix)"
+        if [ -n "$filename" ]; then
+          nvim "$filename"
+        else
+          echo "No flake.nix found in this directory or any parent directories."
+          return 1
+        fi
+      }
+
+      upfind() {
+        until [ "$#" -eq 0 ]; do
+          filename="$1"
+          (
+            until [ -f "./$filename" ]; do
+              builtin cd ..
+              if [ "$PWD" = "/" ]; then
+                echo "upsearch: failed to find file '$filename' in this directory or any parent directories." 1>&2
+                break
+              fi
+            done
+            if [ -f "./$filename" ]; then
+              realpath "./$filename"
             fi
-          done
-          nvim ./flake.nix
-        )
+          )
+          shift 1
+        done
       }
 
       nvim() {
@@ -170,6 +187,10 @@ in
         ${shellsound} ${sndpath}/cd.wav
       }
 
+      hyprsock() {
+        socat -U - UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
+      }
+
       vipe() {
         local tmp=$(mktemp)
         $EDITOR "$tmp" >/dev/tty </dev/tty
@@ -177,7 +198,7 @@ in
         rm "$tmp"
       }
 
-      if [ "$0" = "-fern" ]; then
+      if [ "$0" = "-shed" ]; then
         ${shellsound} $FLAKEPATH/assets/sound/login.wav
       fi
     '';

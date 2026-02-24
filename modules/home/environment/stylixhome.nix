@@ -1,7 +1,7 @@
 { lib, self, config, host, pkgs, ... }:
 
 let
-  scheme = "ayu-dark";
+  scheme = "seti";
   wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
   server = (host == "xenon");
 in {
@@ -16,7 +16,6 @@ in {
       image = wallpaper;
       polarity = "dark";
       autoEnable = true;
-      opacity.terminal = 1.0;
       targets = {
         waybar.enable = false;
         spicetify.enable = false;

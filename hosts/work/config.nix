@@ -1,7 +1,7 @@
 { inputs, pkgs, username, ... }:
 
 let
-  fern = inputs.fern.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  shed = inputs.shed.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   imports = [
@@ -37,7 +37,7 @@ in
     shells = [ pkgs.myPkgs.slash pkgs.zsh pkgs.bash ];
   };
 
-  programs.fern.enable = true;
+  programs.shed.enable = true;
 
   users = {
     groups.persist = { };
@@ -47,7 +47,7 @@ in
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
-        shell = pkgs.fern;
+        shell = pkgs.shed;
         extraGroups = [ "davfs2" "input" "wheel" "persist" "libvirtd" ];
       };
     };

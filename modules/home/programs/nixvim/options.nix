@@ -5,7 +5,7 @@ in {
   programs.nixvim = {
     colorschemes.base16 = {
       enable = true;
-      colorscheme = "chalk";
+      colorscheme = "seti";
       #colorscheme = {
       #	base00 = "#${scheme.base00}";
       #	base01 = "#${scheme.base01}";
@@ -37,13 +37,15 @@ in {
       if vim.g.neovide then
       	vim.g.neovide_refresh_rate = 144
       	vim.g.neovide_cursor_animate_in_insert_mode = true
+        vim.g.neovide_opacity = 0.5;
+        vim.g.neovide_normal_opacity = 1.0;
       end
 
       vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = '.md'}}
 
       vim.filetype.add({
         filename = {
-          [".fernrc"] = "sh",
+          [".shedrc"] = "sh",
         }
       })
 

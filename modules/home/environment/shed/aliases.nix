@@ -1,13 +1,13 @@
 { lib, config, pkgs, self, ... }:
 {
-  programs.fern = {
+  programs.shed = {
     aliases = {
       mv = "mv -v";
       cp = "cp -vr";
       gt = "gtrash";
       gtp = "${pkgs.myScripts.playshellsound}/bin/playshellsound ${self}/assets/sound/rm.wav && gtrash put";
       diff = "diff --color=auto";
-      sr = "source ~/.fernrc";
+      sr = "source ~/.shedrc";
       psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
       mkdir = "mkdir -p";
       pk = "pkill -9 -f";
@@ -22,6 +22,7 @@
       suvi = "sudoedit";
       suvide = "EDITOR=neovide; suvi";
       rustdev = "nix develop github:km-clay/devshells#rust";
+      y = "yazi";
 
       ga = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
       gcomm = "gitcommit_sfx";

@@ -1,7 +1,7 @@
 { inputs, pkgs, username, ... }:
 
 let
-  fern = inputs.fern.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  shed = inputs.shed.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   imports = [ ./hardware.nix ];
@@ -42,7 +42,7 @@ in
       ${username} = {
         isNormalUser = true;
         initialPassword = "1234";
-        shell = fern;
+        shell = shed;
         extraGroups = [ "input" "wheel" "persist" "libvirtd" ];
       };
     };

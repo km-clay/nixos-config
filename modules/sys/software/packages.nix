@@ -5,14 +5,14 @@
   };
   config =
   let
-    fern = inputs.fern.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    shed = inputs.shed.packages.${pkgs.stdenv.hostPlatform.system}.default;
   in
   lib.mkIf config.movOpts.softwareCfg.sysPkgs.enable {
     environment.systemPackages = with pkgs; [
       dotnetCorePackages.sdk_8_0_4xx
       alsa-lib
       xwayland
-      fern
+      shed
       wayland
       alsa-utils
       bc

@@ -1,7 +1,7 @@
 { lib, config, ... }:
 
 {
-  programs.fern = {
+  programs.shed = {
     enable = true;
 
     settings = {

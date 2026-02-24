@@ -14,6 +14,7 @@
 
       settings = {
         confirm_os_window_close = 0;
+        background_opacity = lib.mkForce 0.5;
         window_padding_width = 4;
         scrollback_lines = 10000;
         enable_audio_bell = true;

@@ -2,13 +2,13 @@
   description = "pagedMov's NixOS and Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/0182a361324364ae3f436a63005877674cf45efb";
     hypr-contrib.url = "github:hyprwm/contrib";
     copyparty.url = "github:9001/copyparty";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
-    fern.url = "github:km-clay/fern";
+    shed.url = "github:km-clay/shed";
 
     nixvim.url = "github:nix-community/nixvim";
 
@@ -60,14 +60,14 @@
           hostDir = "work";
           kind = "both";
           extraNixosModules = [
-            inputs.fern.nixosModules.fern
+            inputs.shed.nixosModules.shed
             inputs.copyparty.nixosModules.default
           ];
           extraHomeModules = [
-            inputs.fern.homeModules.fern
+            inputs.shed.homeModules.shed
           ];
           extraOverlays = [
-            inputs.fern.overlays.default
+            inputs.shed.overlays.default
             inputs.copyparty.overlays.default
           ];
         }

@@ -1,6 +1,6 @@
 { lib, config, ... }:
 {
-  programs.fern = {
+  programs.shed = {
     environmentVars = {
       SOUNDS_ENABLED = "true";
       EDITOR = "nvim";
