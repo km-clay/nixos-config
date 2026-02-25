@@ -67,7 +67,12 @@ in
         echo -en "$prompt"
       }
 
-      export PS1="\n\!prompt "
+      shed_ver() {
+        shed --version
+      }
+
+      export PS1="\!prompt "
+      export PSR='\e[36;1m$\!shed_ver\e[0m'
     '';
     settings.extraPostConfig = ''
       encrypt() {
