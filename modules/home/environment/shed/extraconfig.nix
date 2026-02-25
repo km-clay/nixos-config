@@ -8,6 +8,11 @@ in
   programs.shed = {
     settings.extraPreConfig = ''
       prompt_topline() {
+        local user_and_host="\e[0m\e[1m$USER\e[1;36m@\e[1;31m$HOST\e[0m"
+        echo -n "\e[1;34m┏━ $user_and_host\n"
+      }
+
+      prompt_stat_line() {
         local last_exit_code="$?"
         local last_cmd_status
         local last_cmd_runtime
@@ -16,18 +21,17 @@ in
         else
           last_cmd_status="\e[1;31m\e[0m"
         fi
-        local user_and_host="\e[1m$USER\e[1;36m@\e[1;31m$HOST\e[0m"
         local last_runtime_raw="$(echo -p "\t")"
         if [ -z "$last_runtime_raw" ]; then
-          last_cmd_runtime=""
-          last_cmd_status=""
+          return 0
         else
           last_cmd_runtime="\e[1;38;2;249;226;175m󰔛 $(echo -p "\T")\e[0m"
         fi
-        echo -n "$user_and_host $last_cmd_runtime $last_cmd_status\n"
+
+        echo -n "\e[1;34m┃ $last_cmd_runtime ($last_cmd_status)\n"
       }
 
-      prompt_midline() {
+      prompt_git_line() {
         git rev-parse --is-inside-work-tree > /dev/null 2>&1 || return
 
         local gitsigns
@@ -48,21 +52,35 @@ in
           if [ -n "$gitsigns" ]; then
             gitsigns="\e[1;31m[$gitsigns]"
           fi
-          echo -n "\e[0mon \e[1;35m ''${branch}$gitsigns\e[0m\n"
+          echo -n "\e[1;34m┃ \e[1;35m ''${branch}$gitsigns\e[0m\n"
         fi
       }
 
-      prompt_botline() {
-        echo -p "\e[1;36m\W\e[1;32m/"
+      prompt_jobs_line() {
+        local job_count="$(echo -p '\j')"
+        if [ "$job_count" -gt 0 ]; then
+          echo -n "\e[1;34m┃ \e[1;33m󰒓 $job_count job(s) running\e[0m\n"
+        fi
+      }
+
+      prompt_pwd_line() {
+        echo -p "\e[1;34m┣━━ \e[1;36m\W\e[1;32m/"
+      }
+
+      prompt_dollar_line() {
+        local dollar="$(echo -p "\$ ")"
+        local dollar="$(echo -e "\e[1;32m$dollar\e[0m")"
+        echo -n "\e[1;34m┗━ $dollar "
       }
 
       prompt() {
-        local top="$(prompt_topline)"
-        local mid="$(prompt_midline)"
-        local bot="$(prompt_botline)"
-        local dollar="$(echo -p "\$ ")"
-        local dollar="$(echo -e "\e[1;32m$dollar\e[0m")"
-        local prompt="$top$mid$bot\n$dollar"
+        local statline="$(prompt_stat_line)"
+        local topline="$(prompt_topline)"
+        local gitline="$(prompt_git_line)"
+        local jobsline="$(prompt_jobs_line)"
+        local pwdline="$(prompt_pwd_line)"
+        local dollarline="$(prompt_dollar_line)"
+        local prompt="$topline$statline$gitline$jobsline$pwdline\n$dollarline"
 
         echo -en "$prompt"
       }

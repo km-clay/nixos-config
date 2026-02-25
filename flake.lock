@@ -964,11 +964,11 @@
         "nixpkgs": "nixpkgs_8"
       },
       "locked": {
-        "lastModified": 1771975922,
-        "narHash": "sha256-y6mxBHd+yF3il/ar9hBC34zlcKzMLeIxWCA3UIRhuSw=",
+        "lastModified": 1771999992,
+        "narHash": "sha256-nBntlK2HHywIwd2tC3jRTS5n8cekjn/e1Ci1DpYMe1E=",
         "owner": "km-clay",
         "repo": "shed",
-        "rev": "d14029f5a297e21ede860003229a83d710950af0",
+        "rev": "9c8a5713db1b1d9783d78d66551eb8a8f81304ae",
         "type": "github"
       },
       "original": {
