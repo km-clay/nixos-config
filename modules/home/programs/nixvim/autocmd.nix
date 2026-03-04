@@ -21,6 +21,31 @@
         pattern = [ "*" ];
         desc = "Start the floaterm window";
       }
+      {
+        pattern = [ "qf" ];
+        event = [ "FileType" ];
+        callback = {
+          __raw = /* lua */ ''
+            function()
+              vim.keymap.set("n", "<CR>", "<CR>", { buffer = true })
+            end'';
+        };
+      }
+      {
+        pattern = [ "nix" ];
+        event = [ "FileType" ];
+        callback = {
+          __raw = /* lua */ ''
+            function()
+              require("otter").activate(
+                { "bash", "lua", "python" },
+                true, -- completions
+                true, -- diagnostics
+                nil
+              )
+            end'';
+        };
+      }
     ];
   };
 }

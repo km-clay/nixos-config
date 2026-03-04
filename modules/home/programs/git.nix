@@ -14,6 +14,11 @@
         alias = {
           draft = "!if git rev-parse > /dev/null 2>&1; then echo \"$1\" >> $(git rev-parse --git-dir)/DRAFT_MSG; else exit 1; fi #";
         };
+        safe = {
+          directory = [
+            "/home/pagedmov/mnt/net"
+          ];
+        };
         core.pager = "delta";
         interactive.diffFilter = "delta --color-only";
         delta.navigate = "true";

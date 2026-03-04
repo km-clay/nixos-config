@@ -142,6 +142,10 @@ in {
 					"move 100%-470 15, match:title ^(Firefox — 共有インジケーター)$"
 				] ++ smartGapsWindowrules;
 
+        cursor = {
+          no_hardware_cursors = true;
+        };
+
         input = {
           kb_layout = "us";
           follow_mouse = 1;

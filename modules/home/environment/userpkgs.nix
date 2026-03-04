@@ -33,6 +33,13 @@ in {
   };
   config = lib.mkIf config.movOpts.envConfig.userPkgs.enable {
     home.packages = with pkgs; [
+      cargo
+      rustc
+      clippy
+      rust-analyzer
+      nerd-fonts.envy-code-r
+      clippy
+      rust-analyzer
       nemo
       feh
       gtk3
@@ -45,7 +52,7 @@ in {
       zsh-syntax-highlighting
       zsh-history-substring-search
       zsh-autosuggestions
-      libreoffice
+      #libreoffice
       gtrash
       ripgrep
       wf-recorder
@@ -61,7 +68,6 @@ in {
       gparted
       dust
       porsmo
-      rustup
       w3m
       neovide
       claude-code

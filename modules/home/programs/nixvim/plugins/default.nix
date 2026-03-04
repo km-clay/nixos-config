@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ./otter.nix
+    ./treesitter.nix
     ./alpha.nix
     ./haskell.nix
     ./vim-matchup.nix

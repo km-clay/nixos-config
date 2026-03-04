@@ -30,7 +30,7 @@ in {
       virtual_text = true;
       signs = false;
     };
-    extraConfigLua = ''
+    extraConfigLua = /* lua */ ''
       if vim.g.started_by_firenvim == true then
       	vim.o.laststatus = 0
       end
@@ -59,6 +59,7 @@ in {
       vim.opt.termguicolors = true
       vim.opt.ruler = true
       vim.opt.scrolloff = 6
+      vim.opt.foldlevelstart = 99
       vim.opt.undofile = true
       vim.opt.foldmethod = "manual"
       vim.opt.wrap = true
@@ -67,8 +68,17 @@ in {
       vim.opt.breakat = " \t!@*-+;:,./?"
       vim.opt.guifont = "EnvyCodeR Nerd Font Mono:h18"
 
-      vim.g.mapleader = "!"
+      vim.g.mapleader = " "
       vim.g.rust_recommended_style = 0
+
+      vim.treesitter.query.set("nix", "injections", [[
+        ;; extends
+        ((comment) @injection.language
+          .
+          (indented_string_expression
+            (string_fragment) @injection.content)
+          (#gsub! @injection.language "^%s*/%*%s*(%S+)%s*%*/.*$" "%1"))
+      ]])
     '';
   };
 }

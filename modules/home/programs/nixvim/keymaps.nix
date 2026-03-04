@@ -37,6 +37,11 @@
         mode = "n";
       }
       {
+        action = "zA";
+        key = "<CR>";
+        mode = "n";
+      }
+      {
         action = "<C-w>w";
         key = "<Tab>";
         mode = "n";

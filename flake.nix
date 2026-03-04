@@ -2,7 +2,8 @@
   description = "pagedMov's NixOS and Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/a5ebaf35f8930361787bb491d49fc2e807e6d51e";
+    #nixpkgs.url = "github:nixos/nixpkgs/a5ebaf35f8930361787bb491d49fc2e807e6d51e";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     hypr-contrib.url = "github:hyprwm/contrib";
     copyparty.url = "github:9001/copyparty";
     hyprpicker.url = "github:hyprwm/hyprpicker";
