@@ -9,5 +9,6 @@
     ./options.nix
     ./keymaps.nix
     ./functions.nix
+    ./autocmd.nix
   ];
 }

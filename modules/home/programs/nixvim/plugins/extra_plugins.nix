@@ -12,15 +12,6 @@
         };
       })
       (pkgs.vimUtils.buildVimPlugin {
-        name = "vim-sneak";
-        src = pkgs.fetchFromGitHub {
-          owner = "justinmk";
-          repo = "vim-sneak";
-          rev = "c13d0497139b8796ff9c44ddb9bc0dc9770ad2dd";
-          hash = "sha256-ndWhnV0fgCcqCGwVyM07GfmUB3CitBZbOWvZtsB1tBk=";
-        };
-      })
-      (pkgs.vimUtils.buildVimPlugin {
         name = "vim-slash";
         src = pkgs.fetchFromGitHub {
           owner = "junegunn";

@@ -23,6 +23,11 @@ let
 		"border_size 0, match:float 0, match:workspace f[1]"
 		"rounding 0, match:float 0, match:workspace f[1]"
 	];
+  hostWorkspaces = if (host == "phosphorous") then
+    [
+      "m[DP-3], layoutopt:orientation:top"
+    ]
+  else [];
 in {
 
   options = {
@@ -82,7 +87,7 @@ in {
           "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP &"
         ];
 
-        workspace = (if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "dualmonitor") then [
+        workspace = hostWorkspaces ++ (if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "dualmonitor") then [
             "1,persistent=true,monitor:${builtins.elemAt mons 0}"
             "2,persistent=true,monitor:${builtins.elemAt mons 0}"
             "3,persistent=true,monitor:${builtins.elemAt mons 0}"
@@ -159,7 +164,7 @@ in {
 					border_size = 3;
 					"col.active_border" = lib.mkForce "rgba(404042ff)";
 					"col.inactive_border" = lib.mkForce "rgba(83858a00)";
-					layout = "dwindle";
+					layout = "master";
 					resize_on_border = true;
 
 					snap = {
@@ -191,6 +196,8 @@ in {
         master = {
           new_status = "master";
           special_scale_factor = 1;
+          mfact = 0.65;
+          new_on_top = true;
         };
 
         decoration = {
@@ -237,7 +244,10 @@ in {
 					"super shift, m, exit,"
 					"super, m, exec, fuzzel"
 					"super, r, exec, neovide"
-					"super, b, togglesplit, # dwindle"
+					"super, b, layoutmsg, togglesplit, # dwindle"
+          "super, comma, layoutmsg, rollnext" # comma
+          "super, period, layoutmsg, rollprev"
+          "super, n, layoutmsg, swapwithmaster"
 					"super, f, togglefloating"
 					"super, g, fullscreen"
 					"super, h, movefocus, l"

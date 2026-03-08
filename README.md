@@ -7,7 +7,7 @@ config here](https://github.com/Frost-Phoenix/nixos-config/tree/catppuccin)
 
 ## Gallery
 
-![desktop-neofetch](./assets/screens/desktop-neofetch.png)
+![desktop-fastfetch](./assets/screens/desktop-neofetch.png)
 ![busy-desktop](./assets/screens/desktop-busy.png)
 Screenshots up to date as of [this commit](https://github.com/pagedMov/nixos-config/commit/501aedc11976afe8c5386364c7a6e4b5b73af044)
 

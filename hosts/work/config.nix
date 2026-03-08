@@ -39,6 +39,10 @@ in
 
   programs.shed.enable = true;
 
+  services.udev.extraRules = ''
+    KERNEL=="event*", SUBSYSTEM=="input", MODE="0664", GROUP="input"
+  '';
+
   users = {
     groups.persist = { };
     groups.davfs2 = { };

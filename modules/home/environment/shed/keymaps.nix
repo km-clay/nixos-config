@@ -42,12 +42,6 @@
       _surround_2 = /* bash */ ''
         local start
         local end
-        if [ -z "$_ANCHOR" ]; then
-          echo "No anchor" 1>&2
-        fi
-        if [ -z "$_CURSOR" ]; then
-          echo "No cursor"
-        fi
         if [ "$_ANCHOR" -lt "$_CURSOR" ]; then
           start=$_ANCHOR
           end=$_CURSOR
@@ -62,7 +56,6 @@
         left="''${_BUFFER:0:$start}"
         mid="''${_BUFFER:$start:$delta}"
         right="''${_BUFFER:$end}"
-        echo "sl = $_sl sr = $_sr start = $start end = $end delta = $delta left = $left mid = $mid right = $right" 1>&2
         _BUFFER="$left$_sl$mid$_sr$right"
         _CURSOR=$start
       '';

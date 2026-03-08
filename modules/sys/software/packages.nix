@@ -30,7 +30,7 @@
       kitty
       lolcat
       lsof
-      neofetch
+      fastfetch
       nh
       nix-index
       nix-output-monitor

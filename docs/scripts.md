@@ -81,7 +81,7 @@ included in my nixpkgs overlay as custom packages, and these packages are declar
   - *Usage*:
     - `vipkg <part of package name>`
   - **Example**:
-    - `vipkg neofetch` - Opens `nixpkgs/pkgs/tools/misc/neofetch/default.nix`.
+    - `vipkg fastfetch` - Opens `nixpkgs/pkgs/tools/misc/neofetch/default.nix`.
   - *Defined in*: `overlay/scripts/commands/vipkg.nix`
 
 ---

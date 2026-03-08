@@ -7,6 +7,7 @@
       server = {
         auto_attach = true;
         default_settings = {
+          cfgOverride.test = true;
           checkOnSave.command = "clippy";
         };
       };

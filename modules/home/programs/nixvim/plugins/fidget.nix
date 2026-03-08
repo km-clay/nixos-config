@@ -1,6 +1,6 @@
 {
   programs.nixvim.plugins.fidget = {
-    enable = true;
+    enable = false;
     settings = {
       notification = {
         overrideVimNotify = true;

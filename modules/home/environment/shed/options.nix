@@ -7,6 +7,7 @@
     settings = {
       autocd = true;
       autoHistory = true;
+      maxHistoryEntries = -1;
     };
   };
 }

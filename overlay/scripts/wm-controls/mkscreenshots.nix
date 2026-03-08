@@ -2,7 +2,7 @@
 
 pkgs.writeShellApplication {
   name = "mkscreenshots";
-  runtimeInputs = with pkgs; [ jq neofetch kitty coreutils nemo grimblast git ];
+  runtimeInputs = with pkgs; [ jq fastfetch kitty coreutils nemo grimblast git ];
   text = ''
     if [ -n "$(hyprctl clients -j | jq -r '.[] | select(.workspace.name == "4")')" ]; then
       echo "There are windows in workspace 4. This script uses workspace 4, so move those windows and run it again."
@@ -14,7 +14,7 @@ pkgs.writeShellApplication {
     hyprctl dispatch focusmonitor 0
 
     screenshotfetch() {
-      neofetch
+      fastfetch
 
       kitty @ scroll-window 20-
 
@@ -38,7 +38,7 @@ pkgs.writeShellApplication {
     hyprctl dispatch exec "[float;size 40% 50%;move 57% 8%] nemo"
 
     sleep 1
-    grimblast save output "$FLAKEPATH"/assets/screens/desktop-neofetch.png
+    grimblast save output "$FLAKEPATH"/assets/screens/desktop-fastfetch.png
 
     closewindows
 

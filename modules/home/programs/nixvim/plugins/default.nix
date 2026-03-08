@@ -4,7 +4,12 @@
   imports = [
     ./otter.nix
     ./treesitter.nix
+    ./bufferline.nix
     ./alpha.nix
+    ./mini.nix
+    ./wtf.nix
+    ./snacks.nix
+    ./noice.nix
     ./haskell.nix
     ./vim-matchup.nix
     # ./coq.nix
@@ -14,7 +19,7 @@
     ./lsp.nix
     ./rustaceanvim.nix
     ./fidget.nix
-    # ./lualine.nix
+    ./lualine.nix
     ./airline.nix
     ./nvim-lightbulb.nix
     ./neocord.nix

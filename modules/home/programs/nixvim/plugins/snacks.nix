@@ -1,8 +1,7 @@
 {
   programs.nixvim = {
-    plugins.alpha = {
+    plugins.snacks = {
       enable = true;
-      theme = "dashboard";
     };
   };
 }

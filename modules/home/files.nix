@@ -38,7 +38,7 @@ in {
   };
   config = {
     home.file = {
-      ".config/neofetch/config.conf".text = ''
+      ".config/fastfetch/config.conf".text = ''
         username=$(whoami)
         name_length=''${#username}
         total_width=40

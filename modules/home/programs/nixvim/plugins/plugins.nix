@@ -8,6 +8,8 @@
       helpview.enable = true;
       floaterm.enable = true;
       fugitive.enable = true;
+      hop.enable = true;
+      wilder.enable = true;
       indent-blankline.enable = true;
       lastplace.enable = true;
       markdown-preview.enable = true;

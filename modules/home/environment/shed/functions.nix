@@ -9,7 +9,59 @@ in
     functions = {
       prompt_topline = /* bash */ ''
         local user_and_host="\e[0m\e[1m$USER\e[1;36m@\e[1;31m$HOST\e[0m"
-        echo -n "\e[1;34m┏━ $user_and_host\n"
+        local mode_text="$(prompt_mode)"
+        echo -n "\e[1;34m┏━ $user_and_host $mode_text\n"
+      '';
+
+      prompt_mode = /* bash */ ''
+        local mode=""
+        local normal_fg='\e[0m\e[30m\e[1;43m'
+        local normal_bg='\e[0m\e[33m'
+        local insert_fg='\e[0m\e[30m\e[1;46m'
+        local insert_bg='\e[0m\e[36m'
+        local command_fg='\e[0m\e[30m\e[1;42m'
+        local command_bg='\e[0m\e[32m'
+        local visual_fg='\e[0m\e[30m\e[1;45m'
+        local visual_bg='\e[0m\e[35m'
+        local replace_fg='\e[0m\e[30m\e[1;41m'
+        local replace_bg='\e[0m\e[31m'
+        local search_fg='\e[0m\e[30m\e[1;47m'
+        local search_bg='\e[0m\e[39m'
+        local complete_fg='\e[0m\e[30m\e[1;47m'
+        local complete_bg='\e[0m\e[39m'
+
+
+        case "$SHED_VI_MODE" in
+          "NORMAL")
+            mode="$normal_bg''${normal_fg}NORMAL$normal_bg\e[0m"
+          ;;
+          "INSERT")
+            mode="$insert_bg''${insert_fg}INSERT$insert_bg\e[0m"
+          ;;
+          "COMMAND")
+            mode="$command_bg''${command_fg}COMMAND$command_bg\e[0m"
+          ;;
+          "VISUAL")
+            mode="$visual_bg''${visual_fg}VISUAL$visual_bg\e[0m"
+          ;;
+          "REPLACE")
+            mode="$replace_bg''${replace_fg}REPLACE$replace_bg\e[0m"
+          ;;
+          "VERBATIM")
+            mode="$replace_bg''${replace_fg}VERBATIM$replace_bg\e[0m"
+          ;;
+          "COMPLETE")
+            mode="$complete_bg''${complete_fg}COMPLETE$complete_bg\e[0m"
+          ;;
+          "SEARCH")
+            mode="$search_bg''${search_fg}SEARCH$search_bg\e[0m"
+          ;;
+          *)
+            mode=""
+          ;;
+        esac
+
+        echo -en "$mode\n"
       '';
 
       prompt_stat_line = /* bash */ ''
@@ -17,71 +69,68 @@ in
         local last_cmd_status
         local last_cmd_runtime
         if [ "$last_exit_code" -eq "0" ]; then
-          last_cmd_status="\e[1;32m\e[0m"
+          last_cmd_status="\e[1;32m"
         else
-          last_cmd_status="\e[1;31m\e[0m"
+          last_cmd_status="\e[1;31m"
         fi
         local last_runtime_raw="$(echo -p "\t")"
         if [ -z "$last_runtime_raw" ]; then
           return 0
         else
-          last_cmd_runtime="\e[1;38;2;249;226;175m󰔛 $(echo -p "\T")\e[0m"
+          last_cmd_runtime="\e[1;38;2;249;226;175m󰔛 ''${last_cmd_status}$(echo -p "\T")\e[0m"
         fi
 
-        echo -n "\e[1;34m┃ $last_cmd_runtime ($last_cmd_status)\n"
+        echo -n "\e[1;34m┃ $last_cmd_runtime\e[0m\n"
       '';
 
       prompt_git_line = /* bash */ ''
-        git rev-parse --is-inside-work-tree > /dev/null 2>&1 || return
+        local status="$(git status --porcelain -b 2>/dev/null)" || return
 
-        local gitsigns
-        local status="$(git status --porcelain 2>/dev/null)"
-        local branch="$(git branch --show-current 2>/dev/null)"
+        local branch="" gitsigns="" ahead=0 behind=0
+        local header="''${status%%$'\n'*}"
 
-        [ -n "$status" ] && echo "$status" | command grep -q '^ [MADR]' && gitsigns="$gitsigns!"
-        [ -n "$status" ] && echo "$status" | command grep -q '^??' && gitsigns="$gitsigns?"
-        [ -n "$status" ] && echo "$status" | command grep -q '^[MADR]' && gitsigns="$gitsigns+"
+        branch="''${header#\#\# }"
+        branch="''${branch%%...*}"
+        case "$header" in
+            *ahead*)  ahead="''${header#*ahead }"; ahead="''${ahead%%[],]*}"; gitsigns="''${gitsigns}↑" ;;
+        esac
+        case "$header" in
+            *behind*) behind="''${header#*behind }"; behind="''${behind%%[],]*}"; gitsigns="''${gitsigns}↓" ;;
+        esac
 
-        local ahead="$(git rev-list --count @{upstream}..HEAD 2>/dev/null)"
-        local behind="$(git rev-list --count HEAD..@{upstream} 2>/dev/null)"
-        [ $ahead -gt 0 ] && gitsigns="$gitsigns↑"
-        [ $behind -gt 0 ] && gitsigns="$gitsigns↓"
+        case "$status" in
+            *$'\n'" "[MAR]*) gitsigns="''${gitsigns}!" ;;
+        esac
+        case "$status" in
+            *$'\n'"??"*) gitsigns="''${gitsigns}?" ;;
+        esac
+        case "$status" in
+            *$'\n'" "[D]*) gitsigns="''${gitsigns}" ;;
+        esac
+        case "$status" in
+            *$'\n'[MADR]*) gitsigns="''${gitsigns}+" ;;
+        esac
 
-        local diff="$(git diff --shortstat)"
-        local add=""
-        local del=""
-        local changed=""
-        i=0
-        while read -d "," part; do
-          if [ $i -ge 3 ]; then break; fi
-          case $i in
-            0)
-              changed="$(echo $part | cut -d' ' -f1)"
-            ;;
-            1)
-              add="$(echo $part | cut -d' ' -f1)"
-            ;;
-            2)
-              del="$(echo $part | cut -d' ' -f1)"
-            ;;
-          esac
-          i=$(($i + 1))
-        done < <(echo "$diff,")
+        local diff="$(git diff --shortstat 2>/dev/null)"
+
+        local diff="$(git diff --shortstat 2>/dev/null)"
+        local changed="" add="" del=""
+        if [ -n "$diff" ]; then
+            changed="''${diff%% file*}"; changed="''${changed##* }"
+            case "$diff" in
+                *insertion*) add="''${diff#*, }"; add="''${add%% *}" ;;
+            esac
+            case "$diff" in
+                *deletion*) del="''${diff% deletion*}"; del="''${del##* }" ;;
+            esac
+        fi
 
         if [ -n "$gitsigns" ] || [ -n "$branch" ]; then
-          if [ -n "$gitsigns" ]; then
-            gitsigns="\e[1;31m[$gitsigns]"
-          fi
-          if [ -n "$changed" ] && [ "$changed" -gt 0 ]; then
-            changed="\e[1;34m~$changed \e[0m"
-          fi
-          if [ -n "$add" ] && [ "$add" -gt 0 ]; then
-            add="\e[1;32m+$add \e[0m"
-          fi
-          if [ -n "$del" ] && [ "$del" -gt 0 ]; then
-            del="\e[1;31m-$del\e[0m"
-          fi
-          echo -n "\e[1;34m┃ \e[1;35m $branch$gitsigns\e[0m $changed$add$del\n"
+            [ -n "$gitsigns" ] && gitsigns="\e[1;31m[$gitsigns]"
+            [ -n "$changed" ] && [ "$changed" -gt 0 ] && changed="\e[1;34m~$changed \e[0m"
+            [ -n "$add" ] && [ "$add" -gt 0 ] && add="\e[1;32m+$add \e[0m"
+            [ -n "$del" ] && [ "$del" -gt 0 ] && del="\e[1;31m-$del\e[0m"
+            echo -n "\e[1;34m┃ \e[1;35m $branch$gitsigns\e[0m $changed$add$del\n"
         fi
       '';
 
@@ -110,12 +159,11 @@ in
       prompt = /* bash */ ''
         local statline="$(prompt_stat_line)"
         local topline="$(prompt_topline)"
-        local gitline="$(prompt_git_line)"
         local jobsline="$(prompt_jobs_line)"
         local sshline="$(prompt_ssh_line)"
         local pwdline="$(prompt_pwd_line)"
         local dollarline="$(prompt_dollar_line)"
-        local prompt="$topline$statline$gitline$jobsline$sshline$pwdline\n$dollarline"
+        local prompt="$topline$statline$PROMPT_GIT_LINE$jobsline$sshline$pwdline\n$dollarline"
 
         echo -en "$prompt"
       '';

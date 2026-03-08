@@ -69,6 +69,7 @@ in {
       dust
       porsmo
       w3m
+      sox
       neovide
       claude-code
       pythonWithStuff
