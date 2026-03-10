@@ -1,4 +1,9 @@
-{ inputs, pkgs, username, ... }:
+{
+  inputs,
+  pkgs,
+  username,
+  ...
+}:
 
 let
   shed = inputs.shed.packages.${pkgs.stdenv.hostPlatform.system}.default;
@@ -31,8 +36,14 @@ in
   };
 
   environment = {
-    variables = { PATH = "${pkgs.clang-tools}/bin:$PATH"; };
-    shells = [ pkgs.myPkgs.slash pkgs.zsh pkgs.bash ];
+    variables = {
+      PATH = "${pkgs.clang-tools}/bin:$PATH";
+    };
+    shells = [
+      pkgs.myPkgs.slash
+      pkgs.zsh
+      pkgs.bash
+    ];
   };
 
   users = {
@@ -43,7 +54,12 @@ in
         isNormalUser = true;
         initialPassword = "1234";
         shell = shed;
-        extraGroups = [ "input" "wheel" "persist" "libvirtd" ];
+        extraGroups = [
+          "input"
+          "wheel"
+          "persist"
+          "libvirtd"
+        ];
       };
     };
   };

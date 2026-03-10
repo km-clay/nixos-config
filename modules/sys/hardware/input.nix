@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   i18n.inputMethod = {
     type = "fcitx5";
     enable = true;

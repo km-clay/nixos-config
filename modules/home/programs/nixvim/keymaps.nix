@@ -49,7 +49,10 @@
       {
         action = "<cmd>FloatermToggle def_term<CR>";
         key = "<F2>";
-        mode = [ "n" "t" ];
+        mode = [
+          "n"
+          "t"
+        ];
       }
       {
         action = "<cmd>lua require('treesj').toggle()<CR>";
@@ -64,82 +67,127 @@
       {
         action = ''"+y'';
         key = "<space>y";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
         action = ''"+p'';
         key = "<space>p";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').prompt('test', {submit=true}) end'';
+        action.__raw = /* lua */ "function() require('opencode').prompt('test', {submit=true}) end";
         key = "<space>at";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').select() end'';
+        action.__raw = /* lua */ "function() require('opencode').select() end";
         key = "<space>as";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').prompt('document', {submit=true}) end'';
+        action.__raw = /* lua */ "function() require('opencode').prompt('document', {submit=true}) end";
         key = "<space>ad";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').prompt('review', {submit=true}) end'';
+        action.__raw = /* lua */ "function() require('opencode').prompt('review', {submit=true}) end";
         key = "<space>ar";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').prompt('fix', {submit=true}) end'';
+        action.__raw = /* lua */ "function() require('opencode').prompt('fix', {submit=true}) end";
         key = "<space>af";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').ask("@this ", {submit=true}) end'';
+        action.__raw = /* lua */ ''function() require('opencode').ask("@this ", {submit=true}) end'';
         key = "<space>aa";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').explain("@this ") end'';
+        action.__raw = /* lua */ ''function() require('opencode').explain("@this ") end'';
         key = "<space>ae";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').command("session.half.page.up") end'';
+        action.__raw = /* lua */ ''function() require('opencode').command("session.half.page.up") end'';
         key = "<C-S-u>";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').command("session.half.page.down") end'';
+        action.__raw = /* lua */ ''function() require('opencode').command("session.half.page.down") end'';
         key = "<C-S-d>";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').command("prompt.clear") end'';
+        action.__raw = /* lua */ ''function() require('opencode').command("prompt.clear") end'';
         key = "<C-c>";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() require('opencode').operator("@this ") end'';
+        action.__raw = /* lua */ ''function() require('opencode').operator("@this ") end'';
         key = "go";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
       {
-        action.__raw = /*lua*/''function() return require('opencode').operator("@this ") .. "_" end'';
+        action.__raw = /* lua */ ''function() return require('opencode').operator("@this ") .. "_" end'';
         key = "goo";
         mode = [ "n" ];
       }
       {
         action = "<cmd>lua require('opencode').toggle()<CR>";
         key = "<C-.>";
-        mode = [ "n" "t" ];
+        mode = [
+          "n"
+          "t"
+        ];
       }
       {
         action = "<cmd>lua require('opencode').select()<CR>";
         key = "<C-n>";
-        mode = [ "n" "x" ];
+        mode = [
+          "n"
+          "x"
+        ];
       }
     ];
   };

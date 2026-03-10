@@ -276,7 +276,6 @@ in
 
       ls = /* bash */ ''
         eza -1 --group-directories-first --icons "$@"
-        ${shellsound} ${sndpath}/ls.wav
       '';
 
       mkcd = /* bash */ ''
@@ -286,7 +285,6 @@ in
       cd = /* bash */ ''
         eza -1 --group-directories-first --icons "$@" 2> /dev/null
         builtin cd "$@"
-        ${shellsound} ${sndpath}/cd.wav
       '';
 
       hyprsock = /* bash */ ''

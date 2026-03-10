@@ -1,7 +1,12 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
-    movOpts.sysEnv.consoleSettings.enable =
-      lib.mkEnableOption "enables my console settings";
+    movOpts.sysEnv.consoleSettings.enable = lib.mkEnableOption "enables my console settings";
   };
   config = lib.mkIf config.movOpts.sysEnv.consoleSettings.enable {
     i18n.defaultLocale = "en_US.UTF-8";

@@ -1,14 +1,17 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   options = {
-    movOpts.sysEnv.nixSettings.enable =
-      lib.mkEnableOption "enables my nixos settings";
+    movOpts.sysEnv.nixSettings.enable = lib.mkEnableOption "enables my nixos settings";
   };
   config = lib.mkIf config.movOpts.sysEnv.nixSettings.enable {
     system.stateVersion = "24.05";
     nix = {
       settings = {
         auto-optimise-store = true;
-        experimental-features = [ "nix-command" "flakes" ];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
         substituters = [ "https://nix-gaming.cachix.org" ];
       };
       gc = {

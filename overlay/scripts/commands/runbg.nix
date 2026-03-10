@@ -1,4 +1,4 @@
-{ pkgs, }:
+{ pkgs }:
 pkgs.writeShellApplication {
   name = "runbg";
   runtimeInputs = with pkgs; [

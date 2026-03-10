@@ -3,7 +3,7 @@
   fetchFromGitHub,
   fetchzip,
   clickgen,
-  lib
+  lib,
 }:
 
 stdenvNoCC.mkDerivation rec {

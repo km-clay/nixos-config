@@ -1,7 +1,12 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
-    movOpts.envConfig.swayncConfig.enable =
-      lib.mkEnableOption "enables my swaync configuration";
+    movOpts.envConfig.swayncConfig.enable = lib.mkEnableOption "enables my swaync configuration";
   };
   config = lib.mkIf config.movOpts.envConfig.swayncConfig.enable {
     home.packages = with pkgs; [ swaynotificationcenter ];
@@ -608,6 +613,8 @@
       .right.overlay-indicator {
         all: unset;
       }
+
+      @import url("file:///home/pagedmov/.local/state/sysflake/swaync-colors.css");
     '';
     xdg.configFile."swaync/config.json".text = ''
       {

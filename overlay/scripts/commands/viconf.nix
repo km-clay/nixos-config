@@ -1,14 +1,19 @@
 { pkgs }:
 pkgs.writeShellApplication {
   name = "viconf";
-  runtimeInputs = with pkgs; [ coreutils fd ripgrep fzf ];
+  runtimeInputs = with pkgs; [
+    coreutils
+    fd
+    ripgrep
+    fzf
+  ];
   text = ''
     open_file() {
       file="$1"
       if grep -Pq "[^\x00-\x7F]" "$file"; then
-        NIXD_FLAGS="--semantic-tokens=false" nvim "$file"
+        NIXD_FLAGS="--semantic-tokens=false" $EDITOR "$file"
       else
-        nvim "$file"
+        $EDITOR "$file"
       fi
     }
 

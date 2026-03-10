@@ -1,4 +1,10 @@
-{ lib, config, pkgs, self, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  self,
+  ...
+}:
 {
   programs.shed = {
     aliases = {
@@ -20,7 +26,7 @@
       mkexe = "chmod +x";
       shortdate = "date +%m-%d-%y";
       suvi = "sudoedit";
-      suvide = "EDITOR=neovide; suvi";
+      suvide = "EDITOR=neovide suvi";
       rustdev = "nix develop github:km-clay/devshells#rust";
       y = "yazi";
 
@@ -29,6 +35,8 @@
       gpush = "gitpush_sfx";
       gpull = "gitpull_sfx";
       grebase = "gitrebase_sfx";
+      videconf = "EDITOR=neovide viconf";
+      nix-shell = "command nix-shell --command 'exec shed'";
     };
   };
 }

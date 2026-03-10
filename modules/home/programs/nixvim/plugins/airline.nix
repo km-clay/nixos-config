@@ -1,7 +1,7 @@
 {
   programs.nixvim = {
     plugins.airline = {
-      enable = false;
+      enable = true;
       settings = {
         left_sep = "";
         right_sep = "";

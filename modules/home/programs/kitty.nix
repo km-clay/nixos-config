@@ -1,7 +1,13 @@
-{ self, lib, config, pkgs, ... }: {
+{
+  self,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
-    movOpts.programConfigs.kittyConfig.enable =
-      lib.mkEnableOption "enables my kitty configuration";
+    movOpts.programConfigs.kittyConfig.enable = lib.mkEnableOption "enables my kitty configuration";
   };
   config = lib.mkIf config.movOpts.programConfigs.kittyConfig.enable {
     programs.kitty = {
@@ -14,7 +20,7 @@
 
       settings = {
         confirm_os_window_close = 0;
-        background_opacity = lib.mkForce 0.5;
+        background_opacity = lib.mkForce 0.65;
         window_padding_width = 4;
         scrollback_lines = 10000;
         enable_audio_bell = true;
@@ -30,6 +36,8 @@
         tab_bar_edge = "top";
         tab_powerline_style = "round";
       };
+
+      extraConfig = "include ~/.local/state/sysflake/kitty-colors.conf";
 
       keybindings = {
         "ctrl+shift+l" = "next_tab";

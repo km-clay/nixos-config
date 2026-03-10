@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   cust-openrct2 = pkgs.openrct2.overrideAttrs (oldAttrs: {
@@ -12,10 +17,10 @@ let
   cust-prismlauncher = pkgs.prismlauncher.override (oldAttrs: {
     jdks = [ pkgs.temurin-bin-21 ];
   });
-in {
+in
+{
   options = {
-    movOpts.softwareCfg.gamingPkgs.enable =
-      lib.mkEnableOption "enables gaming packages";
+    movOpts.softwareCfg.gamingPkgs.enable = lib.mkEnableOption "enables gaming packages";
   };
   config = lib.mkIf config.movOpts.softwareCfg.gamingPkgs.enable {
     environment.systemPackages = with pkgs; [

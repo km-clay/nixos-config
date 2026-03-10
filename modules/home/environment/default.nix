@@ -1,4 +1,14 @@
-{ host, nixvim, self, inputs, username, config, home-manager, ... }: {
+{
+  host,
+  nixvim,
+  self,
+  inputs,
+  username,
+  config,
+  home-manager,
+  ...
+}:
+{
   imports = [
     ./gtk.nix
     ./spicetify.nix
@@ -6,10 +16,11 @@
     ./userservices.nix
     ./starship.nix
     ./userpkgs.nix
-    ./zsh
-    ./shed
     ./swaync.nix
     ./hyprland.nix
     ./waybar.nix
+    ./zsh
+    ./shed
+    ./paperd
   ];
 }

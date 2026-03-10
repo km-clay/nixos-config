@@ -1,7 +1,12 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
-    movOpts.softwareCfg.steamConfig.enable =
-      lib.mkEnableOption "enables steam configuration";
+    movOpts.softwareCfg.steamConfig.enable = lib.mkEnableOption "enables steam configuration";
   };
   config = lib.mkIf config.movOpts.softwareCfg.steamConfig.enable {
     programs.steam = {

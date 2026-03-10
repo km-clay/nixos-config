@@ -1,7 +1,12 @@
 { pkgs }:
 pkgs.writeShellApplication {
   name = "moveonscreen";
-  runtimeInputs = with pkgs; [ hyprland jq coreutils gawk ];
+  runtimeInputs = with pkgs; [
+    hyprland
+    jq
+    coreutils
+    gawk
+  ];
   text = ''
     center_window=false
     if [[ ! $# -eq 0 ]] && [[ $1 == "--center" ]]; then

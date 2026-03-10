@@ -1,10 +1,21 @@
-{ username, pkgs, config, ... }: {
+{
+  username,
+  pkgs,
+  config,
+  ...
+}:
+{
   imports = [ ./hardware.nix ];
 
   boot = {
     kernelModules = [ "acpi_call" ];
-    extraModulePackages = with config.boot.kernelPackages;
-      [ acpi_call cpupower ] ++ [ pkgs.cpupower-gui ];
+    extraModulePackages =
+      with config.boot.kernelPackages;
+      [
+        acpi_call
+        cpupower
+      ]
+      ++ [ pkgs.cpupower-gui ];
   };
 
   movOpts = {
@@ -27,9 +38,19 @@
   };
 
   environment = {
-    variables = { PATH = "${pkgs.clang-tools}/bin:$PATH"; };
-    shells = with pkgs; [ zsh bash ];
-    systemPackages = with pkgs; [ acpi brightnessctl cpupower-gui powertop ];
+    variables = {
+      PATH = "${pkgs.clang-tools}/bin:$PATH";
+    };
+    shells = with pkgs; [
+      zsh
+      bash
+    ];
+    systemPackages = with pkgs; [
+      acpi
+      brightnessctl
+      cpupower-gui
+      powertop
+    ];
   };
 
   users = {
@@ -40,7 +61,11 @@
         isNormalUser = true;
         initialPassword = "1234";
         shell = pkgs.zsh;
-        extraGroups = [ "wheel" "persist" "libvirtd" ];
+        extraGroups = [
+          "wheel"
+          "persist"
+          "libvirtd"
+        ];
       };
     };
   };

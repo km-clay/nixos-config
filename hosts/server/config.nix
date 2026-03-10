@@ -1,4 +1,5 @@
-{ pkgs, username, ... }: {
+{ pkgs, username, ... }:
+{
   imports = [ ./hardware.nix ];
   movOpts = {
     sysEnv = {
@@ -22,7 +23,12 @@
       caddyConfig.enable = true;
     };
   };
-  networking.firewall = { allowedTCPPorts = [ 443 8920 ]; };
+  networking.firewall = {
+    allowedTCPPorts = [
+      443
+      8920
+    ];
+  };
   environment = {
     etc."tmpfiles.d/home-permissions.conf".text = ''
       d /home/pagedmov 0750 pagedmov users -
@@ -31,7 +37,10 @@
       PATH = "${pkgs.clang-tools}/bin:$PATH";
       TERM = "kitty";
     };
-    shells = with pkgs; [ zsh bash ];
+    shells = with pkgs; [
+      zsh
+      bash
+    ];
   };
 
   users = {
@@ -42,7 +51,11 @@
         isNormalUser = true;
         initialPassword = "1234";
         shell = pkgs.zsh;
-        extraGroups = [ "wheel" "persist" "libvirtd" ];
+        extraGroups = [
+          "wheel"
+          "persist"
+          "libvirtd"
+        ];
       };
     };
   };

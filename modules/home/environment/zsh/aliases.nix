@@ -1,6 +1,12 @@
-{ lib, config, self, ... }:
 {
-  options.movOpts.envConfig.zshConfig.shellAliases.enable = lib.mkEnableOption "enables my zsh aliases";
+  lib,
+  config,
+  self,
+  ...
+}:
+{
+  options.movOpts.envConfig.zshConfig.shellAliases.enable =
+    lib.mkEnableOption "enables my zsh aliases";
   config = lib.mkIf config.movOpts.envConfig.zshConfig.shellAliases.enable {
     programs.zsh = {
       shellAliases = {

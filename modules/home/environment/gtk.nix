@@ -1,16 +1,20 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
-    movOpts.envConfig.gtkConfig.enable =
-      lib.mkEnableOption "enable my gtk options";
+    movOpts.envConfig.gtkConfig.enable = lib.mkEnableOption "enable my gtk options";
   };
   config = lib.mkIf config.movOpts.envConfig.gtkConfig.enable {
     fonts.fontconfig.enable = true;
-    home.packages = with pkgs;
-      [
-        nerd-fonts.jetbrains-mono
-        nerd-fonts.symbols-only
-        cascadia-code
-      ];
+    home.packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.symbols-only
+      cascadia-code
+    ];
 
     gtk = {
       enable = true;

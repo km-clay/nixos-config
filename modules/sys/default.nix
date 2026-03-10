@@ -1,3 +1,17 @@
-{ inputs, nixpkgs, config, self, username, host, lib, ... }: {
-  imports = [ ./hardware ./software ./sysenv ];
+{
+  inputs,
+  nixpkgs,
+  config,
+  self,
+  username,
+  host,
+  lib,
+  ...
+}:
+{
+  imports = [
+    ./hardware
+    ./software
+    ./sysenv
+  ];
 }

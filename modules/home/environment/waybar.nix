@@ -1,4 +1,10 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  self,
+  ...
+}:
 
 let
   layout = config.movOpts.envConfig.hyprlandConfig.workspaceLayout;
@@ -27,226 +33,245 @@ let
       "20" = "20";
     };
     persistent-workspaces =
-      if (layout == "singlemonitor") then {
-          "${builtins.elemAt monitors 0}" = [ 1 2 3 4 ];
-        } else if (layout == "dualmonitor") then {
-            "${builtins.elemAt monitors 0}" = [ 1 2 3 ];
-            "${builtins.elemAt monitors 1}" = [ 4 5 6 ];
-          } else if (layout == "trimonitor") then {
-              "${builtins.elemAt monitors 2}" = [ 1 2 ];
-              "${builtins.elemAt monitors 1}" = [ 3 4 ];
-              "${builtins.elemAt monitors 0}" = [ 5 6 ];
-            } else
+      if (layout == "singlemonitor") then
+        {
+          "${builtins.elemAt monitors 0}" = [
+            1
+            2
+            3
+            4
+          ];
+        }
+      else if (layout == "dualmonitor") then
+        {
+          "${builtins.elemAt monitors 0}" = [
+            1
+            2
+            3
+          ];
+          "${builtins.elemAt monitors 1}" = [
+            4
+            5
+            6
+          ];
+        }
+      else if (layout == "trimonitor") then
+        {
+          "${builtins.elemAt monitors 2}" = [
+            1
+            2
+          ];
+          "${builtins.elemAt monitors 1}" = [
+            3
+            4
+          ];
+          "${builtins.elemAt monitors 0}" = [
+            5
+            6
+          ];
+        }
+      else
         { };
 
   };
 
-  scheme = config.lib.stylix.colors;
-  bg = {
-    darkester = scheme.base00;
-    darkest = scheme.base01;
-    darker = scheme.base02;
-    dark = scheme.base03;
-  };
-  fg = {
-    lightester = scheme.base07;
-    lightest = scheme.base06;
-    lighter = scheme.base05;
-    light = scheme.base04;
-  };
   monitors = config.movOpts.envConfig.hyprlandConfig.monitorNames;
-	bar-gauge = [
-		"░░░░░░░░"
-		"█░░░░░░░"
-		"██░░░░░░"
-		"███░░░░░"
-		"████░░░░"
-		"█████░░░"
-		"██████░░"
-		"███████░"
-		"████████"
-	];
-  bar-gauge-critical = [
-		"░░░░░░░░"
-		"█░░░░░░░"
-		"██░░░░░░"
-		"███░░░░░"
-		"████░░░░"
-		"█████░░░"
-		"██████░░"
-    "<span color='#F07178'>!!!!!!!!</span>"
-    "<span color='#F07178'>CRITICAL</span>"
-  ];
-in {
+in
+{
   options = {
-    movOpts.envConfig.waybarConfig.enable =
-      lib.mkEnableOption "enables my waybar configuration";
+    movOpts.envConfig.waybarConfig.enable = lib.mkEnableOption "enables my waybar configuration";
   };
   config = {
     programs.waybar = {
       enable = true;
-      package = pkgs.waybar.overrideAttrs (oa: {
-        mesonFlags = (oa.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ];
-      });
       settings = {
         mainBar = {
           layer = "top";
-          output = if layout == "singlemonitor" then builtins.elemAt monitors 0
-                    else builtins.elemAt monitors 1;
+          output = monitors;
           position = "top";
-          name = "mainBar";
+          name = "waybar";
           margin-left = 0;
           margin-top = 0;
           margin-right = 0;
-          mode = "dock";
-					exclusive = true;
-					passthrough = false;
+          exclusive = true;
+          passthrough = false;
           "gtk-layer-shell" = true;
 
-          modules-left = [ "clock" "hyprland/workspaces" "tray" ];
-          modules-center = [];
-          modules-right = [ "cpu" "memory" "pulseaudio" "network" ];
+          modules-left = [
+            "tray"
+            "hyprland/workspaces"
+          ];
+          modules-center = [ "hyprland/window" ];
+
+          "hyprland/window" = {
+            format = "<span color='#aaaaaa'>{title}</span>";
+          };
+          modules-right = [
+            "cpu"
+            "memory"
+            "pulseaudio"
+            "network"
+            "clock"
+            "image#nixicon"
+          ];
 
           "hyprland/workspaces" = workspaces;
 
           clock = {
-            format = "[ CLK: {:%H.%M <span size='8pt'> %a %b %d</span>} ]";
-						tooltip-format = "<tt>{calendar}</tt>";
-						calendar = {
-							mode = "month";
-							weeks-pos = "";
-							on-scroll = 1;
-							format = {
-								months = "<span size='16pt'><b>CAL: {}\n</b></span>";
-								days = "<span size='16pt'><b>{}</b></span>";
-								weeks = "<span size='16pt'><b>{}</b></span>";
-								weekdays = "<span size='16pt'><b>{}</b></span>";
-								today = "<span color='#E6E1CF'><b>{}</b></span>";
-							};
-						};
-						actions = {
-							on-scroll-up = "shift_down";
-							on-scroll-down = "shift_up";
-						};
+            format = "󱑍 <span color='#aaaaaa'>{:%H:%M}</span>";
           };
 
-					pulseaudio = {
-						format = "VOL: [ <span color='#272D38'>{icon}</span> ] <span size='8pt'>{volume}%</span>";
-						tooltip = true;
-						tooltip-format = "DEVICE: {desc}";
-						format-muted = "VOL: <span color='#F07178'>[ XXXXXXXX ] <span size='8pt'>{volume}%</span></span>";
-						on-click = "if [ $(pamixer --get-mute) == true ]; then pamixer --unmute; else pamixer --mute; fi";
-						on-scroll-up = "pamixer -i 2";
-						on-scroll-down = "pamixer -d 2";
-						scroll-step = 2;
-						reverse-scrolling = true;
-						format-icons = bar-gauge;
-					};
+          pulseaudio = {
+            format = " <span color='#aaaaaa'>{volume}%</span>";
+            tooltip = true;
+            tooltip-format = "{desc}";
+            format-muted = " <span color='#aaaaaa'>{volume}%</span>";
+            on-click = "if [ $(pamixer --get-mute) == true ]; then pamixer --unmute; else pamixer --mute; fi";
+            on-scroll-up = "pamixer -i 2";
+            on-scroll-down = "pamixer -d 2";
+            scroll-step = 2;
+            reverse-scrolling = true;
+          };
 
-					network = {
-						format-wifi = "[ <span color='#B8CC52'>ONLINE</span> ]";
-						format-ethernet = "[ <span color='#B8CC52'>ONLINE</span> ]";
-						tooltip-format-wifi = "ESSID\t: {essid}\nSTRNGTH\t: {signaldBm}\n\nADDRESS\t: {ipaddr}\nGATE\t: {gwaddr}\nMASK\t: {netmask} | {cidr}";
-						tooltip-format-ethernet = "IFNAME: {ifname}\nADDRESS: {ipaddr}";
-						format-disconnected = "[ <span color='#F07178'>XXXXXX</span> ]";
-						on-click = "nm-connection-editor";
-					};
+          network = {
+            format-wifi = "󰖩 <span color='#aaaaaa'>{essid}</span>";
+            format-ethernet = " <span color='#aaaaaa'>{ifname}</span>";
+            tooltip-format-wifi = "ESSID\t: {essid}\nSTRNGTH\t: {signaldBm}\n\nADDRESS\t: {ipaddr}\nGATE\t: {gwaddr}\nMASK\t: {netmask} | {cidr}";
+            tooltip-format-ethernet = "IFNAME: {ifname}\nADDRESS: {ipaddr}";
+            format-disconnected = "󱚼";
+            on-click = "nm-connection-editor";
+          };
 
-					memory = {
-						interval = 20;
-						format = "MEM: [ <span color='#272D38'>{icon}</span> ] <span size='8pt'>{percentage}%</span>";
-						tooltip-format = "MEM_TOT\t: {total}GiB\nSWP_TOT\t: {swapTotal}GiB\n\nMEM_USD\t: {used:0.1f}GiB\nSWP_USD\t: {swapUsed:0.1f}GiB";
-						format-icons = bar-gauge-critical;
-					};
+          "image#nixicon" = {
+            path = "/home/pagedmov/.sysflake/assets/images/nix-snowflake-colours.svg";
+            size = 28;
+          };
 
-					cpu = {
+          memory = {
+            interval = 20;
+            format = " <span color='#aaaaaa'>{percentage}%</span>";
+            tooltip-format = "MEM_TOT\t: {total}GiB\nSWP_TOT\t: {swapTotal}GiB\n\nMEM_USD\t: {used:0.1f}GiB\nSWP_USD\t: {swapUsed:0.1f}GiB";
+          };
 
-						interval = 1;
-						format = "CPU: [ <span color='#272D38'>{icon}</span> ] <span size='8pt'>{usage}%</span>";
-						tooltip = true;
-						format-icons = bar-gauge-critical;
-					};
+          cpu = {
+            interval = 1;
+            format = "󰍛 <span color='#aaaaaa'>{usage}%</span>";
+            tooltip = true;
+          };
         };
       };
       style = ''
-				* {
-					font-size: 16px;
-					border: none;
-					font-family: EnvyCodeR Nerd Font Mono;
-					font-weight: Bold;
-					min-height: 0;
-					border-radius: 0px;
-					padding: 2px;
-				}
+        @define-color accent #CF1B30;
+        @define-color bg-dark #1a1a1a;
+        @define-color bg-island #2a2a2a;
+        @define-color fg-dim #aaaaaa;
+        @define-color fg-text #d0d0d0;
 
-				window#waybar {
-					color: #${fg.lightest};
-					background: #${bg.darkester};
-				}
+        * {
+            font-size: 20px;
+            border: none;
+            font-family: EnvyCodeR Nerd Font Mono;
+            font-weight: bold;
+            min-height: 0;
+            border-radius: 0;
+        }
 
-				tooltip {
-					background: #${bg.darkester};
-				}
+        window#waybar {
+            background: rgba(0, 0, 0, 0.05);
+            color: @fg-text;
+        }
 
-				#workspaces button {
-					color: #${fg.lightest};
-					background: #${bg.darkester};
-				}
+        tooltip {
+            background: @bg-dark;
+            border: 2px solid @accent;
+            border-radius: 8px;
+        }
 
-				#workspaces button.active {
-					color: #${bg.darker};
-					background: #${bg.darkester};
-				}
+        /* ── Tray island (far left) ── */
+        #tray {
+            background-color: @bg-dark;
+            color: @accent;
+            border: 2px solid @accent;
+            border-radius: 8px;
+            padding: 4px 8px;
+            margin: 6px 4px 6px 10px;
+        }
 
-				#workspaces button.focused {
-					color: #${bg.dark};
-					background: #${bg.darkester};
-				}
+        /* ── Workspaces island ── */
+        #workspaces {
+            background-color: @bg-dark;
+            border: 2px solid @accent;
+            border-radius: 8px;
+            margin: 6px 4px;
+            padding: 0 4px;
+        }
 
-				#workspaces button.urgent {
-					color: #${fg.lightest};
-					background: #${bg.darkester};
-				}
+        #workspaces button {
+            color: @fg-dim;
+            background: transparent;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin: 2px;
+        }
 
-				#workspaces button:hover {
-					color: #${fg.lightest};
-					background: #${bg.darkester};
-				}
+        #workspaces button.active {
+            color: @bg-dark;
+            background-color: @accent;
+        }
 
-				#window,
-				#clock,
-				#pulseaudio,
-				#network,
-				#workspaces,
-				#tray,
-				#cpu {
-					padding: 0px 10px;
-					margin: 0px;
-				}
+        #workspaces button:hover {
+            color: @bg-dark;
+            background-color: alpha(@accent, 0.5);
+        }
 
-				#tray {
-					margin-right: 10px;
-				}
+        /* ── Right info modules island ── */
+        #cpu,
+        #memory,
+        #pulseaudio,
+        #network,
+        #window,
+        #clock {
+            background-color: @bg-dark;
+            color: @accent;
+            border-top: 2px solid @accent;
+            border-bottom: 2px solid @accent;
+            padding: 4px 10px;
+            margin: 6px 0;
+        }
 
-				#workspaces {
-					color: #${fg.lightest};
-				}
+        /* ── Window title island (center) ── */
+        #window {
+            border-radius: 8px;
+            border-left: 2px solid @accent;
+            border-right: 2px solid @accent;
+            margin: 6px 4px;
+        }
 
-				#window {
-					color: #${fg.lightest};
-				}
+        /* round left edge of first module in the group */
+        #cpu {
+            border-radius: 8px 0 0 8px;
+            border-left: 2px solid @accent;
+            margin-left: 4px;
+        }
 
-				#clock {
-					color: #${fg.lightest};
-				}
+        /* round right edge of last module before nixicon */
+        #clock {
+            border-radius: 0 8px 8px 0;
+            border-right: 2px solid @accent;
+            margin-right: 4px;
+        }
 
-				#network {
-					color: #${fg.lightest};
-				}
+        /* ── NixOS icon island (far right, outlined) ── */
+        #image {
+            background-color: @bg-dark;
+            color: @accent;
+            border: 2px solid @accent;
+            border-radius: 8px;
+            padding: 4px 10px;
+            margin: 6px 10px 6px 4px;
+        }
 
-				#pulseaudio {
-					color: #${fg.lightest};
-				}
+        @import url("file:///home/pagedmov/.local/state/sysflake/waybar-colors.css");
       '';
     };
   };

@@ -1,4 +1,10 @@
-{ lib, config, self, pkgs, ... }:
+{
+  lib,
+  config,
+  self,
+  pkgs,
+  ...
+}:
 
 let
   shellsound = "${pkgs.myScripts.playshellsound}/bin/playshellsound";
@@ -8,7 +14,8 @@ let
 in
 {
   options = {
-    movOpts.envConfig.zshConfig.extraConfig.enable = lib.mkEnableOption "enables my extra shell configurations";
+    movOpts.envConfig.zshConfig.extraConfig.enable =
+      lib.mkEnableOption "enables my extra shell configurations";
   };
   config = lib.mkIf config.movOpts.envConfig.zshConfig.extraConfig.enable {
     programs.zsh = {

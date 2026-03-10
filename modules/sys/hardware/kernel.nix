@@ -1,4 +1,10 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
     movOpts.hardwareCfg.kernelModule.enable = lib.mkEnableOption "enables kernel module configuration";
   };

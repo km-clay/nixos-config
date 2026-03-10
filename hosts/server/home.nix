@@ -1,10 +1,18 @@
-{ host, pkgs, self, inputs, lib, username, config, ... }: {
+{
+  host,
+  pkgs,
+  self,
+  inputs,
+  lib,
+  username,
+  config,
+  ...
+}:
+{
 
   home.username = "${username}";
-  home.homeDirectory =
-    "/home/${username}";
-  home.stateVersion =
-    "24.05";
+  home.homeDirectory = "/home/${username}";
+  home.stateVersion = "24.05";
 
   programs.home-manager.enable = true;
 

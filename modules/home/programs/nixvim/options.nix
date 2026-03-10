@@ -1,7 +1,9 @@
 { config, ... }:
 
-let scheme = config.lib.stylix.colors;
-in {
+let
+  scheme = config.lib.stylix.colors;
+in
+{
   programs.nixvim = {
     colorschemes.base16 = {
       enable = true;
@@ -31,14 +33,17 @@ in {
       signs = false;
     };
     extraConfigLua = /* lua */ ''
+      local theme_file = vim.fn.expand("~/.local/state/sysflake/nvim-colors.lua")
+      if vim.fn.filereadable(theme_file) == 1 then
+        dofile(theme_file)
+      end
+
       if vim.g.started_by_firenvim == true then
       	vim.o.laststatus = 0
       end
       if vim.g.neovide then
       	vim.g.neovide_refresh_rate = 144
       	vim.g.neovide_cursor_animate_in_insert_mode = true
-        vim.g.neovide_opacity = 0.5;
-        vim.g.neovide_normal_opacity = 1.0;
       end
 
       vim.g.vimwiki_list = {{path = '~/vimwiki/', syntax = 'markdown', ext = '.md'}}

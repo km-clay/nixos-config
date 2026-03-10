@@ -1,25 +1,28 @@
-{ pkgs, self, lib, config, ... }:
+{
+  pkgs,
+  self,
+  lib,
+  config,
+  ...
+}:
 
 let
   scheme = "ayu-dark";
-  wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
-in {
+in
+{
   options = {
-    movOpts.sysEnv.stylixConfig.enable =
-      lib.mkEnableOption "enables custom stylix options";
+    movOpts.sysEnv.stylixConfig.enable = lib.mkEnableOption "enables custom stylix options";
   };
   config = lib.mkIf config.movOpts.sysEnv.stylixConfig.enable {
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
-      image = wallpaper;
       homeManagerIntegration = {
         autoImport = true;
         followSystem = true;
       };
       polarity = "dark";
       autoEnable = true;
-      opacity.terminal = 0.8;
       targets = {
         console.enable = false;
         feh.enable = true;

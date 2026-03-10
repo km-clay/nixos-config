@@ -1,7 +1,7 @@
-{ username, ... }: {
+{ username, ... }:
+{
   home.username = "${username}";
-  home.homeDirectory =
-    "/home/${username}";
+  home.homeDirectory = "/home/${username}";
   home.stateVersion = "25.05";
 
   programs.home-manager.enable = true;
@@ -14,7 +14,10 @@
     envConfig = {
       hyprlandConfig = {
         enable = true;
-        monitorNames = [ "HDMI-A-1" "DP-1" ];
+        monitorNames = [
+          "HDMI-A-1"
+          "DP-1"
+        ];
         workspaceLayout = "dualmonitor";
       };
       userPkgs.enable = true;

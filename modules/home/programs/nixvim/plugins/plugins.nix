@@ -15,7 +15,7 @@
       markdown-preview.enable = true;
       marks.enable = true;
       nvim-surround.enable = true;
-      rainbow-delimiters.enable = true;
+      # rainbow-delimiters.enable = true;
       render-markdown.enable = true;
       treesitter.enable = true;
       trim.enable = true;

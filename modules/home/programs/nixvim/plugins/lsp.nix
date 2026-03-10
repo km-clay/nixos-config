@@ -61,7 +61,9 @@
               })
             '';
           };
-          window = { completion.border = "rounded"; };
+          window = {
+            completion.border = "rounded";
+          };
         };
       };
       lsp = {
@@ -98,10 +100,8 @@
               };
               options = {
                 # uses Xenon config because it has every option exposed to it
-                nixos.expr = ''
-                  (builtins.getFlake "github:pagedMov/nixos-config").nixosConfigurations.phosphorous.options'';
-                home.expr = ''
-                  (builtins.getFlake "github:pagedMov/nixos-config").homeConfigurations.phospohorousHome.options'';
+                nixos.expr = ''(builtins.getFlake "github:pagedMov/nixos-config").nixosConfigurations.phosphorous.options'';
+                home.expr = ''(builtins.getFlake "github:pagedMov/nixos-config").homeConfigurations.phospohorousHome.options'';
               };
             };
           };

@@ -1,19 +1,24 @@
-{ lib, self, config, host, pkgs, ... }:
+{
+  lib,
+  self,
+  config,
+  host,
+  pkgs,
+  ...
+}:
 
 let
   scheme = "seti";
-  wallpaper = "${self}/assets/wallpapers/dark-waves.jpg";
   server = (host == "xenon");
-in {
+in
+{
   options = {
-    movOpts.envConfig.stylixHomeConfig.enable =
-      lib.mkEnableOption "enables my stylix Home-Manager options";
+    movOpts.envConfig.stylixHomeConfig.enable = lib.mkEnableOption "enables my stylix Home-Manager options";
   };
   config = lib.mkIf config.movOpts.envConfig.stylixHomeConfig.enable {
     stylix = {
       enable = true;
       base16Scheme = "${pkgs.base16-schemes}/share/themes/${scheme}.yaml";
-      image = wallpaper;
       polarity = "dark";
       autoEnable = true;
       targets = {

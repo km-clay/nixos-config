@@ -1,15 +1,17 @@
 {
   inputs,
   username,
-  nixpkgsConfig ? { allowUnfree = true; },
+  nixpkgsConfig ? {
+    allowUnfree = true;
+  },
   host,
   hostDir,
   system ? "x86_64-linux",
   kind,
-  extraNixosModules ? [],
-  extraHomeModules ? [],
-  extraOverlays ? [],
-  overlay ? true
+  extraNixosModules ? [ ],
+  extraHomeModules ? [ ],
+  extraOverlays ? [ ],
+  overlay ? true,
 }:
 
 let
@@ -17,19 +19,31 @@ let
     ../hosts/${hostDir}/config.nix
     ../modules/sys
     inputs.stylix.nixosModules.stylix
-  ] ++ extraNixosModules;
+  ]
+  ++ extraNixosModules;
   homeModules = [
     ../hosts/${hostDir}/home.nix
     ../modules/home
     inputs.stylix.homeModules.stylix
     inputs.nixvim.homeModules.nixvim
-  ] ++ extraHomeModules;
+  ]
+  ++ extraHomeModules;
   pkgs = import inputs.nixpkgs {
     inherit system;
     config = nixpkgsConfig;
-    overlays = extraOverlays ++ (if overlay then [
-      (import ../overlay/overlay.nix { inherit host; root = inputs.self; })
-    ] else []);
+    overlays =
+      extraOverlays
+      ++ (
+        if overlay then
+          [
+            (import ../overlay/overlay.nix {
+              inherit host;
+              root = inputs.self;
+            })
+          ]
+        else
+          [ ]
+      );
   };
   specialArgs = {
     inherit inputs username host;
@@ -55,7 +69,8 @@ let
     else
       null;
 in
-  {
-    nixosConfigurations = if kind == "nixos" || kind == "both" then { ${host} = nixosCfg; } else {};
-    homeConfigurations = if kind == "home" || kind == "both" then { ${host + "Home"} = homeCfg; } else {};
-  }
+{
+  nixosConfigurations = if kind == "nixos" || kind == "both" then { ${host} = nixosCfg; } else { };
+  homeConfigurations =
+    if kind == "home" || kind == "both" then { ${host + "Home"} = homeCfg; } else { };
+}

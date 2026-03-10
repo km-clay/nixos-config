@@ -2,7 +2,7 @@
 
 pkgs.writeShellApplication {
   name = "mntstack";
-  runtimeInputs = [];
+  runtimeInputs = [ ];
   text = ''
     set -e
 

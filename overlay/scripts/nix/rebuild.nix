@@ -1,4 +1,8 @@
-{ host, self, pkgs, }:
+{
+  host,
+  self,
+  pkgs,
+}:
 pkgs.writeShellApplication {
   name = "rebuild";
   runtimeInputs = [
@@ -30,11 +34,8 @@ pkgs.writeShellApplication {
     dry=false
     update=false
 
-    played_start=false
-
     hooray() { playshellsound "${self}/assets/sound/update.wav"; }
     damn() { playshellsound "${self}/assets/sound/error.wav"; }
-    start() { [ "$played_start" = false ] && playshellsound "${self}/assets/sound/nixswitch-start.wav" && played_start=true || true; }
     update_done() { playshellsound "${self}/assets/sound/update_alt.wav"; }
 
     usage="\033[1;4;38;2;243;139;168mUsage\033[0m: rebuild -h for home config, rebuild -s for sys config, rebuild -a for both. Including 'n' with the flag does a dry run, i.e. rebuild -nh"
@@ -49,10 +50,10 @@ pkgs.writeShellApplication {
     dry_flag=""
     [ "$dry" = true ] && dry_flag="-n"
 
-    [ "$update" = true ] && start && (cd "$FLAKEPATH" && nix flake update) && update_done
+    [ "$update" = true ] && (cd "$FLAKEPATH" && nix flake update) && update_done
 
-    [ "$all" = true ] && if sudo sleep 0.1 && start && nh os switch $dry_flag -H "${host}" "$FLAKEPATH" && nh home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
-    [ "$system" = true ] && start && if nh os switch $dry_flag -H "${host}" "$FLAKEPATH"; then hooray; else damn; fi
-    [ "$home" = true ] && start && if nh home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
+    [ "$all" = true ] && if sudo sleep 0.1 && nh os switch $dry_flag -H "${host}" "$FLAKEPATH" && nh home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
+    [ "$system" = true ] && if nh os switch $dry_flag -H "${host}" "$FLAKEPATH"; then hooray; else damn; fi
+    [ "$home" = true ] && if nh home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
   '';
 }

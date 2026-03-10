@@ -1,7 +1,13 @@
-{ lib, config, username, pkgs, ... }: {
+{
+  lib,
+  config,
+  username,
+  pkgs,
+  ...
+}:
+{
   options = {
-    movOpts.programConfigs.gitConfig.enable =
-      lib.mkEnableOption "enables my git configuration";
+    movOpts.programConfigs.gitConfig.enable = lib.mkEnableOption "enables my git configuration";
   };
   config = lib.mkIf config.movOpts.programConfigs.gitConfig.enable {
     programs.git = {

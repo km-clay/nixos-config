@@ -1,5 +1,8 @@
 { pkgs, lib, ... }:
 
 {
-  imports = [ ./cdn ./glasshaus ];
+  imports = [
+    ./cdn
+    ./glasshaus
+  ];
 }

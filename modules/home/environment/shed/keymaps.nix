@@ -2,7 +2,7 @@
 {
   programs.shed = {
     functions = {
-      _read_obj= /* bash */ ''
+      _read_obj = /* bash */ ''
         _obj=""
         while read_key -v key; do
           if [[ "''${#_obj}" -ge 3 ]]; then return 1; fi

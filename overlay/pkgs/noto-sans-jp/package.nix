@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 pkgs.stdenvNoCC.mkDerivation rec {
   pname = "noto-sans-jp";

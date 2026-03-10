@@ -1,7 +1,12 @@
-{ lib, pkgs, config, ... }: {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
   options = {
-    movOpts.softwareCfg.sysServices.enable =
-      lib.mkEnableOption "enables default system services";
+    movOpts.softwareCfg.sysServices.enable = lib.mkEnableOption "enables default system services";
   };
   config = lib.mkIf config.movOpts.softwareCfg.sysServices.enable {
     users.users.pagedmov = {
@@ -18,7 +23,9 @@
         enable = true;
         keyboards.default = {
           ids = [ "*" ];
-          settings.main = { capslock = "esc"; };
+          settings.main = {
+            capslock = "esc";
+          };
         };
       };
       copyparty = {

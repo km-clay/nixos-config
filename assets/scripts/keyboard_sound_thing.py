@@ -14,6 +14,11 @@ def watch_hyprland():
 
 threading.Thread(target=watch_hyprland, daemon=True).start()
 
+dev = None
+
+def is_target_window():
+    return active_class == "kitty" or active_class == "neovide" or active_class == "discord" or active_class == "vesktop" or active_class == "firefox"
+
 for path in evdev.list_devices():
   d = evdev.InputDevice(path)
   if 'keyd virtual keyboard' in d.name:
@@ -21,16 +26,15 @@ for path in evdev.list_devices():
       break
   d.close()
 
-print(dev)
-
-for event in dev.read_loop():
-    if event.type == 1 and event.value == 1 and active_class == "kitty":
-        if event.code == 28:
-            subprocess.Popen(['pw-play', '/home/pagedmov/.sysflake/assets/sound/msg_finish.wav'])
-        elif event.code == 14:
-            subprocess.Popen(['pw-cat', '--playback', '--volume=0.5', '/home/pagedmov/.sysflake/assets/sound/low_hp.wav'])
-        elif event.code == 1:
-            subprocess.Popen(['pw-play', '/home/pagedmov/.sysflake/assets/sound/menu_close.wav'])
-        else:
-            pitch = random.randint(-50,50)
-            subprocess.Popen(['play', '-q', '/home/pagedmov/.sysflake/assets/sound/msg.wav', 'pitch', str(pitch)])
+if dev != None:
+    for event in dev.read_loop():
+        if event.type == 1 and event.value == 1 and is_target_window():
+            if event.code == 28:
+                subprocess.Popen(['pw-play', '/home/pagedmov/.sysflake/assets/sound/msg_finish.wav'])
+            elif event.code == 14:
+                subprocess.Popen(['pw-cat', '--playback', '--volume=0.5', '/home/pagedmov/.sysflake/assets/sound/low_hp.wav'])
+            elif event.code == 1:
+                subprocess.Popen(['pw-play', '/home/pagedmov/.sysflake/assets/sound/menu_close.wav'])
+            else:
+                pitch = random.randint(-50,50)
+                subprocess.Popen(['play', '-q', '/home/pagedmov/.sysflake/assets/sound/msg.wav', 'pitch', str(pitch)])

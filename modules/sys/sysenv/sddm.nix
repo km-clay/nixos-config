@@ -1,7 +1,13 @@
-{ pkgs, self, lib, config, ... }: {
+{
+  pkgs,
+  self,
+  lib,
+  config,
+  ...
+}:
+{
   options = {
-    movOpts.sysEnv.sddmConfig.enable =
-      lib.mkEnableOption "enables custom sddm configuration";
+    movOpts.sysEnv.sddmConfig.enable = lib.mkEnableOption "enables custom sddm configuration";
   };
   config = lib.mkIf config.movOpts.sysEnv.sddmConfig.enable {
     environment.systemPackages = [

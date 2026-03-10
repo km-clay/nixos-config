@@ -30,7 +30,8 @@
     };
   };
 
-  outputs = { ... }@inputs:
+  outputs =
+    { ... }@inputs:
     let
       movLib = import ./lib {
         inherit inputs;
@@ -73,7 +74,8 @@
           ];
         }
       ];
-    in {
+    in
+    {
       inherit (hosts) nixosConfigurations homeConfigurations;
     };
 }

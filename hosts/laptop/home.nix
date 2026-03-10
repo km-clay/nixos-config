@@ -1,9 +1,17 @@
-{ host, pkgs, self, inputs, username, lib, config, ... }: {
+{
+  host,
+  pkgs,
+  self,
+  inputs,
+  username,
+  lib,
+  config,
+  ...
+}:
+{
   home.username = "${username}"; # Replace with your actual username
-  home.homeDirectory =
-    "/home/${username}"; # Replace with your actual home directory
-  home.stateVersion =
-    "24.05"; # Adjust this based on your system's NixOS version
+  home.homeDirectory = "/home/${username}"; # Replace with your actual home directory
+  home.stateVersion = "24.05"; # Adjust this based on your system's NixOS version
 
   programs.home-manager.enable = true;
 

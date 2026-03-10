@@ -1,7 +1,12 @@
-{ config, lib, inputs, ... }: {
+{
+  config,
+  lib,
+  inputs,
+  ...
+}:
+{
   options = {
-    movOpts.envConfig.starshipConfig.enable =
-      lib.mkEnableOption "enables my starship configuration";
+    movOpts.envConfig.starshipConfig.enable = lib.mkEnableOption "enables my starship configuration";
   };
   config = lib.mkIf config.movOpts.envConfig.starshipConfig.enable {
     programs.starship = {

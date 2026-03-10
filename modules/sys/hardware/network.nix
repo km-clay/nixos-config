@@ -1,7 +1,12 @@
-{ host, lib, config, ... }: {
+{
+  host,
+  lib,
+  config,
+  ...
+}:
+{
   options = {
-    movOpts.hardwareCfg.networkModule.enable =
-      lib.mkEnableOption "enables network configuration";
+    movOpts.hardwareCfg.networkModule.enable = lib.mkEnableOption "enables network configuration";
   };
   config = lib.mkIf config.movOpts.hardwareCfg.networkModule.enable {
     networking = {
@@ -12,13 +17,23 @@
         "192.168.1.201" = [ "oganesson" ];
         "192.168.1.202" = [ "mercury" ];
         "192.168.1.134" = [ "hosting.localhost" ];
-        "192.168.1.140" = [ "panel.test" "dnsman.test" ];
+        "192.168.1.140" = [
+          "panel.test"
+          "dnsman.test"
+        ];
       };
       firewall = {
         enable = true;
-        allowedTCPPorts = [ 443 8080 ];
+        allowedTCPPorts = [
+          443
+          8080
+        ];
         allowedUDPPorts = [ 27960 ];
-        trustedInterfaces = [ "vnet9" "virbr0" "enp0s2" ];
+        trustedInterfaces = [
+          "vnet9"
+          "virbr0"
+          "enp0s2"
+        ];
       };
     };
   };

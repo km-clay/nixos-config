@@ -1,1 +1,5 @@
-{ programs.nixvim.plugins.chatgpt = { enable = true; }; }
+{
+  programs.nixvim.plugins.chatgpt = {
+    enable = true;
+  };
+}

@@ -1,7 +1,12 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   options = {
-    movOpts.programConfigs.btopConfig.enable =
-      lib.mkEnableOption "enables my btop config";
+    movOpts.programConfigs.btopConfig.enable = lib.mkEnableOption "enables my btop config";
   };
   config = lib.mkIf config.movOpts.programConfigs.btopConfig.enable {
     programs.btop = {
@@ -10,8 +15,7 @@
       settings = {
         update_ms = 500;
         vim_keys = true;
-        color_theme = "nord";
-        theme_background = true;
+        color_theme = "TTY";
         temp_scale = "fahrenheit";
         graph_symbol = "block";
         disks_filter = "exclude=/boot /";

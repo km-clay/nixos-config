@@ -1,4 +1,10 @@
-{ lib, config, self, pkgs, ... }:
+{
+  lib,
+  config,
+  self,
+  pkgs,
+  ...
+}:
 let
   shellsound = "${pkgs.myScripts.playshellsound}/bin/playshellsound";
   color-commit = "${pkgs.myScripts.color-commit}/bin/color-commit";
@@ -15,6 +21,8 @@ in
       if [ "$0" = "-shed" ]; then
         ${shellsound} $FLAKEPATH/assets/sound/login.wav
       fi
+
+      if [ -n "$LS_COLORS" ]; then unset LS_COLORS; fi
     '';
   };
 }

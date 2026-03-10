@@ -1,7 +1,11 @@
 { pkgs }:
 pkgs.writeShellApplication {
   name = "splash";
-  runtimeInputs = with pkgs; [ lolcat toilet coreutils ];
+  runtimeInputs = with pkgs; [
+    lolcat
+    toilet
+    coreutils
+  ];
   text = ''
     echo "NixOS kernel ver. $(uname -a | awk '{print $3}') x86_64 GNU/Linux"
     date +"%A %B %-d %Y"

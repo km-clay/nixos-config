@@ -2,7 +2,8 @@
 
 {
   options = {
-    movOpts.envConfig.zshConfig.envVariables.enable = lib.mkEnableOption "enables my default session variables";
+    movOpts.envConfig.zshConfig.envVariables.enable =
+      lib.mkEnableOption "enables my default session variables";
   };
   config = lib.mkIf config.movOpts.envConfig.zshConfig.envVariables.enable {
     programs.zsh = {
