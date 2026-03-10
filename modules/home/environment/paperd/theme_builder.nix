@@ -403,7 +403,7 @@ pkgs.writeText "theme-builder.py" ''
       print("Sent reload signal to Kitty.")
 
       nvim_colors = STATE_DIR / "nvim-colors.lua"
-      for sock in Path("/run/user/1000").glob("nvim.*.0"):
+      for sock in Path(os.environ.get("XDG_RUNTIME_DIR", "/run/user/1000")).glob("nvim.*.0"):
           try:
               nvim = attach('socket', path=str(sock))
               nvim.command(f"luafile {nvim_colors}")

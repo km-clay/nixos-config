@@ -614,7 +614,7 @@
         all: unset;
       }
 
-      @import url("file:///home/pagedmov/.local/state/sysflake/swaync-colors.css");
+      @import url("file://${config.home.homeDirectory}/.local/state/sysflake/swaync-colors.css");
     '';
     xdg.configFile."swaync/config.json".text = ''
       {

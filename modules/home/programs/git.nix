@@ -22,7 +22,7 @@
         };
         safe = {
           directory = [
-            "/home/pagedmov/mnt/net"
+            "${config.home.homeDirectory}/mnt/net"
           ];
         };
         core.pager = "delta";

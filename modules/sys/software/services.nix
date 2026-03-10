@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  self,
   ...
 }:
 {
@@ -9,6 +10,21 @@
     movOpts.softwareCfg.sysServices.enable = lib.mkEnableOption "enables default system services";
   };
   config = lib.mkIf config.movOpts.softwareCfg.sysServices.enable {
+    age.identityPaths = [ "/home/pagedmov/.ssh/id_ed25519" ];
+    age.secrets = {
+      copyparty-admin = {
+        file = "${self}/secrets/copyparty-admin.age";
+        owner = "copyparty";
+      };
+      copyparty-pagedmov = {
+        file = "${self}/secrets/copyparty-pagedmov.age";
+        owner = "copyparty";
+      };
+      copyparty-testuser = {
+        file = "${self}/secrets/copyparty-testuser.age";
+        owner = "copyparty";
+      };
+    };
     users.users.pagedmov = {
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBX/xEA6/zfAkjwaDcl+NnCJLMd7OzRru7IKbn+52fi5 root@nixos"
@@ -35,13 +51,13 @@
         };
         accounts = {
           admin = {
-            passwordFile = "${pkgs.writeText "/run/keys/admin" "admin123"}";
+            passwordFile = config.age.secrets.copyparty-admin.path;
           };
           pagedmov = {
-            passwordFile = "${pkgs.writeText "/run/keys/pagedmov" "200231980qwertyuiop"}";
+            passwordFile = config.age.secrets.copyparty-pagedmov.path;
           };
           testuser = {
-            passwordFile = "${pkgs.writeText "/run/keys/testuser" "testpassword"}";
+            passwordFile = config.age.secrets.copyparty-testuser.path;
           };
         };
         volumes = {

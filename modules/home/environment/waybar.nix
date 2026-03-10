@@ -143,7 +143,7 @@ in
           };
 
           "image#nixicon" = {
-            path = "/home/pagedmov/.sysflake/assets/images/nix-snowflake-colours.svg";
+            path = "${self}/assets/images/nix-snowflake-colours.svg";
             size = 28;
           };
 
@@ -271,7 +271,7 @@ in
             margin: 6px 10px 6px 4px;
         }
 
-        @import url("file:///home/pagedmov/.local/state/sysflake/waybar-colors.css");
+        @import url("file://${config.home.homeDirectory}/.local/state/sysflake/waybar-colors.css");
       '';
     };
   };

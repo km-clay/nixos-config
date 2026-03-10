@@ -10,6 +10,7 @@
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
     shed.url = "github:km-clay/shed";
+    agenix.url = "github:ryantm/agenix";
 
     nixvim.url = "github:nix-community/nixvim";
 
@@ -50,20 +51,13 @@
           kind = "both";
         }
         {
-          host = "xenon";
-          hostDir = "server";
-          kind = "both";
-          extraNixosModules = [
-            ./modules/server
-          ];
-        }
-        {
           host = "phosphorous";
           hostDir = "work";
           kind = "both";
           extraNixosModules = [
             inputs.shed.nixosModules.shed
             inputs.copyparty.nixosModules.default
+            inputs.agenix.nixosModules.default
           ];
           extraHomeModules = [
             inputs.shed.homeModules.shed

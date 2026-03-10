@@ -51,6 +51,8 @@
         pavucontrol
         playerctl
         usbutils
+        age
+        agenix-cli
         vim
         uhk-agent
         jq

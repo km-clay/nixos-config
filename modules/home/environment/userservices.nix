@@ -5,20 +5,6 @@ let
 in
 {
   systemd.user = {
-    timers = {
-      maintenanceCheck = {
-        Unit = {
-          Description = "Timer for package maintenance check";
-        };
-        Timer = {
-          OnCalendar = "hourly";
-          Persistent = true;
-        };
-        Install = {
-          WantedBy = [ "timers.target" ];
-        };
-      };
-    };
     services = {
       swww-daemon = {
         Unit.Description = "Daemon for swww (sway wayland wallpaper manager)";
