@@ -57,7 +57,7 @@ let
         }
       else if (layout == "trimonitor") then
         {
-          "${builtins.elemAt monitors 2}" = [
+          "${builtins.elemAt monitors 0}" = [
             1
             2
           ];
@@ -65,7 +65,7 @@ let
             3
             4
           ];
-          "${builtins.elemAt monitors 0}" = [
+          "${builtins.elemAt monitors 2}" = [
             5
             6
           ];

@@ -1,5 +1,5 @@
 {
-  host ? "oganesson",
+  host ? "brinstar",
   root,
   ...
 }:

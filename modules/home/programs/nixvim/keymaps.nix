@@ -81,6 +81,14 @@
         ];
       }
       {
+        action = ''"+d'';
+        key = "<space>d";
+        mode = [
+          "n"
+          "x"
+        ];
+      }
+      {
         action.__raw = /* lua */ "function() require('opencode').prompt('test', {submit=true}) end";
         key = "<space>at";
         mode = [

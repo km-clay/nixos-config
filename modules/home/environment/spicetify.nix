@@ -15,8 +15,6 @@ in
     movOpts.envConfig.spicetifyConfig.enable = lib.mkEnableOption "enable my spicetify options";
   };
   config = lib.mkIf config.movOpts.envConfig.spicetifyConfig.enable {
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "spotify" ];
-
     programs.spicetify = {
       enable = true;
       enabledExtensions = with spicePkgs.extensions; [

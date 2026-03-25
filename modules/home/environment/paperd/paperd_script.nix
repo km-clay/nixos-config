@@ -7,11 +7,10 @@ pkgs.writeText "paperd.py" /* python */ ''
   import tomllib
   import sys
   import time
+  import random
   from pathlib import Path
   from collections import deque
   import subprocess
-  from pynvim import attach
-
 
   config = None
 
@@ -34,7 +33,20 @@ pkgs.writeText "paperd.py" /* python */ ''
       print("No images found in the specified directory.")
       sys.exit(1)
 
-  def get_command():
+  random.shuffle(images)
+  used = []
+
+  def next_image():
+    if len(images) == 0:
+      while used:
+        images.append(used.pop())
+      random.shuffle(images)
+
+    image = images.popleft()
+    used.append(image)
+    return image
+
+  def get_command(next_image):
       command = ["${pkgs.swww}/bin/swww", "img"]
       if transition_type:
           command.append("--transition-type")
@@ -51,22 +63,20 @@ pkgs.writeText "paperd.py" /* python */ ''
       if transition_step:
           command.append("--transition-step")
           command.append(str(transition_step))
-      command.append(str(images[0]))
+      command.append(str(next_image))
       return command
 
 
   print(f"Found {len(images)} images. Starting wallpaper rotation every {interval} seconds.")
   current_time = int(time.time())
 
-  initial_idx = (current_time // interval) % len(images)
-
-  command = get_command()
+  image = next_image()
+  command = get_command(image)
   subprocess.run(command)
-  subprocess.run(["${pkgs.myPython}/bin/python3", "${themeBuilder}", str(images[0])])
+  subprocess.run(["${pkgs.myPython}/bin/python3", "${themeBuilder}", str(image)])
 
-  print(f"Setting wallpaper to {images[0]} with transition {transition_type} (fps: {transition_fps}, duration: {transition_duration}, angle: {transition_angle}, step: {transition_step})")
+  print(f"Setting wallpaper to {image} with transition {transition_type} (fps: {transition_fps}, duration: {transition_duration}, angle: {transition_angle}, step: {transition_step})")
 
-  images.rotate(-1)
   last_check = current_time % interval
   time.sleep(5)
 
@@ -77,13 +87,13 @@ pkgs.writeText "paperd.py" /* python */ ''
           time.sleep(5)
           continue
 
-      command = get_command()
+      image = next_image()
+      command = get_command(image)
 
-      print(f"Setting wallpaper to {images[0]} with transition {transition_type} (fps: {transition_fps}, duration: {transition_duration}, angle: {transition_angle}, step: {transition_step})")
+      print(f"Setting wallpaper to {image} with transition {transition_type} (fps: {transition_fps}, duration: {transition_duration}, angle: {transition_angle}, step: {transition_step})")
 
       subprocess.run(command)
-      subprocess.run(["${pkgs.myPython}/bin/python3", "${themeBuilder}", str(images[0])])
-      images.rotate(-1)
+      subprocess.run(["${pkgs.myPython}/bin/python3", "${themeBuilder}", str(image)])
       last_check = current_time % interval
       time.sleep(5)
 ''

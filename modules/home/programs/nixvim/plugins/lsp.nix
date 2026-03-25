@@ -100,8 +100,8 @@
               };
               options = {
                 # uses Xenon config because it has every option exposed to it
-                nixos.expr = ''(builtins.getFlake "github:pagedMov/nixos-config").nixosConfigurations.phosphorous.options'';
-                home.expr = ''(builtins.getFlake "github:pagedMov/nixos-config").homeConfigurations.phospohorousHome.options'';
+                nixos.expr = ''(builtins.getFlake "github:pagedMov/nixos-config").nixosConfigurations.tourian.options'';
+                home.expr = ''(builtins.getFlake "github:pagedMov/nixos-config").homeConfigurations.tourianHome.options'';
               };
             };
           };

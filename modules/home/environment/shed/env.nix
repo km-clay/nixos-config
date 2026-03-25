@@ -15,6 +15,9 @@
       FZF_DEFAULT_OPTS = "--height 40% --layout=reverse --border";
 
       LESS = "-R"; # pager uses alt buffer
+      PAGER = "less";
+      SHED_HPAGER = "TERM=xterm less";
+      PROMPT_GIT = "1";
     };
   };
 }

@@ -2,8 +2,8 @@
   description = "pagedMov's NixOS and Home Manager configuration";
 
   inputs = {
-    #nixpkgs.url = "github:nixos/nixpkgs/a5ebaf35f8930361787bb491d49fc2e807e6d51e";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/5448eaf6c29de13e96d7461a4de4d66bf5931ec8";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     hypr-contrib.url = "github:hyprwm/contrib";
     copyparty.url = "github:9001/copyparty";
     hyprpicker.url = "github:hyprwm/hyprpicker";
@@ -41,17 +41,17 @@
 
       hosts = movLib.foldHosts [
         {
-          host = "oganesson";
+          host = "brinstar";
           hostDir = "desktop";
           kind = "both";
         }
         {
-          host = "mercury";
+          host = "norfair";
           hostDir = "laptop";
           kind = "both";
         }
         {
-          host = "phosphorous";
+          host = "tourian";
           hostDir = "work";
           kind = "both";
           extraNixosModules = [

@@ -55,6 +55,7 @@ in
         imagemagick
         vlc
         lolcat
+        obsidian
         vesktop
         zsh
         zsh-syntax-highlighting
@@ -68,6 +69,7 @@ in
         vkbasalt
         firefox
         spotify
+        rustfmt
         zathura
         tor
         tor-browser

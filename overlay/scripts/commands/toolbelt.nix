@@ -27,7 +27,7 @@ pkgs.writeShellApplication {
     }
     btop_cmd() {
       hostname="$(cat /etc/hostname)"
-      if [ "$hostname" = "oganesson" ] || [ "$hostname"  = "phosphorous" ]; then
+      if [ "$hostname" = "brinstar" ] || [ "$hostname"  = "tourian" ]; then
         hyprctl dispatch resizeactive 20% 155% &&
         moveonscreen --center &&
         btop &&

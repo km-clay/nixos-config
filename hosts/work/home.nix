@@ -15,8 +15,8 @@
       hyprlandConfig = {
         enable = true;
         monitorNames = [
-          "DP-3"
           "DP-1"
+          "HDMI-A-1"
         ];
         workspaceLayout = "dualmonitor";
       };

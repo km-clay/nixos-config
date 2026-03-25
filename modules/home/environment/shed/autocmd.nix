@@ -9,7 +9,7 @@ in
     autocmds = [
       {
         hooks = [ "post-cmd" ];
-        command = "export PROMPT_GIT_LINE=\"$(prompt_git_line)\"";
+        command = ''if [ "$PROMPT_GIT" -eq 1 ]; then export PROMPT_GIT_LINE="$(prompt_git_line)"; else export PROMPT_GIT_LINE=""; fi'';
       }
       {
         hooks = [ "on-history-open" ];

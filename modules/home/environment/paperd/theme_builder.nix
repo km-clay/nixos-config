@@ -1,474 +1,652 @@
 { pkgs }:
 
 pkgs.writeText "theme-builder.py" ''
-  from colorsys import rgb_to_hls, hls_to_rgb
-  from collections import Counter
-  from pathlib import Path
-  from PIL import Image
-  from pynvim import attach
-  import subprocess
-  import math
-  import os
-  import sys
+from colorsys import rgb_to_hls, hls_to_rgb
+from collections import Counter
+from pathlib import Path
+from PIL import Image
+from pynvim import attach
+import subprocess
+import math
+import os
+import sys
 
-  STATE_DIR = Path(os.path.expanduser("~/.local/state/sysflake"))
-  MULT = 2.5
+STATE_DIR = Path(os.path.expanduser("~/.local/state/sysflake"))
+MULT = 2.5
 
-  GRAYSCALE = {
-      "base00": "1a1a1a",
-      "base01": "2a2a2a",
-      "base02": "3a3a3a",
-      "base03": "5a5a5a",
-      "base04": "8a8a8a",
-      "base05": "b0b0b0",
-      "base06": "d0d0d0",
-      "base07": "e8e8e8",
-      "base08": "4a4a4a",
-      "base09": "555555",
-      "base0A": "606060",
-      "base0B": "6b6b6b",
-      "base0C": "767676",
-      "base0D": "818181",
-      "base0E": None,  # accent slot
-      "base0F": "8c8c8c",
-  }
+GRAYSCALE = {
+    "base00": "1a1a1a",
+    "base01": "2a2a2a",
+    "base02": "3a3a3a",
+    "base03": "5a5a5a",
+    "base04": "8a8a8a",
+    "base05": "b0b0b0",
+    "base06": "d0d0d0",
+    "base07": "e8e8e8",
+    "base08": "4a4a4a",
+    "base09": "555555",
+    "base0A": "606060",
+    "base0B": "6b6b6b",
+    "base0C": "767676",
+    "base0D": "818181",
+    "base0E": None,  # accent slot
+    "base0F": "8c8c8c",
+}
 
-  KITTY_MAP = {
-      "background": "00", "foreground": "05", "cursor": "05",
-      "selection_background": "02", "selection_foreground": "05",
-      "color0": "00", "color1": "08", "color2": "0E", "color3": "0A",
-      "color4": "0D", "color5": "0E", "color6": "0E", "color7": "05",
-      "color8": "03", "color9": "08", "color10": "0E", "color11": "0A",
-      "color12": "0D", "color13": "0E", "color14": "0E", "color15": "07",
-  }
-
-
-  def extract_accent(image_path):
-      img = Image.open(image_path).resize((200, 200)).quantize(colors=32).convert("RGB")
-      pixels = list(img.get_flattened_data())
-      counts = Counter(pixels)
-      total = len(pixels)
-
-      def score(color):
-          _, l, s = rgb_to_hls(color[0] / 255, color[1] / 255, color[2] / 255)
-          vibrancy = s * (1 - abs(l - 0.5) * 2)
-          frequency = counts[color] / total
-          return vibrancy * frequency
-
-      best = max(counts.keys(), key=score)
-      h, l, s = rgb_to_hls(best[0] / 255, best[1] / 255, best[2] / 255)
-
-      new_s = min(max(s * MULT, 0.6), 0.7)
-
-      # Blue hues are perceptually darker — gradually boost lightness floor
-      blue_center = 0.63
-      blue_width = 0.09
-      blue_factor = max(0, 1 - abs(h - blue_center) / blue_width)
-      min_l = 0.45 + 0.2 * blue_factor
-
-      new_l = max(min_l, min(0.7, l))
-      r, g, b = hls_to_rgb(h, new_l, new_s)
-      return f"{int(r * 255):02x}{int(g * 255):02x}{int(b * 255):02x}"
+KITTY_MAP = {
+    "background": "00", "foreground": "05", "cursor": "05",
+    "selection_background": "02", "selection_foreground": "05",
+    "color0": "00", "color1": "08", "color2": "0E", "color3": "0A",
+    "color4": "0D", "color5": "0E", "color6": "0E", "color7": "05",
+    "color8": "03", "color9": "08", "color10": "0E", "color11": "0A",
+    "color12": "0D", "color13": "0E", "color14": "0E", "color15": "07",
+}
 
 
-  def build_scheme(accent):
-      scheme = dict(GRAYSCALE)
-      scheme["base0E"] = accent
-      return scheme
+def extract_accent(image_path):
+    img = Image.open(image_path).resize((200, 200)).quantize(colors=32).convert("RGB")
+    pixels = list(img.get_flattened_data())
+    counts = Counter(pixels)
+    total = len(pixels)
+
+    def score(color):
+        _, l, s = rgb_to_hls(color[0] / 255, color[1] / 255, color[2] / 255)
+        vibrancy = s * (1 - abs(l - 0.5) * 2)
+        frequency = counts[color] / total
+        return vibrancy * frequency
+
+    best = max(counts.keys(), key=score)
+    h, l, s = rgb_to_hls(best[0] / 255, best[1] / 255, best[2] / 255)
+
+    new_s = min(max(s * MULT, 0.6), 0.7)
+
+    # Blue hues are perceptually darker — gradually boost lightness floor
+    blue_center = 0.63
+    blue_width = 0.09
+    blue_factor = max(0, 1 - abs(h - blue_center) / blue_width)
+    min_l = 0.45 + 0.2 * blue_factor
+
+    new_l = max(min_l, min(0.7, l))
+    r, g, b = hls_to_rgb(h, new_l, new_s)
+    return f"{int(r * 255):02x}{int(g * 255):02x}{int(b * 255):02x}"
 
 
-  def write_scheme(scheme):
-      path = STATE_DIR / "scheme.txt"
-      with open(path, "w") as f:
-          for key, val in scheme.items():
-              f.write(f"{key} {val}\n")
+def build_scheme(accent):
+    scheme = dict(GRAYSCALE)
+    scheme["base0E"] = accent
+    return scheme
 
 
-  def write_kitty(scheme):
-      path = STATE_DIR / "kitty-colors.conf"
-      with open(path, "w") as f:
-          for name, base in KITTY_MAP.items():
-              f.write(f"{name} #{scheme['base' + base]}\n")
+def write_scheme(scheme):
+    path = STATE_DIR / "scheme.txt"
+    with open(path, "w") as f:
+        for key, val in scheme.items():
+            f.write(f"{key} {val}\n")
 
 
-  VESKTOP_DIR = Path(os.path.expanduser("~/.config/vesktop/themes"))
+def write_kitty(scheme):
+    path = STATE_DIR / "kitty-colors.conf"
+    with open(path, "w") as f:
+        for name, base in KITTY_MAP.items():
+            f.write(f"{name} #{scheme['base' + base]}\n")
 
 
-  def hex_to_oklch(hex_color):
-      """Convert hex color to oklch (lightness, chroma, hue) values."""
-      r = int(hex_color[0:2], 16) / 255
-      g = int(hex_color[2:4], 16) / 255
-      b = int(hex_color[4:6], 16) / 255
-
-      # sRGB to linear
-      def to_linear(c):
-          return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
-
-      lr, lg, lb = to_linear(r), to_linear(g), to_linear(b)
-
-      # Linear RGB to OKLab
-      l_ = 0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb
-      m_ = 0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb
-      s_ = 0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb
-
-      l_ = l_ ** (1/3) if l_ >= 0 else -((-l_) ** (1/3))
-      m_ = m_ ** (1/3) if m_ >= 0 else -((-m_) ** (1/3))
-      s_ = s_ ** (1/3) if s_ >= 0 else -((-s_) ** (1/3))
-
-      L = 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_
-      a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_
-      bv = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
-
-      C = math.sqrt(a ** 2 + bv ** 2)
-      H = math.degrees(math.atan2(bv, a)) % 360
-
-      return L, C, H
+VESKTOP_DIR = Path(os.path.expanduser("~/.config/vesktop/themes"))
 
 
-  def write_vesktop(scheme):
-      VESKTOP_DIR.mkdir(parents=True, exist_ok=True)
-      accent = scheme["base0E"]
-      _, chroma, hue = hex_to_oklch(accent)
+def hex_to_oklch(hex_color):
+    """Convert hex color to oklch (lightness, chroma, hue) values."""
+    r = int(hex_color[0:2], 16) / 255
+    g = int(hex_color[2:4], 16) / 255
+    b = int(hex_color[4:6], 16) / 255
 
-      path = VESKTOP_DIR / "system24-dynamic.css"
-      with open(path, "w") as f:
-          f.write("""\
-  /**
-   * system24 dynamic theme — generated by theme-engine
-   */
+    # sRGB to linear
+    def to_linear(c):
+        return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
 
-  @import url('https://refact0r.github.io/system24/build/system24.css');
+    lr, lg, lb = to_linear(r), to_linear(g), to_linear(b)
 
-  :root {
-      --colors: on;
+    # Linear RGB to OKLab
+    l_ = 0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb
+    m_ = 0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb
+    s_ = 0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb
 
-      /* override purple (accent) with extracted color */
-  """)
-          for i, lightness in enumerate([75, 70, 65, 60, 55], start=1):
-              f.write(f"    --purple-{i}: oklch({lightness}% {chroma:.4f} {hue:.1f});\n")
+    l_ = l_ ** (1/3) if l_ >= 0 else -((-l_) ** (1/3))
+    m_ = m_ ** (1/3) if m_ >= 0 else -((-m_) ** (1/3))
+    s_ = s_ ** (1/3) if s_ >= 0 else -((-s_) ** (1/3))
 
-          f.write("}\n")
+    L = 0.2104542553 * l_ + 0.7936177850 * m_ - 0.0040720468 * s_
+    a = 1.9779984951 * l_ - 2.4285922050 * m_ + 0.4505937099 * s_
+    bv = 0.0259040371 * l_ + 0.7827717662 * m_ - 0.8086757660 * s_
 
+    C = math.sqrt(a ** 2 + bv ** 2)
+    H = math.degrees(math.atan2(bv, a)) % 360
 
-  def write_nvim(scheme):
-      accent = scheme["base0E"]
-      path = STATE_DIR / "nvim-colors.lua"
-      with open(path, "w") as f:
-          f.write("require('base16-colorscheme').setup({\n")
-          for key, val in scheme.items():
-              f.write(f"    {key} = '#{val}',\n")
-          f.write("})\n\n")
-          f.write(f"local accent = '#{accent}'\n")
-          f.write(f"local light_gray = '#{scheme['base05']}'\n")
-          for group in ["Statement", "Conditional", "Repeat", "Macro", "Function", "Exception",
-                        "TSMethod", "@lsp.type.method", "@lsp.type.function", "@lsp.type.macro",
-                        "DiagnosticUnderlineHint", "Boolean"]:
-              f.write(f"vim.api.nvim_set_hl(0, '{group}', {{ fg = accent }})\n")
-          for group in ["@lsp.type.variable", "@lsp.type.parameter", "@lsp.type.struct", "@lsp.type.class",
-                        "@lsp.type.selfTypeKeyword", "Identifier"]:
-              f.write(f"vim.api.nvim_set_hl(0, '{group}', {{ fg = light_gray }})\n")
-          for group in ["@lsp.type.enumMember", "@lsp.type.enum", "Number", "Integer"]:
-              f.write(f"vim.api.nvim_set_hl(0, '{group}', {{ fg = '#{scheme['base04']}' }})\n")
+    return L, C, H
 
 
-  def write_swaync(scheme):
-      accent = scheme["base0E"]
-      path = STATE_DIR / "swaync-colors.css"
-      with open(path, "w") as f:
-          f.write(f"""\
-  @define-color base #{scheme['base00']};
-  @define-color mantle #{scheme['base01']};
-  @define-color crust #{scheme['base00']};
-  @define-color text #{scheme['base05']};
-  @define-color subtext0 #{scheme['base04']};
-  @define-color subtext1 #{scheme['base05']};
-  @define-color surface0 #{scheme['base01']};
-  @define-color surface1 #{scheme['base02']};
-  @define-color surface2 #{scheme['base03']};
-  @define-color overlay0 #{scheme['base03']};
-  @define-color overlay1 #{scheme['base04']};
-  @define-color overlay2 #{scheme['base04']};
-  @define-color lavender #{accent};
-  """)
+def write_vesktop(scheme):
+    VESKTOP_DIR.mkdir(parents=True, exist_ok=True)
+    accent = scheme["base0E"]
+    _, chroma, hue = hex_to_oklch(accent)
+
+    path = VESKTOP_DIR / "system24-dynamic.css"
+    with open(path, "w") as f:
+        f.write("""\
+/**
+ * system24 dynamic theme — generated by theme-engine
+ */
+
+@import url('https://refact0r.github.io/system24/build/system24.css');
+
+:root {
+    --colors: on;
+
+    /* override purple (accent) with extracted color */
+""")
+        for i, lightness in enumerate([75, 70, 65, 60, 55], start=1):
+            f.write(f"    --purple-{i}: oklch({lightness}% {chroma:.4f} {hue:.1f});\n")
+
+        f.write("}\n")
 
 
-  EZA_DIR = Path(os.path.expanduser("~/.config/eza"))
+def write_nvim(scheme):
+    accent = scheme["base0E"]
+    path = STATE_DIR / "nvim-colors.lua"
+    with open(path, "w") as f:
+        f.write("require('base16-colorscheme').setup({\n")
+        for key, val in scheme.items():
+            f.write(f"    {key} = '#{val}',\n")
+        f.write("})\n\n")
+        f.write(f"local accent = '#{accent}'\n")
+        f.write(f"local light_gray = '#{scheme['base05']}'\n")
+        for group in ["Statement", "Conditional", "Repeat", "Macro", "Function", "Exception",
+                      "TSMethod", "@lsp.type.method", "@lsp.type.function", "@lsp.type.macro",
+                      "DiagnosticUnderlineHint", "Boolean", "Title"]:
+            f.write(f"vim.api.nvim_set_hl(0, '{group}', {{ fg = accent }})\n")
+        for group in ["@lsp.type.variable", "@lsp.type.parameter", "@lsp.type.struct", "@lsp.type.class",
+                      "@lsp.type.selfTypeKeyword", "Identifier"]:
+            f.write(f"vim.api.nvim_set_hl(0, '{group}', {{ fg = light_gray }})\n")
+        for group in ["@lsp.type.enumMember", "@lsp.type.enum", "Number", "Integer"]:
+            f.write(f"vim.api.nvim_set_hl(0, '{group}', {{ fg = '#{scheme['base04']}' }})\n")
 
 
-  def write_eza(scheme):
-      EZA_DIR.mkdir(parents=True, exist_ok=True)
-      accent = f'"#{scheme["base0E"]}"'
-      file_color = f'"#{scheme["base05"]}"'
-      dim = f'"#{scheme["base04"]}"'
-      dimmer = f'"#{scheme["base03"]}"'
-      dark = f'"#{scheme["base02"]}"'
+def write_swaync(scheme):
+    accent = scheme["base0E"]
+    path = STATE_DIR / "swaync-colors.css"
+    with open(path, "w") as f:
+        f.write(f"""\
+@define-color base #{scheme['base00']};
+@define-color mantle #{scheme['base01']};
+@define-color crust #{scheme['base00']};
+@define-color text #{scheme['base05']};
+@define-color subtext0 #{scheme['base04']};
+@define-color subtext1 #{scheme['base05']};
+@define-color surface0 #{scheme['base01']};
+@define-color surface1 #{scheme['base02']};
+@define-color surface2 #{scheme['base03']};
+@define-color overlay0 #{scheme['base03']};
+@define-color overlay1 #{scheme['base04']};
+@define-color overlay2 #{scheme['base04']};
+@define-color lavender #{accent};
+""")
 
-      path = EZA_DIR / "theme.yml"
-      with open(path, "w") as f:
-          f.write(f"""\
-  filekinds:
-    normal:
-      foreground: {file_color}
-    directory:
-      foreground: {accent}
-      is_bold: true
-      is_underline: true
-    symlink:
-      foreground: {dim}
-    pipe:
-      foreground: {dimmer}
-    block_device:
-      foreground: {dim}
-    char_device:
-      foreground: {dim}
-    socket:
-      foreground: {dimmer}
-    special:
-      foreground: {dim}
-    executable:
-      foreground: {accent}
-      is_bold: true
-    mount_point:
-      foreground: {accent}
 
-  perms:
-    user_read:
-      foreground: {file_color}
-    user_write:
-      foreground: {dim}
-    user_execute_file:
-      foreground: {accent}
-    user_execute_other:
-      foreground: {accent}
-    group_read:
-      foreground: {dim}
-    group_write:
-      foreground: {dimmer}
-    group_execute:
-      foreground: {dim}
-    other_read:
-      foreground: {dimmer}
-    other_write:
-      foreground: {dimmer}
-    other_execute:
-      foreground: {dimmer}
-    special_user_file:
-      foreground: {accent}
-    special_other:
-      foreground: {dimmer}
-    attribute:
-      foreground: {dimmer}
+EZA_DIR = Path(os.path.expanduser("~/.config/eza"))
 
-  size:
-    number_byte:
-      foreground: {file_color}
-    number_kilo:
-      foreground: {dim}
-    number_mega:
-      foreground: {dim}
-    number_giga:
-      foreground: {accent}
-    number_huge:
-      foreground: {accent}
-    unit_byte:
-      foreground: {dimmer}
-    unit_kilo:
-      foreground: {dimmer}
-    unit_mega:
-      foreground: {dimmer}
-    unit_giga:
-      foreground: {dimmer}
-    unit_huge:
-      foreground: {dimmer}
 
-  users:
-    user_you:
-      foreground: {file_color}
-    user_root:
-      foreground: {accent}
-    user_other:
-      foreground: {dim}
-    group_yours:
-      foreground: {dim}
-    group_other:
-      foreground: {dimmer}
-    group_root:
-      foreground: {accent}
+def write_eza(scheme):
+    EZA_DIR.mkdir(parents=True, exist_ok=True)
+    accent = f'"#{scheme["base0E"]}"'
+    file_color = f'"#{scheme["base05"]}"'
+    dim = f'"#{scheme["base04"]}"'
+    dimmer = f'"#{scheme["base03"]}"'
+    dark = f'"#{scheme["base02"]}"'
 
-  links:
-    normal:
-      foreground: {dim}
-    multi_link_file:
-      foreground: {accent}
-
-  git:
-    new:
-      foreground: {accent}
-    modified:
-      foreground: {dim}
-    deleted:
-      foreground: {dimmer}
-    renamed:
-      foreground: {dim}
-    typechange:
-      foreground: {dim}
-    ignored:
-      foreground: {dark}
-    conflicted:
-      foreground: {accent}
-
-  git_repo:
-    branch_main:
-      foreground: {file_color}
-    branch_other:
-      foreground: {dim}
-    git_clean:
-      foreground: {accent}
-    git_dirty:
-      foreground: {dim}
-
-  file_type:
-    image:
-      foreground: {dim}
-    video:
-      foreground: {dim}
-    music:
-      foreground: {dim}
-    lossless:
-      foreground: {dim}
-    crypto:
-      foreground: {dimmer}
-    document:
-      foreground: {file_color}
-    compressed:
-      foreground: {dimmer}
-    temp:
-      foreground: {dark}
-    compiled:
-      foreground: {dimmer}
-    build:
-      foreground: {dimmer}
-    source:
-      foreground: {file_color}
-
-  punctuation:
-    foreground: {dimmer}
-  date:
-    foreground: {dim}
-  inode:
-    foreground: {dimmer}
-  blocks:
-    foreground: {dimmer}
-  header:
+    path = EZA_DIR / "theme.yml"
+    with open(path, "w") as f:
+        f.write(f"""\
+filekinds:
+  normal:
     foreground: {file_color}
-  octal:
-    foreground: {dimmer}
-  flags:
-    foreground: {dim}
-
-  symlink_path:
-    foreground: {dim}
-  control_char:
-    foreground: {dimmer}
-  broken_symlink:
+  directory:
     foreground: {accent}
-  broken_path_overlay:
+    is_bold: true
+    is_underline: true
+  symlink:
+    foreground: {dim}
+  pipe:
+    foreground: {dimmer}
+  block_device:
+    foreground: {dim}
+  char_device:
+    foreground: {dim}
+  socket:
+    foreground: {dimmer}
+  special:
+    foreground: {dim}
+  executable:
+    foreground: {accent}
+    is_bold: true
+  mount_point:
+    foreground: {accent}
+
+perms:
+  user_read:
+    foreground: {file_color}
+  user_write:
+    foreground: {dim}
+  user_execute_file:
+    foreground: {accent}
+  user_execute_other:
+    foreground: {accent}
+  group_read:
+    foreground: {dim}
+  group_write:
+    foreground: {dimmer}
+  group_execute:
+    foreground: {dim}
+  other_read:
+    foreground: {dimmer}
+  other_write:
+    foreground: {dimmer}
+  other_execute:
+    foreground: {dimmer}
+  special_user_file:
+    foreground: {accent}
+  special_other:
+    foreground: {dimmer}
+  attribute:
+    foreground: {dimmer}
+
+size:
+  number_byte:
+    foreground: {file_color}
+  number_kilo:
+    foreground: {dim}
+  number_mega:
+    foreground: {dim}
+  number_giga:
+    foreground: {accent}
+  number_huge:
+    foreground: {accent}
+  unit_byte:
+    foreground: {dimmer}
+  unit_kilo:
+    foreground: {dimmer}
+  unit_mega:
+    foreground: {dimmer}
+  unit_giga:
+    foreground: {dimmer}
+  unit_huge:
+    foreground: {dimmer}
+
+users:
+  user_you:
+    foreground: {file_color}
+  user_root:
+    foreground: {accent}
+  user_other:
+    foreground: {dim}
+  group_yours:
+    foreground: {dim}
+  group_other:
+    foreground: {dimmer}
+  group_root:
+    foreground: {accent}
+
+links:
+  normal:
+    foreground: {dim}
+  multi_link_file:
+    foreground: {accent}
+
+git:
+  new:
+    foreground: {accent}
+  modified:
+    foreground: {dim}
+  deleted:
+    foreground: {dimmer}
+  renamed:
+    foreground: {dim}
+  typechange:
+    foreground: {dim}
+  ignored:
     foreground: {dark}
-  """)
+  conflicted:
+    foreground: {accent}
+
+git_repo:
+  branch_main:
+    foreground: {file_color}
+  branch_other:
+    foreground: {dim}
+  git_clean:
+    foreground: {accent}
+  git_dirty:
+    foreground: {dim}
+
+file_type:
+  image:
+    foreground: {dim}
+  video:
+    foreground: {dim}
+  music:
+    foreground: {dim}
+  lossless:
+    foreground: {dim}
+  crypto:
+    foreground: {dimmer}
+  document:
+    foreground: {file_color}
+  compressed:
+    foreground: {dimmer}
+  temp:
+    foreground: {dark}
+  compiled:
+    foreground: {dimmer}
+  build:
+    foreground: {dimmer}
+  source:
+    foreground: {file_color}
+
+punctuation:
+  foreground: {dimmer}
+date:
+  foreground: {dim}
+inode:
+  foreground: {dimmer}
+blocks:
+  foreground: {dimmer}
+header:
+  foreground: {file_color}
+octal:
+  foreground: {dimmer}
+flags:
+  foreground: {dim}
+
+symlink_path:
+  foreground: {dim}
+control_char:
+  foreground: {dimmer}
+broken_symlink:
+  foreground: {accent}
+broken_path_overlay:
+  foreground: {dark}
+""")
 
 
-  def write_waybar(scheme):
-      accent = scheme["base0E"]
-      bg = scheme["base00"]
-      fg = scheme["base05"]
-      path = STATE_DIR / "waybar-colors.css"
-      with open(path, "w") as f:
-          f.write(f"@define-color accent #{accent};\n")
-          f.write(f"@define-color bg-dark #{bg};\n")
-          f.write(f"@define-color fg-text #{fg};\n")
+def write_yazi(scheme):
+    accent = scheme["base0E"]
+    bg = scheme["base00"]
+    bg1 = scheme["base01"]
+    bg2 = scheme["base02"]
+    dim = scheme["base03"]
+    mid = scheme["base04"]
+    fg = scheme["base05"]
+    light = scheme["base06"]
+    bright = scheme["base07"]
+    YAZI_DIR = Path(os.path.expanduser("~/.config/yazi"))
+    YAZI_DIR.mkdir(parents=True, exist_ok=True)
+    path = YAZI_DIR / "theme.toml"
+    with open(path, "w") as f:
+        f.write(f"""[mgr]
+cwd = {{ fg = "#{accent}" }}
+find_keyword = {{ fg = "#{accent}", bold = true, italic = true, underline = true }}
+find_position = {{ fg = "#{mid}", bg = "reset", bold = true, italic = true }}
+marker_copied = {{ fg = "#{accent}", bg = "#{accent}" }}
+marker_cut = {{ fg = "#{dim}", bg = "#{dim}" }}
+marker_marked = {{ fg = "#{accent}", bg = "#{accent}" }}
+marker_selected = {{ fg = "#{mid}", bg = "#{mid}" }}
+count_copied = {{ fg = "#{bg}", bg = "#{accent}" }}
+count_cut = {{ fg = "#{bg}", bg = "#{dim}" }}
+count_selected = {{ fg = "#{bg}", bg = "#{mid}" }}
+border_symbol = "│"
+border_style = {{ fg = "#{dim}" }}
+
+[tabs]
+active = {{ fg = "#{bg}", bg = "#{accent}", bold = true }}
+inactive = {{ fg = "#{accent}", bg = "#{bg1}" }}
+
+[mode]
+normal_main = {{ fg = "#{bg}", bg = "#{accent}", bold = true }}
+normal_alt = {{ fg = "#{accent}", bg = "#{bg1}" }}
+select_main = {{ fg = "#{bg}", bg = "#{mid}", bold = true }}
+select_alt = {{ fg = "#{mid}", bg = "#{bg1}" }}
+unset_main = {{ fg = "#{bg}", bg = "#{dim}", bold = true }}
+unset_alt = {{ fg = "#{dim}", bg = "#{bg1}" }}
+
+[status]
+perm_sep = {{ fg = "#{dim}" }}
+perm_type = {{ fg = "#{accent}" }}
+perm_read = {{ fg = "#{fg}" }}
+perm_write = {{ fg = "#{fg}" }}
+perm_exec = {{ fg = "#{accent}" }}
+progress_label = {{ fg = "#{fg}", bold = true }}
+progress_normal = {{ fg = "#{accent}", bg = "#{bg2}" }}
+progress_error = {{ fg = "#{dim}", bg = "#{bg2}" }}
+
+[pick]
+border = {{ fg = "#{accent}" }}
+active = {{ fg = "#{accent}", bold = true }}
+inactive = {{}}
+
+[input]
+border = {{ fg = "#{accent}" }}
+title = {{}}
+value = {{}}
+selected = {{ reversed = true }}
+
+[cmp]
+border = {{ fg = "#{accent}" }}
+
+[tasks]
+border = {{ fg = "#{accent}" }}
+title = {{}}
+hovered = {{ fg = "#{accent}", bold = true }}
+
+[which]
+mask = {{ bg = "#{bg1}" }}
+cand = {{ fg = "#{accent}" }}
+rest = {{ fg = "#{dim}" }}
+desc = {{ fg = "#{mid}" }}
+separator = "  "
+separator_style = {{ fg = "#{bg2}" }}
+
+[help]
+on = {{ fg = "#{accent}" }}
+run = {{ fg = "#{mid}" }}
+hovered = {{ reversed = true, bold = true }}
+footer = {{ fg = "#{bg1}", bg = "#{fg}" }}
+
+[spot]
+border = {{ fg = "#{accent}" }}
+title = {{ fg = "#{accent}" }}
+tbl_col = {{ fg = "#{accent}" }}
+tbl_cell = {{ fg = "#{mid}", bg = "#{bg2}" }}
+
+[notify]
+title_info = {{ fg = "#{accent}" }}
+title_warn = {{ fg = "#{mid}" }}
+title_error = {{ fg = "#{dim}" }}
+
+[filetype]
+rules = [
+    {{ mime = "image/*", fg = "#{accent}" }},
+    {{ mime = "{{audio,video}}/*", fg = "#{mid}" }},
+    {{ mime = "application/{{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}}", fg = "#{mid}" }},
+    {{ mime = "application/{{pdf,doc,rtf}}", fg = "#{accent}" }},
+    {{ mime = "vfs/{{absent,stale}}", fg = "#{dim}" }},
+    {{ url = "*", fg = "#{fg}" }},
+    {{ url = "*/", fg = "#{accent}" }},
+]
+
+[icon]
+conds = [
+    {{ if = "orphan", text = "", fg = "#{fg}" }},
+    {{ if = "link", text = "", fg = "#{dim}" }},
+    {{ if = "block", text = "", fg = "#{mid}" }},
+    {{ if = "char", text = "", fg = "#{mid}" }},
+    {{ if = "fifo", text = "", fg = "#{mid}" }},
+    {{ if = "sock", text = "", fg = "#{mid}" }},
+    {{ if = "sticky", text = "", fg = "#{mid}" }},
+    {{ if = "dummy", text = "", fg = "#{dim}" }},
+    {{ if = "dir & hovered", text = "", fg = "#{accent}" }},
+    {{ if = "dir", text = "", fg = "#{accent}" }},
+    {{ if = "exec", text = "", fg = "#{accent}" }},
+    {{ if = "!dir", text = "", fg = "#{fg}" }},
+]
+""")
 
 
-  def write_hyprland(scheme):
-      accent = scheme["base0E"]
-      inactive = scheme["base03"]
-      path = STATE_DIR / "hyprland-colors.conf"
-      with open(path, "w") as f:
-          f.write(f"general:col.active_border = rgba({accent}ff)\n")
-          f.write(f"general:col.inactive_border = rgba({inactive}ff)\n")
+SPICETIFY_THEME_DIR = Path(os.path.expanduser("~/.config/spicetify/Themes/dynamic"))
 
 
-  def reload_apps():
-      print("Reloading applications with new theme...")
-      subprocess.run(["pkill", "-SIGUSR1", "kitty"], capture_output=True)
-      print("Sent reload signal to Kitty.")
+def write_spotify(scheme):
+    accent = scheme["base0E"]
+    bg = scheme["base00"]
+    bg1 = scheme["base01"]
+    bg2 = scheme["base02"]
+    dim = scheme["base03"]
+    mid = scheme["base04"]
+    fg = scheme["base05"]
+    light = scheme["base06"]
 
-      nvim_colors = STATE_DIR / "nvim-colors.lua"
-      for sock in Path(os.environ.get("XDG_RUNTIME_DIR", "/run/user/1000")).glob("nvim.*.0"):
-          try:
-              nvim = attach('socket', path=str(sock))
-              nvim.command(f"luafile {nvim_colors}")
-              print(f"Sent reload command to Neovim instance at {sock}.")
-          except Exception as e:
-              print(f"Failed to connect to Neovim instance at {sock}: {e}")
+    SPICETIFY_THEME_DIR.mkdir(parents=True, exist_ok=True)
 
-      # Live-update hyprland borders
-      scheme = {}
-      for line in open(STATE_DIR / "scheme.txt"):
-          k, v = line.split()
-          scheme[k] = v
-      subprocess.run(["hyprctl", "keyword", "general:col.active_border", f"rgba({scheme['base0E']}ff)"], capture_output=True)
-      subprocess.run(["hyprctl", "keyword", "general:col.inactive_border", f"rgba({scheme['base03']}ff)"], capture_output=True)
-      print("Updated Hyprland border colors.")
+    # Write color.ini
+    color_path = SPICETIFY_THEME_DIR / "color.ini"
+    with open(color_path, "w") as f:
+        f.write(f"""\
+[Default]
+text = {fg}
+subtext = {mid}
+sidebar-text = {mid}
+main = {bg}
+sidebar = {bg1}
+player = {bg}
+card = {bg1}
+shadow = {bg}
+selected-row = {bg2}
+button = {accent}
+button-active = {light}
+button-disabled = {bg2}
+tab-active = {accent}
+notification = {accent}
+notification-error = {dim}
+misc = {dim}
+""")
 
-      # Reload swaync styles
-      subprocess.run(["swaync-client", "-rs"], capture_output=True)
-      print("Sent reload signal to Swaync.")
-
-      # Reload waybar
-      subprocess.run(["pkill", "-SIGUSR2", "waybar"], capture_output=True)
-      print("Sent reload signal to Waybar.")
-
-
-  def main():
-      if len(sys.argv) < 2:
-          print("Usage: theme-engine.py <image-path>", file=sys.stderr)
-          sys.exit(1)
-
-      STATE_DIR.mkdir(parents=True, exist_ok=True)
-
-      accent = extract_accent(sys.argv[1])
-      scheme = build_scheme(accent)
-      print(f"Extracted accent color: #{accent}")
-      write_scheme(scheme)
-      print("Scheme written to state directory.")
-      write_kitty(scheme)
-      print("Kitty config written.")
-      write_vesktop(scheme)
-      print("Vesktop theme written.")
-      write_nvim(scheme)
-      print("Neovim colors written.")
-      write_hyprland(scheme)
-      print("Hyprland colors written.")
-      write_swaync(scheme)
-      print("Swaync colors written.")
-      write_eza(scheme)
-      print("Eza theme written.")
-      write_waybar(scheme)
-      print("Waybar colors written.")
-      reload_apps()
-      print("Sent reload signals to applications.")
-
-      print(f"Accent: #{accent}")
-      print(f"Scheme written to {STATE_DIR / 'scheme.txt'}")
-      print(f"Kitty config written to {STATE_DIR / 'kitty-colors.conf'}")
-      print(f"Vesktop theme written to {VESKTOP_DIR / 'system24-dynamic.css'}")
-      print(f"Neovim colors written to {STATE_DIR / 'nvim-colors.lua'}")
-      print(f"Hyprland colors written to {STATE_DIR / 'hyprland-colors.conf'}")
-      print(f"Swaync colors written to {STATE_DIR / 'swaync-colors.css'}")
-      print(f"Eza theme written to {EZA_DIR / 'theme.yml'}")
-      print(f"Waybar colors written to {STATE_DIR / 'waybar-colors.css'}")
+    # Write minimal user.css if it doesn't exist
+    css_path = SPICETIFY_THEME_DIR / "user.css"
+    if not css_path.exists():
+        with open(css_path, "w") as f:
+            f.write("/* dynamic theme — colors managed by theme-engine */\n")
 
 
-  if __name__ == "__main__":
-      main()
+def write_waybar(scheme):
+    accent = scheme["base0E"]
+    bg = scheme["base00"]
+    fg = scheme["base05"]
+    path = STATE_DIR / "waybar-colors.css"
+    with open(path, "w") as f:
+        f.write(f"@define-color accent #{accent};\n")
+        f.write(f"@define-color bg-dark #{bg};\n")
+        f.write(f"@define-color fg-text #{fg};\n")
+
+
+def write_hyprland(scheme):
+    accent = scheme["base0E"]
+    inactive = scheme["base03"]
+    path = STATE_DIR / "hyprland-colors.conf"
+    with open(path, "w") as f:
+        f.write(f"general:col.active_border = rgba({accent}ff)\n")
+        f.write(f"general:col.inactive_border = rgba({inactive}ff)\n")
+
+
+def reload_apps():
+    print("Reloading applications with new theme...")
+    subprocess.run(["pkill", "-SIGUSR1", "kitty"], capture_output=True)
+    print("Sent reload signal to Kitty.")
+
+    nvim_colors = STATE_DIR / "nvim-colors.lua"
+    for sock in Path(os.environ.get("XDG_RUNTIME_DIR", "/run/user/1000")).glob("nvim.*.0"):
+        try:
+            nvim = attach('socket', path=str(sock))
+            nvim.command(f"luafile {nvim_colors}")
+            print(f"Sent reload command to Neovim instance at {sock}.")
+        except Exception as e:
+            print(f"Failed to connect to Neovim instance at {sock}: {e}")
+
+    # Live-update hyprland borders
+    scheme = {}
+    for line in open(STATE_DIR / "scheme.txt"):
+        k, v = line.split()
+        scheme[k] = v
+    subprocess.run(["hyprctl", "keyword", "general:col.active_border", f"rgba({scheme['base0E']}ff)"], capture_output=True)
+    subprocess.run(["hyprctl", "keyword", "general:col.inactive_border", f"rgba({scheme['base03']}ff)"], capture_output=True)
+    print("Updated Hyprland border colors.")
+
+    # Reload swaync styles
+    subprocess.run(["swaync-client", "-rs"], capture_output=True)
+    print("Sent reload signal to Swaync.")
+
+    # Reload waybar
+    subprocess.run(["pkill", "-SIGUSR2", "waybar"], capture_output=True)
+    print("Sent reload signal to Waybar.")
+
+    # Apply spicetify theme
+    subprocess.run(["spicetify", "config", "current_theme", "dynamic", "color_scheme", "Default"], capture_output=True)
+    subprocess.run(["spicetify", "apply"], capture_output=True)
+    print("Applied Spicetify theme.")
+
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: theme-engine.py <image-path>", file=sys.stderr)
+        sys.exit(1)
+
+    STATE_DIR.mkdir(parents=True, exist_ok=True)
+
+    accent = extract_accent(sys.argv[1])
+    scheme = build_scheme(accent)
+    print(f"Extracted accent color: #{accent}")
+    write_scheme(scheme)
+    print("Scheme written to state directory.")
+    write_kitty(scheme)
+    print("Kitty config written.")
+    write_vesktop(scheme)
+    print("Vesktop theme written.")
+    write_nvim(scheme)
+    print("Neovim colors written.")
+    write_hyprland(scheme)
+    print("Hyprland colors written.")
+    write_swaync(scheme)
+    print("Swaync colors written.")
+    write_eza(scheme)
+    print("Eza theme written.")
+    write_yazi(scheme)
+    print("Yazi theme written.")
+    write_waybar(scheme)
+    print("Waybar colors written.")
+    write_spotify(scheme)
+    print("Spotify theme written.")
+    reload_apps()
+    print("Sent reload signals to applications.")
+
+    print(f"Accent: #{accent}")
+    print(f"Scheme written to {STATE_DIR / 'scheme.txt'}")
+    print(f"Kitty config written to {STATE_DIR / 'kitty-colors.conf'}")
+    print(f"Vesktop theme written to {VESKTOP_DIR / 'system24-dynamic.css'}")
+    print(f"Neovim colors written to {STATE_DIR / 'nvim-colors.lua'}")
+    print(f"Hyprland colors written to {STATE_DIR / 'hyprland-colors.conf'}")
+    print(f"Swaync colors written to {STATE_DIR / 'swaync-colors.css'}")
+    print(f"Eza theme written to {EZA_DIR / 'theme.yml'}")
+    print(f"Waybar colors written to {STATE_DIR / 'waybar-colors.css'}")
+    print(f"Spotify theme written to {SPICETIFY_THEME_DIR / 'color.ini'}")
+
+
+if __name__ == "__main__":
+    main()
 ''

@@ -8,7 +8,7 @@
   ...
 }:
 let
-  desktop = host == "oganesson" || host == "phosphorous";
+  desktop = host == "brinstar" || host == "tourian";
   screenshot_bind =
     if desktop then
       [
@@ -20,20 +20,19 @@ let
         # My laptop does not have a printscreen button
         "super, insert, exec, grimblast copy area"
       ];
-  scheme = config.lib.stylix.colors;
   mons = config.movOpts.envConfig.hyprlandConfig.monitorNames;
-  #smartGapsWorkspaces = [
-  #"w[tv1], gapsout:0, gapsin:0"
-  #"f[1], gapsout:0, gapsin:0"
-  #];
-  #smartGapsWindowrules = [
-  #"border_size 0, match:float 0, match:workspace w[tv1]"
-  #"rounding 0, match:float 0, match:workspace w[tv1]"
-  #"border_size 0, match:float 0, match:workspace f[1]"
-  #"rounding 0, match:float 0, match:workspace f[1]"
-  #];
+  smartGapsWorkspaces = [
+    "w[tv1], gapsout:0, gapsin:0"
+    "f[1], gapsout:0, gapsin:0"
+  ];
+  smartGapsWindowrules = [
+    "border_size 0, match:float 0, match:workspace w[tv1]"
+    "rounding 0, match:float 0, match:workspace w[tv1]"
+    "border_size 0, match:float 0, match:workspace f[1]"
+    "rounding 0, match:float 0, match:workspace f[1]"
+  ];
   hostWorkspaces =
-    if (host == "phosphorous") then
+    if (host == "tourian") then
       [
         "m[DP-3], layoutopt:orientation:top"
       ]
@@ -87,15 +86,15 @@ in
     wayland.windowManager.hyprland = {
       settings = {
         monitor =
-          if (host == "oganesson") then
+          if (host == "brinstar") then
             [
               "DP-1, 1920x1080@144, 1920x0, 1"
               "HDMI-A-1, 1920x1080, 0x0, 1"
             ]
-          else if (host == "phosphorous") then
+          else if (host == "tourian") then
             [
               "DP-1, highrr, 0x0, 1"
-              "DP-3, highrr, -1080x-420, 1, transform, 3"
+              "HDMI-A-1, 1920x1080@60, 1920x0, 1"
             ]
           else
             [ "eDP-1, 1600x900, 0x0, 1" ];
@@ -132,21 +131,22 @@ in
               ]
             else if (config.movOpts.envConfig.hyprlandConfig.workspaceLayout == "trimonitor") then
               [
-                "1,persistent=true,monitor:${builtins.elemAt mons 2}"
-                "2,persistent=true,monitor:${builtins.elemAt mons 2}"
+                "1,persistent=true,monitor:${builtins.elemAt mons 0}"
+                "2,persistent=true,monitor:${builtins.elemAt mons 0}"
                 "3,persistent=true,monitor:${builtins.elemAt mons 1}"
                 "4,persistent=true,monitor:${builtins.elemAt mons 1}"
-                "5,persistent=true,monitor:${builtins.elemAt mons 0}"
-                "6,persistent=true,monitor:${builtins.elemAt mons 0}"
+                "5,persistent=true,monitor:${builtins.elemAt mons 2}"
+                "6,persistent=true,monitor:${builtins.elemAt mons 2}"
               ]
             else
               [ ]
-          );
+          ) ++ smartGapsWorkspaces;
 
         env = [
           "XDG_CONFIG_HOME,$HOME/.config"
           "XDG_DATA_HOME,$HOME/.local/share"
           "XDG_CACHE_HOME,$HOME/.cache"
+          "MOZ_ENABLE_WAYLAND,0"
         ];
         layerrule = [
           "blur on, ignore_alpha 0, match:namespace waybar"
@@ -178,9 +178,11 @@ in
           "float true, match:class ^(firefox)$, match:title ^(Sign in - Google Accounts — Mozilla Firefox)$"
           "size 0 0, match:title ^(Firefox — 共有インジケーター)$"
           "opacity 0.8, match:title ^(Neovide)$"
+          "opacity 0.8, match:title ^(vesktop)$"
+          "opacity 0.8, match:title ^(discord)$"
           "move 100%-470 15, match:title ^(Firefox — Sharing Indicator)$"
           "move 100%-470 15, match:title ^(Firefox — 共有インジケーター)$"
-        ];
+        ] ++ smartGapsWindowrules;
 
         cursor = {
           no_hardware_cursors = true;
@@ -283,7 +285,7 @@ in
           "super, p, exec, [float;size 40% 25%;move onscreen cursor] [ ! -f /tmp/keyringfile ] && kitty toolbelt"
           "super shift, m, exit,"
           "super, m, exec, fuzzel"
-          "super, r, exec, neovide"
+          "super, r, exec, obsidian"
           "super, b, layoutmsg, togglesplit, # dwindle"
           "super, comma, exec, hyprctl dispatch layoutmsg rollnext; hyprctl dispatch layoutmsg focusmaster"
           "super, period, exec, hyprctl dispatch layoutmsg rollprev; hyprctl dispatch layoutmsg focusmaster"

@@ -6,6 +6,7 @@
   config = lib.mkIf config.movOpts.programConfigs.yaziConfig.enable {
     programs.yazi = {
       enable = true;
+      theme = lib.mkForce {};
       enableZshIntegration = true;
       shellWrapperName = "y";
     };

@@ -144,6 +144,7 @@ in
       prompt_ssh_line = /* bash */ ''
         local ssh_server="$(echo $SSH_CONNECTION | cut -f3 -d' ')"
         [ -n "$ssh_server" ] && echo -n "\e[1;34m┃ \e[1;39m🌐 $ssh_server\e[0m\n"
+        return 0
       '';
 
       prompt_pwd_line = /* bash */ ''
@@ -297,6 +298,21 @@ in
         cat "$tmp"
         rm "$tmp"
       '';
+
+      reboot = /* bash */ ''
+        echo "Really? enter = yes"
+        read_key -v res
+        case "$res" in
+          "<Enter>")
+            command reboot
+          ;;
+          *)
+            echo "Canceling reboot."
+          ;;
+        esac
+      '';
+
+      shlvl = "echo $SHLVL";
     };
   };
 }
