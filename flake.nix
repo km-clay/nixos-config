@@ -10,7 +10,6 @@
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
     shed.url = "github:km-clay/shed";
-    agenix.url = "github:ryantm/agenix";
 
     nixvim.url = "github:nix-community/nixvim";
 
@@ -42,7 +41,6 @@
           extraNixosModules = [
             inputs.shed.nixosModules.shed
             inputs.copyparty.nixosModules.default
-            inputs.agenix.nixosModules.default
           ];
           extraHomeModules = [
             inputs.spicetify-nix.homeManagerModules.default
