@@ -1,17 +1,8 @@
-{
-  inputs,
-  nixpkgs,
-  config,
-  self,
-  username,
-  host,
-  lib,
-  ...
-}:
+{ pkgs, ... }@args:
 {
   imports = [
-    ./hardware
-    ./software
-    ./sysenv
+    (import ./hardware args)
+    (import ./software args)
+    (import ./sysenv args)
   ];
 }

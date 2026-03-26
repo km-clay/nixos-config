@@ -1,5 +1,6 @@
 {
   inputs,
+  username,
   pkgs,
   lib,
   config,
@@ -43,7 +44,7 @@ in
 
   options = {
     movOpts.envConfig.hyprlandConfig = {
-      enable = lib.mkEnableOption "enables my hyprland config";
+      enable = lib.mkEnableOption "my hyprland config";
       workspaceLayout = lib.mkOption {
         type = lib.types.str;
         default = "dualmonitor";
@@ -80,7 +81,7 @@ in
       };
       systemd.enable = true;
       extraConfig = ''
-        source = ~/.local/state/sysflake/hyprland-colors.conf
+        source = /home/${username}/.local/state/sysflake/hyprland-colors.conf
       '';
     };
     wayland.windowManager.hyprland = {

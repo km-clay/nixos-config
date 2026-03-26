@@ -38,6 +38,21 @@
         inherit inputs;
         username = "pagedmov";
       };
+      defaultExtras = {
+          extraNixosModules = [
+            inputs.shed.nixosModules.shed
+            inputs.copyparty.nixosModules.default
+            inputs.agenix.nixosModules.default
+          ];
+          extraHomeModules = [
+            inputs.spicetify-nix.homeManagerModules.default
+            inputs.shed.homeModules.shed
+          ];
+          extraOverlays = [
+            inputs.shed.overlays.default
+            inputs.copyparty.overlays.default
+          ];
+      };
 
       hosts = movLib.foldHosts [
         {
@@ -45,31 +60,67 @@
           hostDir = "desktop";
           kind = "both";
         }
-        {
-          host = "norfair";
+        ({
+          host = "kraid";
           hostDir = "laptop";
           kind = "both";
-        }
-        {
+        } // defaultExtras)
+        ({
           host = "tourian";
           hostDir = "work";
           kind = "both";
-          extraNixosModules = [
-            inputs.shed.nixosModules.shed
-            inputs.copyparty.nixosModules.default
-            inputs.agenix.nixosModules.default
-          ];
-          extraHomeModules = [
-            inputs.shed.homeModules.shed
-          ];
-          extraOverlays = [
-            inputs.shed.overlays.default
-            inputs.copyparty.overlays.default
-          ];
-        }
+        } // defaultExtras)
       ];
     in
     {
       inherit (hosts) nixosConfigurations homeConfigurations;
+
+      # this exposes the home manager framework as a flake output
+      # which makes it possible to arbitrarily reproduce my environment anywhere
+      homeModules.default = {
+        lib,
+        ...
+      }: {
+        _module.args = {
+          inherit (inputs) self;
+          inherit movLib inputs;
+          host = lib.mkDefault "external";
+          username = lib.mkDefault "pagedmov";
+        };
+        imports = [
+          inputs.shed.homeModules.shed
+          inputs.spicetify-nix.homeManagerModules.default
+          inputs.stylix.homeModules.stylix
+          inputs.nixvim.homeModules.nixvim
+          ./modules/home
+          {
+            home.username = lib.mkDefault "pagedmov";
+            home.homeDirectory = lib.mkDefault "/home/pagedmov";
+            home.stateVersion = lib.mkDefault "24.05";
+
+            movOpts.homeConfig.enableProfiles = lib.mkDefault [ "cli" ];
+          }
+        ];
+      };
+
+      # an example usage of self.homeModules.default;
+      packages.x86_64-linux.dev-home = let
+        homeCfg = inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = import inputs.nixpkgs {
+            system = "x86_64-linux";
+            config = { allowUnfree = true; };
+            overlays = [
+              inputs.shed.overlays.default
+              inputs.copyparty.overlays.default
+              (import "${inputs.self}/overlay/overlay.nix" {
+                host = "external";
+                root = inputs.self;
+              })
+            ];
+          };
+          modules = [ inputs.self.homeModules.default ];
+        };
+      in homeCfg.config.home.activationPackage;
+
     };
 }

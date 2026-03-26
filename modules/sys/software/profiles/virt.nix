@@ -8,5 +8,6 @@ in
   environment.systemPackages = with pkgs; [
     spice-gtk
     usbredir
+    libvirt-glib
   ];
 }

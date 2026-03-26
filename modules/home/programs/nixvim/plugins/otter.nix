@@ -1,7 +1,7 @@
 {
   programs.nixvim = {
     plugins.otter = {
-      enable = true;
+      enable = false;
       settings = {
         handle_leading_whitespace = true;
       };

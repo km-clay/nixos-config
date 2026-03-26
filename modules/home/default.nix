@@ -1,18 +1,11 @@
-{
-  env,
-  inputs,
-  nixpkgs,
-  config,
-  self,
-  username,
-  host,
-  lib,
-  ...
-}:
+{ pkgs, movLib, username, self, ... }@args:
 {
   imports = [
-    ./programs
-    ./environment
-    ./files.nix
+    (import ./programs args)
+    (import ./environment args)
+    (import ./files.nix args)
+    (import ./profiles/options.nix args)
+    (import ./profiles/cli.nix args)
+    (import ./profiles/graphical.nix args)
   ];
 }

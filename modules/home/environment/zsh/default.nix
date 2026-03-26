@@ -1,15 +1,4 @@
+_:
 {
-  lib,
-  config,
-  self,
-  ...
-}:
-
-{
-  imports = [
-    ./env.nix
-    ./aliases.nix
-    ./options.nix
-    ./extraconfig.nix
-  ];
+  # zsh submodules are now gated from environment/default.nix
 }

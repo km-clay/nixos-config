@@ -1,13 +1,6 @@
-{
-  inputs,
-  lib,
-  config,
-  pkgs,
-  self,
-  ...
-}:
-
+args:
 let
+  inherit (args) pkgs;
   scripts = with pkgs; [
     myScripts.icanhazip
     myScripts.invoke
@@ -34,76 +27,71 @@ let
   ];
 in
 {
-  options = {
-    movOpts.envConfig.userPkgs.enable = lib.mkEnableOption "enables my default user packages";
-  };
-  config = lib.mkIf config.movOpts.envConfig.userPkgs.enable {
-    home.packages =
-      with pkgs;
-      [
-        cargo
-        rustc
-        clippy
-        rust-analyzer
-        nerd-fonts.envy-code-r
-        clippy
-        rust-analyzer
-        nemo
-        feh
-        gtk3
-        vicut
-        imagemagick
-        vlc
-        lolcat
-        obsidian
-        vesktop
-        zsh
-        zsh-syntax-highlighting
-        zsh-history-substring-search
-        zsh-autosuggestions
-        #libreoffice
-        gtrash
-        ripgrep
-        wf-recorder
-        toilet
-        vkbasalt
-        firefox
-        spotify
-        rustfmt
-        zathura
-        tor
-        tor-browser
-        chromium
-        obs-studio
-        gparted
-        dust
-        porsmo
-        w3m
-        sox
-        neovide
-        claude-code
-        myPython
-        monero-cli
-        protonup-qt
-        piper
-        libratbag
-        ghostty
-        firefox
-        fd
-        delta
-        glfw
-        mesa-demos
-        xwayland
-        discord
-        cloc
-        wine
-        gimp
-        fira-code
-        nerd-fonts.fira-code
-        nodejs_latest
-        myPkgs.noto-sans-jp
-        myPkgs.billy-font
-      ]
-      ++ scripts;
-  };
+  home.packages =
+    with pkgs;
+    [
+      cargo
+      rustc
+      clippy
+      rust-analyzer
+      nerd-fonts.envy-code-r
+      clippy
+      rust-analyzer
+      nemo
+      feh
+      gtk3
+      vicut
+      imagemagick
+      vlc
+      lolcat
+      obsidian
+      vesktop
+      zsh
+      zsh-syntax-highlighting
+      zsh-history-substring-search
+      zsh-autosuggestions
+      #libreoffice
+      gtrash
+      ripgrep
+      wf-recorder
+      toilet
+      vkbasalt
+      firefox
+      spotify
+      rustfmt
+      zathura
+      tor
+      tor-browser
+      chromium
+      obs-studio
+      gparted
+      dust
+      porsmo
+      w3m
+      sox
+      neovide
+      claude-code
+      myPython
+      monero-cli
+      protonup-qt
+      piper
+      libratbag
+      ghostty
+      firefox
+      fd
+      delta
+      glfw
+      mesa-demos
+      xwayland
+      discord
+      cloc
+      wine
+      gimp
+      fira-code
+      nerd-fonts.fira-code
+      nodejs_latest
+      myPkgs.noto-sans-jp
+      myPkgs.billy-font
+    ]
+    ++ scripts;
 }

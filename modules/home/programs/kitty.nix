@@ -1,53 +1,45 @@
+args:
+let
+  inherit (args) self lib pkgs;
+in
 {
-  self,
-  lib,
-  config,
-  pkgs,
-  ...
-}:
-{
-  options = {
-    movOpts.programConfigs.kittyConfig.enable = lib.mkEnableOption "enables my kitty configuration";
-  };
-  config = lib.mkIf config.movOpts.programConfigs.kittyConfig.enable {
-    programs.kitty = {
-      enable = true;
-      font = {
-        package = lib.mkForce pkgs.nerd-fonts.envy-code-r;
-        name = lib.mkForce "EnvyCodeR Nerd Font Mono";
-        size = lib.mkForce 19;
-      };
+  programs.kitty = {
+    enable = true;
+    font = {
+      package = lib.mkForce pkgs.nerd-fonts.envy-code-r;
+      name = lib.mkForce "EnvyCodeR Nerd Font Mono";
+      size = lib.mkForce 19;
+    };
 
-      settings = {
-        confirm_os_window_close = 0;
-        background_opacity = lib.mkForce 0.65;
-        window_padding_width = 4;
-        scrollback_lines = 10000;
-        enable_audio_bell = true;
-        allow_remote_control = true;
-        mouse_hide_wait = 60;
-        command_on_bell = "${pkgs.myScripts.playshellsound}/bin/playshellsound ${self}/assets/sound/bell.wav";
+    settings = {
+      confirm_os_window_close = 0;
+      background_opacity = lib.mkForce 0.65;
+      window_padding_width = 4;
+      scrollback_lines = 10000;
+      enable_audio_bell = true;
+      allow_remote_control = true;
+      mouse_hide_wait = 60;
+      command_on_bell = "${pkgs.myScripts.playshellsound}/bin/playshellsound ${self}/assets/sound/bell.wav";
 
-        ## Tabs
-        tab_title_template = "{index}";
-        active_tab_font_style = "normal";
-        inactive_tab_font_style = "normal";
-        tab_bar_style = "powerline";
-        tab_bar_edge = "top";
-        tab_powerline_style = "round";
-      };
+      ## Tabs
+      tab_title_template = "{index}";
+      active_tab_font_style = "normal";
+      inactive_tab_font_style = "normal";
+      tab_bar_style = "powerline";
+      tab_bar_edge = "top";
+      tab_powerline_style = "round";
+    };
 
-      extraConfig = "include ~/.local/state/sysflake/kitty-colors.conf";
+    extraConfig = "include ~/.local/state/sysflake/kitty-colors.conf";
 
-      keybindings = {
-        "ctrl+shift+l" = "next_tab";
-        "ctrl+shift+h" = "previous_tab";
-        "ctrl+shift+j" = "scroll_end";
-        "ctrl+shift+k" = "scroll_home";
-        "ctrl+shift+equal" = "change_font_size all +2.0";
-        "ctrl+shift+minus" = "change_font_size all -2.0";
-        "ctrl+shift+backspace" = "change_font_size all 0";
-      };
+    keybindings = {
+      "ctrl+shift+l" = "next_tab";
+      "ctrl+shift+h" = "previous_tab";
+      "ctrl+shift+j" = "scroll_end";
+      "ctrl+shift+k" = "scroll_home";
+      "ctrl+shift+equal" = "change_font_size all +2.0";
+      "ctrl+shift+minus" = "change_font_size all -2.0";
+      "ctrl+shift+backspace" = "change_font_size all 0";
     };
   };
 }

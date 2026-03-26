@@ -1,45 +1,38 @@
-{ lib, config, ... }:
-
+_:
 {
-  options = {
-    movOpts.envConfig.zshConfig.shellOptions.enable =
-      lib.mkEnableOption "enables my default shell settings";
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
   };
-  config = lib.mkIf config.movOpts.envConfig.zshConfig.shellOptions.enable {
-    programs.zoxide = {
+  programs.zsh = {
+    enable = true;
+
+    syntaxHighlighting = {
       enable = true;
-      enableZshIntegration = true;
     };
-    programs.zsh = {
+
+    oh-my-zsh = {
       enable = true;
+      plugins = [
+        "git"
+        "fzf"
+        "aliases"
+        "eza"
+      ];
+    };
 
-      syntaxHighlighting = {
-        enable = true;
-      };
+    enableCompletion = true;
 
-      oh-my-zsh = {
-        enable = true;
-        plugins = [
-          "git"
-          "fzf"
-          "aliases"
-          "eza"
-        ];
-      };
+    history = {
+      path = "$HOME/.zsh_history";
+      save = 10000;
+      size = 10000;
+      share = true;
+    };
 
-      enableCompletion = true;
-
-      history = {
-        path = "$HOME/.zsh_history";
-        save = 10000;
-        size = 10000;
-        share = true;
-      };
-
-      autosuggestion = {
-        enable = true;
-        highlight = "fg=#4C566A,underline";
-      };
+    autosuggestion = {
+      enable = true;
+      highlight = "fg=#4C566A,underline";
     };
   };
 }

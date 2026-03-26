@@ -1,4 +1,7 @@
-{ config, pkgs, ... }:
+args:
+let
+  inherit (args) pkgs;
+in
 {
   i18n.inputMethod = {
     type = "fcitx5";

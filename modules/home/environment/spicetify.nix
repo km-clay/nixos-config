@@ -7,10 +7,8 @@
 }:
 let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  scheme = config.lib.stylix.colors;
 in
 {
-  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
   options = {
     movOpts.envConfig.spicetifyConfig.enable = lib.mkEnableOption "enable my spicetify options";
   };

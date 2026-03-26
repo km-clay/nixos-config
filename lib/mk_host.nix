@@ -1,4 +1,4 @@
-{
+movLib: {
   inputs,
   username,
   nixpkgsConfig ? {
@@ -16,13 +16,13 @@
 
 let
   nixosModules = [
-    ../hosts/${hostDir}/config.nix
+    (import ../hosts/baseconfig.nix hostDir)
     ../modules/sys
     inputs.stylix.nixosModules.stylix
   ]
   ++ extraNixosModules;
   homeModules = [
-    ../hosts/${hostDir}/home.nix
+    (import ../hosts/basehome.nix hostDir)
     ../modules/home
     inputs.stylix.homeModules.stylix
     inputs.nixvim.homeModules.nixvim
@@ -46,7 +46,7 @@ let
       );
   };
   specialArgs = {
-    inherit inputs username host;
+    inherit inputs username host movLib;
     self = inputs.self;
   };
 

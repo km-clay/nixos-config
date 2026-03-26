@@ -10,6 +10,7 @@ pkgs.writeShellApplication {
   ];
   text = ''
     exec > /dev/tty 2>&1
+    alias nh="${pkgs.nh}/bin/nh"
     checkbools() { [ "$all" = false ] && [ "$system" = false ] && [ "$home" = false ]; }
     checkflags() {
       str="$1"
@@ -48,6 +49,9 @@ pkgs.writeShellApplication {
     fi
 
     dry_flag=""
+
+    (cd "$FLAKEPATH" && git add .)
+
     [ "$dry" = true ] && dry_flag="-n"
 
     [ "$update" = true ] && (cd "$FLAKEPATH" && nix flake update) && update_done

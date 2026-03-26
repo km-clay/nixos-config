@@ -1,11 +1,6 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
-
+args:
 let
+  inherit (args) pkgs;
   cust-openrct2 = pkgs.openrct2.overrideAttrs (oldAttrs: {
     cmakeFlags = [
       "-DDOWNLOAD_OBJECTS=ON"
@@ -19,16 +14,11 @@ let
   });
 in
 {
-  options = {
-    movOpts.softwareCfg.gamingPkgs.enable = lib.mkEnableOption "enables gaming packages";
-  };
-  config = lib.mkIf config.movOpts.softwareCfg.gamingPkgs.enable {
-    environment.systemPackages = with pkgs; [
-      #snes9x-gtk
-      #cust-openrct2
-      mgba
-      shadps4
-      cust-prismlauncher
-    ];
-  };
+  environment.systemPackages = with pkgs; [
+    #snes9x-gtk
+    #cust-openrct2
+    mgba
+    shadps4
+    cust-prismlauncher
+  ];
 }
