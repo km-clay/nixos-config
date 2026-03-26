@@ -4,8 +4,8 @@
     (import ./programs args)
     (import ./environment args)
     (import ./files.nix args)
-    (import ./profiles/options.nix args)
-    (import ./profiles/cli.nix args)
-    (import ./profiles/graphical.nix args)
+    ./profiles/options.nix
+    ./profiles/cli.nix
+    ./profiles/graphical.nix
   ];
 }

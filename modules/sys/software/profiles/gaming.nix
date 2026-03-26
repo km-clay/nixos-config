@@ -1,23 +1,11 @@
-args:
+{ config, lib, ... }:
 let
-  inherit (args) pkgs;
-  cust-prismlauncher = pkgs.prismlauncher.override (oldAttrs: {
-    jdks = [ pkgs.temurin-bin-21 ];
-  });
+  cfg = config.movOpts.softwareCfg;
+  enabled = builtins.elem "gaming" cfg.enableProfiles
+    || (cfg.profiles.gaming.enable or false);
 in
 {
-  environment.systemPackages = with pkgs; [
-    mgba
-    shadps4
-    cust-prismlauncher
-    rcon-cli
-  ];
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
+  config = lib.mkIf enabled {
+    movOpts.softwareCfg.gamingPackages.enable = true;
   };
 }

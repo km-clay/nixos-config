@@ -5,6 +5,7 @@ in
 {
   programs.git = {
     enable = true;
+    signing.format = "openpgp";
     settings = {
       user = {
         email = "kylerclay@proton.me";

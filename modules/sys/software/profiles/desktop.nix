@@ -1,50 +1,11 @@
-args:
+{ config, lib, ... }:
 let
-  inherit (args) pkgs;
+  cfg = config.movOpts.softwareCfg;
+  enabled = builtins.elem "desktop" cfg.enableProfiles
+    || (cfg.profiles.desktop.enable or false);
 in
 {
-  environment.systemPackages = with pkgs; [
-    xwayland
-    wayland
-    hyprland-workspaces
-    hyprpaper
-    hyprpicker
-    cliphist
-    wl-clipboard
-    kitty
-    pamixer
-    pavucontrol
-    playerctl
-    libnotify
-    fastfetch
-    lolcat
-    alsa-lib
-    alsa-utils
-    uhk-agent
-  ];
-
-  programs = {
-    hyprland.enable = true;
-    nix-ld = {
-      enable = true;
-      libraries = with pkgs; [
-        stdenv.cc.cc
-        ffmpeg-full
-      ];
-    };
-  };
-
-  services = {
-    davfs2.enable = true;
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-      wireplumber.enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-    };
-    ratbagd.enable = true;
-    blueman.enable = true;
-    mullvad-vpn.enable = true;
+  config = lib.mkIf enabled {
+    movOpts.softwareCfg.desktopPackages.enable = true;
   };
 }

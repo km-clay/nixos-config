@@ -5,10 +5,12 @@ let
   gated = cond: file: lib.mkIf cond (import file args);
 in
 {
+  imports = [ ./console.nix ];
+
   options.movOpts.sysEnv = {
-    issue.enable        = movLib.mkDefaultOption "enables custom /etc/issue splash screen for the tty";
-    nixSettings.enable  = movLib.mkDefaultOption "enables my nixos settings";
-    stylixConfig.enable = movLib.mkDefaultOption "enables custom stylix options";
+    issue.enable        = lib.mkEnableOption "enables custom /etc/issue splash screen for the tty";
+    nixSettings.enable  = lib.mkEnableOption "enables my nixos settings";
+    stylixConfig.enable = lib.mkEnableOption "enables custom stylix options";
     sddmConfig.enable   = lib.mkEnableOption "enables custom sddm configuration";
   };
 

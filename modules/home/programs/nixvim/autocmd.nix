@@ -30,21 +30,6 @@
             end'';
         };
       }
-      {
-        pattern = [ "nix" ];
-        event = [ "FileType" ];
-        callback = {
-          __raw = /* lua */ ''
-            function()
-              require("otter").activate(
-                { "bash", "lua", "python" },
-                true, -- completions
-                true, -- diagnostics
-                nil
-              )
-            end'';
-        };
-      }
     ];
   };
 }

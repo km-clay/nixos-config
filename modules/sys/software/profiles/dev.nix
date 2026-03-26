@@ -1,15 +1,11 @@
-args:
+{ config, lib, ... }:
 let
-  inherit (args) pkgs;
+  cfg = config.movOpts.softwareCfg;
+  enabled = builtins.elem "dev" cfg.enableProfiles
+    || (cfg.profiles.dev.enable or false);
 in
 {
-  environment.systemPackages = with pkgs; [
-    dotnetCorePackages.sdk_8_0_4xx
-    myPython
-    ffmpeg
-    cmake
-    gnumake
-    pkg-config
-    openssl
-  ];
+  config = lib.mkIf enabled {
+    movOpts.softwareCfg.devPackages.enable = true;
+  };
 }

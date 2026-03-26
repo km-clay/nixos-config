@@ -9,7 +9,6 @@ in
     ./hyprland.nix
     ./waybar.nix
     ./spicetify.nix
-    ./shed
     ./paperd
   ];
 
@@ -27,6 +26,16 @@ in
       shellOptions.enable = lib.mkEnableOption "my default shell settings";
       extraConfig.enable  = lib.mkEnableOption "my extra shell configurations";
     };
+    shedConfig = {
+      shellAliases.enable = lib.mkEnableOption "my shed aliases";
+      envVariables.enable = lib.mkEnableOption "my session variables";
+      shellOptions.enable = lib.mkEnableOption "my default shed shopts";
+      autoCmds.enable = lib.mkEnableOption "my shed autocmds";
+      shellFunctions.enable = lib.mkEnableOption "my shed shell functions";
+      keyMaps.enable = lib.mkEnableOption "my shed line editor keymaps";
+      extraCompletion.enable = lib.mkEnableOption "extra shed completion scripts";
+      extraConfig.enable = lib.mkEnableOption "my extra shed configuration";
+    };
   };
 
   config = lib.mkMerge [
@@ -35,11 +44,23 @@ in
     (gated cfg.gtkConfig.enable        ./gtk.nix)
     (gated cfg.starshipConfig.enable   ./starship.nix)
     (gated cfg.swayncConfig.enable     ./swaync.nix)
+    (gated cfg.userServicesCli.enable       ./userservices-cli.nix)
+    (gated cfg.userServicesGraphical.enable ./userservices-graphical.nix)
+
+    # zsh
     (gated cfg.zshConfig.shellAliases.enable ./zsh/aliases.nix)
     (gated cfg.zshConfig.envVariables.enable ./zsh/env.nix)
     (gated cfg.zshConfig.shellOptions.enable ./zsh/options.nix)
     (gated cfg.zshConfig.extraConfig.enable  ./zsh/extraconfig.nix)
-    (gated cfg.userServicesCli.enable       ./userservices-cli.nix)
-    (gated cfg.userServicesGraphical.enable ./userservices-graphical.nix)
+
+    # shed
+    (gated cfg.shedConfig.shellAliases.enable ./shed/aliases.nix)
+    (gated cfg.shedConfig.envVariables.enable ./shed/env.nix)
+    (gated cfg.shedConfig.shellOptions.enable ./shed/options.nix)
+    (gated cfg.shedConfig.extraConfig.enable  ./shed/extraconfig.nix)
+    (gated cfg.shedConfig.shellFunctions.enable  ./shed/functions.nix)
+    (gated cfg.shedConfig.autoCmds.enable  ./shed/autocmd.nix)
+    (gated cfg.shedConfig.keyMaps.enable  ./shed/keymaps.nix)
+    (gated cfg.shedConfig.extraCompletion.enable  ./shed/complete.nix)
   ];
 }

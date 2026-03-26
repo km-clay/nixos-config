@@ -26,6 +26,16 @@ in
         shellOptions.enable = true;
         extraConfig.enable  = true;
       };
+      shedConfig = {
+        shellAliases.enable = true;
+        shellFunctions.enable  = true;
+        shellOptions.enable = true;
+        envVariables.enable = true;
+        keyMaps.enable  = true;
+        autoCmds.enable  = true;
+        extraCompletion.enable  = true;
+        extraConfig.enable  = true;
+      };
     };
   };
 }

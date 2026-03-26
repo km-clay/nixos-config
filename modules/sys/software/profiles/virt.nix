@@ -1,13 +1,11 @@
-args:
+{ config, lib, ... }:
 let
-  inherit (args) pkgs;
+  cfg = config.movOpts.softwareCfg;
+  enabled = builtins.elem "virt" cfg.enableProfiles
+    || (cfg.profiles.virt.enable or false);
 in
 {
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-  environment.systemPackages = with pkgs; [
-    spice-gtk
-    usbredir
-    libvirt-glib
-  ];
+  config = lib.mkIf enabled {
+    movOpts.softwareCfg.virtPackages.enable = true;
+  };
 }

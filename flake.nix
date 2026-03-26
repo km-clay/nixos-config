@@ -118,7 +118,14 @@
               })
             ];
           };
-          modules = [ inputs.self.homeModules.default ];
+          modules = [
+            inputs.self.homeModules.default
+            {
+              _module.args.username = "devmov";
+              home.username = "devmov";
+              home.homeDirectory = "/home/devmov";
+            }
+          ];
         };
       in homeCfg.config.home.activationPackage;
 

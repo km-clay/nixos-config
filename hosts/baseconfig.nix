@@ -1,10 +1,10 @@
-host: args:
+host:
+{ username, pkgs, inputs, config, lib, ... }:
 let
-  inherit (args) username pkgs inputs config lib;
   shed = inputs.shed.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
-  imports = lib.optionals (host != null) [ (import ./${host}/config.nix args) ];
+  imports = lib.optionals (host != null) [ ./${host}/config.nix ];
 
   boot = {
     kernelModules = [ "acpi_call" ];
@@ -43,7 +43,7 @@ in
       ${username} = {
         isNormalUser = lib.mkDefault true;
         initialPassword = lib.mkDefault "1234";
-        shell = lib.mkDefault shed;
+        shell = shed;
         extraGroups = [
           "wheel"
           "persist"
@@ -55,7 +55,22 @@ in
   security.sudo.extraConfig = lib.mkDefault ''
     ${username} ALL=(ALL) NOPASSWD: /etc/profiles/per-user/${username}/bin/rebuild
   '';
-  nix.settings.allowed-users = lib.mkDefault [ "${username}" ];
+  nix.settings.allowed-users = lib.mkDefault [ "@wheel" "${username}" ];
+
+  movOpts.hardwareCfg = {
+    bootLoader.enable    = lib.mkDefault true;
+    networkModule.enable = lib.mkDefault true;
+    kernelModule.enable  = lib.mkDefault true;
+    powerProfiles.enable = lib.mkDefault true;
+  };
+
+  movOpts.sysEnv = {
+    issue.enable        = lib.mkDefault true;
+    nixSettings.enable  = lib.mkDefault true;
+    stylixConfig.enable    = lib.mkDefault true;
+    consoleSettings.enable = lib.mkDefault true;
+    sddmConfig.enable      = lib.mkDefault false;
+  };
 
   time.timeZone = lib.mkDefault "America/New_York";
 }

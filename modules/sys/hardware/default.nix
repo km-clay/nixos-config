@@ -6,10 +6,10 @@ let
 in
 {
   options.movOpts.hardwareCfg = {
-    bootLoader.enable    = movLib.mkDefaultOption "enables bootloader config";
-    networkModule.enable = movLib.mkDefaultOption "enables network configuration";
-    kernelModule.enable  = movLib.mkDefaultOption "enables kernel module configuration";
-    powerProfiles.enable = movLib.mkDefaultOption "enables power profiles";
+    bootLoader.enable    = lib.mkEnableOption "enables bootloader config";
+    networkModule.enable = lib.mkEnableOption "enables network configuration";
+    kernelModule.enable  = lib.mkEnableOption "enables kernel module configuration";
+    powerProfiles.enable = lib.mkEnableOption "enables power profiles";
   };
 
   config = lib.mkMerge [

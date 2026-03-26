@@ -11,19 +11,23 @@ let
 in
 rec {
   movLib = {
-    inherit mkOverrideOption mkProfileOptions foldHosts;
+    inherit mkOverrideOption foldHosts;
   };
   mkHost = (import ./mk_host.nix) movLib;
   mkProfileOptions = { args, config, modName, profileModules }:
   let
     cfg = config.movOpts.${modName};
-    shorthand = lib.genAttrs cfg.enableProfiles (_: { enable = true; });
-    merged = lib.recursiveUpdate shorthand cfg.profiles;
-    activeProfiles = lib.filterAttrs (_: pcfg: pcfg.enable) merged;
-
-    profileConfigs = lib.mapAttrsToList (name: pcfg:
-      pcfg.override (import profileModules.${name} args)
-    ) activeProfiles;
+    profileNames = builtins.attrNames profileModules;
+    isEnabled = name:
+      builtins.elem name cfg.enableProfiles
+      || (cfg.profiles.${name}.enable or false);
+    getOverride = name:
+      cfg.profiles.${name}.override or (x: x);
+    profileConfigs = map (name:
+      lib.mkIf (isEnabled name) (
+        (getOverride name) (import profileModules.${name} args)
+      )
+    ) profileNames;
   in
   {
     options.movOpts.${modName} = {
