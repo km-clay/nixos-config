@@ -55,11 +55,11 @@
       };
 
       hosts = movLib.foldHosts [
-        {
+        ({
           host = "brinstar";
           hostDir = "desktop";
           kind = "both";
-        }
+        } // defaultExtras)
         ({
           host = "kraid";
           hostDir = "laptop";
@@ -71,63 +71,11 @@
           kind = "both";
         } // defaultExtras)
       ];
+
+      exports = (import ./exports { inherit inputs movLib; });
     in
     {
       inherit (hosts) nixosConfigurations homeConfigurations;
-
-      # this exposes the home manager framework as a flake output
-      # which makes it possible to arbitrarily reproduce my environment anywhere
-      homeModules.default = {
-        lib,
-        ...
-      }: {
-        _module.args = {
-          inherit (inputs) self;
-          inherit movLib inputs;
-          host = lib.mkDefault "external";
-          username = lib.mkDefault "pagedmov";
-        };
-        imports = [
-          inputs.shed.homeModules.shed
-          inputs.spicetify-nix.homeManagerModules.default
-          inputs.stylix.homeModules.stylix
-          inputs.nixvim.homeModules.nixvim
-          ./modules/home
-          {
-            home.username = lib.mkDefault "pagedmov";
-            home.homeDirectory = lib.mkDefault "/home/pagedmov";
-            home.stateVersion = lib.mkDefault "24.05";
-
-            movOpts.homeConfig.enableProfiles = lib.mkDefault [ "cli" ];
-          }
-        ];
-      };
-
-      # an example usage of self.homeModules.default;
-      packages.x86_64-linux.dev-home = let
-        homeCfg = inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import inputs.nixpkgs {
-            system = "x86_64-linux";
-            config = { allowUnfree = true; };
-            overlays = [
-              inputs.shed.overlays.default
-              inputs.copyparty.overlays.default
-              (import "${inputs.self}/overlay/overlay.nix" {
-                host = "external";
-                root = inputs.self;
-              })
-            ];
-          };
-          modules = [
-            inputs.self.homeModules.default
-            {
-              _module.args.username = "devmov";
-              home.username = "devmov";
-              home.homeDirectory = "/home/devmov";
-            }
-          ];
-        };
-      in homeCfg.config.home.activationPackage;
-
+      inherit (exports) homeModules nixosModules devShells packages;
     };
 }
