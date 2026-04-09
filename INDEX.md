@@ -71,7 +71,7 @@ Desktop environment and shell configurations. Each gated behind `movOpts.envConf
 - **swaync.nix** - Sway notification center config.
 - **userpkgs.nix** - Default user packages.
 - **userservices-cli.nix** - Headless user systemd services.
-- **userservices-graphical.nix** - Graphical user systemd services (swww, kitty sounds).
+- **userservices-graphical.nix** - Graphical user systemd services (awww, kitty sounds).
 - **paperd/** - Paperd wallpaper daemon (`default.nix`, `paperd_script.nix`, `theme_builder.nix`).
 - **zsh/** - Zsh config split into `aliases.nix`, `env.nix`, `options.nix`, `extraconfig.nix`.
 - **shed/** - Shed shell config split into `aliases.nix`, `env.nix`, `options.nix`, `extraconfig.nix`, `functions.nix`, `autocmd.nix`, `keymaps.nix`, `complete.nix`.

@@ -2,14 +2,14 @@
   description = "pagedMov's NixOS and Home Manager configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/5448eaf6c29de13e96d7461a4de4d66bf5931ec8";
-    #nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     hypr-contrib.url = "github:hyprwm/contrib";
     copyparty.url = "github:9001/copyparty";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     stylix.url = "github:danth/stylix";
     disko.url = "github:nix-community/disko";
     shed.url = "github:km-clay/shed";
+    whoa.url = "github:km-clay/whoa";
 
     nixvim.url = "github:nix-community/nixvim";
 

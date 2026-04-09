@@ -20,8 +20,8 @@ in
       paperd = {
         Unit = {
           Description = "Paperd Wallpaper Daemon";
-          After = [ "swww-daemon.service" ];
-          Requires = [ "swww-daemon.service" ];
+          After = [ "awww-daemon.service" ];
+          Requires = [ "awww-daemon.service" ];
         };
         Install.WantedBy = [ "hyprland-session.target" ];
         Service = {

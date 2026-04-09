@@ -6,11 +6,11 @@ in
 {
   systemd.user = {
     services = {
-      swww-daemon = {
-        Unit.Description = "Daemon for swww (sway wayland wallpaper manager)";
+      awww-daemon = {
+        Unit.Description = "Daemon for awww (sway wayland wallpaper manager)";
         Install.WantedBy = [ "hyprland-session.target" ];
         Service = {
-          ExecStart = "${pkgs.swww}/bin/swww-daemon";
+          ExecStart = "${pkgs.awww}/bin/awww-daemon";
         };
       };
       kitty-keyboard-sounds = {

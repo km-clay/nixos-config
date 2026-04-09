@@ -47,7 +47,7 @@ pkgs.writeText "paperd.py" /* python */ ''
     return image
 
   def get_command(next_image):
-      command = ["${pkgs.swww}/bin/swww", "img"]
+      command = ["${pkgs.awww}/bin/awww", "img"]
       if transition_type:
           command.append("--transition-type")
           command.append(transition_type)

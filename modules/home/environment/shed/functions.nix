@@ -312,6 +312,10 @@ in
         esac
       '';
 
+      h_pager = /* bash */ ''
+        TERM=xterm less
+      '';
+
       shlvl = "echo $SHLVL";
     };
   };

@@ -1,6 +1,7 @@
 {
   host ? "brinstar",
   root,
+  inputs,
   ...
 }:
 self: super:
@@ -10,7 +11,7 @@ let
     owner = "xero";
     repo = "figlet-fonts";
     rev = "master";
-    sha256 = "sha256-wT1DjM+3+UasAm2IHavBXs0R8eNMJn9uLtWSqwS+XU0=";
+    sha256 = "sha256-QogGNQ772bcYLOzgO0i6ydbzxjn5jnXNav72vW/SXm8=";
   };
   vicutSrc = super.fetchFromGitHub {
     owner = "km-clay";
@@ -20,6 +21,7 @@ let
   };
 in
 {
+  whoa = inputs.whoa.packages."x86_64-linux".whoa;
   vicut = super.rustPlatform.buildRustPackage {
     pname = "vicut";
     version = "v0.4.2";

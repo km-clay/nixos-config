@@ -38,6 +38,7 @@ let
           [
             (import ../overlay/overlay.nix {
               inherit host;
+              inherit inputs;
               root = inputs.self;
             })
           ]

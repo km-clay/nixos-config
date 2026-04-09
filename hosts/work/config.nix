@@ -6,7 +6,6 @@
     "desktop"
     "gaming"
     "dev"
-    "virt"
   ];
 
   services.udev.extraRules = ''

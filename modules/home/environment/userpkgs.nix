@@ -76,6 +76,7 @@ in
       protonup-qt
       piper
       libratbag
+      whoa
       ghostty
       firefox
       fd

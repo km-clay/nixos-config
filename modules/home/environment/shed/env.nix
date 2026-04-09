@@ -16,7 +16,7 @@
 
       LESS = "-R"; # pager uses alt buffer
       PAGER = "less";
-      SHED_HPAGER = "TERM=xterm less";
+      SHED_HPAGER = "h_pager";
       PROMPT_GIT = "1";
     };
   };

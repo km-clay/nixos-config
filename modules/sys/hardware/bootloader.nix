@@ -4,14 +4,14 @@ let
 in
 {
   boot = {
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
-    loader.systemd-boot.configurationLimit = 10;
-    loader.grub.gfxmodeEfi = "1024x768";
-    loader.grub.extraConfig = ''
-      GRUB_CMDLINE_LINUX_DEFAULT="nomodeset"
-      GRUB_GFXPAYLOAD_LINUX=1024x768
-    '';
+    loader = {
+      grub = {
+        device = "nodev";
+        enable = true;
+        efiSupport = true;
+      };
+      efi.canTouchEfiVariables = true;
+    };
     kernelPackages = pkgs.linuxPackages_latest;
   };
 }
