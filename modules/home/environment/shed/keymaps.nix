@@ -4,7 +4,7 @@
     functions = {
       _read_obj = /* bash */ ''
         _obj=""
-        while read_key -v key; do
+        while readkey -v key; do
           if [[ "''${#_obj}" -ge 3 ]]; then return 1; fi
           case "$key" in
             i|a)
@@ -21,7 +21,7 @@
               break
               ;;
             f|F)
-              read_key -v char
+              readkey -v char
               _obj="$key$char"
               break
             ;;
@@ -61,7 +61,7 @@
       '';
 
       _get_surround_target = /* bash */ ''
-        read_key -v _s_ch
+        readkey -v _s_ch
         case "$_s_ch" in
           \(|\)) _sl='('; _sr=')' ;;
           \[|\]) _sl='['; _sr=']' ;;
@@ -180,18 +180,87 @@
     keymaps = [
       {
         modes = [ "n" ];
-        keys = "<leader>e";
-        command = ":!_edit_line<CR>";
+        keys = "<leader>gc";
+        command = "<CMD>stash apply commit<CR>i";
       }
       {
         modes = [ "n" ];
-        keys = "ys";
-        command = ":!_surround_1<CR>:!_surround_2<CR>";
+        keys = "<leader>fn";
+        command = "<CMD>stash insert func_def<CR>/:<CR>";
       }
       {
         modes = [ "n" ];
-        keys = "ds";
-        command = ":!_surround_del<CR>";
+        keys = "<leader>if";
+        command = "<CMD>stash insert if_stmt<CR>/:<CR>";
+      }
+      {
+        modes = [ "n" ];
+        keys = "<leader>wh";
+        command = "<CMD>stash insert while_loop<CR>/:<CR>";
+      }
+      {
+        modes = [ "n" ];
+        keys = "<leader>un";
+        command = "<CMD>stash insert until_loop<CR>/:<CR>";
+      }
+      {
+        modes = [ "n" ];
+        keys = "<leader>for";
+        command = "<CMD>stash insert for_loop<CR>/:<CR>";
+      }
+      {
+        modes = [ "n" ];
+        keys = "<leader>ca";
+        command = "<CMD>stash insert case_stmt<CR>/:<CR>";
+      }
+      {
+        modes = [ "n" ];
+        keys = "<leader>yy";
+        command = "<CMD>w!wl-copy<CR>";
+      }
+      {
+        modes = [ "v" ];
+        keys = "<C-c>";
+        # copy - echoes copied content back to the editor
+        command = "<CMD>!tee >(wl-copy) 2> /dev/null<CR><ESC>";
+      }
+      {
+        modes = [ "v" ];
+        keys = "<C-x>";
+        # cut - pipes directly into wl-copy with no echo
+        command = "<CMD>!wl-copy 2> /dev/null<CR><ESC>";
+      }
+      {
+        modes = [ "i" ];
+        keys = "<C-v>";
+        # paste - runs wl-paste and inserts output at cursor position
+        command = "<CMD>r!wl-paste 2> /dev/null<CR>";
+      }
+      # autopair keybinds
+      {
+        modes = [ "i" ];
+        keys = "(";
+        command = "()<left>";
+      }
+      {
+        modes = [ "i" ];
+        keys = "[";
+        command = "[]<left>";
+      }
+      {
+        modes = [ "i" ];
+        keys = "{";
+        command = "{}<left>";
+      }
+      {
+        modes = [ "i" ];
+        keys = "\"";
+        command = "\"\"<left>";
+      }
+      {
+        modes = [ "n" ];
+        keys = "<leader>d";
+        command = "<CMD>!msg $(date)<CR>";
       }
     ];
   };

@@ -4,7 +4,8 @@
     extraPlugins = [
       (pkgs.vimUtils.buildVimPlugin {
         # vimwiki
-        name = "vimwiki";
+        pname = "vimwiki";
+        version = "unstable";
         src = pkgs.fetchFromGitHub {
           owner = "vimwiki";
           repo = "vimwiki";
@@ -13,7 +14,8 @@
         };
       })
       (pkgs.vimUtils.buildVimPlugin {
-        name = "vim-slash";
+        pname = "vim-slash";
+        version = "unstable";
         src = pkgs.fetchFromGitHub {
           owner = "junegunn";
           repo = "vim-slash";
@@ -22,7 +24,8 @@
         };
       })
       (pkgs.vimUtils.buildVimPlugin {
-        name = "automkdir.nvim";
+        pname = "automkdir.nvim";
+        version = "unstable";
         src = pkgs.fetchFromGitHub {
           owner = "mateuszwieloch";
           repo = "automkdir.nvim";

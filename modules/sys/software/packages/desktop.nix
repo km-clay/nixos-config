@@ -35,7 +35,7 @@ in
   };
 
   services = {
-    davfs2.enable = true;
+    davfs2.enable = false;
     pipewire = {
       enable = true;
       pulse.enable = true;

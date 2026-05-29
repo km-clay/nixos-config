@@ -2,6 +2,7 @@
   programs.nixvim = {
     plugins.treesitter = {
       enable = true;
+      settings.highlight.enable = true;
     };
     plugins.treesj = {
       enable = true;

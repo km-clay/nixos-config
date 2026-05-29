@@ -6,12 +6,19 @@ in
   home.packages = with pkgs; [ swaynotificationcenter ];
   xdg.configFile."swaync/style.css".text = ''
     @define-color shadow rgba(0, 0, 0, 0.25);
-    /*
-    *
-    * Catppuccin Mocha palette
-    * Maintainer: rubyowo
-    *
-    */
+    @define-color base #${config.lib.stylix.colors.base00};
+    @define-color mantle #${config.lib.stylix.colors.base01};
+    @define-color crust #${config.lib.stylix.colors.base00};
+    @define-color text #${config.lib.stylix.colors.base05};
+    @define-color subtext0 #${config.lib.stylix.colors.base04};
+    @define-color subtext1 #${config.lib.stylix.colors.base05};
+    @define-color surface0 #${config.lib.stylix.colors.base01};
+    @define-color surface1 #${config.lib.stylix.colors.base02};
+    @define-color surface2 #${config.lib.stylix.colors.base03};
+    @define-color overlay0 #${config.lib.stylix.colors.base03};
+    @define-color overlay1 #${config.lib.stylix.colors.base04};
+    @define-color overlay2 #${config.lib.stylix.colors.base04};
+    @define-color lavender #${config.lib.stylix.colors.base0E};
 
     @define-color base   #1E1D2E;
     @define-color mantle #181825;
@@ -607,8 +614,6 @@ in
     .right.overlay-indicator {
       all: unset;
     }
-
-    @import url("file://${config.home.homeDirectory}/.local/state/sysflake/swaync-colors.css");
   '';
   xdg.configFile."swaync/config.json".text = ''
     {

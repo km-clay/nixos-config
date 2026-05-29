@@ -13,6 +13,11 @@
 
     nixvim.url = "github:nix-community/nixvim";
 
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,6 +54,7 @@
           extraOverlays = [
             inputs.shed.overlays.default
             inputs.copyparty.overlays.default
+            inputs.rust-overlay.overlays.default
           ];
       };
 

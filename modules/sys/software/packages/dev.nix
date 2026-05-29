@@ -9,6 +9,10 @@ in
     ffmpeg
     cmake
     gnumake
+    docker
+    perf
+    perf-tools
+    hyperfine
     pkg-config
     openssl
   ];

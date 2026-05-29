@@ -2,7 +2,7 @@
 
 {
   icanhazip = super.callPackage ./icanhazip.nix { };
-  invoke = super.callPackage ./invoke.nix { self = root; };
+  invoke = super.callPackage ./invoke.nix { };
   git-compose = super.callPackage ./git-compose.nix { self = root; };
   runbg = super.callPackage ./runbg.nix { };
   splash = super.callPackage ./splash.nix { };

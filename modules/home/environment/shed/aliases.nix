@@ -1,19 +1,13 @@
-{
-  lib,
-  config,
-  pkgs,
-  self,
-  ...
-}:
+{ ... }:
 {
   programs.shed = {
     aliases = {
       mv = "mv -v";
       cp = "cp -vr";
       gt = "gtrash";
-      gtp = "${pkgs.myScripts.playshellsound}/bin/playshellsound ${self}/assets/sound/rm.wav && gtrash put";
+      gtp = "playshellsound rm.wav && gtrash put";
       diff = "diff --color=auto";
-      sr = "source ~/.shedrc";
+      sr = "source $XDG_CONFIG_HOME/shed/shedrc";
       psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
       mkdir = "mkdir -p";
       pk = "pkill -9 -f";
@@ -30,11 +24,12 @@
       rustdev = "nix develop github:km-clay/devshells#rust";
       y = "yazi";
 
-      ga = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
+      ga = "playshellsound gitadd.wav; git add";
       gcomm = "gitcommit_sfx";
       gpush = "gitpush_sfx";
       gpull = "gitpull_sfx";
       grebase = "gitrebase_sfx";
+      lgit = "lazygit";
       videconf = "EDITOR=neovide viconf";
       nix-shell = "command nix-shell --command 'exec shed'";
     };

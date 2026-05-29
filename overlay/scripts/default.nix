@@ -8,4 +8,4 @@
 import ./commands { inherit super root; }
 // import ./nix { inherit super host root; }
 // import ./misc { inherit super; }
-// import ./wm-controls { inherit super; }
+// import ./wm-controls { inherit super root; }

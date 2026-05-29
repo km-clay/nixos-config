@@ -7,7 +7,7 @@ in
   programs.nixvim = {
     colorschemes.base16 = {
       enable = true;
-      colorscheme = "seti";
+      colorscheme = "ayu-dark";
       #colorscheme = {
       #	base00 = "#${scheme.base00}";
       #	base01 = "#${scheme.base01}";
@@ -33,11 +33,6 @@ in
       signs = false;
     };
     extraConfigLua = /* lua */ ''
-      local theme_file = vim.fn.expand("~/.local/state/sysflake/nvim-colors.lua")
-      if vim.fn.filereadable(theme_file) == 1 then
-        dofile(theme_file)
-      end
-
       if vim.g.started_by_firenvim == true then
       	vim.o.laststatus = 0
       end
@@ -59,6 +54,7 @@ in
       vim.opt.relativenumber = true
       vim.opt.hlsearch = true
       vim.opt.incsearch = true
+      vim.opt.expandtab = true
       vim.opt.shiftwidth = 2
       vim.opt.tabstop = 2
       vim.opt.termguicolors = true
@@ -71,7 +67,7 @@ in
       vim.opt.linebreak = true
       vim.opt.textwidth = 0
       vim.opt.breakat = " \t!@*-+;:,./?"
-      vim.opt.guifont = "EnvyCodeR Nerd Font Mono:h18"
+      vim.opt.guifont = "Maple Mono:h18"
 
       vim.g.mapleader = " "
       vim.g.rust_recommended_style = 0
@@ -83,7 +79,6 @@ in
           (indented_string_expression
             (string_fragment) @injection.content)
           (#gsub! @injection.language "^%s*/%*%s*(%S+)%s*%*/.*$" "%1"))
-      ]])
-    '';
+      ]])    '';
   };
 }

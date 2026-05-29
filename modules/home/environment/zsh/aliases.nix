@@ -12,7 +12,7 @@ in
       mv = "mv -v";
       cp = "cp -vr";
       gt = "gtrash";
-      gtp = "playshellsound ${self}/assets/sound/rm.wav; gtrash put";
+      gtp = "playshellsound rm.wav; gtrash put";
       sr = "source ~/.zshrc && source ~/.zshenv";
       ".." = "cd ..";
       psg = "ps aux | grep -v grep | grep -i -e VSZ -e";
@@ -33,7 +33,7 @@ in
       claude = "RAW_SHELL=1 claude";
 
       #git
-      ga = "playshellsound ${self}/assets/sound/gitadd.wav; git add";
+      ga = "playshellsound gitadd.wav; git add";
       gcomm = "gitcommit_sfx";
       gpush = "gitpush_sfx";
       gpull = "gitpull_sfx";

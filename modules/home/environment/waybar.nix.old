@@ -76,8 +76,6 @@ let
   };
 
   monitors = config.movOpts.envConfig.hyprlandConfig.monitorNames;
-  c = config.lib.stylix.colors;
-  fg = "#${c.base06}";
 in
 {
   options = {
@@ -106,7 +104,7 @@ in
           modules-center = [ "hyprland/window" ];
 
           "hyprland/window" = {
-            format = "<span color='${fg}'>{title}</span>";
+            format = "<span color='#aaaaaa'>{title}</span>";
           };
           modules-right = [
             "cpu"
@@ -120,14 +118,14 @@ in
           "hyprland/workspaces" = workspaces;
 
           clock = {
-            format = "󱑍 <span color='${fg}'>{:%H:%M}</span>";
+            format = "󱑍 <span color='#aaaaaa'>{:%H:%M}</span>";
           };
 
           pulseaudio = {
-            format = " <span color='${fg}'>{volume}%</span>";
+            format = " <span color='#aaaaaa'>{volume}%</span>";
             tooltip = true;
             tooltip-format = "{desc}";
-            format-muted = " <span color='${fg}'>{volume}%</span>";
+            format-muted = " <span color='#aaaaaa'>{volume}%</span>";
             on-click = "if [ $(pamixer --get-mute) == true ]; then pamixer --unmute; else pamixer --mute; fi";
             on-scroll-up = "pamixer -i 2";
             on-scroll-down = "pamixer -d 2";
@@ -136,8 +134,8 @@ in
           };
 
           network = {
-            format-wifi = "󰖩 <span color='${fg}'>{essid}</span>";
-            format-ethernet = " <span color='${fg}'>{ifname}</span>";
+            format-wifi = "󰖩 <span color='#aaaaaa'>{essid}</span>";
+            format-ethernet = " <span color='#aaaaaa'>{ifname}</span>";
             tooltip-format-wifi = "ESSID\t: {essid}\nSTRNGTH\t: {signaldBm}\n\nADDRESS\t: {ipaddr}\nGATE\t: {gwaddr}\nMASK\t: {netmask} | {cidr}";
             tooltip-format-ethernet = "IFNAME: {ifname}\nADDRESS: {ipaddr}";
             format-disconnected = "󱚼";
@@ -151,26 +149,23 @@ in
 
           memory = {
             interval = 20;
-            format = " <span color='${fg}'>{percentage}%</span>";
+            format = " <span color='#aaaaaa'>{percentage}%</span>";
             tooltip-format = "MEM_TOT\t: {total}GiB\nSWP_TOT\t: {swapTotal}GiB\n\nMEM_USD\t: {used:0.1f}GiB\nSWP_USD\t: {swapUsed:0.1f}GiB";
           };
 
           cpu = {
             interval = 1;
-            format = "󰍛 <span color='${fg}'>{usage}%</span>";
+            format = "󰍛 <span color='#aaaaaa'>{usage}%</span>";
             tooltip = true;
           };
         };
       };
       style = ''
-        @define-color border #${c.base0E};
-        @define-color background #${c.base01};
-        @define-color foreground #${c.base06};
-        @define-color cpu-c #${c.base08};
-        @define-color mem-c #${c.base0B};
-        @define-color vol-c #${c.base0D};
-        @define-color net-c #${c.base08};
-        @define-color time-c #${c.base0B};
+        @define-color accent #CF1B30;
+        @define-color bg-dark #1a1a1a;
+        @define-color bg-island #2a2a2a;
+        @define-color fg-dim #aaaaaa;
+        @define-color fg-text #d0d0d0;
 
         * {
             font-size: 20px;
@@ -183,20 +178,20 @@ in
 
         window#waybar {
             background: rgba(0, 0, 0, 0.05);
-            color: @foreground;
+            color: @fg-text;
         }
 
         tooltip {
-            background: @background;
-            border: 2px solid @border;
+            background: @bg-dark;
+            border: 2px solid @accent;
             border-radius: 8px;
         }
 
         /* ── Tray island (far left) ── */
         #tray {
-            background-color: @background;
-            color: @foreground;
-            border: 2px solid @border;
+            background-color: @bg-dark;
+            color: @accent;
+            border: 2px solid @accent;
             border-radius: 8px;
             padding: 4px 8px;
             margin: 6px 4px 6px 10px;
@@ -204,15 +199,15 @@ in
 
         /* ── Workspaces island ── */
         #workspaces {
-            background-color: @background;
-            border: 2px solid @border;
+            background-color: @bg-dark;
+            border: 2px solid @accent;
             border-radius: 8px;
             margin: 6px 4px;
             padding: 0 4px;
         }
 
         #workspaces button {
-            color: @foreground;
+            color: @fg-dim;
             background: transparent;
             padding: 4px 8px;
             border-radius: 6px;
@@ -220,13 +215,13 @@ in
         }
 
         #workspaces button.active {
-            color: @background;
-            background-color: @border;
+            color: @bg-dark;
+            background-color: @accent;
         }
 
         #workspaces button:hover {
-            color: @background;
-            background-color: alpha(@border, 0.5);
+            color: @bg-dark;
+            background-color: alpha(@accent, 0.5);
         }
 
         /* ── Right info modules island ── */
@@ -236,53 +231,47 @@ in
         #network,
         #window,
         #clock {
-            background-color: @background;
-            border-top: 2px solid @border;
-            border-bottom: 2px solid @border;
+            background-color: @bg-dark;
+            color: @accent;
+            border-top: 2px solid @accent;
+            border-bottom: 2px solid @accent;
             padding: 4px 10px;
             margin: 6px 0;
         }
 
-        /* per-module icon colors */
-        #cpu        { color: @cpu-c; }
-        #memory     { color: @mem-c; }
-        #pulseaudio { color: @vol-c; }
-        #network    { color: @net-c; }
-        #clock      { color: @time-c; }
-
         /* ── Window title island (center) ── */
         #window {
-            color: @foreground;
             border-radius: 8px;
-            border-left: 2px solid @border;
-            border-right: 2px solid @border;
+            border-left: 2px solid @accent;
+            border-right: 2px solid @accent;
             margin: 6px 4px;
         }
 
         /* round left edge of first module in the group */
         #cpu {
             border-radius: 8px 0 0 8px;
-            border-left: 2px solid @border;
+            border-left: 2px solid @accent;
             margin-left: 4px;
         }
 
         /* round right edge of last module before nixicon */
         #clock {
             border-radius: 0 8px 8px 0;
-            border-right: 2px solid @border;
+            border-right: 2px solid @accent;
             margin-right: 4px;
         }
 
         /* ── NixOS icon island (far right, outlined) ── */
         #image {
-            background-color: @background;
-            color: @foreground;
-            border: 2px solid @border;
+            background-color: @bg-dark;
+            color: @accent;
+            border: 2px solid @accent;
             border-radius: 8px;
             padding: 4px 10px;
             margin: 6px 10px 6px 4px;
         }
 
+        @import url("file://${config.home.homeDirectory}/.local/state/sysflake/waybar-colors.css");
       '';
     };
   };

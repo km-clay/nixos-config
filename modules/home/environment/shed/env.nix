@@ -1,11 +1,8 @@
-{ lib, config, ... }:
+{ ... }:
 {
   programs.shed = {
     environmentVars = {
       SOUNDS_ENABLED = "true";
-      EDITOR = "nvim";
-      SUDO_EDITOR = "nvim";
-      VISUAL = "nvim";
       LANG = "en_US.UTF-8";
       BROWSER = "firefox";
       FLAKEPATH = "$HOME/.sysflake";
@@ -16,8 +13,16 @@
 
       LESS = "-R"; # pager uses alt buffer
       PAGER = "less";
-      SHED_HPAGER = "h_pager";
-      PROMPT_GIT = "1";
+
+      PS1 = "\\@prompt";
+
+      PATH = "$PATH:$HOME/.cargo/bin";
+
+      STATLINE_GIT = "1";
+      LINE_SEP_LEFT="";
+      LINE_SEP_RIGHT="";
+
+      CDPATH = "$HOME/projects:$HOME/repos:$HOME";
     };
   };
 }

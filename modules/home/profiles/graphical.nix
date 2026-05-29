@@ -19,7 +19,7 @@ in
       gtkConfig.enable        = true;
       swayncConfig.enable     = true;
       userServicesGraphical.enable = true;
-      paperdConfig.enable     = true;
+      paperdConfig.enable     = false;
     };
 
     movOpts.homeFiles.enable = true;

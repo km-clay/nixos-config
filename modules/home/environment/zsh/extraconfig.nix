@@ -4,7 +4,6 @@ let
   shellsound = "${pkgs.myScripts.playshellsound}/bin/playshellsound";
   color-commit = "${pkgs.myScripts.color-commit}/bin/color-commit";
   fzf-tab = "${pkgs.myPkgs.fzf-tab}";
-  sndpath = "${self}/assets/sound";
 in
 {
   programs.zsh = {
@@ -67,64 +66,64 @@ in
         )
       }
       nvim() {
-        ${shellsound} ${sndpath}/nvim.wav
+        ${shellsound} nvim.wav
         command nvim "$@"
       }
       neovide() {
-        ${shellsound} ${sndpath}/nvim.wav
+        ${shellsound} nvim.wav
         command neovide "$@"
       }
       alias vi="nvim"
       grimblast() {
         if command grimblast "$@"; then
-          ${shellsound} ${sndpath}/screenshot.wav
+          ${shellsound} screenshot.wav
         fi
       }
       gitcheckout_sfx() {
         if git checkout "$@"; then
-          ${shellsound} ${sndpath}/gitcheckout.wav
+          ${shellsound} gitcheckout.wav
           return 0
         else
-          ${shellsound} ${sndpath}/error.wav
+          ${shellsound} error.wav
           return 1
         fi
       }
       gitrebase_sfx() {
         if git rebase "$@"; then
-          ${shellsound} ${sndpath}/gitrebase.wav
+          ${shellsound} gitrebase.wav
           return 0
         else
-          ${shellsound} ${sndpath}/error.wav
+          ${shellsound} error.wav
           return 1
         fi
       }
       gitcommit_sfx() {
         output=$(git commit "$@")
         if [ -n "$output" ]; then
-          ${shellsound} ${sndpath}/gitcommit.wav
+          ${shellsound} gitcommit.wav
           echo "$output" | ${color-commit}
           return 0
         else
-          ${shellsound} ${sndpath}/error.wav
+          ${shellsound} error.wav
           echo "$output"
           return 1
         fi
       }
       gitpush_sfx() {
         if git push "$@"; then
-          ${shellsound} ${sndpath}/gitpush.wav
+          ${shellsound} gitpush.wav
           return 0
         else
-          ${shellsound} ${sndpath}/error.wav
+          ${shellsound} error.wav
           return 1
         fi
       }
       gitpull_sfx() {
         if git pull "$@"; then
-          ${shellsound} ${sndpath}/gitpull.wav
+          ${shellsound} gitpull.wav
           return 0
         else
-          ${shellsound} ${sndpath}/error.wav
+          ${shellsound} error.wav
           return 1
         fi
       }
@@ -132,7 +131,7 @@ in
       ls() {
         if [ "$RAW_SHELL" = "1" ]; then command ls; fi
         eza -1 --group-directories-first --icons "$@"
-        ${shellsound} ${sndpath}/ls.wav
+        ls.wav
         return 0
       }
 
@@ -156,7 +155,7 @@ in
         eza -1 --group-directories-first --icons "$@"
         SOUNDS_ENABLED=$prev_sounds_enabled
         builtin cd "$@"
-        ${shellsound} ${sndpath}/cd.wav
+        ${shellsound} cd.wav
         return 0
       }
 
@@ -207,7 +206,7 @@ in
       {
         eval "$(starship init zsh)"
       }
-      ${shellsound} ${sndpath}/sh-source.wav
+      ${shellsound} sh-source.wav
       [ ! -f $FLAKEPATH/flake.nix ] && echo "WARNING: flake.nix not found at \$FLAKEPATH. Shell aliases for editing config files won't work correctly!" && echo "Edit the FLAKEPATH session variable in zsh/env.nix to point to the path where you saved the system configuration flake."
     '';
   };

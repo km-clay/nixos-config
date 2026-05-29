@@ -29,11 +29,6 @@
       fsType = "ext4";
     };
 
-  fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/4a08ae7a-f7c6-44e5-ba7b-bc13bce25f44";
-      fsType = "ext4";
-    };
-
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

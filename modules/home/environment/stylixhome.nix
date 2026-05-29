@@ -1,7 +1,7 @@
 args:
 let
   inherit (args) pkgs;
-  scheme = "seti";
+  scheme = "ayu-dark";
 in
 {
   stylix = {
@@ -10,9 +10,6 @@ in
     polarity = "dark";
     autoEnable = true;
     targets = {
-      waybar.enable = false;
-      spicetify.enable = false;
-      btop.enable = false;
       nixvim.enable = false;
       nixvim.transparentBackground = {
         main = false;
@@ -26,8 +23,8 @@ in
     };
     fonts = {
       monospace = {
-        package = pkgs.nerd-fonts.envy-code-r;
-        name = "EnvyCodeR Nerd Font Mono";
+        package = pkgs.maple-mono.truetype-autohint;
+        name = "Maple Mono";
       };
       sansSerif = {
         package = pkgs.myPkgs.noto-sans-jp;

@@ -1,94 +1,132 @@
 { self, pkgs, ... }:
 let
-  shellsound = "${pkgs.myScripts.playshellsound}/bin/playshellsound";
   color-commit = "${pkgs.myScripts.color-commit}/bin/color-commit";
-  sndpath = "${self}/assets/sound";
 in
 {
   programs.shed = {
     functions = {
       prompt_topline = /* bash */ ''
         local user_and_host="\e[0m\e[1m$USER\e[1;36m@\e[1;31m$HOST\e[0m"
-        local mode_text="$(prompt_mode)"
-        echo -n "\e[1;34m┏━ $user_and_host $mode_text\n"
+        echo -n "\e[1;34m┏━ $user_and_host\n"
       '';
 
-      prompt_mode = /* bash */ ''
-        local mode=""
-        local normal_fg='\e[0m\e[30m\e[1;43m'
-        local normal_bg='\e[0m\e[33m'
-        local insert_fg='\e[0m\e[30m\e[1;46m'
-        local insert_bg='\e[0m\e[36m'
-        local command_fg='\e[0m\e[30m\e[1;42m'
-        local command_bg='\e[0m\e[32m'
-        local visual_fg='\e[0m\e[30m\e[1;45m'
-        local visual_bg='\e[0m\e[35m'
-        local replace_fg='\e[0m\e[30m\e[1;41m'
-        local replace_bg='\e[0m\e[31m'
-        local search_fg='\e[0m\e[30m\e[1;47m'
-        local search_bg='\e[0m\e[39m'
-        local complete_fg='\e[0m\e[30m\e[1;47m'
-        local complete_bg='\e[0m\e[39m'
-
-
-        case "$SHED_VI_MODE" in
-          "NORMAL")
-            mode="$normal_bg''${normal_fg}NORMAL$normal_bg\e[0m"
-          ;;
-          "INSERT")
-            mode="$insert_bg''${insert_fg}INSERT$insert_bg\e[0m"
-          ;;
-          "COMMAND")
-            mode="$command_bg''${command_fg}COMMAND$command_bg\e[0m"
-          ;;
-          "VISUAL")
-            mode="$visual_bg''${visual_fg}VISUAL$visual_bg\e[0m"
-          ;;
-          "REPLACE")
-            mode="$replace_bg''${replace_fg}REPLACE$replace_bg\e[0m"
-          ;;
-          "VERBATIM")
-            mode="$replace_bg''${replace_fg}VERBATIM$replace_bg\e[0m"
-          ;;
-          "COMPLETE")
-            mode="$complete_bg''${complete_fg}COMPLETE$complete_bg\e[0m"
-          ;;
-          "SEARCH")
-            mode="$search_bg''${search_fg}SEARCH$search_bg\e[0m"
-          ;;
-          *)
-            mode=""
-          ;;
-        esac
-
-        echo -en "$mode\n"
+      shed_ver = /* bash */ ''
+        echo -en "\e[1;36m\$$(version -v)"
       '';
 
-      prompt_stat_line = /* bash */ ''
-        local last_exit_code="$?"
-        local last_cmd_status
-        local last_cmd_runtime
-        if [ "$last_exit_code" -eq "0" ]; then
-          last_cmd_status="\e[1;32m"
-        else
-          last_cmd_status="\e[1;31m"
+      __mod = /* bash */ ''
+        local key="$1" content="$2" sep="$3"
+        __mod_dyn "''${BG[$key]}" "''${FG[$key]}" "$content" "$sep"
+      '';
+
+      __mod_dyn = /* bash */ ''
+        local bg="$1" fg="$2" content="$3" sep="$4"
+        [[ -z "$content" ]] && return
+        if [[ -n "$__PREV_BG" ]]; then
+          __emit_fg "$__PREV_BG"; __emit_bg "$bg"
+          echo -n "$sep"
         fi
-        local last_runtime_raw="$(echo -p "\t")"
-        if [ -z "$last_runtime_raw" ]; then
+        __emit_bg "$bg"; __emit_fg "$fg"
+        echo -n " $content "
+        __PREV_BG="$bg"
+      '';
+
+      __mod_right = /* bash */ ''
+        __mod_dyn_right "''${BG[$1]}" "''${FG[$1]}" "$2" "$LINE_SEP_RIGHT"
+      '';
+
+      __mod_dyn_right = /* bash */ ''
+        local bg="$1" fg="$2" content="$3" sep="$4"
+        [[ -z "$content" ]] && return
+        if [[ -n "$__PREV_BG" ]]; then
+          # mid chain
+          __emit_fg "$bg"; __emit_bg "$__PREV_BG"
+          echo -n "$sep"
+        else
+          __emit_fg "$bg"
+          echo -en "\e[49m$sep"
+        fi
+        __emit_bg "$bg"; __emit_fg "$fg"
+        echo -en "\e[1m $content "
+        __PREV_BG="$bg"
+      '';
+      __emit_bg = /* bash */ ''
+        local val="$1"
+        if [[ "$val" == *";"* ]]; then
+          echo -en "\e[48;2;''${val}m"
+        else
+          echo -en "\e[48;5;''${val}m"
+        fi
+      '';
+      __emit_fg = /* bash */ ''
+        local val="$1"
+        if [[ "$val" == *";"* ]]; then
+          echo -en "\e[38;2;''${val}m"
+        else
+          echo -en "\e[38;5;''${val}m"
+        fi
+      '';
+
+      emit_mode = /* bash */ ''
+        local bg fg=0
+        case "$SHED_EDIT_MODE" in
+          NORMAL)                 bg=3 ;;
+          INSERT|"(insert)")      bg=6 ;;
+          COMMAND)                bg=2 ;;
+          VISUAL)                 bg=5 ;;
+          REPLACE|VERBATIM|EMACS) bg=1 ;;
+          SEARCH|REMOTE|COMPLETE) bg=7 ;;
+          *) return ;;
+        esac
+        echo -en "\e[1m"
+        __mod_dyn "$bg" "$fg" "$SHED_EDIT_MODE" "$LINE_SEP_LEFT" "1"
+      '';
+
+      cmd_status_line = /* bash */ ''
+        local last_cmd_stat
+        local last_cmd_runtime
+        if [[ "$last_exit" == "0" ]]; then
+          last_cmd_stat="\e[1;32m"
+        else
+          last_cmd_stat="\e[1;31m"
+        fi
+        local last_runtime="$(echo -p "\t")"
+        if [[ -z "$last_runtime" ]]; then
           return 0
         else
-          last_cmd_runtime="\e[1;38;2;249;226;175m󰔛 ''${last_cmd_status}$(echo -p "\T")\e[0m"
+          last_cmd_runtime="\e[1;38;2;249;226;175m󰔛 ''${last_cmd_stat}$(echo -p "\T")\e[39m"
         fi
-
-        echo -n "\e[1;34m┃ $last_cmd_runtime\e[0m\n"
+        echo -en "$last_cmd_runtime \e[1m-> [''${last_cmd_stat}''${last_exit}\e[39m]"
       '';
 
-      prompt_git_line = /* bash */ ''
+      git_stat_line = /* bash */ ''
+        if [[ -n "$GIT_STAT_DIR" ]] && ! _="''${PWD#$GIT_STAT_DIR}"; then
+          export GIT_STAT_LINE=""
+          export GIT_STAT_DIR=""
+          return
+        fi
+        if [[ -z "$GIT_STAT_LINE" ]]; then
+          if [[ "''${STATLINE_GIT:-0}" -eq 1 ]]; then
+            git_stat_line_update
+          fi
+        fi
+        echo -en "$GIT_STAT_LINE"
+      '';
+
+      git_stat_line_update = /* bash */ ''
         local status="$(git status --porcelain -b 2>/dev/null)" || return
+        local diff="$(git diff --shortstat 2>/dev/null)"
+        local cache_key="$status"$'\n'"$diff"
+        if [[ -n "$LAST_DIFF" ]] && [[ "$LAST_DIFF" == "$cache_key" ]]; then
+          # its the same as last time. lets not do all this stuff actually
+          return 0
+        fi
+        LAST_DIFF="$cache_key"
 
         local branch="" gitsigns="" ahead=0 behind=0
         local header="''${status%%$'\n'*}"
 
+        # hope you like parameter expansion
         branch="''${header#\#\# }"
         branch="''${branch%%...*}"
         case "$header" in
@@ -111,26 +149,21 @@ in
             *$'\n'[MADR]*) gitsigns="''${gitsigns}+" ;;
         esac
 
-        local diff="$(git diff --shortstat 2>/dev/null)"
-
-        local diff="$(git diff --shortstat 2>/dev/null)"
         local changed="" add="" del=""
         if [ -n "$diff" ]; then
-            changed="''${diff%% file*}"; changed="''${changed##* }"
-            case "$diff" in
-                *insertion*) add="''${diff#*, }"; add="''${add%% *}" ;;
-            esac
-            case "$diff" in
-                *deletion*) del="''${diff% deletion*}"; del="''${del##* }" ;;
-            esac
+          changed="''${diff%% file*}"; changed="''${changed##* }"
+          case "$diff" in *insertion*) add="''${diff#*, }"; add="''${add%% *}" ;; esac
+          case "$diff" in *deletion*) del="''${diff% deletion*}"; del="''${del##* }" ;; esac
         fi
 
-        if [ -n "$gitsigns" ] || [ -n "$branch" ]; then
-            [ -n "$gitsigns" ] && gitsigns="\e[1;31m[$gitsigns]"
-            [ -n "$changed" ] && [ "$changed" -gt 0 ] && changed="\e[1;34m~$changed \e[0m"
-            [ -n "$add" ] && [ "$add" -gt 0 ] && add="\e[1;32m+$add \e[0m"
-            [ -n "$del" ] && [ "$del" -gt 0 ] && del="\e[1;31m-$del\e[0m"
-            echo -n "\e[1;34m┃ \e[1;35m $branch$gitsigns\e[0m $changed$add$del\n"
+        if [[ -n "$branch" ]]; then
+          local out=" $branch"
+          [[ -n "$gitsigns" ]] && out="$out\e[38;5;9m[$gitsigns]"
+          [[ -n "$changed" ]] && [[ "$changed" -gt 0 ]] && out="$out \e[38;5;12m~$changed\e[39m"
+          [[ -n "$add" ]] && [[ "$add" -gt 0 ]] && out="$out \e[38;5;10m+$add\e[39m"
+          [[ -n "$del" ]] && [[ "$del" -gt 0 ]] && out="$out \e[38;5;9m-$del\e[39m"
+          export GIT_STAT_LINE="\e[1;38;5;13m$out"
+          export GIT_STAT_DIR="$(git rev-parse --show-toplevel 2>/dev/null)"
         fi
       '';
 
@@ -154,23 +187,46 @@ in
       prompt_dollar_line = /* bash */ ''
         local dollar="$(echo -p "\$ ")"
         local dollar="$(echo -e "\e[1;32m$dollar\e[0m")"
-        echo -n "\e[1;34m┗━ $dollar "
+        echo -n "\e[1;34m┗━ $dollar"
       '';
 
       prompt = /* bash */ ''
-        local statline="$(prompt_stat_line)"
         local topline="$(prompt_topline)"
         local jobsline="$(prompt_jobs_line)"
         local sshline="$(prompt_ssh_line)"
         local pwdline="$(prompt_pwd_line)"
         local dollarline="$(prompt_dollar_line)"
-        local prompt="$topline$statline$PROMPT_GIT_LINE$jobsline$sshline$pwdline\n$dollarline"
+        local prompt="\n$topline$jobsline$sshline$pwdline\n$dollarline"
 
         echo -en "$prompt"
       '';
 
-      shed_ver = ''
-        shed --version
+      stat_line_left = /* bash */ ''
+        local last_exit="$?"
+        __PREV_BG=""
+        emit_mode && \
+        __mod time "$(git_stat_line)" $LINE_SEP_LEFT && \
+        __mod stat "$(cmd_status_line)" $LINE_SEP_LEFT && \
+        __cap $LINE_SEP_LEFT "18"
+
+      '';
+      __cap = /* bash */ ''
+        local sep="$1" reset="$2"
+        if [ -n "$__PREV_BG" ]; then
+          if [ -n "$reset" ]; then
+            __emit_bg "$reset"
+          else
+            echo -en "\e[49m"
+          fi
+          __emit_fg "$__PREV_BG"
+          echo -n "$sep"
+        fi
+        __PREV_BG="$reset"
+      '';
+
+      stat_line_right = /* bash */ ''
+        __PREV_BG="18"
+        __mod_right time "$(shed_ver)"
       '';
 
       encrypt = /* bash */ ''
@@ -203,79 +259,89 @@ in
       '';
 
       upfind = /* bash */ ''
-        until [ "$#" -eq 0 ]; do
-          filename="$1"
+        until [[ "$#" -eq 0 ]]; do
+          target="$1"
           (
-            until [ -f "./$filename" ]; do
+            until [[ -e "./$target" ]]; do
               builtin cd ..
-              if [ "$PWD" = "/" ]; then
-                echo "upsearch: failed to find file '$filename' in this directory or any parent directories." 1>&2
-                break
+              if [[ "$PWD" == "/" ]]; then
+                echo "upsearch: failed to find file '$target' in this directory or any parent directories." 1>&2
+                exit 1
               fi
             done
-            if [ -f "./$filename" ]; then
-              realpath "./$filename"
-            fi
+            realpath "./$target"
           )
+          if [[ "$?" -ne 0 ]]; then
+            return 1
+          fi
           shift 1
         done
       '';
 
       nvim = /* bash */ ''
-        ${shellsound} ${sndpath}/nvim.wav
+        playshellsound nvim.wav
         command nvim "$@"
       '';
       neovide = /* bash */ ''
-        ${shellsound} ${sndpath}/nvim.wav
+        playshellsound nvim.wav
         command neovide "$@"
       '';
       grimblast = /* bash */ ''
         if command grimblast "$@"; then
-          ${shellsound} ${sndpath}/screenshot.wav
+          playshellsound screenshot.wav
         fi
       '';
       gitcheckout_sfx = /* bash */ ''
         if git checkout "$@"; then
-          ${shellsound} ${sndpath}/gitcheckout.wav
+          playshellsound gitcheckout.wav
         else
-          ${shellsound} ${sndpath}/error.wav
+          status="$?"
+          playshellsound error.wav
+          return $status
         fi
       '';
       gitrebase_sfx = /* bash */ ''
         if git rebase "$@"; then
-          ${shellsound} ${sndpath}/gitrebase.wav
+          playshellsound gitrebase.wav
         else
-          ${shellsound} ${sndpath}/error.wav
+          status="$?"
+          playshellsound error.wav
+          return $status
         fi
       '';
       gitcommit_sfx = /* bash */ ''
         local output="$(git commit "$@")"
         if [ "$?" -eq "0" ]; then
-          ${shellsound} ${sndpath}/gitcommit.wav
+          playshellsound gitcommit.wav
           echo "$output" | ${color-commit}
           return 0
         else
-          ${shellsound} ${sndpath}/error.wav
+          playshellsound error.wav
           echo "$output"
           return 1
         fi
       '';
       gitpush_sfx = /* bash */ ''
         if git push "$@"; then
-          ${shellsound} ${sndpath}/gitpush.wav
+          playshellsound gitpush.wav
         else
-          ${shellsound} ${sndpath}/error.wav
+          status="$?"
+          playshellsound error.wav
+          return $status
         fi
       '';
       gitpull_sfx = /* bash */ ''
         if git pull "$@"; then
-          ${shellsound} ${sndpath}/gitpull.wav
+          playshellsound gitpull.wav
         else
-          ${shellsound} ${sndpath}/error.wav
+          status="$?"
+          playshellsound error.wav
+          return $status
         fi
       '';
 
       ls = /* bash */ ''
+        playshellsound ls.wav
         eza -1 --group-directories-first --icons "$@"
       '';
 
@@ -284,6 +350,7 @@ in
       '';
 
       cd = /* bash */ ''
+        playshellsound cd.wav
         eza -1 --group-directories-first --icons "$@" 2> /dev/null
         builtin cd "$@"
       '';
@@ -292,16 +359,9 @@ in
         socat -U - UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock
       '';
 
-      vipe = /* bash */ ''
-        local tmp=$(mktemp)
-        $EDITOR "$tmp" -R - >/dev/tty </dev/tty
-        cat "$tmp"
-        rm "$tmp"
-      '';
-
       reboot = /* bash */ ''
         echo "Really? enter = yes"
-        read_key -v res
+        readkey -v res
         case "$res" in
           "<Enter>")
             command reboot
@@ -313,10 +373,10 @@ in
       '';
 
       h_pager = /* bash */ ''
-        TERM=xterm less
+        TERM=xterm less "$@"
       '';
 
-      shlvl = "echo $SHLVL";
+      lvl = "echo $SHLVL";
     };
   };
 }

@@ -81,7 +81,8 @@ in
       };
       systemd.enable = true;
       extraConfig = ''
-        source = /home/${username}/.local/state/sysflake/hyprland-colors.conf
+        general:col.active_border = rgba(${config.lib.stylix.colors.base0E}ff)
+        general:col.inactive_border = rgba(${config.lib.stylix.colors.base03}ff)
       '';
     };
     wayland.windowManager.hyprland = {
@@ -189,6 +190,10 @@ in
           no_hardware_cursors = true;
         };
 
+        debug = {
+          disable_logs = false;
+        };
+
         input = {
           kb_layout = "us";
           follow_mouse = 1;
@@ -211,7 +216,7 @@ in
           };
         };
         misc = {
-          font_family = "EnvyCodeR Nerd Font Mono";
+          font_family = "Maple Mono";
           disable_autoreload = true;
           disable_hyprland_logo = true;
           always_follow_on_dnd = true;
@@ -220,13 +225,11 @@ in
           swallow_regex = "^(kitty)$";
           enable_swallow = true;
           focus_on_activate = true;
-          vfr = true;
           background_color = lib.mkForce "0x202020";
           mouse_move_enables_dpms = true;
         };
 
         dwindle = {
-          pseudotile = "yes";
           preserve_split = "yes";
         };
 
@@ -248,7 +251,6 @@ in
 
           shadow = {
             enabled = true;
-            ignore_window = true;
             range = 20;
             render_power = 50;
           };
@@ -288,8 +290,8 @@ in
           "super, m, exec, fuzzel"
           "super, r, exec, obsidian"
           "super, b, layoutmsg, togglesplit, # dwindle"
-          "super, comma, exec, hyprctl dispatch layoutmsg rollnext; hyprctl dispatch layoutmsg focusmaster"
-          "super, period, exec, hyprctl dispatch layoutmsg rollprev; hyprctl dispatch layoutmsg focusmaster"
+          "super, comma, exec, hyprctl dispatch layoutmsg rollnext"
+          "super, period, exec, hyprctl dispatch layoutmsg rollprev"
           "super, n, layoutmsg, swapwithmaster"
           "super, f, togglefloating"
           "super, g, fullscreen"

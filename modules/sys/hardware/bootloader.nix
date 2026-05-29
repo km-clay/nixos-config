@@ -4,6 +4,7 @@ let
 in
 {
   boot = {
+    supportedFilesystems = [ "ntfs" ];
     loader = {
       grub = {
         device = "nodev";

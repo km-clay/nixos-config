@@ -1,9 +1,13 @@
 args:
 let
-  inherit (args) pkgs;
+  inherit (args) pkgs username;
 in
 {
-  virtualisation.libvirtd.enable = true;
+  virtualisation = {
+    docker.enable = true;
+    libvirtd.enable = true;
+  };
+  users.users.${username}.extraGroups = [ "docker" "libvirtd" ];
   programs.virt-manager.enable = true;
   environment.systemPackages = with pkgs; [
     spice-gtk

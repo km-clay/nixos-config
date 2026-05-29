@@ -1,8 +1,5 @@
 { pkgs }:
 
-let
-  themeBuilder = import ./theme_builder.nix { inherit pkgs; };
-in
 pkgs.writeText "paperd.py" /* python */ ''
   import tomllib
   import sys
@@ -73,7 +70,6 @@ pkgs.writeText "paperd.py" /* python */ ''
   image = next_image()
   command = get_command(image)
   subprocess.run(command)
-  subprocess.run(["${pkgs.myPython}/bin/python3", "${themeBuilder}", str(image)])
 
   print(f"Setting wallpaper to {image} with transition {transition_type} (fps: {transition_fps}, duration: {transition_duration}, angle: {transition_angle}, step: {transition_step})")
 
@@ -93,7 +89,6 @@ pkgs.writeText "paperd.py" /* python */ ''
       print(f"Setting wallpaper to {image} with transition {transition_type} (fps: {transition_fps}, duration: {transition_duration}, angle: {transition_angle}, step: {transition_step})")
 
       subprocess.run(command)
-      subprocess.run(["${pkgs.myPython}/bin/python3", "${themeBuilder}", str(image)])
       last_check = current_time % interval
       time.sleep(5)
 ''

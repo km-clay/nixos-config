@@ -18,7 +18,7 @@ in
       feh.enable = true;
       grub.enable = true;
       gtk.enable = true;
-      nixos-icons.enable = true;
+      nixos-icons.enable = false;
     };
     cursor = {
       package = pkgs.bibata-cursors;
@@ -27,8 +27,8 @@ in
     };
     fonts = {
       monospace = {
-        package = pkgs.nerd-fonts.envy-code-r;
-        name = "EnvyCodeR Nerd Font Mono";
+        package = pkgs.maple-mono.truetype-autohint;
+        name = "Maple Mono";
       };
       sansSerif = {
         package = pkgs.nerd-fonts.envy-code-r;

@@ -3,14 +3,14 @@
   self,
   pkgs,
 }:
+let
+  playshellsound = "${pkgs.myScripts.playshellsound}/bin/playshellsound";
+  nh = "${pkgs.nh}/bin/nh";
+in
 pkgs.writeShellApplication {
   name = "rebuild";
-  runtimeInputs = [
-    pkgs.myScripts.playshellsound
-  ];
   text = ''
     exec > /dev/tty 2>&1
-    alias nh="${pkgs.nh}/bin/nh"
     checkbools() { [ "$all" = false ] && [ "$system" = false ] && [ "$home" = false ]; }
     checkflags() {
       str="$1"
@@ -34,10 +34,16 @@ pkgs.writeShellApplication {
     all=false
     dry=false
     update=false
+    started=false
 
-    hooray() { playshellsound "${self}/assets/sound/update.wav"; }
-    damn() { playshellsound "${self}/assets/sound/error.wav"; }
-    update_done() { playshellsound "${self}/assets/sound/update_alt.wav"; }
+    hooray() { ${playshellsound} "update.wav"; }
+    damn() { ${playshellsound} "error.wav"; }
+    update_done() { ${playshellsound} "update_alt.wav"; }
+    start() {
+      if [ "$started" = true ]; then return 0; fi
+      ${playshellsound} "nixswitch-start.wav"
+      started=true
+    }
 
     usage="\033[1;4;38;2;243;139;168mUsage\033[0m: rebuild -h for home config, rebuild -s for sys config, rebuild -a for both. Including 'n' with the flag does a dry run, i.e. rebuild -nh"
 
@@ -54,10 +60,10 @@ pkgs.writeShellApplication {
 
     [ "$dry" = true ] && dry_flag="-n"
 
-    [ "$update" = true ] && (cd "$FLAKEPATH" && nix flake update) && update_done
+    [ "$update" = true ] && start && (cd "$FLAKEPATH" && nix flake update) && update_done
 
-    [ "$all" = true ] && if sudo sleep 0.1 && nh os switch $dry_flag -H "${host}" "$FLAKEPATH" && nh home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
-    [ "$system" = true ] && if nh os switch $dry_flag -H "${host}" "$FLAKEPATH"; then hooray; else damn; fi
-    [ "$home" = true ] && if nh home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
+    [ "$all" = true ] && if sudo sleep 0.1 && start && ${nh} os switch $dry_flag -H "${host}" "$FLAKEPATH" && ${nh} home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
+    [ "$system" = true ] && start && if ${nh} os switch $dry_flag -H "${host}" "$FLAKEPATH"; then hooray; else damn; fi
+    [ "$home" = true ] && start && if ${nh} home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
   '';
 }

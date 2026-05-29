@@ -9,7 +9,6 @@ in
     settings = {
       update_ms = 500;
       vim_keys = true;
-      color_theme = "TTY";
       temp_scale = "fahrenheit";
       graph_symbol = "block";
       disks_filter = "exclude=/boot /";

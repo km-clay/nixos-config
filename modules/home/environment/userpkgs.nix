@@ -30,15 +30,20 @@ in
   home.packages =
     with pkgs;
     [
-      cargo
-      rustc
-      clippy
-      rust-analyzer
+      (rust-bin.stable.latest.default.override {
+        extensions = [
+          "rust-src"
+          "rust-analyzer"
+          "rustfmt"
+          "clippy"
+          "llvm-tools-preview"
+        ];
+      })
       nerd-fonts.envy-code-r
-      clippy
-      rust-analyzer
       nemo
+      lcov
       feh
+      lazygit
       gtk3
       vicut
       imagemagick
@@ -50,15 +55,17 @@ in
       zsh-syntax-highlighting
       zsh-history-substring-search
       zsh-autosuggestions
+      gh
+      tokei
       #libreoffice
       gtrash
+      awww
       ripgrep
       wf-recorder
       toilet
       vkbasalt
       firefox
       spotify
-      rustfmt
       zathura
       tor
       tor-browser
@@ -86,7 +93,7 @@ in
       xwayland
       discord
       cloc
-      wine
+      wine64
       gimp
       fira-code
       nerd-fonts.fira-code

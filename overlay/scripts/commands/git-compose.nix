@@ -86,7 +86,7 @@ pkgs.writeShellApplication {
         git add "''${lines[@]}"
         git commit -m "$msg" | color-commit
       fi
-      playshellsound ${self}/assets/sound/gitcommit.wav
+      playshellsound gitcommit.wav
     )
   '';
 }

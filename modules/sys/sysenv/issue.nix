@@ -25,6 +25,6 @@ _:
          470-403-8522
 
     Run '\e[1;35mnixos-help\e[0m' for the NixOS manual.
-    Run '\e[1;35mHyprland\e[0m' to enter the desktop environment.
+    Run '\e[1;35mstart-hyprland\e[0m' to enter the desktop environment.
   '';
 }
