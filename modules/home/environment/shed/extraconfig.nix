@@ -48,6 +48,8 @@
       if [ -f "$HOME/.shedrc_mut" ]; then
         source "$HOME/.shedrc_mut"
       fi
+
+      backup_history
     '';
   };
 }

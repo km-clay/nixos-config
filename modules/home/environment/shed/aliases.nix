@@ -23,15 +23,16 @@
       suvide = "EDITOR=neovide suvi";
       rustdev = "nix develop github:km-clay/devshells#rust";
       y = "yazi";
+      owd = "cd $OLDPWD";
 
       ga = "playshellsound gitadd.wav; git add";
       gcomm = "gitcommit_sfx";
       gpush = "gitpush_sfx";
       gpull = "gitpull_sfx";
       grebase = "gitrebase_sfx";
-      lgit = "lazygit";
       videconf = "EDITOR=neovide viconf";
       nix-shell = "command nix-shell --command 'exec shed'";
+      mix = "pavucontrol";
     };
   };
 }

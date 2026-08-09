@@ -1,6 +1,6 @@
 args:
 let
-  inherit (args) pkgs config;
+  inherit (args) pkgs;
 in
 {
   fonts.fontconfig.enable = true;
@@ -12,7 +12,6 @@ in
 
   gtk = {
     enable = true;
-    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-nord.override { accent = "frostblue4"; };

@@ -85,6 +85,7 @@
             installCargo = false;
             installRustc = false;
             settings = {
+              diagnostics.disabled = [ "inactive-code" ];
               check = {
                 allTargets = true;
                 command = "clippy";

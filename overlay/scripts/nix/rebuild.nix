@@ -11,59 +11,98 @@ pkgs.writeShellApplication {
   name = "rebuild";
   text = ''
     exec > /dev/tty 2>&1
-    checkbools() { [ "$all" = false ] && [ "$system" = false ] && [ "$home" = false ]; }
-    checkflags() {
-      str="$1"
-      [ -z "$str" ] && return
-      char="''${str: -1}"
-      str="''${str::-1}"
-      if [ "$char" = "-" ]; then return 0; fi
-      case "$char" in
-        "a") if checkbools; then all=true; else echo -e "$usage" && exit 1; fi ;;
-        "s") if checkbools; then system=true; else echo -e "$usage" && exit 1; fi ;;
-        "h") if checkbools; then home=true; else echo -e "$usage" && exit 1; fi ;;
-        "U") if [ "$update" = false ]; then update=true; else echo -e "$usage" && exit 1; fi ;;
-        "n") if [ "$dry" = false ]; then dry=true; else echo -e "$usage" && exit 1; fi ;;
-        *) echo -e "$usage" && exit 1 ;;
-      esac
-      checkflags "$str"
-    }
+    set +e
 
-    system=false
-    home=false
-    all=false
-    dry=false
-    update=false
-    started=false
+    usage="\033[1;4;38;2;243;139;168mUsage\033[0m: rebuild -h for home config, rebuild -s for sys config, rebuild -a for both. Including 'n' with the flag does a dry run, i.e. rebuild -nh"
 
     hooray() { ${playshellsound} "update.wav"; }
     damn() { ${playshellsound} "error.wav"; }
     update_done() { ${playshellsound} "update_alt.wav"; }
-    start() {
-      if [ "$started" = true ]; then return 0; fi
-      ${playshellsound} "nixswitch-start.wav"
-      started=true
-    }
 
-    usage="\033[1;4;38;2;243;139;168mUsage\033[0m: rebuild -h for home config, rebuild -s for sys config, rebuild -a for both. Including 'n' with the flag does a dry run, i.e. rebuild -nh"
+    system=0
+    home=0
+    all=0
+    dry=0
+    update=0
+    started=0
+    result=0
 
-    { [ $# -eq 0 ] || [ $# -gt 1 ]; } && echo -e "$usage" && damn && exit 1
-    if [[ "$1" =~ ^-[a-zA-Z]+$ ]]; then
-      checkflags "$1"
-    else
-      echo -e "$usage" && damn && exit 1
+    while getopts ":ashUn" opt; do
+      case "$opt" in
+        a) all=1;;
+        s) system=1;;
+        h) home=1;;
+        U) update=1;;
+        n) dry=1;;
+        *) echo -e "$usage"; damn; exit 1;;
+      esac
+    done
+
+    shift $((OPTIND - 1))
+
+    if (( $# != 0 )); then
+      echo -e "$usage"
+      damn
+      exit 1
+    fi
+
+    if ((all + system + home != 1)); then
+      echo -e "$usage"; damn; exit 1
     fi
 
     dry_flag=""
 
-    (cd "$FLAKEPATH" && git add .)
+    start() {
+      if ((started == 1)); then return 0; fi
 
-    [ "$dry" = true ] && dry_flag="-n"
+      ${playshellsound} "nixswitch-start.wav"
+      started=1
+    }
+    update_flake() {
+      start;
+      (cd "$FLAKEPATH" && nix flake update)
+      result=$?
+      (( result == 0 )) && update_done
+      return $result
+    }
+    rebuild_sys() {
+      start;
+      ${nh} os switch $dry_flag -H "${host}" "$FLAKEPATH"
+      result=$?
+      return $result
+    }
 
-    [ "$update" = true ] && start && (cd "$FLAKEPATH" && nix flake update) && update_done
+    rebuild_home() {
+      start;
+      ${nh} home switch $dry_flag -c "${host}Home" "$FLAKEPATH"
+      result=$?
+      return $result
+    }
 
-    [ "$all" = true ] && if sudo sleep 0.1 && start && ${nh} os switch $dry_flag -H "${host}" "$FLAKEPATH" && ${nh} home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
-    [ "$system" = true ] && start && if ${nh} os switch $dry_flag -H "${host}" "$FLAKEPATH"; then hooray; else damn; fi
-    [ "$home" = true ] && start && if ${nh} home switch $dry_flag -c "${host}Home" "$FLAKEPATH"; then hooray; else damn; fi
+    rebuild_all() {
+      rebuild_sys
+      (( result != 0 )) && return $result
+      rebuild_home
+      return $result
+    }
+
+    (( dry    != 1 )) && (cd "$FLAKEPATH" && git add .)
+
+    (( dry    == 1 )) && dry_flag="-n"
+    (( update == 1 )) && sudo sleep 0.1 && update_flake
+
+    if (( result == 0 )); then
+      (( all    == 1 )) && sudo sleep 0.1 && rebuild_all
+      (( system == 1 )) && rebuild_sys
+      (( home   == 1 )) && rebuild_home
+    fi
+
+    if (( result != 0 )); then
+      damn
+    else
+      hooray
+    fi
+
+    exit $result
   '';
 }

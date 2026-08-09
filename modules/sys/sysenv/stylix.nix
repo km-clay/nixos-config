@@ -19,6 +19,7 @@ in
       grub.enable = true;
       gtk.enable = true;
       nixos-icons.enable = false;
+      kmscon.enable = false;
     };
     cursor = {
       package = pkgs.bibata-cursors;

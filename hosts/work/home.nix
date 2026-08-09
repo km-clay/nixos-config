@@ -1,12 +1,14 @@
-_:
+lib:
 {
   movOpts.homeConfig.enableProfiles = [ "cli" "graphical" ];
-  movOpts.envConfig.hyprlandConfig = {
-    monitorNames = [
-      "DP-1"
-      "HDMI-A-1"
-    ];
-    workspaceLayout = "dualmonitor";
+  movOpts.envConfig = {
+    hyprlandConfig = {
+      monitorNames = [
+        "DP-1"
+        "HDMI-A-1"
+      ];
+      workspaceLayout = "dualmonitor";
+    };
   };
 
   dconf.settings = {

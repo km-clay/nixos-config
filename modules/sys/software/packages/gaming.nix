@@ -11,6 +11,8 @@ in
     shadps4
     cust-prismlauncher
     rcon-cli
+    myPkgs.tetrio
+    dolphin-emu
   ];
 
   programs.steam = {

@@ -11,7 +11,7 @@ in
       '';
 
       shed_ver = /* bash */ ''
-        echo -en "\e[1;36m\$$(version -v)"
+        echo -en "\e[1;36m\\\$$(version -v)"
       '';
 
       __mod = /* bash */ ''
@@ -78,8 +78,9 @@ in
           SEARCH|REMOTE|COMPLETE) bg=7 ;;
           *) return ;;
         esac
+        local edit_mode=$'\e'"[1m$SHED_EDIT_MODE"
         echo -en "\e[1m"
-        __mod_dyn "$bg" "$fg" "$SHED_EDIT_MODE" "$LINE_SEP_LEFT" "1"
+        __mod_dyn "$bg" "$fg" "$edit_mode" "$LINE_SEP_LEFT" "1"
       '';
 
       cmd_status_line = /* bash */ ''
@@ -181,7 +182,9 @@ in
       '';
 
       prompt_pwd_line = /* bash */ ''
-        echo -p "\e[1;34m┣━━ \e[1;36m\W\e[1;32m/"
+        local pwd=$(echo -p "\W")
+        [ "$pwd" = "/" ] && pwd=""
+        echo -p "\e[1;34m┣━━ \e[1;36m$pwd\e[1;32m/"
       '';
 
       prompt_dollar_line = /* bash */ ''
@@ -224,8 +227,22 @@ in
         __PREV_BG="$reset"
       '';
 
+      stat_lvl = /* bash */ ''
+        local c
+        local lvl="$((SHLVL - 1))" # -1 to ignore the login shell
+        case $lvl in
+          1) c=32  ;;
+          2) c=33  ;;
+          3) c=208 ;;
+          *) c=31  ;;
+        esac
+
+        echo -en "\e[1;39mLVL \e[35m(\e[39m\e[1;''${c}m$lvl\e[35m)\e[39m "
+      '';
+
       stat_line_right = /* bash */ ''
         __PREV_BG="18"
+        __mod_right stat "$(stat_lvl)"
         __mod_right time "$(shed_ver)"
       '';
 
@@ -340,19 +357,32 @@ in
         fi
       '';
 
+      __ls_no_sound = /* bash */ ''
+        local SQR_TABLE_JUSTIFY="left"
+
+        local output=$(command eza -l --color=always --icons=always --group-directories-first "$@")
+        if [ -z "$output" ]; then
+          return
+        fi
+
+        vice --lines --quoted --sep 'w' <<< "$output" \
+          -c 'viW' \
+          -r 1:2 \
+          -c 'WEE' \
+          -c '$' \
+          | qname mode size user date name \
+          | qselect -n name size user date mode \
+          | __emit_sqr -n
+      '';
+
       ls = /* bash */ ''
         playshellsound ls.wav
-        eza -1 --group-directories-first --icons "$@"
+
+        __ls_no_sound "$@"
       '';
 
       mkcd = /* bash */ ''
         command mkdir -p "$1" && builtin cd "$1"
-      '';
-
-      cd = /* bash */ ''
-        playshellsound cd.wav
-        eza -1 --group-directories-first --icons "$@" 2> /dev/null
-        builtin cd "$@"
       '';
 
       hyprsock = /* bash */ ''
@@ -372,8 +402,18 @@ in
         esac
       '';
 
-      h_pager = /* bash */ ''
-        TERM=xterm less "$@"
+      backup_history = /* bash */ ''
+        if [ -f ~/.local/state/shed/last_backup ]; then
+          local curr_time=$(date +%s)
+          local old_time=$(thru ~/.local/state/shed/last_backup)
+          if (( curr_time - old_time <= (24 * 60 * 60) )); then
+            return 0
+          fi
+        fi
+
+        hist --json > ~/.local/state/shed/shed_hist_backup.json
+        date +%s > ~/.local/state/shed/last_backup
+        msg "shell history backed up [$(stat ~/.local/state/shed/shed_hist_backup.json -c '%S')]"
       '';
 
       lvl = "echo $SHLVL";

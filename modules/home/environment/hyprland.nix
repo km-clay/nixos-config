@@ -76,6 +76,7 @@ in
     systemd.user.targets.hyprland-session.Unit.Wants = [ "xdg-desktop-autostart.target" ];
     wayland.windowManager.hyprland = {
       enable = true;
+      configType = "hyprlang";
       xwayland = {
         enable = true;
       };
@@ -187,11 +188,11 @@ in
         ] ++ smartGapsWindowrules;
 
         cursor = {
-          no_hardware_cursors = true;
+          no_hardware_cursors = false;
         };
 
         debug = {
-          disable_logs = false;
+          disable_logs = true;
         };
 
         input = {
@@ -275,7 +276,12 @@ in
 
         };
 
+        bindr = [
+          ", mouse:276, exec, ${pkgs.myScripts.ptt}/bin/ptt-daemon key_up"
+        ];
         bind = [
+          ", mouse:276, exec, ${pkgs.myScripts.ptt}/bin/ptt-daemon key_down"
+          "super, z, exec, ${pkgs.myScripts.ptt}/bin/ptt-daemon toggle_mode"
           "super, up, exec, pactl set-sink-volume @default_sink@ +10%"
           "super, down, exec, pactl set-sink-volume @default_sink@ -10%"
           "super, t, exec, swaync-client -t -sw"

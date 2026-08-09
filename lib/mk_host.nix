@@ -30,7 +30,9 @@ let
   ++ extraHomeModules;
   pkgs = import inputs.nixpkgs {
     inherit system;
-    config = nixpkgsConfig;
+    config = {
+      problems.handlers.tetrio-plus.broken = "warn";
+    } // nixpkgsConfig;
     overlays =
       extraOverlays
       ++ (

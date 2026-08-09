@@ -186,38 +186,49 @@
       {
         modes = [ "n" ];
         keys = "<leader>fn";
-        command = "<CMD>stash insert func_def<CR>/:<CR>";
+        command = "<CMD>stash insert func_def<CR>/:";
       }
       {
         modes = [ "n" ];
         keys = "<leader>if";
-        command = "<CMD>stash insert if_stmt<CR>/:<CR>";
+        command = "<CMD>stash insert if_stmt<CR>/:";
       }
       {
         modes = [ "n" ];
         keys = "<leader>wh";
-        command = "<CMD>stash insert while_loop<CR>/:<CR>";
+        command = "<CMD>stash insert while_loop<CR>/:";
       }
       {
         modes = [ "n" ];
         keys = "<leader>un";
-        command = "<CMD>stash insert until_loop<CR>/:<CR>";
+        command = "<CMD>stash insert until_loop<CR>/:";
       }
       {
         modes = [ "n" ];
         keys = "<leader>for";
-        command = "<CMD>stash insert for_loop<CR>/:<CR>";
+        command = "<CMD>stash insert for_loop<CR>/:";
       }
       {
         modes = [ "n" ];
         keys = "<leader>ca";
-        command = "<CMD>stash insert case_stmt<CR>/:<CR>";
+        command = "<CMD>stash insert case_stmt<CR>/:";
       }
       {
         modes = [ "n" ];
         keys = "<leader>yy";
-        command = "<CMD>w!wl-copy<CR>";
+        command = "<CMD>w!wl-copy";
       }
+      {
+        modes = [ "n" ];
+        keys = "<leader>hp";
+        command = "<CMD>!hist --pull";
+      }
+      {
+        modes = [ "n" ];
+        keys = "!";
+        command = "<CMD>r!hist --no-dupes --quoted -n | scry -q -n -p \"insert a history entry\"";
+      }
+
       {
         modes = [ "v" ];
         keys = "<C-c>";
@@ -234,7 +245,7 @@
         modes = [ "i" ];
         keys = "<C-v>";
         # paste - runs wl-paste and inserts output at cursor position
-        command = "<CMD>r!wl-paste 2> /dev/null<CR>";
+        command = "<CMD>r!wl-paste -n 2> /dev/null";
       }
       # autopair keybinds
       {
@@ -260,7 +271,12 @@
       {
         modes = [ "n" ];
         keys = "<leader>d";
-        command = "<CMD>!msg $(date)<CR>";
+        command = "<CMD>!msg $(date)";
+      }
+      {
+        modes = [ "n" ];
+        keys = "<leader>lg";
+        command = "<CMD>!lazygit";
       }
     ];
   };

@@ -1,4 +1,4 @@
-{ super, root }:
+{ super, root, writeShedBin }:
 
 {
   chpaper = super.callPackage ./chpaper.nix { };
@@ -9,4 +9,6 @@
   moveonscreen = super.callPackage ./moveonscreen.nix { };
   s_check = super.callPackage ./s_check.nix { };
   switchmon = super.callPackage ./switchmon.nix { };
+  ptt = super.callPackage ./ptt.nix { inherit writeShedBin; };
+  ptt-status = super.callPackage ./ptt-status.nix { inherit writeShedBin; };
 }

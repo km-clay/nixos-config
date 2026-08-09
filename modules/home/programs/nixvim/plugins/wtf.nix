@@ -2,7 +2,7 @@
   programs.nixvim = {
     plugins.wtf = {
       enable = true;
-      options = {
+      settings = {
         context = true;
       };
     };

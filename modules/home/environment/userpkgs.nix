@@ -2,6 +2,8 @@ args:
 let
   inherit (args) pkgs;
   scripts = with pkgs; [
+    myScripts.ptt
+    myScripts.ptt-status
     myScripts.icanhazip
     myScripts.invoke
     myScripts.runbg
@@ -50,7 +52,6 @@ in
       vlc
       lolcat
       obsidian
-      vesktop
       zsh
       zsh-syntax-highlighting
       zsh-history-substring-search
@@ -92,9 +93,11 @@ in
       mesa-demos
       xwayland
       discord
-      cloc
       wine64
       gimp
+      protontricks
+      vesktop
+      p7zip
       fira-code
       nerd-fonts.fira-code
       nodejs_latest

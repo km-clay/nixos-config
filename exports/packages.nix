@@ -13,6 +13,7 @@
               inputs.shed.overlays.default
               inputs.copyparty.overlays.default
               (import "${inputs.self}/overlay/overlay.nix" {
+                inherit inputs;
                 host = "external";
                 root = inputs.self;
               })

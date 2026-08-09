@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   self,
@@ -109,6 +108,7 @@ in
             format = "<span color='${fg}'>{title}</span>";
           };
           modules-right = [
+            "custom/ptt"
             "cpu"
             "memory"
             "pulseaudio"
@@ -149,6 +149,13 @@ in
             size = 28;
           };
 
+          "custom/ptt" = {
+            exec = "ptt-status";
+            return-type = "json";
+            signal = 8;
+            on-click = "ptt-daemon toggle_mode";
+          };
+
           memory = {
             interval = 20;
             format = " <span color='${fg}'>{percentage}%</span>";
@@ -166,6 +173,8 @@ in
         @define-color border #${c.base0E};
         @define-color background #${c.base01};
         @define-color foreground #${c.base06};
+        @define-color ptt-mute #${c.base08};
+        @define-color ptt-open #${c.base0D};
         @define-color cpu-c #${c.base08};
         @define-color mem-c #${c.base0B};
         @define-color vol-c #${c.base0D};
@@ -230,6 +239,7 @@ in
         }
 
         /* ── Right info modules island ── */
+        #custom-ptt,
         #cpu,
         #memory,
         #pulseaudio,
@@ -244,6 +254,8 @@ in
         }
 
         /* per-module icon colors */
+        #custom-ptt.unmuted { color: @ptt-open; }
+        #custom-ptt.muted   { color: @ptt-mute; }
         #cpu        { color: @cpu-c; }
         #memory     { color: @mem-c; }
         #pulseaudio { color: @vol-c; }
@@ -260,7 +272,7 @@ in
         }
 
         /* round left edge of first module in the group */
-        #cpu {
+        #custom-ptt {
             border-radius: 8px 0 0 8px;
             border-left: 2px solid @border;
             margin-left: 4px;

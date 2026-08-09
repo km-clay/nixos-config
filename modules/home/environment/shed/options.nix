@@ -6,22 +6,28 @@
 
     shopts = {
       line = {
-        viewport_height = "80%";
+        viewport_height = "100%";
         scroll_offset = 2;
         line_numbers = true;
       };
       core = {
         autocd = true;
-        auto_hist = true;
-        max_hist = -1;
+        compact_errors = true;
+      };
+      history = {
+        auto_save = true;
+        max_entries = -1;
+        ignore_space = true;
+        ignore_dupes = true;
       };
       set = {
         vi = true;
       };
       prompt = {
-        screensaver_cmd = "${pkgs.whoa}/bin/whoa";
-        screensaver_idle_time = 600; # 10 minutes
+        idle_timeout = 10; # 10 seconds
         completion_ignore_case = true;
+        expand_aliases = false;
+        complete_style = "fuzzy";
         leader = "<Space>";
       };
       highlight = {
@@ -29,6 +35,7 @@
       };
       statline = {
         right_string = "\\@stat_line_right";
+        middle_string = "\\e[39;2m$EDITOR_FILE\\e[22m";
         left_string = "\\@stat_line_left";
       };
     };

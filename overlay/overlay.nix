@@ -7,6 +7,8 @@
 self: super:
 
 let
+  writeShed = (import ./write_shed.nix) self;
+  writeShedBin = name: writeShed "/bin/${name}";
   extraFigletFonts = super.fetchFromGitHub {
     owner = "xero";
     repo = "figlet-fonts";
@@ -21,6 +23,8 @@ let
   };
 in
 {
+  inherit writeShed writeShedBin;
+
   whoa = inputs.whoa.packages."x86_64-linux".whoa;
   vicut = super.rustPlatform.buildRustPackage {
     pname = "vicut";
@@ -59,7 +63,8 @@ in
     fzf-tab = super.callPackage ./pkgs/zsh-fzf-tab/package.nix { };
     noto-sans-jp = super.callPackage ./pkgs/noto-sans-jp/package.nix { };
     billy-font = super.callPackage ./pkgs/billy-font/package.nix { };
+    tetrio = super.callPackage ./pkgs/tetrio/package.nix { };
   };
 
-  myScripts = import ./scripts { inherit super root host; };
+  myScripts = import ./scripts { inherit super root host writeShedBin; };
 }

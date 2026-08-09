@@ -31,6 +31,19 @@ in
           ExecStart = "${pkgs.awww}/bin/awww img ${self}/assets/wallpapers/sleeping-blackmetal.png";
         };
       };
+      ptt-daemon = {
+        Unit = {
+          Description = "Push-to-talk manager";
+          After = [ "pipewire.service" "pipewire-pulse.service" ];
+          PartOf = [ "hyprland-session.target" ];
+        };
+        Install.WantedBy = [ "hyprland-session.target" ];
+
+        Service = {
+          Type = "simple";
+          ExecStart = "${pkgs.myScripts.ptt}/bin/ptt-daemon";
+        };
+      };
       login-sound = {
         Unit = {
           Description = "Login sound";

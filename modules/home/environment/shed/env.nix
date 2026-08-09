@@ -21,8 +21,6 @@
       STATLINE_GIT = "1";
       LINE_SEP_LEFT="";
       LINE_SEP_RIGHT="";
-
-      CDPATH = "$HOME/projects:$HOME/repos:$HOME";
     };
   };
 }

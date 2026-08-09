@@ -1,21 +1,30 @@
-{ ... }:
+{ pkgs, ... }:
 {
   programs.shed = {
     autocmds = [
       {
         hooks = [ "post-cmd" ];
-        # git_stat_line_update exports GIT_STAT_LINE as a side effect; calling
-        # it directly refreshes the cached display string. Clear it explicitly
-        # when the feature is disabled so stale content doesn't linger.
         command = ''if [ "''${STATLINE_GIT:-0}" -eq 1 ]; then git_stat_line_update; else export GIT_STAT_LINE=""; fi'';
       }
       {
-        hooks = [ "on-history-open" ];
-        command = ''[ -n "$_NUM_MATCHES" ] && [ "$_NUM_MATCHES" -gt 0 ] && shellsound "nvim.wav"; fi'';
+        hooks = [ "on-idle-timeout" ];
+        command = ''if [ "''${STATLINE_GIT:-0}" -eq 1 ]; then LAST_DIFF=""; git_stat_line_update; else export GIT_STAT_LINE=""; fi'';
       }
       {
-        hooks = [ "on-completion-start" ];
-        command = ''[ -n "$_NUM_MATCHES" ] && [ "$_NUM_MATCHES" -gt 1 ] && shellsound "nvim.wav"; fi'';
+        hooks = [ "on-history-open" "on-completion-start"  ];
+        command = ''if [ -n "$NUM_MATCHES" ] && [ "$NUM_MATCHES" -gt 0 ]; then playshellsound "ls.wav"; fi'';
+      }
+      {
+        hooks = [ "on-idle-timeout" ];
+        command = "if (( (IDLE_SECONDS % 600) == 0 )); then ${pkgs.whoa}/bin/whoa; fi";
+      }
+      {
+        hooks = [ "pre-change-dir" ];
+        command = "playshellsound 'cd.wav'";
+      }
+      {
+        hooks = [ "pre-change-dir" ];
+        command = "__ls_no_sound \"$NEW_DIR\"";
       }
     ];
   };
