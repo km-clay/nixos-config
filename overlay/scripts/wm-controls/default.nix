@@ -11,4 +11,5 @@
   switchmon = super.callPackage ./switchmon.nix { };
   ptt = super.callPackage ./ptt.nix { inherit writeShedBin; };
   ptt-status = super.callPackage ./ptt-status.nix { inherit writeShedBin; };
+  gh-notify = super.callPackage ./gh-notify.nix { inherit writeShedBin; };
 }

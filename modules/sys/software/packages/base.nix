@@ -6,6 +6,7 @@ in
 {
   environment.systemPackages = with pkgs; [
     shed
+    bash
     git
     gcc
     zip

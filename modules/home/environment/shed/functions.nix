@@ -101,7 +101,7 @@ in
       '';
 
       git_stat_line = /* bash */ ''
-        if [[ -n "$GIT_STAT_DIR" ]] && ! _="''${PWD#$GIT_STAT_DIR}"; then
+        if [[ -n "$GIT_STAT_DIR" ]] && [ "$PWD" = "''${PWD#$GIT_STAT_DIR}" ]; then
           export GIT_STAT_LINE=""
           export GIT_STAT_DIR=""
           return

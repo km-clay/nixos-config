@@ -27,6 +27,7 @@ in
         extraConfig.enable  = true;
       };
       shedConfig = {
+        exCommands.enable = true;
         shellAliases.enable = true;
         shellFunctions.enable  = true;
         shellOptions.enable = true;

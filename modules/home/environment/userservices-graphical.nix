@@ -5,6 +5,19 @@ let
 in
 {
   systemd.user = {
+    timers = {
+      gh-notify = {
+        Unit = {
+          Description = "GitHub notification poll timer";
+          PartOf = [ "hyprland-session.target" ];
+        };
+        Install.WantedBy = [ "hyprland-session.target" ];
+        Timer = {
+          OnBootSec = "30";
+          OnUnitActiveSec = "60";
+        };
+      };
+    };
     services = {
       awww-daemon = {
         Unit = {
@@ -34,7 +47,6 @@ in
       ptt-daemon = {
         Unit = {
           Description = "Push-to-talk manager";
-          After = [ "pipewire.service" "pipewire-pulse.service" ];
           PartOf = [ "hyprland-session.target" ];
         };
         Install.WantedBy = [ "hyprland-session.target" ];
@@ -43,6 +55,20 @@ in
           Type = "simple";
           ExecStart = "${pkgs.myScripts.ptt}/bin/ptt-daemon";
         };
+      };
+      gh-notify = {
+        Unit = {
+          Description = "GitHub notification checker";
+          PartOf = [ "hyprland-session.target" ];
+          After = [ "graphical-session.target" ];
+        };
+        Install.WantedBy = [ "hyprland-session.target" ];
+
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.myScripts.gh-notify}/bin/gh-notify";
+        };
+
       };
       login-sound = {
         Unit = {

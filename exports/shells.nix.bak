@@ -11,11 +11,6 @@
           overlays = [
             inputs.shed.overlays.default
             inputs.copyparty.overlays.default
-            (import "${inputs.self}/overlay/overlay.nix" {
-              inherit inputs;
-              host = "external";
-              root = inputs.self;
-            })
           ];
         };
         homeCfg = inputs.home-manager.lib.homeManagerConfiguration {
@@ -29,16 +24,8 @@
         };
         nixvim = homeCfg.config.programs.nixvim.build.package;
       in pkgs.mkShell {
-        packages = [
-          pkgs.lazygit
-          pkgs.nh
-          nixvim
-        ] ++ homeCfg.config.home.packages;
-        shellHook = ''
-          source ${homeCfg.config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh
-          export XDG_CONFIG_HOME="${homeCfg.config.home-files}/.config"
-          exec ${pkgs.shed}/bin/shed
-        '';
+        packages = [ nixvim ] ++ homeCfg.config.home.packages;
+        shellHook = "exec ${pkgs.shed}/bin/shed";
       };
     };
   };

@@ -62,8 +62,8 @@ in
       gtrash
       awww
       ripgrep
-      wf-recorder
       toilet
+      dash
       vkbasalt
       firefox
       spotify

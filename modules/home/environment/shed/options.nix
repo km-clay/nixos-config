@@ -13,6 +13,7 @@
       core = {
         autocd = true;
         compact_errors = true;
+        pipeline_style = "tail";
       };
       history = {
         auto_save = true;

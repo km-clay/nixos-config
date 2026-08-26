@@ -27,6 +27,7 @@ in
       extraConfig.enable  = lib.mkEnableOption "my extra shell configurations";
     };
     shedConfig = {
+      exCommands.enable = lib.mkEnableOption "my shed ex commands";
       shellAliases.enable = lib.mkEnableOption "my shed aliases";
       envVariables.enable = lib.mkEnableOption "my session variables";
       shellOptions.enable = lib.mkEnableOption "my default shed shopts";
@@ -54,6 +55,7 @@ in
     (gated cfg.zshConfig.extraConfig.enable  ./zsh/extraconfig.nix)
 
     # shed
+    (gated cfg.shedConfig.exCommands.enable ./shed/excmds.nix)
     (gated cfg.shedConfig.shellAliases.enable ./shed/aliases.nix)
     (gated cfg.shedConfig.envVariables.enable ./shed/env.nix)
     (gated cfg.shedConfig.shellOptions.enable ./shed/options.nix)

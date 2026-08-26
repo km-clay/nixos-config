@@ -15,10 +15,6 @@
         command = ''if [ -n "$NUM_MATCHES" ] && [ "$NUM_MATCHES" -gt 0 ]; then playshellsound "ls.wav"; fi'';
       }
       {
-        hooks = [ "on-idle-timeout" ];
-        command = "if (( (IDLE_SECONDS % 600) == 0 )); then ${pkgs.whoa}/bin/whoa; fi";
-      }
-      {
         hooks = [ "pre-change-dir" ];
         command = "playshellsound 'cd.wav'";
       }

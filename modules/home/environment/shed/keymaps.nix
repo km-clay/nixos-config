@@ -278,6 +278,16 @@
         keys = "<leader>lg";
         command = "<CMD>!lazygit";
       }
+      {
+        modes = [ "n" ];
+        keys = "<leader>hp";
+        command = "<CMD>!hist --pull";
+      }
+      {
+        modes = [ "n" ];
+        keys = "<leader>e";
+        command = "<CMD>expand";
+      }
     ];
   };
 }

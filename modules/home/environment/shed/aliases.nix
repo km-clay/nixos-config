@@ -23,7 +23,6 @@
       suvide = "EDITOR=neovide suvi";
       rustdev = "nix develop github:km-clay/devshells#rust";
       y = "yazi";
-      owd = "cd $OLDPWD";
 
       ga = "playshellsound gitadd.wav; git add";
       gcomm = "gitcommit_sfx";

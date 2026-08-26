@@ -2,6 +2,8 @@
 {
   programs.shed = {
     extraPostConfig = /* bash */ ''
+      alias owd='cd $OLDPWD'
+
       # stat line palette
       declare -A BG=(
         [mode]=33
